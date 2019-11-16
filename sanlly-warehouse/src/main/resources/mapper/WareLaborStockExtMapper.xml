@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareLaborStockExtMapper">
+	<resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareLaborStockExt">
+		<id column="ware_labor_stock_id" jdbcType="INTEGER" property="wareLaborStockId" />
+        <result column="labor_stock_no" jdbcType="VARCHAR" property="laborStockNo" />
+        <result column="no" jdbcType="VARCHAR" property="no" />
+        <result column="company" jdbcType="VARCHAR" property="company" />
+        <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+        <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+        <result column="storage_location" jdbcType="VARCHAR" property="storageLocation" />
+        <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+        <result column="spare_parts_code" jdbcType="VARCHAR" property="sparePartsCode" />
+        <result column="stockout_restrict_month" jdbcType="VARCHAR" property="stockoutRestrictMonth" />
+        <result column="durable_years" jdbcType="INTEGER" property="durableYears" />
+        <result column="is_consumable" jdbcType="VARCHAR" property="isConsumable" />
+        <result column="model" jdbcType="VARCHAR" property="model" />
+        <result column="surplus_num" jdbcType="DOUBLE" property="surplusNum" />
+        <result column="actual_surplus_num" jdbcType="DOUBLE" property="actualSurplusNum" />
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+        <result column="stockin_date" jdbcType="TIMESTAMP" property="stockinDate" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="spare_parts_categories_details" jdbcType="VARCHAR" property="sparePartsCategoriesDetails" />
+        <result column="spare_parts_no" jdbcType="VARCHAR" property="sparePartsNo" />
+        <result column="spare_parts_name" jdbcType="VARCHAR" property="sparePartsName" />
+        <result column="spare_parts_name_en" jdbcType="VARCHAR" property="sparePartsNameEn" />
+        <result column="total_num" jdbcType="DOUBLE" property="totalNum" />
+  </resultMap>
+
+	
+	
+    <select id="selectPageLabors" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS wls.*,sp.spare_parts_no,sp.spare_parts_name,sp.spare_parts_categories_details,SUM(wls.actual_surplus_num)
+		total_num
+		FROM ware_labor_stock
+		wls
+		LEFT JOIN ware_spare_parts sp ON
+		sp.`key`=wls.spare_parts
+		WHERE
+		wls.is_del=0
+		And wls.company=#{company,jdbcType=VARCHAR}
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND sp.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND sp.spare_parts_name LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsNameEn != null and sparePartsNameEn != ''">
+			AND sp.spare_parts_name_en LIKE
+			CONCAT('%',#{sparePartsNameEn,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsCategoriesDetails != null and sparePartsCategoriesDetails != ''">
+			AND sp.spare_parts_categories_details=#{sparePartsCategoriesDetails,jdbcType=VARCHAR}
+		</if>
+		GROUP BY wls.spare_parts,wls.model
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+		
+	</select>
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+
+</mapper>

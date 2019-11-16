@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareAssetManagementMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareAssetManagement">
+    <id column="ware_asset_management_id" jdbcType="INTEGER" property="wareAssetManagementId" />
+    <result column="asset_management_no" jdbcType="INTEGER" property="assetManagementNo" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="departments" jdbcType="VARCHAR" property="departments" />
+    <result column="out_asset_type" jdbcType="VARCHAR" property="outAssetType" />
+    <result column="liable_person" jdbcType="INTEGER" property="liablePerson" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="asset_no" jdbcType="VARCHAR" property="assetNo" />
+    <result column="asset" jdbcType="VARCHAR" property="asset" />
+    <result column="asset_name" jdbcType="VARCHAR" property="assetName" />
+    <result column="serial" jdbcType="VARCHAR" property="serial" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="num" jdbcType="DOUBLE" property="num" />
+    <result column="windows_model" jdbcType="VARCHAR" property="windowsModel" />
+    <result column="computer_name" jdbcType="VARCHAR" property="computerName" />
+    <result column="ip_addr" jdbcType="VARCHAR" property="ipAddr" />
+    <result column="purchase_price" jdbcType="DECIMAL" property="purchasePrice" />
+    <result column="purchase_date" jdbcType="TIMESTAMP" property="purchaseDate" />
+    <result column="scrap_date" jdbcType="TIMESTAMP" property="scrapDate" />
+    <result column="use_status" jdbcType="VARCHAR" property="useStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_asset_management_id, asset_management_no, company, departments, out_asset_type, 
+    liable_person, yard, warehouse, place, asset_no, asset, asset_name, serial, model, 
+    manufacturer, `name`, num, windows_model, computer_name, ip_addr, purchase_price, 
+    purchase_date, scrap_date, use_status, remark, is_del, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareAssetManagementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_asset_management
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_asset_management
+    where ware_asset_management_id = #{wareAssetManagementId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_asset_management
+    where ware_asset_management_id = #{wareAssetManagementId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareAssetManagementExample">
+    delete from ware_asset_management
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareAssetManagement">
+    <selectKey keyProperty="wareAssetManagementId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_asset_management (asset_management_no, company, departments, 
+      out_asset_type, liable_person, yard, 
+      warehouse, place, asset_no, 
+      asset, asset_name, serial, 
+      model, manufacturer, `name`, 
+      num, windows_model, computer_name, 
+      ip_addr, purchase_price, purchase_date, 
+      scrap_date, use_status, remark, 
+      is_del, create_time, create_user, 
+      update_time, update_user)
+    values (#{assetManagementNo,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{departments,jdbcType=VARCHAR}, 
+      #{outAssetType,jdbcType=VARCHAR}, #{liablePerson,jdbcType=INTEGER}, #{yard,jdbcType=VARCHAR}, 
+      #{warehouse,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{assetNo,jdbcType=VARCHAR}, 
+      #{asset,jdbcType=VARCHAR}, #{assetName,jdbcType=VARCHAR}, #{serial,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{num,jdbcType=DOUBLE}, #{windowsModel,jdbcType=VARCHAR}, #{computerName,jdbcType=VARCHAR}, 
+      #{ipAddr,jdbcType=VARCHAR}, #{purchasePrice,jdbcType=DECIMAL}, #{purchaseDate,jdbcType=TIMESTAMP}, 
+      #{scrapDate,jdbcType=TIMESTAMP}, #{useStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareAssetManagement">
+    <selectKey keyProperty="wareAssetManagementId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_asset_management
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="assetManagementNo != null">
+        asset_management_no,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="departments != null">
+        departments,
+      </if>
+      <if test="outAssetType != null">
+        out_asset_type,
+      </if>
+      <if test="liablePerson != null">
+        liable_person,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="place != null">
+        place,
+      </if>
+      <if test="assetNo != null">
+        asset_no,
+      </if>
+      <if test="asset != null">
+        asset,
+      </if>
+      <if test="assetName != null">
+        asset_name,
+      </if>
+      <if test="serial != null">
+        serial,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="windowsModel != null">
+        windows_model,
+      </if>
+      <if test="computerName != null">
+        computer_name,
+      </if>
+      <if test="ipAddr != null">
+        ip_addr,
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price,
+      </if>
+      <if test="purchaseDate != null">
+        purchase_date,
+      </if>
+      <if test="scrapDate != null">
+        scrap_date,
+      </if>
+      <if test="useStatus != null">
+        use_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="assetManagementNo != null">
+        #{assetManagementNo,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="departments != null">
+        #{departments,jdbcType=VARCHAR},
+      </if>
+      <if test="outAssetType != null">
+        #{outAssetType,jdbcType=VARCHAR},
+      </if>
+      <if test="liablePerson != null">
+        #{liablePerson,jdbcType=INTEGER},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="assetNo != null">
+        #{assetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="asset != null">
+        #{asset,jdbcType=VARCHAR},
+      </if>
+      <if test="assetName != null">
+        #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="serial != null">
+        #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=DOUBLE},
+      </if>
+      <if test="windowsModel != null">
+        #{windowsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="computerName != null">
+        #{computerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddr != null">
+        #{ipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseDate != null">
+        #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scrapDate != null">
+        #{scrapDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useStatus != null">
+        #{useStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareAssetManagementExample" resultType="java.lang.Long">
+    select count(*) from ware_asset_management
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_asset_management
+    <set>
+      <if test="record.wareAssetManagementId != null">
+        ware_asset_management_id = #{record.wareAssetManagementId,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetManagementNo != null">
+        asset_management_no = #{record.assetManagementNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departments != null">
+        departments = #{record.departments,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outAssetType != null">
+        out_asset_type = #{record.outAssetType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liablePerson != null">
+        liable_person = #{record.liablePerson,jdbcType=INTEGER},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.place != null">
+        place = #{record.place,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetNo != null">
+        asset_no = #{record.assetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.asset != null">
+        asset = #{record.asset,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetName != null">
+        asset_name = #{record.assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serial != null">
+        serial = #{record.serial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=DOUBLE},
+      </if>
+      <if test="record.windowsModel != null">
+        windows_model = #{record.windowsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.computerName != null">
+        computer_name = #{record.computerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipAddr != null">
+        ip_addr = #{record.ipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchasePrice != null">
+        purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.purchaseDate != null">
+        purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scrapDate != null">
+        scrap_date = #{record.scrapDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.useStatus != null">
+        use_status = #{record.useStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_asset_management
+    set ware_asset_management_id = #{record.wareAssetManagementId,jdbcType=INTEGER},
+      asset_management_no = #{record.assetManagementNo,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      departments = #{record.departments,jdbcType=VARCHAR},
+      out_asset_type = #{record.outAssetType,jdbcType=VARCHAR},
+      liable_person = #{record.liablePerson,jdbcType=INTEGER},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      asset_no = #{record.assetNo,jdbcType=VARCHAR},
+      asset = #{record.asset,jdbcType=VARCHAR},
+      asset_name = #{record.assetName,jdbcType=VARCHAR},
+      serial = #{record.serial,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=DOUBLE},
+      windows_model = #{record.windowsModel,jdbcType=VARCHAR},
+      computer_name = #{record.computerName,jdbcType=VARCHAR},
+      ip_addr = #{record.ipAddr,jdbcType=VARCHAR},
+      purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
+      purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      scrap_date = #{record.scrapDate,jdbcType=TIMESTAMP},
+      use_status = #{record.useStatus,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareAssetManagement">
+    update ware_asset_management
+    <set>
+      <if test="assetManagementNo != null">
+        asset_management_no = #{assetManagementNo,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="departments != null">
+        departments = #{departments,jdbcType=VARCHAR},
+      </if>
+      <if test="outAssetType != null">
+        out_asset_type = #{outAssetType,jdbcType=VARCHAR},
+      </if>
+      <if test="liablePerson != null">
+        liable_person = #{liablePerson,jdbcType=INTEGER},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="assetNo != null">
+        asset_no = #{assetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="asset != null">
+        asset = #{asset,jdbcType=VARCHAR},
+      </if>
+      <if test="assetName != null">
+        asset_name = #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="serial != null">
+        serial = #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=DOUBLE},
+      </if>
+      <if test="windowsModel != null">
+        windows_model = #{windowsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="computerName != null">
+        computer_name = #{computerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddr != null">
+        ip_addr = #{ipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseDate != null">
+        purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scrapDate != null">
+        scrap_date = #{scrapDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useStatus != null">
+        use_status = #{useStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_asset_management_id = #{wareAssetManagementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareAssetManagement">
+    update ware_asset_management
+    set asset_management_no = #{assetManagementNo,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      departments = #{departments,jdbcType=VARCHAR},
+      out_asset_type = #{outAssetType,jdbcType=VARCHAR},
+      liable_person = #{liablePerson,jdbcType=INTEGER},
+      yard = #{yard,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      asset_no = #{assetNo,jdbcType=VARCHAR},
+      asset = #{asset,jdbcType=VARCHAR},
+      asset_name = #{assetName,jdbcType=VARCHAR},
+      serial = #{serial,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      num = #{num,jdbcType=DOUBLE},
+      windows_model = #{windowsModel,jdbcType=VARCHAR},
+      computer_name = #{computerName,jdbcType=VARCHAR},
+      ip_addr = #{ipAddr,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      scrap_date = #{scrapDate,jdbcType=TIMESTAMP},
+      use_status = #{useStatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_asset_management_id = #{wareAssetManagementId,jdbcType=INTEGER}
+  </update>
+</mapper>

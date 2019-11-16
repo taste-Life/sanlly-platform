@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareTextureMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareTexture">
+    <id column="ware_texture_id" jdbcType="INTEGER" property="wareTextureId" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="texture_no" jdbcType="VARCHAR" property="textureNo" />
+    <result column="texture_name_en" jdbcType="VARCHAR" property="textureNameEn" />
+    <result column="texture_name" jdbcType="VARCHAR" property="textureName" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_texture_id, `key`, texture_no, texture_name_en, texture_name, is_del, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareTextureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_texture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_texture
+    where ware_texture_id = #{wareTextureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_texture
+    where ware_texture_id = #{wareTextureId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareTextureExample">
+    delete from ware_texture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareTexture">
+    insert into ware_texture (ware_texture_id, `key`, texture_no, 
+      texture_name_en, texture_name, is_del, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{wareTextureId,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{textureNo,jdbcType=VARCHAR}, 
+      #{textureNameEn,jdbcType=VARCHAR}, #{textureName,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareTexture">
+    insert into ware_texture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareTextureId != null">
+        ware_texture_id,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+      <if test="textureNo != null">
+        texture_no,
+      </if>
+      <if test="textureNameEn != null">
+        texture_name_en,
+      </if>
+      <if test="textureName != null">
+        texture_name,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareTextureId != null">
+        #{wareTextureId,jdbcType=INTEGER},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="textureNo != null">
+        #{textureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="textureNameEn != null">
+        #{textureNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="textureName != null">
+        #{textureName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareTextureExample" resultType="java.lang.Long">
+    select count(*) from ware_texture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_texture
+    <set>
+      <if test="record.wareTextureId != null">
+        ware_texture_id = #{record.wareTextureId,jdbcType=INTEGER},
+      </if>
+      <if test="record.key != null">
+        `key` = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textureNo != null">
+        texture_no = #{record.textureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textureNameEn != null">
+        texture_name_en = #{record.textureNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textureName != null">
+        texture_name = #{record.textureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_texture
+    set ware_texture_id = #{record.wareTextureId,jdbcType=INTEGER},
+      `key` = #{record.key,jdbcType=VARCHAR},
+      texture_no = #{record.textureNo,jdbcType=VARCHAR},
+      texture_name_en = #{record.textureNameEn,jdbcType=VARCHAR},
+      texture_name = #{record.textureName,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareTexture">
+    update ware_texture
+    <set>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="textureNo != null">
+        texture_no = #{textureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="textureNameEn != null">
+        texture_name_en = #{textureNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="textureName != null">
+        texture_name = #{textureName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_texture_id = #{wareTextureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareTexture">
+    update ware_texture
+    set `key` = #{key,jdbcType=VARCHAR},
+      texture_no = #{textureNo,jdbcType=VARCHAR},
+      texture_name_en = #{textureNameEn,jdbcType=VARCHAR},
+      texture_name = #{textureName,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_texture_id = #{wareTextureId,jdbcType=INTEGER}
+  </update>
+</mapper>

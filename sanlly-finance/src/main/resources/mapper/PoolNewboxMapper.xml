@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.PoolNewboxMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.PoolNewbox">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="chiller_company_name" jdbcType="VARCHAR" property="chillerCompanyName" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="additional_working_hours" jdbcType="DECIMAL" property="additionalWorkingHours" />
+    <result column="additional_charges" jdbcType="DECIMAL" property="additionalCharges" />
+    <result column="order_price" jdbcType="DECIMAL" property="orderPrice" />
+    <result column="test_modem" jdbcType="VARCHAR" property="testModem" />
+    <result column="install_modem" jdbcType="VARCHAR" property="installModem" />
+    <result column="test_gps" jdbcType="VARCHAR" property="testGps" />
+    <result column="install_gps" jdbcType="VARCHAR" property="installGps" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
+    <result column="is_finished" jdbcType="INTEGER" property="isFinished" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="charge_type_key" jdbcType="VARCHAR" property="chargeTypeKey" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="no_cost_desc" jdbcType="VARCHAR" property="noCostDesc" />
+    <result column="free_status" jdbcType="VARCHAR" property="freeStatus" />
+    <result column="item_status" jdbcType="INTEGER" property="itemStatus" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_no, `month`, chiller_company_name, `count`, unit_price, additional_working_hours, 
+    additional_charges, order_price, test_modem, install_modem, test_gps, install_gps, 
+    `state`, bill_date, is_finished, total_price, dept_code, charge_type_key, remarks, 
+    no_cost_desc, free_status, item_status, is_enabled, is_del, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.finance.entity.PoolNewboxExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_pool_newbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_pool_newbox
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_pool_newbox
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.finance.entity.PoolNewboxExample">
+    delete from finance_pool_newbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.finance.entity.PoolNewbox">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_pool_newbox (order_no, `month`, chiller_company_name, 
+      `count`, unit_price, additional_working_hours, 
+      additional_charges, order_price, test_modem, 
+      install_modem, test_gps, install_gps, 
+      `state`, bill_date, is_finished, 
+      total_price, dept_code, charge_type_key, 
+      remarks, no_cost_desc, free_status, 
+      item_status, is_enabled, is_del, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{orderNo,jdbcType=VARCHAR}, #{month,jdbcType=INTEGER}, #{chillerCompanyName,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{unitPrice,jdbcType=DECIMAL}, #{additionalWorkingHours,jdbcType=DECIMAL}, 
+      #{additionalCharges,jdbcType=DECIMAL}, #{orderPrice,jdbcType=DECIMAL}, #{testModem,jdbcType=VARCHAR}, 
+      #{installModem,jdbcType=VARCHAR}, #{testGps,jdbcType=VARCHAR}, #{installGps,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{billDate,jdbcType=TIMESTAMP}, #{isFinished,jdbcType=INTEGER}, 
+      #{totalPrice,jdbcType=DECIMAL}, #{deptCode,jdbcType=VARCHAR}, #{chargeTypeKey,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{noCostDesc,jdbcType=VARCHAR}, #{freeStatus,jdbcType=VARCHAR}, 
+      #{itemStatus,jdbcType=INTEGER}, #{isEnabled,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.finance.entity.PoolNewbox">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_pool_newbox
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="month != null">
+        `month`,
+      </if>
+      <if test="chillerCompanyName != null">
+        chiller_company_name,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="additionalWorkingHours != null">
+        additional_working_hours,
+      </if>
+      <if test="additionalCharges != null">
+        additional_charges,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+      <if test="testModem != null">
+        test_modem,
+      </if>
+      <if test="installModem != null">
+        install_modem,
+      </if>
+      <if test="testGps != null">
+        test_gps,
+      </if>
+      <if test="installGps != null">
+        install_gps,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="billDate != null">
+        bill_date,
+      </if>
+      <if test="isFinished != null">
+        is_finished,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="noCostDesc != null">
+        no_cost_desc,
+      </if>
+      <if test="freeStatus != null">
+        free_status,
+      </if>
+      <if test="itemStatus != null">
+        item_status,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="chillerCompanyName != null">
+        #{chillerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="additionalWorkingHours != null">
+        #{additionalWorkingHours,jdbcType=DECIMAL},
+      </if>
+      <if test="additionalCharges != null">
+        #{additionalCharges,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="testModem != null">
+        #{testModem,jdbcType=VARCHAR},
+      </if>
+      <if test="installModem != null">
+        #{installModem,jdbcType=VARCHAR},
+      </if>
+      <if test="testGps != null">
+        #{testGps,jdbcType=VARCHAR},
+      </if>
+      <if test="installGps != null">
+        #{installGps,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="billDate != null">
+        #{billDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFinished != null">
+        #{isFinished,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="noCostDesc != null">
+        #{noCostDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="freeStatus != null">
+        #{freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStatus != null">
+        #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.finance.entity.PoolNewboxExample" resultType="java.lang.Long">
+    select count(*) from finance_pool_newbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance_pool_newbox
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.month != null">
+        `month` = #{record.month,jdbcType=INTEGER},
+      </if>
+      <if test="record.chillerCompanyName != null">
+        chiller_company_name = #{record.chillerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null">
+        `count` = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.unitPrice != null">
+        unit_price = #{record.unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.additionalWorkingHours != null">
+        additional_working_hours = #{record.additionalWorkingHours,jdbcType=DECIMAL},
+      </if>
+      <if test="record.additionalCharges != null">
+        additional_charges = #{record.additionalCharges,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderPrice != null">
+        order_price = #{record.orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.testModem != null">
+        test_modem = #{record.testModem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.installModem != null">
+        install_modem = #{record.installModem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testGps != null">
+        test_gps = #{record.testGps,jdbcType=VARCHAR},
+      </if>
+      <if test="record.installGps != null">
+        install_gps = #{record.installGps,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billDate != null">
+        bill_date = #{record.billDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isFinished != null">
+        is_finished = #{record.isFinished,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalPrice != null">
+        total_price = #{record.totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deptCode != null">
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeTypeKey != null">
+        charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noCostDesc != null">
+        no_cost_desc = #{record.noCostDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freeStatus != null">
+        free_status = #{record.freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemStatus != null">
+        item_status = #{record.itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance_pool_newbox
+    set id = #{record.id,jdbcType=INTEGER},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      `month` = #{record.month,jdbcType=INTEGER},
+      chiller_company_name = #{record.chillerCompanyName,jdbcType=VARCHAR},
+      `count` = #{record.count,jdbcType=INTEGER},
+      unit_price = #{record.unitPrice,jdbcType=DECIMAL},
+      additional_working_hours = #{record.additionalWorkingHours,jdbcType=DECIMAL},
+      additional_charges = #{record.additionalCharges,jdbcType=DECIMAL},
+      order_price = #{record.orderPrice,jdbcType=DECIMAL},
+      test_modem = #{record.testModem,jdbcType=VARCHAR},
+      install_modem = #{record.installModem,jdbcType=VARCHAR},
+      test_gps = #{record.testGps,jdbcType=VARCHAR},
+      install_gps = #{record.installGps,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=VARCHAR},
+      bill_date = #{record.billDate,jdbcType=TIMESTAMP},
+      is_finished = #{record.isFinished,jdbcType=INTEGER},
+      total_price = #{record.totalPrice,jdbcType=DECIMAL},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      no_cost_desc = #{record.noCostDesc,jdbcType=VARCHAR},
+      free_status = #{record.freeStatus,jdbcType=VARCHAR},
+      item_status = #{record.itemStatus,jdbcType=INTEGER},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.finance.entity.PoolNewbox">
+    update finance_pool_newbox
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        `month` = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="chillerCompanyName != null">
+        chiller_company_name = #{chillerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="additionalWorkingHours != null">
+        additional_working_hours = #{additionalWorkingHours,jdbcType=DECIMAL},
+      </if>
+      <if test="additionalCharges != null">
+        additional_charges = #{additionalCharges,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="testModem != null">
+        test_modem = #{testModem,jdbcType=VARCHAR},
+      </if>
+      <if test="installModem != null">
+        install_modem = #{installModem,jdbcType=VARCHAR},
+      </if>
+      <if test="testGps != null">
+        test_gps = #{testGps,jdbcType=VARCHAR},
+      </if>
+      <if test="installGps != null">
+        install_gps = #{installGps,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="billDate != null">
+        bill_date = #{billDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFinished != null">
+        is_finished = #{isFinished,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="noCostDesc != null">
+        no_cost_desc = #{noCostDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="freeStatus != null">
+        free_status = #{freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStatus != null">
+        item_status = #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.finance.entity.PoolNewbox">
+    update finance_pool_newbox
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      `month` = #{month,jdbcType=INTEGER},
+      chiller_company_name = #{chillerCompanyName,jdbcType=VARCHAR},
+      `count` = #{count,jdbcType=INTEGER},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      additional_working_hours = #{additionalWorkingHours,jdbcType=DECIMAL},
+      additional_charges = #{additionalCharges,jdbcType=DECIMAL},
+      order_price = #{orderPrice,jdbcType=DECIMAL},
+      test_modem = #{testModem,jdbcType=VARCHAR},
+      install_modem = #{installModem,jdbcType=VARCHAR},
+      test_gps = #{testGps,jdbcType=VARCHAR},
+      install_gps = #{installGps,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=VARCHAR},
+      bill_date = #{billDate,jdbcType=TIMESTAMP},
+      is_finished = #{isFinished,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      no_cost_desc = #{noCostDesc,jdbcType=VARCHAR},
+      free_status = #{freeStatus,jdbcType=VARCHAR},
+      item_status = #{itemStatus,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

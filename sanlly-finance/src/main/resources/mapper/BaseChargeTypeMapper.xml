@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.BaseChargeTypeMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.BaseChargeType">
+    <id column="charge_type_id" jdbcType="INTEGER" property="chargeTypeId" />
+    <result column="lang_key" jdbcType="VARCHAR" property="langKey" />
+    <result column="charge_inout_type" jdbcType="VARCHAR" property="chargeInoutType" />
+    <result column="business_category" jdbcType="VARCHAR" property="businessCategory" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="charge_type_name" jdbcType="VARCHAR" property="chargeTypeName" />
+    <result column="charge_type_name_en" jdbcType="VARCHAR" property="chargeTypeNameEn" />
+    <result column="charge_code" jdbcType="VARCHAR" property="chargeCode" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="is_common" jdbcType="VARCHAR" property="isCommon" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="charge_key" jdbcType="VARCHAR" property="chargeKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    charge_type_id, lang_key, charge_inout_type, business_category, business_type, charge_type_name, 
+    charge_type_name_en, charge_code, tax_rate, is_common, remarks, is_enabled, is_del, 
+    create_time, create_user, update_time, update_user, charge_key
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.finance.entity.BaseChargeTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_base_charge_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_base_charge_type
+    where charge_type_id = #{chargeTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_base_charge_type
+    where charge_type_id = #{chargeTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.finance.entity.BaseChargeTypeExample">
+    delete from finance_base_charge_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.finance.entity.BaseChargeType">
+    <selectKey keyProperty="chargeTypeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_base_charge_type (lang_key, charge_inout_type, business_category, 
+      business_type, charge_type_name, charge_type_name_en, 
+      charge_code, tax_rate, is_common, 
+      remarks, is_enabled, is_del, 
+      create_time, create_user, update_time, 
+      update_user, charge_key)
+    values (#{langKey,jdbcType=VARCHAR}, #{chargeInoutType,jdbcType=VARCHAR}, #{businessCategory,jdbcType=VARCHAR}, 
+      #{businessType,jdbcType=VARCHAR}, #{chargeTypeName,jdbcType=VARCHAR}, #{chargeTypeNameEn,jdbcType=VARCHAR}, 
+      #{chargeCode,jdbcType=VARCHAR}, #{taxRate,jdbcType=DECIMAL}, #{isCommon,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{isEnabled,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{chargeKey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.finance.entity.BaseChargeType">
+    <selectKey keyProperty="chargeTypeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_base_charge_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="langKey != null">
+        lang_key,
+      </if>
+      <if test="chargeInoutType != null">
+        charge_inout_type,
+      </if>
+      <if test="businessCategory != null">
+        business_category,
+      </if>
+      <if test="businessType != null">
+        business_type,
+      </if>
+      <if test="chargeTypeName != null">
+        charge_type_name,
+      </if>
+      <if test="chargeTypeNameEn != null">
+        charge_type_name_en,
+      </if>
+      <if test="chargeCode != null">
+        charge_code,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="isCommon != null">
+        is_common,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="chargeKey != null">
+        charge_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="langKey != null">
+        #{langKey,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeInoutType != null">
+        #{chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessCategory != null">
+        #{businessCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeName != null">
+        #{chargeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeNameEn != null">
+        #{chargeTypeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeCode != null">
+        #{chargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isCommon != null">
+        #{isCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="chargeKey != null">
+        #{chargeKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.finance.entity.BaseChargeTypeExample" resultType="java.lang.Long">
+    select count(*) from finance_base_charge_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance_base_charge_type
+    <set>
+      <if test="record.chargeTypeId != null">
+        charge_type_id = #{record.chargeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.langKey != null">
+        lang_key = #{record.langKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeInoutType != null">
+        charge_inout_type = #{record.chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessCategory != null">
+        business_category = #{record.businessCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessType != null">
+        business_type = #{record.businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeTypeName != null">
+        charge_type_name = #{record.chargeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeTypeNameEn != null">
+        charge_type_name_en = #{record.chargeTypeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeCode != null">
+        charge_code = #{record.chargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxRate != null">
+        tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isCommon != null">
+        is_common = #{record.isCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.chargeKey != null">
+        charge_key = #{record.chargeKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance_base_charge_type
+    set charge_type_id = #{record.chargeTypeId,jdbcType=INTEGER},
+      lang_key = #{record.langKey,jdbcType=VARCHAR},
+      charge_inout_type = #{record.chargeInoutType,jdbcType=VARCHAR},
+      business_category = #{record.businessCategory,jdbcType=VARCHAR},
+      business_type = #{record.businessType,jdbcType=VARCHAR},
+      charge_type_name = #{record.chargeTypeName,jdbcType=VARCHAR},
+      charge_type_name_en = #{record.chargeTypeNameEn,jdbcType=VARCHAR},
+      charge_code = #{record.chargeCode,jdbcType=VARCHAR},
+      tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      is_common = #{record.isCommon,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      charge_key = #{record.chargeKey,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.finance.entity.BaseChargeType">
+    update finance_base_charge_type
+    <set>
+      <if test="langKey != null">
+        lang_key = #{langKey,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeInoutType != null">
+        charge_inout_type = #{chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessCategory != null">
+        business_category = #{businessCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeName != null">
+        charge_type_name = #{chargeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeNameEn != null">
+        charge_type_name_en = #{chargeTypeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeCode != null">
+        charge_code = #{chargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isCommon != null">
+        is_common = #{isCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="chargeKey != null">
+        charge_key = #{chargeKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where charge_type_id = #{chargeTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.finance.entity.BaseChargeType">
+    update finance_base_charge_type
+    set lang_key = #{langKey,jdbcType=VARCHAR},
+      charge_inout_type = #{chargeInoutType,jdbcType=VARCHAR},
+      business_category = #{businessCategory,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      charge_type_name = #{chargeTypeName,jdbcType=VARCHAR},
+      charge_type_name_en = #{chargeTypeNameEn,jdbcType=VARCHAR},
+      charge_code = #{chargeCode,jdbcType=VARCHAR},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      is_common = #{isCommon,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      charge_key = #{chargeKey,jdbcType=VARCHAR}
+    where charge_type_id = #{chargeTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

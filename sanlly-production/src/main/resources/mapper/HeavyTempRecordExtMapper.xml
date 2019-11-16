@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.HeavyTempRecordExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.HeavyTempRecord">
+    <id column="prod_heavy_temp_record_id" jdbcType="INTEGER" property="prodHeavyTempRecordId" />
+    <result column="heavy_enter_id" jdbcType="INTEGER" property="heavyEnterId" />
+    <result column="supply_temp" jdbcType="DOUBLE" property="supplyTemp" />
+    <result column="return_temp" jdbcType="DOUBLE" property="returnTemp" />
+    <result column="recording_peroid" jdbcType="VARCHAR" property="recordingPeroid" />
+    <result column="tab" jdbcType="VARCHAR" property="tab" />
+    <result column="exceprion" jdbcType="VARCHAR" property="exceprion" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+ 
+ 	<select id="lastTemp" resultMap="BaseResultMap">
+		SELECT * FROM
+			(SELECT * FROM prod_heavy_temp_record WHERE is_del = 0
+			ORDER BY create_time DESC, recording_peroid DESC) AS t
+		GROUP BY t.heavy_enter_id
+	</select>
+	
+ </mapper>

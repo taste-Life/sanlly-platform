@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.HeavyEnterInfoMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.HeavyEnterInfo">
+    <id column="prod_heavy_enter_id" jdbcType="INTEGER" property="prodHeavyEnterId" />
+    <result column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="is_export" jdbcType="VARCHAR" property="isExport" />
+    <result column="ves_vos" jdbcType="VARCHAR" property="vesVos" />
+    <result column="sailing_date" jdbcType="TIMESTAMP" property="sailingDate" />
+    <result column="shipment_date" jdbcType="TIMESTAMP" property="shipmentDate" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="exit_yard" jdbcType="VARCHAR" property="exitYard" />
+    <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="setting_temp" jdbcType="DOUBLE" property="settingTemp" />
+    <result column="setting_humidity" jdbcType="DOUBLE" property="settingHumidity" />
+    <result column="vent" jdbcType="DOUBLE" property="vent" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="dock" jdbcType="VARCHAR" property="dock" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_heavy_enter_id, course_id, container_no, container_user, is_export, ves_vos, 
+    sailing_date, shipment_date, `location`, exit_yard, entry_time, setting_temp, setting_humidity, 
+    vent, `state`, dock, remark, is_del, create_time, create_user, update_time, update_user, 
+    company
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.HeavyEnterInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_heavy_enter_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_heavy_enter_info
+    where prod_heavy_enter_id = #{prodHeavyEnterId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_heavy_enter_info
+    where prod_heavy_enter_id = #{prodHeavyEnterId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.HeavyEnterInfoExample">
+    delete from prod_heavy_enter_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.HeavyEnterInfo">
+    insert into prod_heavy_enter_info (prod_heavy_enter_id, course_id, container_no, 
+      container_user, is_export, ves_vos, 
+      sailing_date, shipment_date, `location`, 
+      exit_yard, entry_time, setting_temp, 
+      setting_humidity, vent, `state`, 
+      dock, remark, is_del, 
+      create_time, create_user, update_time, 
+      update_user, company)
+    values (#{prodHeavyEnterId,jdbcType=INTEGER}, #{courseId,jdbcType=VARCHAR}, #{containerNo,jdbcType=VARCHAR}, 
+      #{containerUser,jdbcType=VARCHAR}, #{isExport,jdbcType=VARCHAR}, #{vesVos,jdbcType=VARCHAR}, 
+      #{sailingDate,jdbcType=TIMESTAMP}, #{shipmentDate,jdbcType=TIMESTAMP}, #{location,jdbcType=VARCHAR}, 
+      #{exitYard,jdbcType=VARCHAR}, #{entryTime,jdbcType=TIMESTAMP}, #{settingTemp,jdbcType=DOUBLE}, 
+      #{settingHumidity,jdbcType=DOUBLE}, #{vent,jdbcType=DOUBLE}, #{state,jdbcType=VARCHAR}, 
+      #{dock,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.HeavyEnterInfo">
+    insert into prod_heavy_enter_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodHeavyEnterId != null">
+        prod_heavy_enter_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="isExport != null">
+        is_export,
+      </if>
+      <if test="vesVos != null">
+        ves_vos,
+      </if>
+      <if test="sailingDate != null">
+        sailing_date,
+      </if>
+      <if test="shipmentDate != null">
+        shipment_date,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="exitYard != null">
+        exit_yard,
+      </if>
+      <if test="entryTime != null">
+        entry_time,
+      </if>
+      <if test="settingTemp != null">
+        setting_temp,
+      </if>
+      <if test="settingHumidity != null">
+        setting_humidity,
+      </if>
+      <if test="vent != null">
+        vent,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="dock != null">
+        dock,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodHeavyEnterId != null">
+        #{prodHeavyEnterId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isExport != null">
+        #{isExport,jdbcType=VARCHAR},
+      </if>
+      <if test="vesVos != null">
+        #{vesVos,jdbcType=VARCHAR},
+      </if>
+      <if test="sailingDate != null">
+        #{sailingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipmentDate != null">
+        #{shipmentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="exitYard != null">
+        #{exitYard,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null">
+        #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settingTemp != null">
+        #{settingTemp,jdbcType=DOUBLE},
+      </if>
+      <if test="settingHumidity != null">
+        #{settingHumidity,jdbcType=DOUBLE},
+      </if>
+      <if test="vent != null">
+        #{vent,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dock != null">
+        #{dock,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.HeavyEnterInfoExample" resultType="java.lang.Long">
+    select count(*) from prod_heavy_enter_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_heavy_enter_info
+    <set>
+      <if test="record.prodHeavyEnterId != null">
+        prod_heavy_enter_id = #{record.prodHeavyEnterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null">
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isExport != null">
+        is_export = #{record.isExport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vesVos != null">
+        ves_vos = #{record.vesVos,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sailingDate != null">
+        sailing_date = #{record.sailingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shipmentDate != null">
+        shipment_date = #{record.shipmentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.location != null">
+        `location` = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exitYard != null">
+        exit_yard = #{record.exitYard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entryTime != null">
+        entry_time = #{record.entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.settingTemp != null">
+        setting_temp = #{record.settingTemp,jdbcType=DOUBLE},
+      </if>
+      <if test="record.settingHumidity != null">
+        setting_humidity = #{record.settingHumidity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.vent != null">
+        vent = #{record.vent,jdbcType=DOUBLE},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dock != null">
+        dock = #{record.dock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_heavy_enter_info
+    set prod_heavy_enter_id = #{record.prodHeavyEnterId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      is_export = #{record.isExport,jdbcType=VARCHAR},
+      ves_vos = #{record.vesVos,jdbcType=VARCHAR},
+      sailing_date = #{record.sailingDate,jdbcType=TIMESTAMP},
+      shipment_date = #{record.shipmentDate,jdbcType=TIMESTAMP},
+      `location` = #{record.location,jdbcType=VARCHAR},
+      exit_yard = #{record.exitYard,jdbcType=VARCHAR},
+      entry_time = #{record.entryTime,jdbcType=TIMESTAMP},
+      setting_temp = #{record.settingTemp,jdbcType=DOUBLE},
+      setting_humidity = #{record.settingHumidity,jdbcType=DOUBLE},
+      vent = #{record.vent,jdbcType=DOUBLE},
+      `state` = #{record.state,jdbcType=VARCHAR},
+      dock = #{record.dock,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.HeavyEnterInfo">
+    update prod_heavy_enter_info
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isExport != null">
+        is_export = #{isExport,jdbcType=VARCHAR},
+      </if>
+      <if test="vesVos != null">
+        ves_vos = #{vesVos,jdbcType=VARCHAR},
+      </if>
+      <if test="sailingDate != null">
+        sailing_date = #{sailingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipmentDate != null">
+        shipment_date = #{shipmentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="exitYard != null">
+        exit_yard = #{exitYard,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null">
+        entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settingTemp != null">
+        setting_temp = #{settingTemp,jdbcType=DOUBLE},
+      </if>
+      <if test="settingHumidity != null">
+        setting_humidity = #{settingHumidity,jdbcType=DOUBLE},
+      </if>
+      <if test="vent != null">
+        vent = #{vent,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dock != null">
+        dock = #{dock,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prod_heavy_enter_id = #{prodHeavyEnterId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.HeavyEnterInfo">
+    update prod_heavy_enter_info
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      is_export = #{isExport,jdbcType=VARCHAR},
+      ves_vos = #{vesVos,jdbcType=VARCHAR},
+      sailing_date = #{sailingDate,jdbcType=TIMESTAMP},
+      shipment_date = #{shipmentDate,jdbcType=TIMESTAMP},
+      `location` = #{location,jdbcType=VARCHAR},
+      exit_yard = #{exitYard,jdbcType=VARCHAR},
+      entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      setting_temp = #{settingTemp,jdbcType=DOUBLE},
+      setting_humidity = #{settingHumidity,jdbcType=DOUBLE},
+      vent = #{vent,jdbcType=DOUBLE},
+      `state` = #{state,jdbcType=VARCHAR},
+      dock = #{dock,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR}
+    where prod_heavy_enter_id = #{prodHeavyEnterId,jdbcType=INTEGER}
+  </update>
+</mapper>

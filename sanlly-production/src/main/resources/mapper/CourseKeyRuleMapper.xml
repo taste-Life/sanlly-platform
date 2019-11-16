@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.CourseKeyRuleMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.CourseKeyRule">
+    <id column="rule_id" jdbcType="INTEGER" property="ruleId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="course_value" jdbcType="INTEGER" property="courseValue" />
+    <result column="course_entry_value" jdbcType="INTEGER" property="courseEntryValue" />
+    <result column="maintenance_value" jdbcType="INTEGER" property="maintenanceValue" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rule_id, container_no, course_value, course_entry_value, maintenance_value, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.CourseKeyRuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_course_key_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_course_key_rule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_course_key_rule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.CourseKeyRuleExample">
+    delete from prod_course_key_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.CourseKeyRule">
+    insert into prod_course_key_rule (rule_id, container_no, course_value, 
+      course_entry_value, maintenance_value, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{ruleId,jdbcType=INTEGER}, #{containerNo,jdbcType=VARCHAR}, #{courseValue,jdbcType=INTEGER}, 
+      #{courseEntryValue,jdbcType=INTEGER}, #{maintenanceValue,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.CourseKeyRule">
+    insert into prod_course_key_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ruleId != null">
+        rule_id,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="courseValue != null">
+        course_value,
+      </if>
+      <if test="courseEntryValue != null">
+        course_entry_value,
+      </if>
+      <if test="maintenanceValue != null">
+        maintenance_value,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseValue != null">
+        #{courseValue,jdbcType=INTEGER},
+      </if>
+      <if test="courseEntryValue != null">
+        #{courseEntryValue,jdbcType=INTEGER},
+      </if>
+      <if test="maintenanceValue != null">
+        #{maintenanceValue,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.CourseKeyRuleExample" resultType="java.lang.Long">
+    select count(*) from prod_course_key_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_course_key_rule
+    <set>
+      <if test="record.ruleId != null">
+        rule_id = #{record.ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseValue != null">
+        course_value = #{record.courseValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseEntryValue != null">
+        course_entry_value = #{record.courseEntryValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.maintenanceValue != null">
+        maintenance_value = #{record.maintenanceValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_course_key_rule
+    set rule_id = #{record.ruleId,jdbcType=INTEGER},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      course_value = #{record.courseValue,jdbcType=INTEGER},
+      course_entry_value = #{record.courseEntryValue,jdbcType=INTEGER},
+      maintenance_value = #{record.maintenanceValue,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.CourseKeyRule">
+    update prod_course_key_rule
+    <set>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseValue != null">
+        course_value = #{courseValue,jdbcType=INTEGER},
+      </if>
+      <if test="courseEntryValue != null">
+        course_entry_value = #{courseEntryValue,jdbcType=INTEGER},
+      </if>
+      <if test="maintenanceValue != null">
+        maintenance_value = #{maintenanceValue,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.CourseKeyRule">
+    update prod_course_key_rule
+    set container_no = #{containerNo,jdbcType=VARCHAR},
+      course_value = #{courseValue,jdbcType=INTEGER},
+      course_entry_value = #{courseEntryValue,jdbcType=INTEGER},
+      maintenance_value = #{maintenanceValue,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.QualitysExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.models.output.app.qualitys.SearchQualitysOutput">
+    <id column="prod_course_id" jdbcType="VARCHAR" property="prodCourseId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="size" jdbcType="VARCHAR" property="sizeLang" />
+    <result column="container_type" jdbcType="VARCHAR" property="containerTypeLang" />
+    <result column="size" jdbcType="VARCHAR" property="sizeKey" />
+    <result column="container_type" jdbcType="VARCHAR" property="containerTypeKey" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUserLang" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUserKey" />
+    <result column="course_type" jdbcType="VARCHAR" property="courseType" />
+    <result column="domestic_foreign_trade" jdbcType="VARCHAR" property="domesticForeignTrade" />
+    <result column="man_hour" jdbcType="VARCHAR" property="manHour" />
+    <result column="quality_type" jdbcType="VARCHAR" property="isQualityLang" />
+    <result column="quality_type" jdbcType="VARCHAR" property="isQualityKey" />
+    <result column="referral_state" jdbcType="VARCHAR" property="repairStateLang" />
+    <result column="is_surrender" jdbcType="VARCHAR" property="isSurrenderLang" />
+    <result column="is_surrender" jdbcType="VARCHAR" property="isSurrenderKey" />
+    <result column="referral_time" jdbcType="VARCHAR" property="referralDate" />
+    <result column="quality_result" jdbcType="VARCHAR" property="qualityStateLang" />
+    <result column="quality_result" jdbcType="VARCHAR" property="qualityStateKey" />
+    <result column="quality_state" jdbcType="VARCHAR" property="qualityStateOneLang" />
+    <result column="quality_state" jdbcType="VARCHAR" property="qualityStateOneKey" />
+    <result column="unit_company" jdbcType="VARCHAR" property="unitCompanyKey" />
+    <result column="unit_type" jdbcType="VARCHAR" property="unitTypeKey" />
+    <result column="container_condition" jdbcType="VARCHAR" property="containerCondition" />
+    <result column="unit_state" jdbcType="VARCHAR" property="unitState" />
+  </resultMap>
+
+  <select id="getQualitysPagedList" parameterType="com.sanlly.production.models.input.app.qualitys.SearchQualitysInput" resultMap="BaseResultMap">
+    select c.prod_course_id,c.container_no,c.size,c.container_type,c.container_user,c.man_hour,
+		c.quality_type,c.referral_state,c.referral_time,c.quality_result,c.course_type,c.quality_state
+		<if test="!@com.sanlly.production.enums.ContainerCategoryEnum@isUnit(type)">
+			,c.is_surrender,c.domestic_foreign_trade,c.container_condition
+		</if>
+		<if test="@com.sanlly.production.enums.ContainerCategoryEnum@isUnit(type)">
+			,c.unit_company,c.unit_type,c.unit_state
+		</if>
+	from 
+	<choose>
+		<when test="@com.sanlly.production.enums.ContainerCategoryEnum@isUnit(type)">
+			prod_unit_course c
+		</when>
+		<otherwise>
+			prod_course c
+		</otherwise>
+	</choose>
+	<where>
+		<if test="!@com.sanlly.production.enums.ContainerCategoryEnum@isUnit(type)">
+			c.container_category = #{type}
+		</if>
+		<if test="containerNo != null and containerNo != ''">
+			and c.container_no like CONCAT('%',#{containerNo},'%')
+		</if>
+		<if test="isQuality != null and isQuality != ''">
+			and c.quality_type = #{isQuality}
+		</if>
+		<if test="qualityState != null and qualityState != ''">
+			<if test="qualityState != 'LEQUALITYO009'">
+				and c.quality_result = #{qualityState}
+			</if>
+			<if test="qualityState == 'LEQUALITYO009'">
+				and c.quality_state = #{qualityState}
+			</if>
+		</if>
+	</where>
+		ORDER BY referral_time DESC
+		limit #{pageIndex} , #{pageSize}
+  </select>
+  
+  <select id="getQualitysPagedCount" parameterType="com.sanlly.production.models.input.app.qualitys.SearchQualitysInput" resultType="java.lang.Integer">
+    select count(1) from 
+	<choose>
+		<when test="@com.sanlly.production.enums.ContainerCategoryEnum@isUnit(type)">
+			prod_unit_course c
+		</when>
+		<otherwise>
+			prod_course c
+		</otherwise>
+	</choose>
+	<where>
+		<if test="!@com.sanlly.production.enums.ContainerCategoryEnum@isUnit(type)">
+			c.container_category = #{type}
+		</if>
+		<if test="containerNo != null and containerNo != ''">
+			and c.container_no = #{containerNo}
+		</if>
+		<if test="isQuality != null and isQuality != ''">
+			and c.quality_type = #{isQuality}
+		</if>
+		<if test="qualityState != null and qualityState != ''">
+			and c.quality_result = #{qualityState}
+		</if>
+	</where>
+  </select>
+
+  <resultMap id="QualitysContainer" type="com.sanlly.production.models.output.app.qualitys.QualitysContEntryOutput">
+    <result column="prod_referral_entry_id" jdbcType="VARCHAR" property="courseEntryId" />
+    <result column="parts_type_code" jdbcType="VARCHAR" property="partsType" />
+    <result column="parts_type_code" jdbcType="VARCHAR" property="partTypeNameLang" />
+    <result column="position_code" jdbcType="VARCHAR" property="positionCode" />
+    <result column="parts_details_code" jdbcType="VARCHAR" property="partsDetail" />
+    <result column="parts_repair_code" jdbcType="VARCHAR" property="partsRepairCode" />
+    <result column="repair_code" jdbcType="VARCHAR" property="repairCode" />
+    <result column="damage_code" jdbcType="VARCHAR" property="damageCode" />
+    <result column="material_code" jdbcType="DOUBLE" property="materialCode" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="man_hour" jdbcType="VARCHAR" property="manHour" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sum_money" jdbcType="VARCHAR" property="sumMoney" />
+    <result column="thirdparty_money" jdbcType="VARCHAR" property="thirdpartyMoney" />
+    <result column="paying_party" jdbcType="VARCHAR" property="payingParty" />
+    <result column="rate_id" jdbcType="VARCHAR" property="rateId" />
+    <result column="five_code" jdbcType="VARCHAR" property="fiveCode" />
+    <result column="is_must_photo" jdbcType="VARCHAR" property="isMustPhoto" />
+    <result column="material_cost" jdbcType="VARCHAR" property="materialCost" />
+    <result column="man_hour_cost" jdbcType="VARCHAR" property="manHourCost" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="spares_number" jdbcType="VARCHAR" property="sparesNum" />
+    <result column="quality_state" jdbcType="VARCHAR" property="qualityStateLang" />
+    <result column="quality_state" jdbcType="VARCHAR" property="qualityStateKey" />
+    <result column="is_technology" jdbcType="VARCHAR" property="isTechnologyLang" />
+    <result column="rework_question" jdbcType="VARCHAR" property="reworkQuestionLang" />
+    <result column="rectification_standard" jdbcType="VARCHAR" property="rectificationStandardLang" />
+    <result column="quality_cause" jdbcType="VARCHAR" property="reasonContenLang" />
+    <result column="quality_cause" jdbcType="VARCHAR" property="reasonContenKey" />
+  </resultMap>
+  <select id="getQualitysContList" parameterType="map" resultMap="QualitysContainer">
+  	select r.prod_referral_entry_id,r.parts_type_code,r.position_code,r.parts_details_code,r.parts_repair_code,
+		r.repair_code,r.damage_code,r.material_code,r.length,r.width,r.quantity,r.photo,r.remarks,e.sum_money,e.thirdparty_money,
+		e.paying_party,e.rate_id,e.five_code,e.is_must_photo,e.material_cost,e.man_hour_cost,r.man_hour,e.device,e.spares_number,
+		r.quality_state,r.is_technology, r.rework_question,r.rectification_standard,r.quality_cause
+	from prod_referral_entry r 
+	LEFT JOIN prod_evaluation_entry e on r.prod_referral_entry_id = e.prod_evaluation_entry_id
+	where r.container_category = #{containerCategory}
+		and r.course = #{prodCourseId} and r.is_del = 0
+	order by r.serial_number
+  </select>
+  
+  <resultMap id="QualitysUnit" type="com.sanlly.production.models.output.app.qualitys.QualitysUnitEntryOutput">
+    <id column="prod_referral_entry_id" jdbcType="VARCHAR" property="courseEntryId" />
+    <result column="parts_type_code" jdbcType="VARCHAR" property="partTypeCodeLang" />
+    <result column="parts_details_code" jdbcType="VARCHAR" property="partDetailCodeLang" />
+    <result column="damage_code" jdbcType="VARCHAR" property="damageCodeLang" />
+    <result column="repair_code" jdbcType="VARCHAR" property="repairCodeLang" />
+    <result column="spares_number" jdbcType="VARCHAR" property="sparesNumLang" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="man_hour" jdbcType="DOUBLE" property="manHour" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="quality_state" jdbcType="VARCHAR" property="qualityState" />
+    <result column="is_technology" jdbcType="VARCHAR" property="isTechnology" />
+    <result column="rework_question" jdbcType="VARCHAR" property="reworkQuestionLang" />
+    <result column="rectification_standard" jdbcType="VARCHAR" property="rectificationStandardLang" />
+  </resultMap>
+  <select id="getQualitysUnitList" parameterType="java.lang.String" resultMap="QualitysUnit">
+  	select r.prod_referral_entry_id,r.parts_type_code,r.parts_details_code,r.damage_code,
+  		r.repair_code,r.spares_number,r.quantity,r.remarks,r.man_hour,r.photo,r.quality_state,
+  		q.is_technology,q.rework_question,q.rectification_standard 
+	from prod_referral_entry r
+	LEFT JOIN prod_quality_rework q on r.prod_referral_entry_id = q.referral_entry_id
+	where r.container_category = #{containerCategory} and r.is_del = 0
+		and r.course = #{prodCourseId}
+	order by r.serial_number
+  </select>
+
+</mapper>

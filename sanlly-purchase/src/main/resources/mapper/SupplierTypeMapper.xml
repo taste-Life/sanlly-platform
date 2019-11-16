@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.purchase.dao.SupplierTypeMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.purchase.entity.SupplierType">
+    <id column="purc_supplier_type_id" jdbcType="INTEGER" property="purcSupplierTypeId" />
+    <result column="supplier_type_name" jdbcType="VARCHAR" property="supplierTypeName" />
+    <result column="supplier_type_en" jdbcType="VARCHAR" property="supplierTypeEn" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" />
+    <result column="procurement_item" jdbcType="VARCHAR" property="procurementItem" />
+    <result column="manage_department" jdbcType="VARCHAR" property="manageDepartment" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    purc_supplier_type_id, supplier_type_name, supplier_type_en, `scope`, procurement_item, 
+    manage_department, is_del, create_time, create_user, update_time, update_user, `key`
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.purchase.entity.SupplierTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purc_supplier_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from purc_supplier_type
+    where purc_supplier_type_id = #{purcSupplierTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from purc_supplier_type
+    where purc_supplier_type_id = #{purcSupplierTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.purchase.entity.SupplierTypeExample">
+    delete from purc_supplier_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.purchase.entity.SupplierType">
+    insert into purc_supplier_type (purc_supplier_type_id, supplier_type_name, 
+      supplier_type_en, `scope`, procurement_item, 
+      manage_department, is_del, create_time, 
+      create_user, update_time, update_user, 
+      `key`)
+    values (#{purcSupplierTypeId,jdbcType=INTEGER}, #{supplierTypeName,jdbcType=VARCHAR}, 
+      #{supplierTypeEn,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}, #{procurementItem,jdbcType=VARCHAR}, 
+      #{manageDepartment,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{key,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.purchase.entity.SupplierType">
+    insert into purc_supplier_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purcSupplierTypeId != null">
+        purc_supplier_type_id,
+      </if>
+      <if test="supplierTypeName != null">
+        supplier_type_name,
+      </if>
+      <if test="supplierTypeEn != null">
+        supplier_type_en,
+      </if>
+      <if test="scope != null">
+        `scope`,
+      </if>
+      <if test="procurementItem != null">
+        procurement_item,
+      </if>
+      <if test="manageDepartment != null">
+        manage_department,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purcSupplierTypeId != null">
+        #{purcSupplierTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierTypeName != null">
+        #{supplierTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierTypeEn != null">
+        #{supplierTypeEn,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="procurementItem != null">
+        #{procurementItem,jdbcType=VARCHAR},
+      </if>
+      <if test="manageDepartment != null">
+        #{manageDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.purchase.entity.SupplierTypeExample" resultType="java.lang.Long">
+    select count(*) from purc_supplier_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update purc_supplier_type
+    <set>
+      <if test="record.purcSupplierTypeId != null">
+        purc_supplier_type_id = #{record.purcSupplierTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierTypeName != null">
+        supplier_type_name = #{record.supplierTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierTypeEn != null">
+        supplier_type_en = #{record.supplierTypeEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scope != null">
+        `scope` = #{record.scope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procurementItem != null">
+        procurement_item = #{record.procurementItem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manageDepartment != null">
+        manage_department = #{record.manageDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.key != null">
+        `key` = #{record.key,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update purc_supplier_type
+    set purc_supplier_type_id = #{record.purcSupplierTypeId,jdbcType=INTEGER},
+      supplier_type_name = #{record.supplierTypeName,jdbcType=VARCHAR},
+      supplier_type_en = #{record.supplierTypeEn,jdbcType=VARCHAR},
+      `scope` = #{record.scope,jdbcType=VARCHAR},
+      procurement_item = #{record.procurementItem,jdbcType=VARCHAR},
+      manage_department = #{record.manageDepartment,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      `key` = #{record.key,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.purchase.entity.SupplierType">
+    update purc_supplier_type
+    <set>
+      <if test="supplierTypeName != null">
+        supplier_type_name = #{supplierTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierTypeEn != null">
+        supplier_type_en = #{supplierTypeEn,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        `scope` = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="procurementItem != null">
+        procurement_item = #{procurementItem,jdbcType=VARCHAR},
+      </if>
+      <if test="manageDepartment != null">
+        manage_department = #{manageDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purc_supplier_type_id = #{purcSupplierTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.purchase.entity.SupplierType">
+    update purc_supplier_type
+    set supplier_type_name = #{supplierTypeName,jdbcType=VARCHAR},
+      supplier_type_en = #{supplierTypeEn,jdbcType=VARCHAR},
+      `scope` = #{scope,jdbcType=VARCHAR},
+      procurement_item = #{procurementItem,jdbcType=VARCHAR},
+      manage_department = #{manageDepartment,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      `key` = #{key,jdbcType=VARCHAR}
+    where purc_supplier_type_id = #{purcSupplierTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.purchase.dao.SupplierTenderExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.purchase.models.output.matterbidding.MatterSupplierTenderOutput">
+    <id column="purc_supplier_tender_id" jdbcType="INTEGER" property="purcSupplierTenderId" />
+    <result column="tender_purchase_id" jdbcType="INTEGER" property="tenderPurchaseId" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
+    <result column="inquiry_num" jdbcType="INTEGER" property="inquiryNum" />
+    <result column="bidding_num" jdbcType="INTEGER" property="biddingNum" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="selectByTenderPurchaseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   SELECT
+	a.*
+	FROM
+		purc_supplier_tender a,
+		(
+			SELECT
+				supplier,
+				max(create_time) create_time
+			FROM
+				purc_supplier_tender
+			<where>
+			<if test="purcMatterTenderPurchaseId != null">
+				tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+			</if>
+			</where>
+			GROUP BY
+				supplier
+		) b,
+	purc_supplier s 
+	WHERE
+		a.supplier = b.supplier
+	AND a.create_time = b.create_time
+	<if test="purcMatterTenderPurchaseId != null">
+	AND	tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+	</if>
+	and a.supplier = s.key
+	GROUP BY
+		a.supplier
+	ORDER BY
+		a.total,s.settlement_cycle desc,s.grade
+
+  </select>
+
+
+	<resultMap id="BaseResultMap2" type="com.sanlly.purchase.models.output.matterbidding.SupplierTenderOutput">
+		<result column="supplier" jdbcType="VARCHAR" property="supplier" />
+	</resultMap>
+
+	<select id="selectSupplierByTenderPurchaseId" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+		SELECT
+		DISTINCT(supplier) supplier
+		FROM
+		purc_supplier_tender
+		<if test="purcMatterTenderPurchaseId != null">
+		WHERE
+
+				tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

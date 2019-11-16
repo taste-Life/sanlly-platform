@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.EvaluationVersionsMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.EvaluationVersions">
+    <id column="prod_evaluation_versions_id" jdbcType="INTEGER" property="prodEvaluationVersionsId" />
+    <result column="entry" jdbcType="VARCHAR" property="entry" />
+    <result column="before_update" jdbcType="VARCHAR" property="beforeUpdate" />
+    <result column="after_update" jdbcType="VARCHAR" property="afterUpdate" />
+    <result column="prod_course_id" jdbcType="VARCHAR" property="prodCourseId" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="version_no" jdbcType="INTEGER" property="versionNo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_evaluation_versions_id, entry, before_update, after_update, prod_course_id, 
+    container_category, version_no, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.EvaluationVersionsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_evaluation_versions
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_evaluation_versions
+    where prod_evaluation_versions_id = #{prodEvaluationVersionsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_evaluation_versions
+    where prod_evaluation_versions_id = #{prodEvaluationVersionsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.EvaluationVersionsExample">
+    delete from prod_evaluation_versions
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.EvaluationVersions">
+    insert into prod_evaluation_versions (prod_evaluation_versions_id, entry, 
+      before_update, after_update, prod_course_id, 
+      container_category, version_no, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodEvaluationVersionsId,jdbcType=INTEGER}, #{entry,jdbcType=VARCHAR}, 
+      #{beforeUpdate,jdbcType=VARCHAR}, #{afterUpdate,jdbcType=VARCHAR}, #{prodCourseId,jdbcType=VARCHAR}, 
+      #{containerCategory,jdbcType=VARCHAR}, #{versionNo,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.EvaluationVersions">
+    insert into prod_evaluation_versions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodEvaluationVersionsId != null">
+        prod_evaluation_versions_id,
+      </if>
+      <if test="entry != null">
+        entry,
+      </if>
+      <if test="beforeUpdate != null">
+        before_update,
+      </if>
+      <if test="afterUpdate != null">
+        after_update,
+      </if>
+      <if test="prodCourseId != null">
+        prod_course_id,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="versionNo != null">
+        version_no,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodEvaluationVersionsId != null">
+        #{prodEvaluationVersionsId,jdbcType=INTEGER},
+      </if>
+      <if test="entry != null">
+        #{entry,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeUpdate != null">
+        #{beforeUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="afterUpdate != null">
+        #{afterUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCourseId != null">
+        #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null">
+        #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.EvaluationVersionsExample" resultType="java.lang.Long">
+    select count(*) from prod_evaluation_versions
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_evaluation_versions
+    <set>
+      <if test="record.prodEvaluationVersionsId != null">
+        prod_evaluation_versions_id = #{record.prodEvaluationVersionsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entry != null">
+        entry = #{record.entry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beforeUpdate != null">
+        before_update = #{record.beforeUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afterUpdate != null">
+        after_update = #{record.afterUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodCourseId != null">
+        prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionNo != null">
+        version_no = #{record.versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_evaluation_versions
+    set prod_evaluation_versions_id = #{record.prodEvaluationVersionsId,jdbcType=INTEGER},
+      entry = #{record.entry,jdbcType=VARCHAR},
+      before_update = #{record.beforeUpdate,jdbcType=VARCHAR},
+      after_update = #{record.afterUpdate,jdbcType=VARCHAR},
+      prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      version_no = #{record.versionNo,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.EvaluationVersions">
+    update prod_evaluation_versions
+    <set>
+      <if test="entry != null">
+        entry = #{entry,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeUpdate != null">
+        before_update = #{beforeUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="afterUpdate != null">
+        after_update = #{afterUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCourseId != null">
+        prod_course_id = #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null">
+        version_no = #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_evaluation_versions_id = #{prodEvaluationVersionsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.EvaluationVersions">
+    update prod_evaluation_versions
+    set entry = #{entry,jdbcType=VARCHAR},
+      before_update = #{beforeUpdate,jdbcType=VARCHAR},
+      after_update = #{afterUpdate,jdbcType=VARCHAR},
+      prod_course_id = #{prodCourseId,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      version_no = #{versionNo,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_evaluation_versions_id = #{prodEvaluationVersionsId,jdbcType=INTEGER}
+  </update>
+</mapper>

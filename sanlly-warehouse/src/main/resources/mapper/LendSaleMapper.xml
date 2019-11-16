@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.LendSaleMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.LendSale">
+    <id column="lend_sale_id" jdbcType="INTEGER" property="lendSaleId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="bill_status" jdbcType="VARCHAR" property="billStatus" />
+    <result column="borrow_lend_id" jdbcType="INTEGER" property="borrowLendId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sale_no" jdbcType="VARCHAR" property="saleNo" />
+    <result column="receive_user" jdbcType="VARCHAR" property="receiveUser" />
+    <result column="recipient" jdbcType="VARCHAR" property="recipient" />
+    <result column="concat_way" jdbcType="VARCHAR" property="concatWay" />
+    <result column="purchaser" jdbcType="VARCHAR" property="purchaser" />
+    <result column="purchase_unit" jdbcType="VARCHAR" property="purchaseUnit" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    lend_sale_id, remark, bill_status, borrow_lend_id, address, sale_no, receive_user, 
+    recipient, concat_way, purchaser, purchase_unit, is_del, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.LendSaleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_lend_sale
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_lend_sale
+    where lend_sale_id = #{lendSaleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_lend_sale
+    where lend_sale_id = #{lendSaleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.LendSaleExample">
+    delete from ware_lend_sale
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.LendSale">
+    <selectKey keyProperty="lendSaleId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_lend_sale (remark, bill_status, borrow_lend_id, 
+      address, sale_no, receive_user, 
+      recipient, concat_way, purchaser, 
+      purchase_unit, is_del, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{remark,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR}, #{borrowLendId,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{saleNo,jdbcType=VARCHAR}, #{receiveUser,jdbcType=VARCHAR}, 
+      #{recipient,jdbcType=VARCHAR}, #{concatWay,jdbcType=VARCHAR}, #{purchaser,jdbcType=VARCHAR}, 
+      #{purchaseUnit,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.LendSale">
+    <selectKey keyProperty="lendSaleId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_lend_sale
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="billStatus != null">
+        bill_status,
+      </if>
+      <if test="borrowLendId != null">
+        borrow_lend_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="saleNo != null">
+        sale_no,
+      </if>
+      <if test="receiveUser != null">
+        receive_user,
+      </if>
+      <if test="recipient != null">
+        recipient,
+      </if>
+      <if test="concatWay != null">
+        concat_way,
+      </if>
+      <if test="purchaser != null">
+        purchaser,
+      </if>
+      <if test="purchaseUnit != null">
+        purchase_unit,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowLendId != null">
+        #{borrowLendId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNo != null">
+        #{saleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUser != null">
+        #{receiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="concatWay != null">
+        #{concatWay,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaser != null">
+        #{purchaser,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseUnit != null">
+        #{purchaseUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.LendSaleExample" resultType="java.lang.Long">
+    select count(*) from ware_lend_sale
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_lend_sale
+    <set>
+      <if test="record.lendSaleId != null">
+        lend_sale_id = #{record.lendSaleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billStatus != null">
+        bill_status = #{record.billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowLendId != null">
+        borrow_lend_id = #{record.borrowLendId,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleNo != null">
+        sale_no = #{record.saleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveUser != null">
+        receive_user = #{record.receiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipient != null">
+        recipient = #{record.recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.concatWay != null">
+        concat_way = #{record.concatWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaser != null">
+        purchaser = #{record.purchaser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseUnit != null">
+        purchase_unit = #{record.purchaseUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_lend_sale
+    set lend_sale_id = #{record.lendSaleId,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      bill_status = #{record.billStatus,jdbcType=VARCHAR},
+      borrow_lend_id = #{record.borrowLendId,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      sale_no = #{record.saleNo,jdbcType=VARCHAR},
+      receive_user = #{record.receiveUser,jdbcType=VARCHAR},
+      recipient = #{record.recipient,jdbcType=VARCHAR},
+      concat_way = #{record.concatWay,jdbcType=VARCHAR},
+      purchaser = #{record.purchaser,jdbcType=VARCHAR},
+      purchase_unit = #{record.purchaseUnit,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.LendSale">
+    update ware_lend_sale
+    <set>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        bill_status = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowLendId != null">
+        borrow_lend_id = #{borrowLendId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNo != null">
+        sale_no = #{saleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUser != null">
+        receive_user = #{receiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        recipient = #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="concatWay != null">
+        concat_way = #{concatWay,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaser != null">
+        purchaser = #{purchaser,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseUnit != null">
+        purchase_unit = #{purchaseUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lend_sale_id = #{lendSaleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.LendSale">
+    update ware_lend_sale
+    set remark = #{remark,jdbcType=VARCHAR},
+      bill_status = #{billStatus,jdbcType=VARCHAR},
+      borrow_lend_id = #{borrowLendId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      sale_no = #{saleNo,jdbcType=VARCHAR},
+      receive_user = #{receiveUser,jdbcType=VARCHAR},
+      recipient = #{recipient,jdbcType=VARCHAR},
+      concat_way = #{concatWay,jdbcType=VARCHAR},
+      purchaser = #{purchaser,jdbcType=VARCHAR},
+      purchase_unit = #{purchaseUnit,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where lend_sale_id = #{lendSaleId,jdbcType=INTEGER}
+  </update>
+</mapper>

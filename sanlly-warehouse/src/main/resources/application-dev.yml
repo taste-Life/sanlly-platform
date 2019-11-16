@@ -1,0 +1,58 @@
+server:
+  port: 9034
+  max-http-header-size: 104857600 #100M
+  tomcat:
+    max-http-header-size: 104857600 #100M
+spring:
+  application:
+    name: warehouse
+  mysql:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sanlly_dev?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: root
+        password: root
+        maxActive: 30 #连接池最大使用连接数量
+        minIdle: 0 #连接池最小空闲
+        initialSize: 0   # 初始化连接大小 
+        mapperLocations: classpath*:mapper/*.xml
+  devtools:
+    restart:
+      enabled: true
+  mvc:
+    date-format: yyyy-MM-dd   #date类型参数按照此格式进行日期格式化
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    ##续约更新时间间隔设置5秒，m默认30s
+    lease-renewal-interval-in-seconds: 5
+    ##续约到期时间10秒，默认是90秒
+    lease-expiration-duration-in-seconds: 10
+    health-check-url-path: /actuator/health
+  client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
+###feign 默认关闭熔断，请看HystrixFeignConfiguration
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareDeliverySlipMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareDeliverySlip">
+    <id column="ware_delivery_slip_id" jdbcType="INTEGER" property="wareDeliverySlipId" />
+    <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
+    <result column="delivery_slip_no" jdbcType="VARCHAR" property="deliverySlipNo" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="invoice_type" jdbcType="VARCHAR" property="invoiceType" />
+    <result column="delivery_status" jdbcType="VARCHAR" property="deliveryStatus" />
+    <result column="delivery_num" jdbcType="DOUBLE" property="deliveryNum" />
+    <result column="logistics_company" jdbcType="VARCHAR" property="logisticsCompany" />
+    <result column="logistics_num" jdbcType="VARCHAR" property="logisticsNum" />
+    <result column="receiving_user" jdbcType="VARCHAR" property="receivingUser" />
+    <result column="receiving_address" jdbcType="VARCHAR" property="receivingAddress" />
+    <result column="int_warehouse" jdbcType="VARCHAR" property="intWarehouse" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="out_warehouse" jdbcType="VARCHAR" property="outWarehouse" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_delivery_slip_id, purchase_no, delivery_slip_no, `no`, delivery_date, supplier, 
+    invoice_type, delivery_status, delivery_num, logistics_company, logistics_num, receiving_user, 
+    receiving_address, int_warehouse, company, out_warehouse, remark, is_del, create_time, 
+    create_user, update_time, update_user, bill_type, freight, `status`
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareDeliverySlipExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_delivery_slip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_delivery_slip
+    where ware_delivery_slip_id = #{wareDeliverySlipId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_delivery_slip
+    where ware_delivery_slip_id = #{wareDeliverySlipId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareDeliverySlipExample">
+    delete from ware_delivery_slip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareDeliverySlip">
+    <selectKey keyProperty="wareDeliverySlipId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_delivery_slip (purchase_no, delivery_slip_no, `no`, 
+      delivery_date, supplier, invoice_type, 
+      delivery_status, delivery_num, logistics_company, 
+      logistics_num, receiving_user, receiving_address, 
+      int_warehouse, company, out_warehouse, 
+      remark, is_del, create_time, 
+      create_user, update_time, update_user, 
+      bill_type, freight, `status`
+      )
+    values (#{purchaseNo,jdbcType=VARCHAR}, #{deliverySlipNo,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, 
+      #{deliveryDate,jdbcType=TIMESTAMP}, #{supplier,jdbcType=VARCHAR}, #{invoiceType,jdbcType=VARCHAR}, 
+      #{deliveryStatus,jdbcType=VARCHAR}, #{deliveryNum,jdbcType=DOUBLE}, #{logisticsCompany,jdbcType=VARCHAR}, 
+      #{logisticsNum,jdbcType=VARCHAR}, #{receivingUser,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, 
+      #{intWarehouse,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{outWarehouse,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{billType,jdbcType=VARCHAR}, #{freight,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareDeliverySlip">
+    <selectKey keyProperty="wareDeliverySlipId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_delivery_slip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purchaseNo != null">
+        purchase_no,
+      </if>
+      <if test="deliverySlipNo != null">
+        delivery_slip_no,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="deliveryDate != null">
+        delivery_date,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="invoiceType != null">
+        invoice_type,
+      </if>
+      <if test="deliveryStatus != null">
+        delivery_status,
+      </if>
+      <if test="deliveryNum != null">
+        delivery_num,
+      </if>
+      <if test="logisticsCompany != null">
+        logistics_company,
+      </if>
+      <if test="logisticsNum != null">
+        logistics_num,
+      </if>
+      <if test="receivingUser != null">
+        receiving_user,
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address,
+      </if>
+      <if test="intWarehouse != null">
+        int_warehouse,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="outWarehouse != null">
+        out_warehouse,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+      <if test="freight != null">
+        freight,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purchaseNo != null">
+        #{purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverySlipNo != null">
+        #{deliverySlipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null">
+        #{deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryStatus != null">
+        #{deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null">
+        #{deliveryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="logisticsCompany != null">
+        #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNum != null">
+        #{logisticsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingUser != null">
+        #{receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="intWarehouse != null">
+        #{intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="outWarehouse != null">
+        #{outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null">
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareDeliverySlipExample" resultType="java.lang.Long">
+    select count(*) from ware_delivery_slip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_delivery_slip
+    <set>
+      <if test="record.wareDeliverySlipId != null">
+        ware_delivery_slip_id = #{record.wareDeliverySlipId,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseNo != null">
+        purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliverySlipNo != null">
+        delivery_slip_no = #{record.deliverySlipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.no != null">
+        `no` = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryDate != null">
+        delivery_date = #{record.deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceType != null">
+        invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryStatus != null">
+        delivery_status = #{record.deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryNum != null">
+        delivery_num = #{record.deliveryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.logisticsCompany != null">
+        logistics_company = #{record.logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsNum != null">
+        logistics_num = #{record.logisticsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingUser != null">
+        receiving_user = #{record.receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingAddress != null">
+        receiving_address = #{record.receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intWarehouse != null">
+        int_warehouse = #{record.intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outWarehouse != null">
+        out_warehouse = #{record.outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.billType != null">
+        bill_type = #{record.billType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freight != null">
+        freight = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_delivery_slip
+    set ware_delivery_slip_id = #{record.wareDeliverySlipId,jdbcType=INTEGER},
+      purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
+      delivery_slip_no = #{record.deliverySlipNo,jdbcType=VARCHAR},
+      `no` = #{record.no,jdbcType=VARCHAR},
+      delivery_date = #{record.deliveryDate,jdbcType=TIMESTAMP},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
+      delivery_status = #{record.deliveryStatus,jdbcType=VARCHAR},
+      delivery_num = #{record.deliveryNum,jdbcType=DOUBLE},
+      logistics_company = #{record.logisticsCompany,jdbcType=VARCHAR},
+      logistics_num = #{record.logisticsNum,jdbcType=VARCHAR},
+      receiving_user = #{record.receivingUser,jdbcType=VARCHAR},
+      receiving_address = #{record.receivingAddress,jdbcType=VARCHAR},
+      int_warehouse = #{record.intWarehouse,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      out_warehouse = #{record.outWarehouse,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      bill_type = #{record.billType,jdbcType=VARCHAR},
+      freight = #{record.freight,jdbcType=DECIMAL},
+      `status` = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareDeliverySlip">
+    update ware_delivery_slip
+    <set>
+      <if test="purchaseNo != null">
+        purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverySlipNo != null">
+        delivery_slip_no = #{deliverySlipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null">
+        delivery_date = #{deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        invoice_type = #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryStatus != null">
+        delivery_status = #{deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null">
+        delivery_num = #{deliveryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="logisticsCompany != null">
+        logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNum != null">
+        logistics_num = #{logisticsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingUser != null">
+        receiving_user = #{receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="intWarehouse != null">
+        int_warehouse = #{intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="outWarehouse != null">
+        out_warehouse = #{outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="billType != null">
+        bill_type = #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null">
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_delivery_slip_id = #{wareDeliverySlipId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareDeliverySlip">
+    update ware_delivery_slip
+    set purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      delivery_slip_no = #{deliverySlipNo,jdbcType=VARCHAR},
+      `no` = #{no,jdbcType=VARCHAR},
+      delivery_date = #{deliveryDate,jdbcType=TIMESTAMP},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      invoice_type = #{invoiceType,jdbcType=VARCHAR},
+      delivery_status = #{deliveryStatus,jdbcType=VARCHAR},
+      delivery_num = #{deliveryNum,jdbcType=DOUBLE},
+      logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      logistics_num = #{logisticsNum,jdbcType=VARCHAR},
+      receiving_user = #{receivingUser,jdbcType=VARCHAR},
+      receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      int_warehouse = #{intWarehouse,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      out_warehouse = #{outWarehouse,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      bill_type = #{billType,jdbcType=VARCHAR},
+      freight = #{freight,jdbcType=DECIMAL},
+      `status` = #{status,jdbcType=VARCHAR}
+    where ware_delivery_slip_id = #{wareDeliverySlipId,jdbcType=INTEGER}
+  </update>
+</mapper>

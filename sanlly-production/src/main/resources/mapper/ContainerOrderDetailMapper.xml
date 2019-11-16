@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.ContainerOrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.ContainerOrderDetail">
+    <id column="prod_container_order_detail_id" jdbcType="INTEGER" property="prodContainerOrderDetailId" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="unit_type" jdbcType="VARCHAR" property="unitType" />
+    <result column="factory" jdbcType="VARCHAR" property="factory" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="hardware_version" jdbcType="VARCHAR" property="hardwareVersion" />
+    <result column="controller_version" jdbcType="VARCHAR" property="controllerVersion" />
+    <result column="unit_code" jdbcType="VARCHAR" property="unitCode" />
+    <result column="uni_id" jdbcType="VARCHAR" property="uniId" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="comm_date" jdbcType="VARCHAR" property="commDate" />
+    <result column="substrate_code" jdbcType="VARCHAR" property="substrateCode" />
+    <result column="compressor_no" jdbcType="VARCHAR" property="compressorNo" />
+    <result column="thermograph_no" jdbcType="VARCHAR" property="thermographNo" />
+    <result column="modem_no" jdbcType="VARCHAR" property="modemNo" />
+    <result column="gps_no" jdbcType="VARCHAR" property="gpsNo" />
+    <result column="ca_no" jdbcType="VARCHAR" property="caNo" />
+    <result column="cold_date" jdbcType="VARCHAR" property="coldDate" />
+    <result column="controller_no" jdbcType="VARCHAR" property="controllerNo" />
+    <result column="base_no" jdbcType="VARCHAR" property="baseNo" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_container_order_detail_id, `no`, customer_name, order_no, unit_type, factory, 
+    container_category, hardware_version, controller_version, unit_code, uni_id, unit, 
+    container_no, comm_date, substrate_code, compressor_no, thermograph_no, modem_no, 
+    gps_no, ca_no, cold_date, controller_no, base_no, `state`, remark, create_time, create_user, 
+    update_time, update_user, is_del
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.ContainerOrderDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_container_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_container_order_detail
+    where prod_container_order_detail_id = #{prodContainerOrderDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_container_order_detail
+    where prod_container_order_detail_id = #{prodContainerOrderDetailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.ContainerOrderDetailExample">
+    delete from prod_container_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.ContainerOrderDetail">
+    insert into prod_container_order_detail (prod_container_order_detail_id, `no`, customer_name, 
+      order_no, unit_type, factory, 
+      container_category, hardware_version, controller_version, 
+      unit_code, uni_id, unit, 
+      container_no, comm_date, substrate_code, 
+      compressor_no, thermograph_no, modem_no, 
+      gps_no, ca_no, cold_date, 
+      controller_no, base_no, `state`, 
+      remark, create_time, create_user, 
+      update_time, update_user, is_del
+      )
+    values (#{prodContainerOrderDetailId,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{unitType,jdbcType=VARCHAR}, #{factory,jdbcType=VARCHAR}, 
+      #{containerCategory,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR}, #{controllerVersion,jdbcType=VARCHAR}, 
+      #{unitCode,jdbcType=VARCHAR}, #{uniId,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{containerNo,jdbcType=VARCHAR}, #{commDate,jdbcType=VARCHAR}, #{substrateCode,jdbcType=VARCHAR}, 
+      #{compressorNo,jdbcType=VARCHAR}, #{thermographNo,jdbcType=VARCHAR}, #{modemNo,jdbcType=VARCHAR}, 
+      #{gpsNo,jdbcType=VARCHAR}, #{caNo,jdbcType=VARCHAR}, #{coldDate,jdbcType=VARCHAR}, 
+      #{controllerNo,jdbcType=VARCHAR}, #{baseNo,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.ContainerOrderDetail">
+    insert into prod_container_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodContainerOrderDetailId != null">
+        prod_container_order_detail_id,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="unitType != null">
+        unit_type,
+      </if>
+      <if test="factory != null">
+        factory,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="hardwareVersion != null">
+        hardware_version,
+      </if>
+      <if test="controllerVersion != null">
+        controller_version,
+      </if>
+      <if test="unitCode != null">
+        unit_code,
+      </if>
+      <if test="uniId != null">
+        uni_id,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="commDate != null">
+        comm_date,
+      </if>
+      <if test="substrateCode != null">
+        substrate_code,
+      </if>
+      <if test="compressorNo != null">
+        compressor_no,
+      </if>
+      <if test="thermographNo != null">
+        thermograph_no,
+      </if>
+      <if test="modemNo != null">
+        modem_no,
+      </if>
+      <if test="gpsNo != null">
+        gps_no,
+      </if>
+      <if test="caNo != null">
+        ca_no,
+      </if>
+      <if test="coldDate != null">
+        cold_date,
+      </if>
+      <if test="controllerNo != null">
+        controller_no,
+      </if>
+      <if test="baseNo != null">
+        base_no,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodContainerOrderDetailId != null">
+        #{prodContainerOrderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null">
+        #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null">
+        #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareVersion != null">
+        #{hardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerVersion != null">
+        #{controllerVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null">
+        #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uniId != null">
+        #{uniId,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commDate != null">
+        #{commDate,jdbcType=VARCHAR},
+      </if>
+      <if test="substrateCode != null">
+        #{substrateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="compressorNo != null">
+        #{compressorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="thermographNo != null">
+        #{thermographNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modemNo != null">
+        #{modemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsNo != null">
+        #{gpsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="caNo != null">
+        #{caNo,jdbcType=VARCHAR},
+      </if>
+      <if test="coldDate != null">
+        #{coldDate,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerNo != null">
+        #{controllerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="baseNo != null">
+        #{baseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.ContainerOrderDetailExample" resultType="java.lang.Long">
+    select count(*) from prod_container_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_container_order_detail
+    <set>
+      <if test="record.prodContainerOrderDetailId != null">
+        prod_container_order_detail_id = #{record.prodContainerOrderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        `no` = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitType != null">
+        unit_type = #{record.unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factory != null">
+        factory = #{record.factory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hardwareVersion != null">
+        hardware_version = #{record.hardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controllerVersion != null">
+        controller_version = #{record.controllerVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitCode != null">
+        unit_code = #{record.unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uniId != null">
+        uni_id = #{record.uniId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commDate != null">
+        comm_date = #{record.commDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.substrateCode != null">
+        substrate_code = #{record.substrateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compressorNo != null">
+        compressor_no = #{record.compressorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thermographNo != null">
+        thermograph_no = #{record.thermographNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modemNo != null">
+        modem_no = #{record.modemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpsNo != null">
+        gps_no = #{record.gpsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caNo != null">
+        ca_no = #{record.caNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coldDate != null">
+        cold_date = #{record.coldDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controllerNo != null">
+        controller_no = #{record.controllerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseNo != null">
+        base_no = #{record.baseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_container_order_detail
+    set prod_container_order_detail_id = #{record.prodContainerOrderDetailId,jdbcType=INTEGER},
+      `no` = #{record.no,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      unit_type = #{record.unitType,jdbcType=VARCHAR},
+      factory = #{record.factory,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      hardware_version = #{record.hardwareVersion,jdbcType=VARCHAR},
+      controller_version = #{record.controllerVersion,jdbcType=VARCHAR},
+      unit_code = #{record.unitCode,jdbcType=VARCHAR},
+      uni_id = #{record.uniId,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      comm_date = #{record.commDate,jdbcType=VARCHAR},
+      substrate_code = #{record.substrateCode,jdbcType=VARCHAR},
+      compressor_no = #{record.compressorNo,jdbcType=VARCHAR},
+      thermograph_no = #{record.thermographNo,jdbcType=VARCHAR},
+      modem_no = #{record.modemNo,jdbcType=VARCHAR},
+      gps_no = #{record.gpsNo,jdbcType=VARCHAR},
+      ca_no = #{record.caNo,jdbcType=VARCHAR},
+      cold_date = #{record.coldDate,jdbcType=VARCHAR},
+      controller_no = #{record.controllerNo,jdbcType=VARCHAR},
+      base_no = #{record.baseNo,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.ContainerOrderDetail">
+    update prod_container_order_detail
+    <set>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null">
+        unit_type = #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null">
+        factory = #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareVersion != null">
+        hardware_version = #{hardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerVersion != null">
+        controller_version = #{controllerVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null">
+        unit_code = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uniId != null">
+        uni_id = #{uniId,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commDate != null">
+        comm_date = #{commDate,jdbcType=VARCHAR},
+      </if>
+      <if test="substrateCode != null">
+        substrate_code = #{substrateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="compressorNo != null">
+        compressor_no = #{compressorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="thermographNo != null">
+        thermograph_no = #{thermographNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modemNo != null">
+        modem_no = #{modemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsNo != null">
+        gps_no = #{gpsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="caNo != null">
+        ca_no = #{caNo,jdbcType=VARCHAR},
+      </if>
+      <if test="coldDate != null">
+        cold_date = #{coldDate,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerNo != null">
+        controller_no = #{controllerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="baseNo != null">
+        base_no = #{baseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_container_order_detail_id = #{prodContainerOrderDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.ContainerOrderDetail">
+    update prod_container_order_detail
+    set `no` = #{no,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      factory = #{factory,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      hardware_version = #{hardwareVersion,jdbcType=VARCHAR},
+      controller_version = #{controllerVersion,jdbcType=VARCHAR},
+      unit_code = #{unitCode,jdbcType=VARCHAR},
+      uni_id = #{uniId,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      comm_date = #{commDate,jdbcType=VARCHAR},
+      substrate_code = #{substrateCode,jdbcType=VARCHAR},
+      compressor_no = #{compressorNo,jdbcType=VARCHAR},
+      thermograph_no = #{thermographNo,jdbcType=VARCHAR},
+      modem_no = #{modemNo,jdbcType=VARCHAR},
+      gps_no = #{gpsNo,jdbcType=VARCHAR},
+      ca_no = #{caNo,jdbcType=VARCHAR},
+      cold_date = #{coldDate,jdbcType=VARCHAR},
+      controller_no = #{controllerNo,jdbcType=VARCHAR},
+      base_no = #{baseNo,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where prod_container_order_detail_id = #{prodContainerOrderDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

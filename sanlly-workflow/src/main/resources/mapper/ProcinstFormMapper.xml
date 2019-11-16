@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activiti.dao.ProcinstFormMapper">
+  <resultMap id="BaseResultMap" type="com.activiti.entity.ProcinstFormKey">
+    <id column="PROC_INST_ID" jdbcType="VARCHAR" property="procInstId" />
+    <id column="FORM_ID" jdbcType="VARCHAR" property="formId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PROC_INST_ID, FORM_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.activiti.entity.ProcinstFormExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wf_procinst_form
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.activiti.entity.ProcinstFormKey">
+    delete from wf_procinst_form
+    where PROC_INST_ID = #{procInstId,jdbcType=VARCHAR}
+      and FORM_ID = #{formId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.activiti.entity.ProcinstFormExample">
+    delete from wf_procinst_form
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.activiti.entity.ProcinstFormKey">
+    insert into wf_procinst_form (PROC_INST_ID, FORM_ID)
+    values (#{procInstId,jdbcType=VARCHAR}, #{formId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.activiti.entity.ProcinstFormKey">
+    insert into wf_procinst_form
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="procInstId != null">
+        PROC_INST_ID,
+      </if>
+      <if test="formId != null">
+        FORM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="procInstId != null">
+        #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="formId != null">
+        #{formId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.activiti.entity.ProcinstFormExample" resultType="java.lang.Long">
+    select count(*) from wf_procinst_form
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wf_procinst_form
+    <set>
+      <if test="record.procInstId != null">
+        PROC_INST_ID = #{record.procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formId != null">
+        FORM_ID = #{record.formId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wf_procinst_form
+    set PROC_INST_ID = #{record.procInstId,jdbcType=VARCHAR},
+      FORM_ID = #{record.formId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

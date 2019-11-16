@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.BorrowLendExtMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sanlly.warehouse.entity.BorrowLend">
+		<id column="ware_borrow_lend_slip_id" jdbcType="INTEGER"
+			property="wareBorrowLendSlipId" />
+		<result column="borrow_lend_no" jdbcType="VARCHAR"
+			property="borrowLendNo" />
+		<result column="container_no" jdbcType="VARCHAR"
+			property="containerNo" />
+		<result column="yard" jdbcType="VARCHAR" property="yard" />
+		<result column="company" jdbcType="VARCHAR" property="company" />
+		<result column="borrow_unit" jdbcType="VARCHAR"
+			property="borrowUnit" />
+		<result column="borrow_user" jdbcType="INTEGER"
+			property="borrowUser" />
+		<result column="borrow_type" jdbcType="VARCHAR"
+			property="borrowType" />
+		<result column="out_warehouse" jdbcType="VARCHAR"
+			property="outWarehouse" />
+		<result column="in_warehouse" jdbcType="VARCHAR"
+			property="inWarehouse" />
+		<result column="escrow_warehouse" jdbcType="VARCHAR"
+			property="escrowWarehouse" />
+		<result column="audit_status" jdbcType="VARCHAR"
+			property="auditStatus" />
+		<result column="reasons_rejection" jdbcType="VARCHAR"
+			property="reasonsRejection" />
+		<result column="bill_status" jdbcType="VARCHAR"
+			property="billStatus" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="is_del" jdbcType="INTEGER" property="isDel" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="create_user" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="update_user" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="category" jdbcType="INTEGER"
+			property="category" />
+	</resultMap>
+
+	<select id="selectByCondition" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS
+		bls.*
+		FROM
+		ware_borrow_lend_slip bls
+		LEFT JOIN ware_borrow_lend_detail bld ON
+		bld.ware_borrow_lend_slip=bls.ware_borrow_lend_slip_id
+		LEFT JOIN ware_spare_parts sp ON sp.`key` = bld.spare_parts
+		WHERE
+		bls.is_del = 0
+		<if test="startDate != null and endDate != null">
+			AND bls.create_time BETWEEN #{startDate,jdbcType=DATE} and
+			#{endDate,jdbcType=DATE}
+		</if>
+		<if test="yard != null and yard != ''">
+			AND bls.yard=#{yard,jdbcType=VARCHAR}
+		</if>
+		<if test="no != null and no != ''">
+			AND bls.borrow_lend_no LIKE
+			CONCAT('%',#{no,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="borrowUnit != null and borrowUnit != ''">
+			AND bls.borrow_unit LIKE
+			CONCAT('%',#{borrowUnit,jdbcType=VARCHAR},'%')
+		</if>
+		<!-- <if test="containerNo != null and containerNo != ''">
+			AND bls.container_no LIKE
+			CONCAT('%',#{containerNo,jdbcType=VARCHAR},'%')
+		</if> -->
+		<if test="status != null and status != ''">
+			AND bls.bill_status=#{status,jdbcType=VARCHAR}
+		</if>
+		<!-- <if test="warehouse != null and warehouse != ''">
+			AND sbd.warehouse =#{warehouse,jdbcType=VARCHAR}
+		</if>
+		<if test="warehouseType != null and warehouseType != ''">
+			AND sbd.warehouse_type =#{yard,jdbcType=VARCHAR}
+		</if> -->
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND sp.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND sp.spare_parts_name LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND sp.spare_parts_name_en LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="category != null">
+			AND bls.category = #{category,jdbcType=INTEGER}
+		</if>
+		GROUP BY bls.ware_borrow_lend_slip_id
+		ORDER BY bls.create_time DESC
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+	</select>
+
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+</mapper>

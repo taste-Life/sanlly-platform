@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareLaborInformationStaffMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareLaborInformationStaff">
+    <id column="ware_labor_information_staff_id" jdbcType="INTEGER" property="wareLaborInformationStaffId" />
+    <result column="labaor_insurance_no" jdbcType="VARCHAR" property="labaorInsuranceNo" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="user" jdbcType="INTEGER" property="user" />
+    <result column="height" jdbcType="DOUBLE" property="height" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="summer_wear" jdbcType="VARCHAR" property="summerWear" />
+    <result column="spring_autumn_wear" jdbcType="VARCHAR" property="springAutumnWear" />
+    <result column="cotton_padded_clothes" jdbcType="VARCHAR" property="cottonPaddedClothes" />
+    <result column="steel_headed_shoes_short" jdbcType="INTEGER" property="steelHeadedShoesShort" />
+    <result column="steel_headed_shoes_high" jdbcType="INTEGER" property="steelHeadedShoesHigh" />
+    <result column="insulating_shoes" jdbcType="INTEGER" property="insulatingShoes" />
+    <result column="cotton_padded_shoes" jdbcType="INTEGER" property="cottonPaddedShoes" />
+    <result column="rain_coat" jdbcType="VARCHAR" property="rainCoat" />
+    <result column="rain_shoes" jdbcType="INTEGER" property="rainShoes" />
+    <result column="initiation_time" jdbcType="TIMESTAMP" property="initiationTime" />
+    <result column="leave_time" jdbcType="TIMESTAMP" property="leaveTime" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="is_leave" jdbcType="VARCHAR" property="isLeave" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_labor_information_staff_id, labaor_insurance_no, company, `user`, height, weight, 
+    summer_wear, spring_autumn_wear, cotton_padded_clothes, steel_headed_shoes_short, 
+    steel_headed_shoes_high, insulating_shoes, cotton_padded_shoes, rain_coat, rain_shoes, 
+    initiation_time, leave_time, is_enabled, is_del, create_time, create_user, update_time, 
+    update_user, is_leave
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaffExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_labor_information_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_labor_information_staff
+    where ware_labor_information_staff_id = #{wareLaborInformationStaffId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_labor_information_staff
+    where ware_labor_information_staff_id = #{wareLaborInformationStaffId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaffExample">
+    delete from ware_labor_information_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaff">
+    insert into ware_labor_information_staff (ware_labor_information_staff_id, labaor_insurance_no, 
+      company, `user`, height, 
+      weight, summer_wear, spring_autumn_wear, 
+      cotton_padded_clothes, steel_headed_shoes_short, 
+      steel_headed_shoes_high, insulating_shoes, 
+      cotton_padded_shoes, rain_coat, rain_shoes, 
+      initiation_time, leave_time, is_enabled, 
+      is_del, create_time, create_user, 
+      update_time, update_user, is_leave
+      )
+    values (#{wareLaborInformationStaffId,jdbcType=INTEGER}, #{labaorInsuranceNo,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{user,jdbcType=INTEGER}, #{height,jdbcType=DOUBLE}, 
+      #{weight,jdbcType=DOUBLE}, #{summerWear,jdbcType=VARCHAR}, #{springAutumnWear,jdbcType=VARCHAR}, 
+      #{cottonPaddedClothes,jdbcType=VARCHAR}, #{steelHeadedShoesShort,jdbcType=INTEGER}, 
+      #{steelHeadedShoesHigh,jdbcType=INTEGER}, #{insulatingShoes,jdbcType=INTEGER}, 
+      #{cottonPaddedShoes,jdbcType=INTEGER}, #{rainCoat,jdbcType=VARCHAR}, #{rainShoes,jdbcType=INTEGER}, 
+      #{initiationTime,jdbcType=TIMESTAMP}, #{leaveTime,jdbcType=TIMESTAMP}, #{isEnabled,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{isLeave,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaff">
+    insert into ware_labor_information_staff
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareLaborInformationStaffId != null">
+        ware_labor_information_staff_id,
+      </if>
+      <if test="labaorInsuranceNo != null">
+        labaor_insurance_no,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="user != null">
+        `user`,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="summerWear != null">
+        summer_wear,
+      </if>
+      <if test="springAutumnWear != null">
+        spring_autumn_wear,
+      </if>
+      <if test="cottonPaddedClothes != null">
+        cotton_padded_clothes,
+      </if>
+      <if test="steelHeadedShoesShort != null">
+        steel_headed_shoes_short,
+      </if>
+      <if test="steelHeadedShoesHigh != null">
+        steel_headed_shoes_high,
+      </if>
+      <if test="insulatingShoes != null">
+        insulating_shoes,
+      </if>
+      <if test="cottonPaddedShoes != null">
+        cotton_padded_shoes,
+      </if>
+      <if test="rainCoat != null">
+        rain_coat,
+      </if>
+      <if test="rainShoes != null">
+        rain_shoes,
+      </if>
+      <if test="initiationTime != null">
+        initiation_time,
+      </if>
+      <if test="leaveTime != null">
+        leave_time,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isLeave != null">
+        is_leave,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareLaborInformationStaffId != null">
+        #{wareLaborInformationStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="labaorInsuranceNo != null">
+        #{labaorInsuranceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null">
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="summerWear != null">
+        #{summerWear,jdbcType=VARCHAR},
+      </if>
+      <if test="springAutumnWear != null">
+        #{springAutumnWear,jdbcType=VARCHAR},
+      </if>
+      <if test="cottonPaddedClothes != null">
+        #{cottonPaddedClothes,jdbcType=VARCHAR},
+      </if>
+      <if test="steelHeadedShoesShort != null">
+        #{steelHeadedShoesShort,jdbcType=INTEGER},
+      </if>
+      <if test="steelHeadedShoesHigh != null">
+        #{steelHeadedShoesHigh,jdbcType=INTEGER},
+      </if>
+      <if test="insulatingShoes != null">
+        #{insulatingShoes,jdbcType=INTEGER},
+      </if>
+      <if test="cottonPaddedShoes != null">
+        #{cottonPaddedShoes,jdbcType=INTEGER},
+      </if>
+      <if test="rainCoat != null">
+        #{rainCoat,jdbcType=VARCHAR},
+      </if>
+      <if test="rainShoes != null">
+        #{rainShoes,jdbcType=INTEGER},
+      </if>
+      <if test="initiationTime != null">
+        #{initiationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveTime != null">
+        #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isLeave != null">
+        #{isLeave,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaffExample" resultType="java.lang.Long">
+    select count(*) from ware_labor_information_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_labor_information_staff
+    <set>
+      <if test="record.wareLaborInformationStaffId != null">
+        ware_labor_information_staff_id = #{record.wareLaborInformationStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.labaorInsuranceNo != null">
+        labaor_insurance_no = #{record.labaorInsuranceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.user != null">
+        `user` = #{record.user,jdbcType=INTEGER},
+      </if>
+      <if test="record.height != null">
+        height = #{record.height,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.summerWear != null">
+        summer_wear = #{record.summerWear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.springAutumnWear != null">
+        spring_autumn_wear = #{record.springAutumnWear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cottonPaddedClothes != null">
+        cotton_padded_clothes = #{record.cottonPaddedClothes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.steelHeadedShoesShort != null">
+        steel_headed_shoes_short = #{record.steelHeadedShoesShort,jdbcType=INTEGER},
+      </if>
+      <if test="record.steelHeadedShoesHigh != null">
+        steel_headed_shoes_high = #{record.steelHeadedShoesHigh,jdbcType=INTEGER},
+      </if>
+      <if test="record.insulatingShoes != null">
+        insulating_shoes = #{record.insulatingShoes,jdbcType=INTEGER},
+      </if>
+      <if test="record.cottonPaddedShoes != null">
+        cotton_padded_shoes = #{record.cottonPaddedShoes,jdbcType=INTEGER},
+      </if>
+      <if test="record.rainCoat != null">
+        rain_coat = #{record.rainCoat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rainShoes != null">
+        rain_shoes = #{record.rainShoes,jdbcType=INTEGER},
+      </if>
+      <if test="record.initiationTime != null">
+        initiation_time = #{record.initiationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leaveTime != null">
+        leave_time = #{record.leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.isLeave != null">
+        is_leave = #{record.isLeave,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_labor_information_staff
+    set ware_labor_information_staff_id = #{record.wareLaborInformationStaffId,jdbcType=INTEGER},
+      labaor_insurance_no = #{record.labaorInsuranceNo,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      `user` = #{record.user,jdbcType=INTEGER},
+      height = #{record.height,jdbcType=DOUBLE},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      summer_wear = #{record.summerWear,jdbcType=VARCHAR},
+      spring_autumn_wear = #{record.springAutumnWear,jdbcType=VARCHAR},
+      cotton_padded_clothes = #{record.cottonPaddedClothes,jdbcType=VARCHAR},
+      steel_headed_shoes_short = #{record.steelHeadedShoesShort,jdbcType=INTEGER},
+      steel_headed_shoes_high = #{record.steelHeadedShoesHigh,jdbcType=INTEGER},
+      insulating_shoes = #{record.insulatingShoes,jdbcType=INTEGER},
+      cotton_padded_shoes = #{record.cottonPaddedShoes,jdbcType=INTEGER},
+      rain_coat = #{record.rainCoat,jdbcType=VARCHAR},
+      rain_shoes = #{record.rainShoes,jdbcType=INTEGER},
+      initiation_time = #{record.initiationTime,jdbcType=TIMESTAMP},
+      leave_time = #{record.leaveTime,jdbcType=TIMESTAMP},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      is_leave = #{record.isLeave,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaff">
+    update ware_labor_information_staff
+    <set>
+      <if test="labaorInsuranceNo != null">
+        labaor_insurance_no = #{labaorInsuranceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null">
+        `user` = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="summerWear != null">
+        summer_wear = #{summerWear,jdbcType=VARCHAR},
+      </if>
+      <if test="springAutumnWear != null">
+        spring_autumn_wear = #{springAutumnWear,jdbcType=VARCHAR},
+      </if>
+      <if test="cottonPaddedClothes != null">
+        cotton_padded_clothes = #{cottonPaddedClothes,jdbcType=VARCHAR},
+      </if>
+      <if test="steelHeadedShoesShort != null">
+        steel_headed_shoes_short = #{steelHeadedShoesShort,jdbcType=INTEGER},
+      </if>
+      <if test="steelHeadedShoesHigh != null">
+        steel_headed_shoes_high = #{steelHeadedShoesHigh,jdbcType=INTEGER},
+      </if>
+      <if test="insulatingShoes != null">
+        insulating_shoes = #{insulatingShoes,jdbcType=INTEGER},
+      </if>
+      <if test="cottonPaddedShoes != null">
+        cotton_padded_shoes = #{cottonPaddedShoes,jdbcType=INTEGER},
+      </if>
+      <if test="rainCoat != null">
+        rain_coat = #{rainCoat,jdbcType=VARCHAR},
+      </if>
+      <if test="rainShoes != null">
+        rain_shoes = #{rainShoes,jdbcType=INTEGER},
+      </if>
+      <if test="initiationTime != null">
+        initiation_time = #{initiationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveTime != null">
+        leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isLeave != null">
+        is_leave = #{isLeave,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_labor_information_staff_id = #{wareLaborInformationStaffId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareLaborInformationStaff">
+    update ware_labor_information_staff
+    set labaor_insurance_no = #{labaorInsuranceNo,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      `user` = #{user,jdbcType=INTEGER},
+      height = #{height,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=DOUBLE},
+      summer_wear = #{summerWear,jdbcType=VARCHAR},
+      spring_autumn_wear = #{springAutumnWear,jdbcType=VARCHAR},
+      cotton_padded_clothes = #{cottonPaddedClothes,jdbcType=VARCHAR},
+      steel_headed_shoes_short = #{steelHeadedShoesShort,jdbcType=INTEGER},
+      steel_headed_shoes_high = #{steelHeadedShoesHigh,jdbcType=INTEGER},
+      insulating_shoes = #{insulatingShoes,jdbcType=INTEGER},
+      cotton_padded_shoes = #{cottonPaddedShoes,jdbcType=INTEGER},
+      rain_coat = #{rainCoat,jdbcType=VARCHAR},
+      rain_shoes = #{rainShoes,jdbcType=INTEGER},
+      initiation_time = #{initiationTime,jdbcType=TIMESTAMP},
+      leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      is_leave = #{isLeave,jdbcType=VARCHAR}
+    where ware_labor_information_staff_id = #{wareLaborInformationStaffId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.ReferralExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.models.output.referral.SearchAutomationOutput">
+    <result column="container_user" jdbcType="VARCHAR" property="containerUserLang" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="size" jdbcType="VARCHAR" property="sizeLang" />
+    <result column="course_type" jdbcType="VARCHAR" property="courseTypeLang" />
+    <result column="urgency" jdbcType="VARCHAR" property="urgencyLang" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="man_hour" jdbcType="DOUBLE" property="manHour" />
+    <result column="repair_period" jdbcType="DOUBLE" property="repairPeriod" />
+    <result column="use_reply_time" jdbcType="VARCHAR" property="replyTime" />
+    <result column="use_reply_state" jdbcType="VARCHAR" property="replyStateLang" />
+    <result column="designate_user" jdbcType="VARCHAR" property="designateUser" />
+    <result column="container_priority" jdbcType="INTEGER" property="containerPriority" />
+    <result column="referralHours" jdbcType="DOUBLE" property="referralHours" />
+  </resultMap>
+
+  <select id="getCourseList" parameterType="com.sanlly.production.models.input.referral.SearchAutomationInput" resultMap="BaseResultMap">
+    select c.container_user,c.container_no,c.size,c.course_type,c.urgency,c.man_hour,c.referral_time,
+		u.container_priority,u.repair_period,c.use_reply_time,c.use_reply_state,c.designate_user,g.grade,
+		FORMAT(TIMESTAMPDIFF(MINUTE,c.referral_time,(SELECT NOW()))/60,2) as referralHours
+	from prod_course c
+	LEFT JOIN prod_yard y on y.key = c.yard
+	LEFT JOIN prod_company_usecont u on c.container_user = u.container_user
+	LEFT JOIN prod_unit_urgency g on c.urgency = g.key
+	where c.referral_state = #{referralState} and u.company = y.company
+	<if test="yard != null and yard != ''">
+		and c.yard = #{yard}
+	</if>
+	<if test="containerCategory != null and containerCategory != ''">
+		and c.container_category = #{containerCategory}
+	</if>
+	<if test="containerUser != null and containerUser != ''">
+		and c.container_user = #{containerNo}
+	</if>
+	<if test="workGroup != null and workGroup != ''">
+		and c.designate_user = #{workGroup}
+	</if>
+	<if test="containerNo != null and containerNo != ''">
+		and c.container_no like CONCAT('%',#{containerNo},'%')
+	</if>
+	<if test="courseType != null and courseType != ''">
+		and c.course_type = #{courseType}
+	</if>
+	<if test="startDate != null and startDate != ''">
+		and c.referral_time &gt;=#{startDate}
+	</if>
+	<if test="endDate != null and endDate != ''">
+		and c.referral_time &lt;=#{endDate}
+	</if>
+  </select>
+  
+  <select id="getUnitCourseList" parameterType="com.sanlly.production.models.input.referral.SearchAutomationInput" resultMap="BaseResultMap">
+    select p.container_user,p.container_no,p.size,p.course_type,p.urgency,c.man_hour,c.referral_time,
+		u.container_priority,u.repair_period,c.use_reply_time,c.use_reply_state,c.designate_user,g.grade,
+		FORMAT(TIMESTAMPDIFF(MINUTE,c.referral_time,(SELECT NOW()))/60,2) as referralHours
+	from prod_unit_course c
+	LEFT JOIN prod_course p on p.prod_course_id = c.prod_course_id
+	LEFT JOIN prod_yard y on y.key = p.yard
+	LEFT JOIN prod_company_usecont u on p.container_user = u.container_user
+	LEFT JOIN prod_unit_urgency g on p.urgency = g.key
+	where c.referral_state = #{referralState} and u.company = y.company and (c.is_preview = 'LECOMMONOO002' or c.is_preview is null)
+	<if test="yard != null and yard != ''">
+		and p.yard = #{yard}
+	</if>
+	<if test="containerUser != null and containerUser != ''">
+		and p.container_user = #{containerNo}
+	</if>
+	<if test="workGroup != null and workGroup != ''">
+		and c.designate_user = #{workGroup}
+	</if>
+	<if test="containerNo != null and containerNo != ''">
+		and p.container_no like CONCAT('%',#{containerNo},'%')
+	</if>
+	<if test="courseType != null and courseType != ''">
+		and c.course_type = #{courseType}
+	</if>
+	<if test="startDate != null and startDate != ''">
+		and c.referral_time &gt;=#{startDate}
+	</if>
+	<if test="endDate != null and endDate != ''">
+		and c.referral_time &lt;=#{endDate}
+	</if>
+  </select>
+  
+</mapper>

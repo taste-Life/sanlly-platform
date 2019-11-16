@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WarePurchaseOrderMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WarePurchaseOrder">
+    <id column="ware_purchase_order_id" jdbcType="INTEGER" property="warePurchaseOrderId" />
+    <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="purchase_date" jdbcType="TIMESTAMP" property="purchaseDate" />
+    <result column="stockout_status" jdbcType="VARCHAR" property="stockoutStatus" />
+    <result column="receiving_user" jdbcType="VARCHAR" property="receivingUser" />
+    <result column="receiving_address" jdbcType="VARCHAR" property="receivingAddress" />
+    <result column="int_warehouse" jdbcType="VARCHAR" property="intWarehouse" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="is_finish" jdbcType="VARCHAR" property="isFinish" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_purchase_order_id, purchase_no, `no`, purchase_date, stockout_status, receiving_user, 
+    receiving_address, int_warehouse, company, is_finish, remark, is_del, create_time, 
+    create_user, update_time, update_user, bill_type
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_purchase_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_purchase_order
+    where ware_purchase_order_id = #{warePurchaseOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_purchase_order
+    where ware_purchase_order_id = #{warePurchaseOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrderExample">
+    delete from ware_purchase_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrder">
+    <selectKey keyProperty="warePurchaseOrderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_purchase_order (purchase_no, `no`, purchase_date, 
+      stockout_status, receiving_user, receiving_address, 
+      int_warehouse, company, is_finish, 
+      remark, is_del, create_time, 
+      create_user, update_time, update_user, 
+      bill_type)
+    values (#{purchaseNo,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{purchaseDate,jdbcType=TIMESTAMP}, 
+      #{stockoutStatus,jdbcType=VARCHAR}, #{receivingUser,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, 
+      #{intWarehouse,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{isFinish,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{billType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrder">
+    <selectKey keyProperty="warePurchaseOrderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_purchase_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purchaseNo != null">
+        purchase_no,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="purchaseDate != null">
+        purchase_date,
+      </if>
+      <if test="stockoutStatus != null">
+        stockout_status,
+      </if>
+      <if test="receivingUser != null">
+        receiving_user,
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address,
+      </if>
+      <if test="intWarehouse != null">
+        int_warehouse,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="isFinish != null">
+        is_finish,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purchaseNo != null">
+        #{purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseDate != null">
+        #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stockoutStatus != null">
+        #{stockoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingUser != null">
+        #{receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="intWarehouse != null">
+        #{intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null">
+        #{isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrderExample" resultType="java.lang.Long">
+    select count(*) from ware_purchase_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_purchase_order
+    <set>
+      <if test="record.warePurchaseOrderId != null">
+        ware_purchase_order_id = #{record.warePurchaseOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseNo != null">
+        purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.no != null">
+        `no` = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseDate != null">
+        purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stockoutStatus != null">
+        stockout_status = #{record.stockoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingUser != null">
+        receiving_user = #{record.receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingAddress != null">
+        receiving_address = #{record.receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intWarehouse != null">
+        int_warehouse = #{record.intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFinish != null">
+        is_finish = #{record.isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.billType != null">
+        bill_type = #{record.billType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_purchase_order
+    set ware_purchase_order_id = #{record.warePurchaseOrderId,jdbcType=INTEGER},
+      purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
+      `no` = #{record.no,jdbcType=VARCHAR},
+      purchase_date = #{record.purchaseDate,jdbcType=TIMESTAMP},
+      stockout_status = #{record.stockoutStatus,jdbcType=VARCHAR},
+      receiving_user = #{record.receivingUser,jdbcType=VARCHAR},
+      receiving_address = #{record.receivingAddress,jdbcType=VARCHAR},
+      int_warehouse = #{record.intWarehouse,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      is_finish = #{record.isFinish,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      bill_type = #{record.billType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrder">
+    update ware_purchase_order
+    <set>
+      <if test="purchaseNo != null">
+        purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseDate != null">
+        purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stockoutStatus != null">
+        stockout_status = #{stockoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingUser != null">
+        receiving_user = #{receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="intWarehouse != null">
+        int_warehouse = #{intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null">
+        is_finish = #{isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="billType != null">
+        bill_type = #{billType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_purchase_order_id = #{warePurchaseOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WarePurchaseOrder">
+    update ware_purchase_order
+    set purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      `no` = #{no,jdbcType=VARCHAR},
+      purchase_date = #{purchaseDate,jdbcType=TIMESTAMP},
+      stockout_status = #{stockoutStatus,jdbcType=VARCHAR},
+      receiving_user = #{receivingUser,jdbcType=VARCHAR},
+      receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      int_warehouse = #{intWarehouse,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      is_finish = #{isFinish,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      bill_type = #{billType,jdbcType=VARCHAR}
+    where ware_purchase_order_id = #{warePurchaseOrderId,jdbcType=INTEGER}
+  </update>
+</mapper>

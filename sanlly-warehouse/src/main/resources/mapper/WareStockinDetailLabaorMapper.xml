@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareStockinDetailLabaorMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareStockinDetailLabaor">
+    <id column="ware_stockin_detail_labaor_id" jdbcType="INTEGER" property="wareStockinDetailLabaorId" />
+    <result column="labaor_stockin" jdbcType="INTEGER" property="labaorStockin" />
+    <result column="stockin_batch" jdbcType="VARCHAR" property="stockinBatch" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="delivery_num" jdbcType="DOUBLE" property="deliveryNum" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="entry_num" jdbcType="DOUBLE" property="entryNum" />
+    <result column="storage_location" jdbcType="VARCHAR" property="storageLocation" />
+    <result column="tariff" jdbcType="DECIMAL" property="tariff" />
+    <result column="vat" jdbcType="DECIMAL" property="vat" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="warehouse_id" jdbcType="VARCHAR" property="warehouseId" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="invoice_price" jdbcType="DECIMAL" property="invoicePrice" />
+    <result column="core" jdbcType="DECIMAL" property="core" />
+    <result column="entry_price" jdbcType="DECIMAL" property="entryPrice" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_stockin_detail_labaor_id, labaor_stockin, stockin_batch, spare_parts, delivery_num, 
+    total_amount, entry_num, storage_location, tariff, vat, freight, warehouse_id, warehouse_type, 
+    invoice_price, core, entry_price, is_del, remark, create_time, create_user, update_time, 
+    update_user, model
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_stockin_detail_labaor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_stockin_detail_labaor
+    where ware_stockin_detail_labaor_id = #{wareStockinDetailLabaorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_stockin_detail_labaor
+    where ware_stockin_detail_labaor_id = #{wareStockinDetailLabaorId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaorExample">
+    delete from ware_stockin_detail_labaor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaor">
+    insert into ware_stockin_detail_labaor (ware_stockin_detail_labaor_id, labaor_stockin, 
+      stockin_batch, spare_parts, delivery_num, 
+      total_amount, entry_num, storage_location, 
+      tariff, vat, freight, 
+      warehouse_id, warehouse_type, invoice_price, 
+      core, entry_price, is_del, 
+      remark, create_time, create_user, 
+      update_time, update_user, model
+      )
+    values (#{wareStockinDetailLabaorId,jdbcType=INTEGER}, #{labaorStockin,jdbcType=INTEGER}, 
+      #{stockinBatch,jdbcType=VARCHAR}, #{spareParts,jdbcType=VARCHAR}, #{deliveryNum,jdbcType=DOUBLE}, 
+      #{totalAmount,jdbcType=DECIMAL}, #{entryNum,jdbcType=DOUBLE}, #{storageLocation,jdbcType=VARCHAR}, 
+      #{tariff,jdbcType=DECIMAL}, #{vat,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, 
+      #{warehouseId,jdbcType=VARCHAR}, #{warehouseType,jdbcType=VARCHAR}, #{invoicePrice,jdbcType=DECIMAL}, 
+      #{core,jdbcType=DECIMAL}, #{entryPrice,jdbcType=DECIMAL}, #{isDel,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{model,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaor">
+    insert into ware_stockin_detail_labaor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareStockinDetailLabaorId != null">
+        ware_stockin_detail_labaor_id,
+      </if>
+      <if test="labaorStockin != null">
+        labaor_stockin,
+      </if>
+      <if test="stockinBatch != null">
+        stockin_batch,
+      </if>
+      <if test="spareParts != null">
+        spare_parts,
+      </if>
+      <if test="deliveryNum != null">
+        delivery_num,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+      <if test="entryNum != null">
+        entry_num,
+      </if>
+      <if test="storageLocation != null">
+        storage_location,
+      </if>
+      <if test="tariff != null">
+        tariff,
+      </if>
+      <if test="vat != null">
+        vat,
+      </if>
+      <if test="freight != null">
+        freight,
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id,
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type,
+      </if>
+      <if test="invoicePrice != null">
+        invoice_price,
+      </if>
+      <if test="core != null">
+        core,
+      </if>
+      <if test="entryPrice != null">
+        entry_price,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareStockinDetailLabaorId != null">
+        #{wareStockinDetailLabaorId,jdbcType=INTEGER},
+      </if>
+      <if test="labaorStockin != null">
+        #{labaorStockin,jdbcType=INTEGER},
+      </if>
+      <if test="stockinBatch != null">
+        #{stockinBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null">
+        #{deliveryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="entryNum != null">
+        #{entryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="storageLocation != null">
+        #{storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="tariff != null">
+        #{tariff,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null">
+        #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null">
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseId != null">
+        #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicePrice != null">
+        #{invoicePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="core != null">
+        #{core,jdbcType=DECIMAL},
+      </if>
+      <if test="entryPrice != null">
+        #{entryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaorExample" resultType="java.lang.Long">
+    select count(*) from ware_stockin_detail_labaor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_stockin_detail_labaor
+    <set>
+      <if test="record.wareStockinDetailLabaorId != null">
+        ware_stockin_detail_labaor_id = #{record.wareStockinDetailLabaorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.labaorStockin != null">
+        labaor_stockin = #{record.labaorStockin,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockinBatch != null">
+        stockin_batch = #{record.stockinBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareParts != null">
+        spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryNum != null">
+        delivery_num = #{record.deliveryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalAmount != null">
+        total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.entryNum != null">
+        entry_num = #{record.entryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.storageLocation != null">
+        storage_location = #{record.storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tariff != null">
+        tariff = #{record.tariff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vat != null">
+        vat = #{record.vat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freight != null">
+        freight = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.warehouseId != null">
+        warehouse_id = #{record.warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null">
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoicePrice != null">
+        invoice_price = #{record.invoicePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.core != null">
+        core = #{record.core,jdbcType=DECIMAL},
+      </if>
+      <if test="record.entryPrice != null">
+        entry_price = #{record.entryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_stockin_detail_labaor
+    set ware_stockin_detail_labaor_id = #{record.wareStockinDetailLabaorId,jdbcType=INTEGER},
+      labaor_stockin = #{record.labaorStockin,jdbcType=INTEGER},
+      stockin_batch = #{record.stockinBatch,jdbcType=VARCHAR},
+      spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      delivery_num = #{record.deliveryNum,jdbcType=DOUBLE},
+      total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      entry_num = #{record.entryNum,jdbcType=DOUBLE},
+      storage_location = #{record.storageLocation,jdbcType=VARCHAR},
+      tariff = #{record.tariff,jdbcType=DECIMAL},
+      vat = #{record.vat,jdbcType=DECIMAL},
+      freight = #{record.freight,jdbcType=DECIMAL},
+      warehouse_id = #{record.warehouseId,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      invoice_price = #{record.invoicePrice,jdbcType=DECIMAL},
+      core = #{record.core,jdbcType=DECIMAL},
+      entry_price = #{record.entryPrice,jdbcType=DECIMAL},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      model = #{record.model,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaor">
+    update ware_stockin_detail_labaor
+    <set>
+      <if test="labaorStockin != null">
+        labaor_stockin = #{labaorStockin,jdbcType=INTEGER},
+      </if>
+      <if test="stockinBatch != null">
+        stockin_batch = #{stockinBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        spare_parts = #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null">
+        delivery_num = #{deliveryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="entryNum != null">
+        entry_num = #{entryNum,jdbcType=DOUBLE},
+      </if>
+      <if test="storageLocation != null">
+        storage_location = #{storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="tariff != null">
+        tariff = #{tariff,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null">
+        vat = #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null">
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicePrice != null">
+        invoice_price = #{invoicePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="core != null">
+        core = #{core,jdbcType=DECIMAL},
+      </if>
+      <if test="entryPrice != null">
+        entry_price = #{entryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_stockin_detail_labaor_id = #{wareStockinDetailLabaorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareStockinDetailLabaor">
+    update ware_stockin_detail_labaor
+    set labaor_stockin = #{labaorStockin,jdbcType=INTEGER},
+      stockin_batch = #{stockinBatch,jdbcType=VARCHAR},
+      spare_parts = #{spareParts,jdbcType=VARCHAR},
+      delivery_num = #{deliveryNum,jdbcType=DOUBLE},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      entry_num = #{entryNum,jdbcType=DOUBLE},
+      storage_location = #{storageLocation,jdbcType=VARCHAR},
+      tariff = #{tariff,jdbcType=DECIMAL},
+      vat = #{vat,jdbcType=DECIMAL},
+      freight = #{freight,jdbcType=DECIMAL},
+      warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      invoice_price = #{invoicePrice,jdbcType=DECIMAL},
+      core = #{core,jdbcType=DECIMAL},
+      entry_price = #{entryPrice,jdbcType=DECIMAL},
+      is_del = #{isDel,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      model = #{model,jdbcType=VARCHAR}
+    where ware_stockin_detail_labaor_id = #{wareStockinDetailLabaorId,jdbcType=INTEGER}
+  </update>
+</mapper>

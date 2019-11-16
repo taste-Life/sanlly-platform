@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareMaintainSparePartsMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareMaintainSpareParts">
+    <id column="ware_maintain_spare_parts_id" jdbcType="INTEGER" property="wareMaintainSparePartsId" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="maintain_no" jdbcType="VARCHAR" property="maintainNo" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="stockin_type" jdbcType="VARCHAR" property="stockinType" />
+    <result column="client" jdbcType="INTEGER" property="client" />
+    <result column="spare_parts_categories" jdbcType="VARCHAR" property="sparePartsCategories" />
+    <result column="refrigerator_company" jdbcType="VARCHAR" property="refrigeratorCompany" />
+    <result column="spare_parts_go" jdbcType="VARCHAR" property="sparePartsGo" />
+    <result column="spare_parts_maintain_type" jdbcType="VARCHAR" property="sparePartsMaintainType" />
+    <result column="spare_parts_stockoutin_status" jdbcType="VARCHAR" property="sparePartsStockoutinStatus" />
+    <result column="exigence_level" jdbcType="VARCHAR" property="exigenceLevel" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="spare_parts_batch" jdbcType="VARCHAR" property="sparePartsBatch" />
+    <result column="stockin_num" jdbcType="DOUBLE" property="stockinNum" />
+    <result column="stockin_user" jdbcType="INTEGER" property="stockinUser" />
+    <result column="stockin_date" jdbcType="TIMESTAMP" property="stockinDate" />
+    <result column="maintain_num" jdbcType="DOUBLE" property="maintainNum" />
+    <result column="waste_num" jdbcType="DOUBLE" property="wasteNum" />
+    <result column="surplus_maintain_num" jdbcType="DOUBLE" property="surplusMaintainNum" />
+    <result column="surplus_waste_num" jdbcType="DOUBLE" property="surplusWasteNum" />
+    <result column="stockout_maintain_num" jdbcType="DOUBLE" property="stockoutMaintainNum" />
+    <result column="waste_stockout_num" jdbcType="DOUBLE" property="wasteStockoutNum" />
+    <result column="stockin_price" jdbcType="DECIMAL" property="stockinPrice" />
+    <result column="use_spare_parts_price" jdbcType="DECIMAL" property="useSparePartsPrice" />
+    <result column="stockout_price" jdbcType="DECIMAL" property="stockoutPrice" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="reasons_rejection" jdbcType="VARCHAR" property="reasonsRejection" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_maintain_spare_parts_id, `no`, container_no, maintain_no, company, stockin_type, 
+    client, spare_parts_categories, refrigerator_company, spare_parts_go, spare_parts_maintain_type, 
+    spare_parts_stockoutin_status, exigence_level, site, yard, warehouse, spare_parts, 
+    spare_parts_batch, stockin_num, stockin_user, stockin_date, maintain_num, waste_num, 
+    surplus_maintain_num, surplus_waste_num, stockout_maintain_num, waste_stockout_num, 
+    stockin_price, use_spare_parts_price, stockout_price, audit_status, reasons_rejection, 
+    remark, is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareMaintainSparePartsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_maintain_spare_parts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_maintain_spare_parts
+    where ware_maintain_spare_parts_id = #{wareMaintainSparePartsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_maintain_spare_parts
+    where ware_maintain_spare_parts_id = #{wareMaintainSparePartsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareMaintainSparePartsExample">
+    delete from ware_maintain_spare_parts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareMaintainSpareParts">
+    insert into ware_maintain_spare_parts (ware_maintain_spare_parts_id, `no`, container_no, 
+      maintain_no, company, stockin_type, 
+      client, spare_parts_categories, refrigerator_company, 
+      spare_parts_go, spare_parts_maintain_type, spare_parts_stockoutin_status, 
+      exigence_level, site, yard, 
+      warehouse, spare_parts, spare_parts_batch, 
+      stockin_num, stockin_user, stockin_date, 
+      maintain_num, waste_num, surplus_maintain_num, 
+      surplus_waste_num, stockout_maintain_num, waste_stockout_num, 
+      stockin_price, use_spare_parts_price, stockout_price, 
+      audit_status, reasons_rejection, remark, 
+      is_del, create_time, create_user, 
+      update_time, update_user)
+    values (#{wareMaintainSparePartsId,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{containerNo,jdbcType=VARCHAR}, 
+      #{maintainNo,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{stockinType,jdbcType=VARCHAR}, 
+      #{client,jdbcType=INTEGER}, #{sparePartsCategories,jdbcType=VARCHAR}, #{refrigeratorCompany,jdbcType=VARCHAR}, 
+      #{sparePartsGo,jdbcType=VARCHAR}, #{sparePartsMaintainType,jdbcType=VARCHAR}, #{sparePartsStockoutinStatus,jdbcType=VARCHAR}, 
+      #{exigenceLevel,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, #{yard,jdbcType=VARCHAR}, 
+      #{warehouse,jdbcType=VARCHAR}, #{spareParts,jdbcType=VARCHAR}, #{sparePartsBatch,jdbcType=VARCHAR}, 
+      #{stockinNum,jdbcType=DOUBLE}, #{stockinUser,jdbcType=INTEGER}, #{stockinDate,jdbcType=TIMESTAMP}, 
+      #{maintainNum,jdbcType=DOUBLE}, #{wasteNum,jdbcType=DOUBLE}, #{surplusMaintainNum,jdbcType=DOUBLE}, 
+      #{surplusWasteNum,jdbcType=DOUBLE}, #{stockoutMaintainNum,jdbcType=DOUBLE}, #{wasteStockoutNum,jdbcType=DOUBLE}, 
+      #{stockinPrice,jdbcType=DECIMAL}, #{useSparePartsPrice,jdbcType=DECIMAL}, #{stockoutPrice,jdbcType=DECIMAL}, 
+      #{auditStatus,jdbcType=VARCHAR}, #{reasonsRejection,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareMaintainSpareParts">
+    insert into ware_maintain_spare_parts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareMaintainSparePartsId != null">
+        ware_maintain_spare_parts_id,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="maintainNo != null">
+        maintain_no,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="stockinType != null">
+        stockin_type,
+      </if>
+      <if test="client != null">
+        client,
+      </if>
+      <if test="sparePartsCategories != null">
+        spare_parts_categories,
+      </if>
+      <if test="refrigeratorCompany != null">
+        refrigerator_company,
+      </if>
+      <if test="sparePartsGo != null">
+        spare_parts_go,
+      </if>
+      <if test="sparePartsMaintainType != null">
+        spare_parts_maintain_type,
+      </if>
+      <if test="sparePartsStockoutinStatus != null">
+        spare_parts_stockoutin_status,
+      </if>
+      <if test="exigenceLevel != null">
+        exigence_level,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="spareParts != null">
+        spare_parts,
+      </if>
+      <if test="sparePartsBatch != null">
+        spare_parts_batch,
+      </if>
+      <if test="stockinNum != null">
+        stockin_num,
+      </if>
+      <if test="stockinUser != null">
+        stockin_user,
+      </if>
+      <if test="stockinDate != null">
+        stockin_date,
+      </if>
+      <if test="maintainNum != null">
+        maintain_num,
+      </if>
+      <if test="wasteNum != null">
+        waste_num,
+      </if>
+      <if test="surplusMaintainNum != null">
+        surplus_maintain_num,
+      </if>
+      <if test="surplusWasteNum != null">
+        surplus_waste_num,
+      </if>
+      <if test="stockoutMaintainNum != null">
+        stockout_maintain_num,
+      </if>
+      <if test="wasteStockoutNum != null">
+        waste_stockout_num,
+      </if>
+      <if test="stockinPrice != null">
+        stockin_price,
+      </if>
+      <if test="useSparePartsPrice != null">
+        use_spare_parts_price,
+      </if>
+      <if test="stockoutPrice != null">
+        stockout_price,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareMaintainSparePartsId != null">
+        #{wareMaintainSparePartsId,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainNo != null">
+        #{maintainNo,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="stockinType != null">
+        #{stockinType,jdbcType=VARCHAR},
+      </if>
+      <if test="client != null">
+        #{client,jdbcType=INTEGER},
+      </if>
+      <if test="sparePartsCategories != null">
+        #{sparePartsCategories,jdbcType=VARCHAR},
+      </if>
+      <if test="refrigeratorCompany != null">
+        #{refrigeratorCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsGo != null">
+        #{sparePartsGo,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsMaintainType != null">
+        #{sparePartsMaintainType,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsStockoutinStatus != null">
+        #{sparePartsStockoutinStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="exigenceLevel != null">
+        #{exigenceLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsBatch != null">
+        #{sparePartsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="stockinNum != null">
+        #{stockinNum,jdbcType=DOUBLE},
+      </if>
+      <if test="stockinUser != null">
+        #{stockinUser,jdbcType=INTEGER},
+      </if>
+      <if test="stockinDate != null">
+        #{stockinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintainNum != null">
+        #{maintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="wasteNum != null">
+        #{wasteNum,jdbcType=DOUBLE},
+      </if>
+      <if test="surplusMaintainNum != null">
+        #{surplusMaintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="surplusWasteNum != null">
+        #{surplusWasteNum,jdbcType=DOUBLE},
+      </if>
+      <if test="stockoutMaintainNum != null">
+        #{stockoutMaintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="wasteStockoutNum != null">
+        #{wasteStockoutNum,jdbcType=DOUBLE},
+      </if>
+      <if test="stockinPrice != null">
+        #{stockinPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="useSparePartsPrice != null">
+        #{useSparePartsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockoutPrice != null">
+        #{stockoutPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareMaintainSparePartsExample" resultType="java.lang.Long">
+    select count(*) from ware_maintain_spare_parts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_maintain_spare_parts
+    <set>
+      <if test="record.wareMaintainSparePartsId != null">
+        ware_maintain_spare_parts_id = #{record.wareMaintainSparePartsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        `no` = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maintainNo != null">
+        maintain_no = #{record.maintainNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockinType != null">
+        stockin_type = #{record.stockinType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.client != null">
+        client = #{record.client,jdbcType=INTEGER},
+      </if>
+      <if test="record.sparePartsCategories != null">
+        spare_parts_categories = #{record.sparePartsCategories,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refrigeratorCompany != null">
+        refrigerator_company = #{record.refrigeratorCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsGo != null">
+        spare_parts_go = #{record.sparePartsGo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsMaintainType != null">
+        spare_parts_maintain_type = #{record.sparePartsMaintainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsStockoutinStatus != null">
+        spare_parts_stockoutin_status = #{record.sparePartsStockoutinStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exigenceLevel != null">
+        exigence_level = #{record.exigenceLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.site != null">
+        site = #{record.site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareParts != null">
+        spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsBatch != null">
+        spare_parts_batch = #{record.sparePartsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockinNum != null">
+        stockin_num = #{record.stockinNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stockinUser != null">
+        stockin_user = #{record.stockinUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockinDate != null">
+        stockin_date = #{record.stockinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.maintainNum != null">
+        maintain_num = #{record.maintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.wasteNum != null">
+        waste_num = #{record.wasteNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.surplusMaintainNum != null">
+        surplus_maintain_num = #{record.surplusMaintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.surplusWasteNum != null">
+        surplus_waste_num = #{record.surplusWasteNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stockoutMaintainNum != null">
+        stockout_maintain_num = #{record.stockoutMaintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.wasteStockoutNum != null">
+        waste_stockout_num = #{record.wasteStockoutNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stockinPrice != null">
+        stockin_price = #{record.stockinPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.useSparePartsPrice != null">
+        use_spare_parts_price = #{record.useSparePartsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stockoutPrice != null">
+        stockout_price = #{record.stockoutPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsRejection != null">
+        reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_maintain_spare_parts
+    set ware_maintain_spare_parts_id = #{record.wareMaintainSparePartsId,jdbcType=INTEGER},
+      `no` = #{record.no,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      maintain_no = #{record.maintainNo,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      stockin_type = #{record.stockinType,jdbcType=VARCHAR},
+      client = #{record.client,jdbcType=INTEGER},
+      spare_parts_categories = #{record.sparePartsCategories,jdbcType=VARCHAR},
+      refrigerator_company = #{record.refrigeratorCompany,jdbcType=VARCHAR},
+      spare_parts_go = #{record.sparePartsGo,jdbcType=VARCHAR},
+      spare_parts_maintain_type = #{record.sparePartsMaintainType,jdbcType=VARCHAR},
+      spare_parts_stockoutin_status = #{record.sparePartsStockoutinStatus,jdbcType=VARCHAR},
+      exigence_level = #{record.exigenceLevel,jdbcType=VARCHAR},
+      site = #{record.site,jdbcType=VARCHAR},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      spare_parts_batch = #{record.sparePartsBatch,jdbcType=VARCHAR},
+      stockin_num = #{record.stockinNum,jdbcType=DOUBLE},
+      stockin_user = #{record.stockinUser,jdbcType=INTEGER},
+      stockin_date = #{record.stockinDate,jdbcType=TIMESTAMP},
+      maintain_num = #{record.maintainNum,jdbcType=DOUBLE},
+      waste_num = #{record.wasteNum,jdbcType=DOUBLE},
+      surplus_maintain_num = #{record.surplusMaintainNum,jdbcType=DOUBLE},
+      surplus_waste_num = #{record.surplusWasteNum,jdbcType=DOUBLE},
+      stockout_maintain_num = #{record.stockoutMaintainNum,jdbcType=DOUBLE},
+      waste_stockout_num = #{record.wasteStockoutNum,jdbcType=DOUBLE},
+      stockin_price = #{record.stockinPrice,jdbcType=DECIMAL},
+      use_spare_parts_price = #{record.useSparePartsPrice,jdbcType=DECIMAL},
+      stockout_price = #{record.stockoutPrice,jdbcType=DECIMAL},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareMaintainSpareParts">
+    update ware_maintain_spare_parts
+    <set>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainNo != null">
+        maintain_no = #{maintainNo,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="stockinType != null">
+        stockin_type = #{stockinType,jdbcType=VARCHAR},
+      </if>
+      <if test="client != null">
+        client = #{client,jdbcType=INTEGER},
+      </if>
+      <if test="sparePartsCategories != null">
+        spare_parts_categories = #{sparePartsCategories,jdbcType=VARCHAR},
+      </if>
+      <if test="refrigeratorCompany != null">
+        refrigerator_company = #{refrigeratorCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsGo != null">
+        spare_parts_go = #{sparePartsGo,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsMaintainType != null">
+        spare_parts_maintain_type = #{sparePartsMaintainType,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsStockoutinStatus != null">
+        spare_parts_stockoutin_status = #{sparePartsStockoutinStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="exigenceLevel != null">
+        exigence_level = #{exigenceLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        spare_parts = #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsBatch != null">
+        spare_parts_batch = #{sparePartsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="stockinNum != null">
+        stockin_num = #{stockinNum,jdbcType=DOUBLE},
+      </if>
+      <if test="stockinUser != null">
+        stockin_user = #{stockinUser,jdbcType=INTEGER},
+      </if>
+      <if test="stockinDate != null">
+        stockin_date = #{stockinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintainNum != null">
+        maintain_num = #{maintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="wasteNum != null">
+        waste_num = #{wasteNum,jdbcType=DOUBLE},
+      </if>
+      <if test="surplusMaintainNum != null">
+        surplus_maintain_num = #{surplusMaintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="surplusWasteNum != null">
+        surplus_waste_num = #{surplusWasteNum,jdbcType=DOUBLE},
+      </if>
+      <if test="stockoutMaintainNum != null">
+        stockout_maintain_num = #{stockoutMaintainNum,jdbcType=DOUBLE},
+      </if>
+      <if test="wasteStockoutNum != null">
+        waste_stockout_num = #{wasteStockoutNum,jdbcType=DOUBLE},
+      </if>
+      <if test="stockinPrice != null">
+        stockin_price = #{stockinPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="useSparePartsPrice != null">
+        use_spare_parts_price = #{useSparePartsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockoutPrice != null">
+        stockout_price = #{stockoutPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_maintain_spare_parts_id = #{wareMaintainSparePartsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareMaintainSpareParts">
+    update ware_maintain_spare_parts
+    set `no` = #{no,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      maintain_no = #{maintainNo,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      stockin_type = #{stockinType,jdbcType=VARCHAR},
+      client = #{client,jdbcType=INTEGER},
+      spare_parts_categories = #{sparePartsCategories,jdbcType=VARCHAR},
+      refrigerator_company = #{refrigeratorCompany,jdbcType=VARCHAR},
+      spare_parts_go = #{sparePartsGo,jdbcType=VARCHAR},
+      spare_parts_maintain_type = #{sparePartsMaintainType,jdbcType=VARCHAR},
+      spare_parts_stockoutin_status = #{sparePartsStockoutinStatus,jdbcType=VARCHAR},
+      exigence_level = #{exigenceLevel,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      yard = #{yard,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      spare_parts = #{spareParts,jdbcType=VARCHAR},
+      spare_parts_batch = #{sparePartsBatch,jdbcType=VARCHAR},
+      stockin_num = #{stockinNum,jdbcType=DOUBLE},
+      stockin_user = #{stockinUser,jdbcType=INTEGER},
+      stockin_date = #{stockinDate,jdbcType=TIMESTAMP},
+      maintain_num = #{maintainNum,jdbcType=DOUBLE},
+      waste_num = #{wasteNum,jdbcType=DOUBLE},
+      surplus_maintain_num = #{surplusMaintainNum,jdbcType=DOUBLE},
+      surplus_waste_num = #{surplusWasteNum,jdbcType=DOUBLE},
+      stockout_maintain_num = #{stockoutMaintainNum,jdbcType=DOUBLE},
+      waste_stockout_num = #{wasteStockoutNum,jdbcType=DOUBLE},
+      stockin_price = #{stockinPrice,jdbcType=DECIMAL},
+      use_spare_parts_price = #{useSparePartsPrice,jdbcType=DECIMAL},
+      stockout_price = #{stockoutPrice,jdbcType=DECIMAL},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_maintain_spare_parts_id = #{wareMaintainSparePartsId,jdbcType=INTEGER}
+  </update>
+</mapper>

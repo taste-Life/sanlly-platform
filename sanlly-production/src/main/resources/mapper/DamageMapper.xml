@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.DamageMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.Damage">
+    <id column="prod_damage_id" jdbcType="INTEGER" property="prodDamageId" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="damage_code" jdbcType="VARCHAR" property="damageCode" />
+    <result column="damage_name" jdbcType="VARCHAR" property="damageName" />
+    <result column="damage_name_en" jdbcType="VARCHAR" property="damageNameEn" />
+    <result column="use_number" jdbcType="INTEGER" property="useNumber" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="is_valid" jdbcType="INTEGER" property="isValid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_damage_id, `key`, container_category, damage_code, damage_name, damage_name_en, 
+    use_number, is_del, create_time, create_user, update_time, update_user, is_valid
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.DamageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_damage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_damage
+    where prod_damage_id = #{prodDamageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_damage
+    where prod_damage_id = #{prodDamageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.DamageExample">
+    delete from prod_damage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.Damage">
+    insert into prod_damage (prod_damage_id, `key`, container_category, 
+      damage_code, damage_name, damage_name_en, 
+      use_number, is_del, create_time, 
+      create_user, update_time, update_user, 
+      is_valid)
+    values (#{prodDamageId,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{containerCategory,jdbcType=VARCHAR}, 
+      #{damageCode,jdbcType=VARCHAR}, #{damageName,jdbcType=VARCHAR}, #{damageNameEn,jdbcType=VARCHAR}, 
+      #{useNumber,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{isValid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.Damage">
+    insert into prod_damage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodDamageId != null">
+        prod_damage_id,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="damageCode != null">
+        damage_code,
+      </if>
+      <if test="damageName != null">
+        damage_name,
+      </if>
+      <if test="damageNameEn != null">
+        damage_name_en,
+      </if>
+      <if test="useNumber != null">
+        use_number,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodDamageId != null">
+        #{prodDamageId,jdbcType=INTEGER},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="damageCode != null">
+        #{damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="damageName != null">
+        #{damageName,jdbcType=VARCHAR},
+      </if>
+      <if test="damageNameEn != null">
+        #{damageNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="useNumber != null">
+        #{useNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.DamageExample" resultType="java.lang.Long">
+    select count(*) from prod_damage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_damage
+    <set>
+      <if test="record.prodDamageId != null">
+        prod_damage_id = #{record.prodDamageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.key != null">
+        `key` = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.damageCode != null">
+        damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.damageName != null">
+        damage_name = #{record.damageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.damageNameEn != null">
+        damage_name_en = #{record.damageNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useNumber != null">
+        use_number = #{record.useNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_damage
+    set prod_damage_id = #{record.prodDamageId,jdbcType=INTEGER},
+      `key` = #{record.key,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      damage_name = #{record.damageName,jdbcType=VARCHAR},
+      damage_name_en = #{record.damageNameEn,jdbcType=VARCHAR},
+      use_number = #{record.useNumber,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      is_valid = #{record.isValid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.Damage">
+    update prod_damage
+    <set>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="damageCode != null">
+        damage_code = #{damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="damageName != null">
+        damage_name = #{damageName,jdbcType=VARCHAR},
+      </if>
+      <if test="damageNameEn != null">
+        damage_name_en = #{damageNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="useNumber != null">
+        use_number = #{useNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_damage_id = #{prodDamageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.Damage">
+    update prod_damage
+    set `key` = #{key,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      damage_code = #{damageCode,jdbcType=VARCHAR},
+      damage_name = #{damageName,jdbcType=VARCHAR},
+      damage_name_en = #{damageNameEn,jdbcType=VARCHAR},
+      use_number = #{useNumber,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=INTEGER}
+    where prod_damage_id = #{prodDamageId,jdbcType=INTEGER}
+  </update>
+</mapper>

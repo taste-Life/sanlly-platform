@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareInternalProcurementMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareInternalProcurement">
+    <id column="ware_internal_procurement_id" jdbcType="INTEGER" property="wareInternalProcurementId" />
+    <result column="purchasing_order_no" jdbcType="VARCHAR" property="purchasingOrderNo" />
+    <result column="applicant_user" jdbcType="INTEGER" property="applicantUser" />
+    <result column="applicant_date" jdbcType="TIMESTAMP" property="applicantDate" />
+    <result column="charge_status" jdbcType="VARCHAR" property="chargeStatus" />
+    <result column="receiving_address" jdbcType="VARCHAR" property="receivingAddress" />
+    <result column="int_warehouse" jdbcType="VARCHAR" property="intWarehouse" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="out_warehouse" jdbcType="VARCHAR" property="outWarehouse" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="reasons_rejection" jdbcType="VARCHAR" property="reasonsRejection" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="receiving_user" jdbcType="VARCHAR" property="receivingUser" />
+    <result column="exchange_rate" jdbcType="DECIMAL" property="exchangeRate" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_internal_procurement_id, purchasing_order_no, applicant_user, applicant_date, 
+    charge_status, receiving_address, int_warehouse, company, out_warehouse, customer_name, 
+    `status`, audit_status, reasons_rejection, remark, is_del, create_time, create_user, 
+    update_time, update_user, receiving_user, exchange_rate, yard, bill_type
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareInternalProcurementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_internal_procurement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_internal_procurement
+    where ware_internal_procurement_id = #{wareInternalProcurementId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_internal_procurement
+    where ware_internal_procurement_id = #{wareInternalProcurementId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareInternalProcurementExample">
+    delete from ware_internal_procurement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareInternalProcurement">
+    <selectKey keyProperty="wareInternalProcurementId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_internal_procurement (purchasing_order_no, applicant_user, 
+      applicant_date, charge_status, receiving_address, 
+      int_warehouse, company, out_warehouse, 
+      customer_name, `status`, audit_status, 
+      reasons_rejection, remark, is_del, 
+      create_time, create_user, update_time, 
+      update_user, receiving_user, exchange_rate, 
+      yard, bill_type)
+    values (#{purchasingOrderNo,jdbcType=VARCHAR}, #{applicantUser,jdbcType=INTEGER}, 
+      #{applicantDate,jdbcType=TIMESTAMP}, #{chargeStatus,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, 
+      #{intWarehouse,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{outWarehouse,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{auditStatus,jdbcType=VARCHAR}, 
+      #{reasonsRejection,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{receivingUser,jdbcType=VARCHAR}, #{exchangeRate,jdbcType=DECIMAL}, 
+      #{yard,jdbcType=VARCHAR}, #{billType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareInternalProcurement">
+    <selectKey keyProperty="wareInternalProcurementId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_internal_procurement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purchasingOrderNo != null">
+        purchasing_order_no,
+      </if>
+      <if test="applicantUser != null">
+        applicant_user,
+      </if>
+      <if test="applicantDate != null">
+        applicant_date,
+      </if>
+      <if test="chargeStatus != null">
+        charge_status,
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address,
+      </if>
+      <if test="intWarehouse != null">
+        int_warehouse,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="outWarehouse != null">
+        out_warehouse,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="receivingUser != null">
+        receiving_user,
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purchasingOrderNo != null">
+        #{purchasingOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantUser != null">
+        #{applicantUser,jdbcType=INTEGER},
+      </if>
+      <if test="applicantDate != null">
+        #{applicantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeStatus != null">
+        #{chargeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="intWarehouse != null">
+        #{intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="outWarehouse != null">
+        #{outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="receivingUser != null">
+        #{receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null">
+        #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareInternalProcurementExample" resultType="java.lang.Long">
+    select count(*) from ware_internal_procurement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_internal_procurement
+    <set>
+      <if test="record.wareInternalProcurementId != null">
+        ware_internal_procurement_id = #{record.wareInternalProcurementId,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchasingOrderNo != null">
+        purchasing_order_no = #{record.purchasingOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantUser != null">
+        applicant_user = #{record.applicantUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantDate != null">
+        applicant_date = #{record.applicantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chargeStatus != null">
+        charge_status = #{record.chargeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivingAddress != null">
+        receiving_address = #{record.receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intWarehouse != null">
+        int_warehouse = #{record.intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outWarehouse != null">
+        out_warehouse = #{record.outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsRejection != null">
+        reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.receivingUser != null">
+        receiving_user = #{record.receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exchangeRate != null">
+        exchange_rate = #{record.exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billType != null">
+        bill_type = #{record.billType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_internal_procurement
+    set ware_internal_procurement_id = #{record.wareInternalProcurementId,jdbcType=INTEGER},
+      purchasing_order_no = #{record.purchasingOrderNo,jdbcType=VARCHAR},
+      applicant_user = #{record.applicantUser,jdbcType=INTEGER},
+      applicant_date = #{record.applicantDate,jdbcType=TIMESTAMP},
+      charge_status = #{record.chargeStatus,jdbcType=VARCHAR},
+      receiving_address = #{record.receivingAddress,jdbcType=VARCHAR},
+      int_warehouse = #{record.intWarehouse,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      out_warehouse = #{record.outWarehouse,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=VARCHAR},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      receiving_user = #{record.receivingUser,jdbcType=VARCHAR},
+      exchange_rate = #{record.exchangeRate,jdbcType=DECIMAL},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      bill_type = #{record.billType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareInternalProcurement">
+    update ware_internal_procurement
+    <set>
+      <if test="purchasingOrderNo != null">
+        purchasing_order_no = #{purchasingOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantUser != null">
+        applicant_user = #{applicantUser,jdbcType=INTEGER},
+      </if>
+      <if test="applicantDate != null">
+        applicant_date = #{applicantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeStatus != null">
+        charge_status = #{chargeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="intWarehouse != null">
+        int_warehouse = #{intWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="outWarehouse != null">
+        out_warehouse = #{outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="receivingUser != null">
+        receiving_user = #{receivingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        bill_type = #{billType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_internal_procurement_id = #{wareInternalProcurementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareInternalProcurement">
+    update ware_internal_procurement
+    set purchasing_order_no = #{purchasingOrderNo,jdbcType=VARCHAR},
+      applicant_user = #{applicantUser,jdbcType=INTEGER},
+      applicant_date = #{applicantDate,jdbcType=TIMESTAMP},
+      charge_status = #{chargeStatus,jdbcType=VARCHAR},
+      receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      int_warehouse = #{intWarehouse,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      out_warehouse = #{outWarehouse,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      receiving_user = #{receivingUser,jdbcType=VARCHAR},
+      exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      yard = #{yard,jdbcType=VARCHAR},
+      bill_type = #{billType,jdbcType=VARCHAR}
+    where ware_internal_procurement_id = #{wareInternalProcurementId,jdbcType=INTEGER}
+  </update>
+</mapper>

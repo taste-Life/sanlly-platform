@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.EdiContainerTypeMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.EdiContainerType">
+    <id column="prod_edi_container_type_id" jdbcType="INTEGER" property="prodEdiContainerTypeId" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="container_type" jdbcType="VARCHAR" property="containerType" />
+    <result column="iso95" jdbcType="VARCHAR" property="iso95" />
+    <result column="size_iso95" jdbcType="VARCHAR" property="sizeIso95" />
+    <result column="type_iso95" jdbcType="VARCHAR" property="typeIso95" />
+    <result column="max_gross" jdbcType="VARCHAR" property="maxGross" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_edi_container_type_id, `size`, container_type, iso95, size_iso95, type_iso95, 
+    max_gross, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.EdiContainerTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_edi_container_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_edi_container_type
+    where prod_edi_container_type_id = #{prodEdiContainerTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_edi_container_type
+    where prod_edi_container_type_id = #{prodEdiContainerTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.EdiContainerTypeExample">
+    delete from prod_edi_container_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.EdiContainerType">
+    insert into prod_edi_container_type (prod_edi_container_type_id, `size`, container_type, 
+      iso95, size_iso95, type_iso95, 
+      max_gross, create_time, create_user, 
+      update_time, update_user)
+    values (#{prodEdiContainerTypeId,jdbcType=INTEGER}, #{size,jdbcType=VARCHAR}, #{containerType,jdbcType=VARCHAR}, 
+      #{iso95,jdbcType=VARCHAR}, #{sizeIso95,jdbcType=VARCHAR}, #{typeIso95,jdbcType=VARCHAR}, 
+      #{maxGross,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.EdiContainerType">
+    insert into prod_edi_container_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodEdiContainerTypeId != null">
+        prod_edi_container_type_id,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="containerType != null">
+        container_type,
+      </if>
+      <if test="iso95 != null">
+        iso95,
+      </if>
+      <if test="sizeIso95 != null">
+        size_iso95,
+      </if>
+      <if test="typeIso95 != null">
+        type_iso95,
+      </if>
+      <if test="maxGross != null">
+        max_gross,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodEdiContainerTypeId != null">
+        #{prodEdiContainerTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="containerType != null">
+        #{containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="iso95 != null">
+        #{iso95,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeIso95 != null">
+        #{sizeIso95,jdbcType=VARCHAR},
+      </if>
+      <if test="typeIso95 != null">
+        #{typeIso95,jdbcType=VARCHAR},
+      </if>
+      <if test="maxGross != null">
+        #{maxGross,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.EdiContainerTypeExample" resultType="java.lang.Long">
+    select count(*) from prod_edi_container_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_edi_container_type
+    <set>
+      <if test="record.prodEdiContainerTypeId != null">
+        prod_edi_container_type_id = #{record.prodEdiContainerTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerType != null">
+        container_type = #{record.containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iso95 != null">
+        iso95 = #{record.iso95,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sizeIso95 != null">
+        size_iso95 = #{record.sizeIso95,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeIso95 != null">
+        type_iso95 = #{record.typeIso95,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxGross != null">
+        max_gross = #{record.maxGross,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_edi_container_type
+    set prod_edi_container_type_id = #{record.prodEdiContainerTypeId,jdbcType=INTEGER},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      container_type = #{record.containerType,jdbcType=VARCHAR},
+      iso95 = #{record.iso95,jdbcType=VARCHAR},
+      size_iso95 = #{record.sizeIso95,jdbcType=VARCHAR},
+      type_iso95 = #{record.typeIso95,jdbcType=VARCHAR},
+      max_gross = #{record.maxGross,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.EdiContainerType">
+    update prod_edi_container_type
+    <set>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="containerType != null">
+        container_type = #{containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="iso95 != null">
+        iso95 = #{iso95,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeIso95 != null">
+        size_iso95 = #{sizeIso95,jdbcType=VARCHAR},
+      </if>
+      <if test="typeIso95 != null">
+        type_iso95 = #{typeIso95,jdbcType=VARCHAR},
+      </if>
+      <if test="maxGross != null">
+        max_gross = #{maxGross,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_edi_container_type_id = #{prodEdiContainerTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.EdiContainerType">
+    update prod_edi_container_type
+    set `size` = #{size,jdbcType=VARCHAR},
+      container_type = #{containerType,jdbcType=VARCHAR},
+      iso95 = #{iso95,jdbcType=VARCHAR},
+      size_iso95 = #{sizeIso95,jdbcType=VARCHAR},
+      type_iso95 = #{typeIso95,jdbcType=VARCHAR},
+      max_gross = #{maxGross,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_edi_container_type_id = #{prodEdiContainerTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

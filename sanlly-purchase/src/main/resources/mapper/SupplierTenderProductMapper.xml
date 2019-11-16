@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.purchase.dao.SupplierTenderProductMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.purchase.entity.SupplierTenderProduct">
+    <id column="purc_supplier_tender_product_id" jdbcType="INTEGER" property="purcSupplierTenderProductId" />
+    <result column="tender_purchase_id" jdbcType="INTEGER" property="tenderPurchaseId" />
+    <result column="supplier_tender_id" jdbcType="INTEGER" property="supplierTenderId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="demand_no" jdbcType="VARCHAR" property="demandNo" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="product_num" jdbcType="VARCHAR" property="productNum" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="product_count" jdbcType="DOUBLE" property="productCount" />
+    <result column="invoice" jdbcType="VARCHAR" property="invoice" />
+    <result column="arrive_time" jdbcType="TIMESTAMP" property="arriveTime" />
+    <result column="spare_parts_unit" jdbcType="VARCHAR" property="sparePartsUnit" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="no_tax_price" jdbcType="DECIMAL" property="noTaxPrice" />
+    <result column="is_win" jdbcType="VARCHAR" property="isWin" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    purc_supplier_tender_product_id, tender_purchase_id, supplier_tender_id, price, demand_no, 
+    product, product_num, product_name, weight, product_count, invoice, arrive_time, 
+    spare_parts_unit, `rank`, remark, create_user, create_time, update_time, update_user, 
+    no_tax_price, is_win
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.purchase.entity.SupplierTenderProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purc_supplier_tender_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from purc_supplier_tender_product
+    where purc_supplier_tender_product_id = #{purcSupplierTenderProductId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from purc_supplier_tender_product
+    where purc_supplier_tender_product_id = #{purcSupplierTenderProductId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.purchase.entity.SupplierTenderProductExample">
+    delete from purc_supplier_tender_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.purchase.entity.SupplierTenderProduct">
+    insert into purc_supplier_tender_product (purc_supplier_tender_product_id, tender_purchase_id, 
+      supplier_tender_id, price, demand_no, 
+      product, product_num, product_name, 
+      weight, product_count, invoice, 
+      arrive_time, spare_parts_unit, `rank`, 
+      remark, create_user, create_time, 
+      update_time, update_user, no_tax_price, 
+      is_win)
+    values (#{purcSupplierTenderProductId,jdbcType=INTEGER}, #{tenderPurchaseId,jdbcType=INTEGER}, 
+      #{supplierTenderId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{demandNo,jdbcType=VARCHAR}, 
+      #{product,jdbcType=VARCHAR}, #{productNum,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=DOUBLE}, #{productCount,jdbcType=DOUBLE}, #{invoice,jdbcType=VARCHAR}, 
+      #{arriveTime,jdbcType=TIMESTAMP}, #{sparePartsUnit,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{noTaxPrice,jdbcType=DECIMAL}, 
+      #{isWin,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.purchase.entity.SupplierTenderProduct">
+    insert into purc_supplier_tender_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purcSupplierTenderProductId != null">
+        purc_supplier_tender_product_id,
+      </if>
+      <if test="tenderPurchaseId != null">
+        tender_purchase_id,
+      </if>
+      <if test="supplierTenderId != null">
+        supplier_tender_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="demandNo != null">
+        demand_no,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="productCount != null">
+        product_count,
+      </if>
+      <if test="invoice != null">
+        invoice,
+      </if>
+      <if test="arriveTime != null">
+        arrive_time,
+      </if>
+      <if test="sparePartsUnit != null">
+        spare_parts_unit,
+      </if>
+      <if test="rank != null">
+        `rank`,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="noTaxPrice != null">
+        no_tax_price,
+      </if>
+      <if test="isWin != null">
+        is_win,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purcSupplierTenderProductId != null">
+        #{purcSupplierTenderProductId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderPurchaseId != null">
+        #{tenderPurchaseId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierTenderId != null">
+        #{supplierTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="demandNo != null">
+        #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="productCount != null">
+        #{productCount,jdbcType=DOUBLE},
+      </if>
+      <if test="invoice != null">
+        #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveTime != null">
+        #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sparePartsUnit != null">
+        #{sparePartsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="noTaxPrice != null">
+        #{noTaxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isWin != null">
+        #{isWin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.purchase.entity.SupplierTenderProductExample" resultType="java.lang.Long">
+    select count(*) from purc_supplier_tender_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update purc_supplier_tender_product
+    <set>
+      <if test="record.purcSupplierTenderProductId != null">
+        purc_supplier_tender_product_id = #{record.purcSupplierTenderProductId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderPurchaseId != null">
+        tender_purchase_id = #{record.tenderPurchaseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierTenderId != null">
+        supplier_tender_id = #{record.supplierTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.demandNo != null">
+        demand_no = #{record.demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product != null">
+        product = #{record.product,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productNum != null">
+        product_num = #{record.productNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.productCount != null">
+        product_count = #{record.productCount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.invoice != null">
+        invoice = #{record.invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arriveTime != null">
+        arrive_time = #{record.arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sparePartsUnit != null">
+        spare_parts_unit = #{record.sparePartsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null">
+        `rank` = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.noTaxPrice != null">
+        no_tax_price = #{record.noTaxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isWin != null">
+        is_win = #{record.isWin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update purc_supplier_tender_product
+    set purc_supplier_tender_product_id = #{record.purcSupplierTenderProductId,jdbcType=INTEGER},
+      tender_purchase_id = #{record.tenderPurchaseId,jdbcType=INTEGER},
+      supplier_tender_id = #{record.supplierTenderId,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      demand_no = #{record.demandNo,jdbcType=VARCHAR},
+      product = #{record.product,jdbcType=VARCHAR},
+      product_num = #{record.productNum,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      product_count = #{record.productCount,jdbcType=DOUBLE},
+      invoice = #{record.invoice,jdbcType=VARCHAR},
+      arrive_time = #{record.arriveTime,jdbcType=TIMESTAMP},
+      spare_parts_unit = #{record.sparePartsUnit,jdbcType=VARCHAR},
+      `rank` = #{record.rank,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      no_tax_price = #{record.noTaxPrice,jdbcType=DECIMAL},
+      is_win = #{record.isWin,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.purchase.entity.SupplierTenderProduct">
+    update purc_supplier_tender_product
+    <set>
+      <if test="tenderPurchaseId != null">
+        tender_purchase_id = #{tenderPurchaseId,jdbcType=INTEGER},
+      </if>
+      <if test="supplierTenderId != null">
+        supplier_tender_id = #{supplierTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="demandNo != null">
+        demand_no = #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="productCount != null">
+        product_count = #{productCount,jdbcType=DOUBLE},
+      </if>
+      <if test="invoice != null">
+        invoice = #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveTime != null">
+        arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sparePartsUnit != null">
+        spare_parts_unit = #{sparePartsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        `rank` = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="noTaxPrice != null">
+        no_tax_price = #{noTaxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isWin != null">
+        is_win = #{isWin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purc_supplier_tender_product_id = #{purcSupplierTenderProductId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.purchase.entity.SupplierTenderProduct">
+    update purc_supplier_tender_product
+    set tender_purchase_id = #{tenderPurchaseId,jdbcType=INTEGER},
+      supplier_tender_id = #{supplierTenderId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      demand_no = #{demandNo,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      product_num = #{productNum,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DOUBLE},
+      product_count = #{productCount,jdbcType=DOUBLE},
+      invoice = #{invoice,jdbcType=VARCHAR},
+      arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+      spare_parts_unit = #{sparePartsUnit,jdbcType=VARCHAR},
+      `rank` = #{rank,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      no_tax_price = #{noTaxPrice,jdbcType=DECIMAL},
+      is_win = #{isWin,jdbcType=VARCHAR}
+    where purc_supplier_tender_product_id = #{purcSupplierTenderProductId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.BusinessExtMapper">
+   
+ 
+  
+  <update id="updateBillStatus"  parameterType="java.lang.String"  statementType="STATEMENT">
+ UPDATE ${tablename} 
+ <trim prefix="set" suffixOverrides=",">
+  <if test="billStatus!=null">bill_status='${billStatus}',</if>
+  
+  <if test="financeReturn!=null">finance_return=${financeReturn},</if>
+  <if test="financeReturnTime!=null">finance_return_time='${financeReturnTime}',</if>
+  <if test="financeReturnReason!=null">finance_return_reason='${financeReturnReason}',</if>
+  <if test="financeRemark!=null">finance_remark='${financeRemark}'</if>
+ </trim>
+ 
+  WHERE bill_id=${id}
+</update>
+  
+</mapper>

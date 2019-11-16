@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.Business">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bill_code" jdbcType="VARCHAR" property="billCode" />
+    <result column="bill_month" jdbcType="VARCHAR" property="billMonth" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+    <result column="merchants_key" jdbcType="VARCHAR" property="merchantsKey" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="sapid" jdbcType="VARCHAR" property="sapid" />
+    <result column="currency_type" jdbcType="VARCHAR" property="currencyType" />
+    <result column="exchange_rate" jdbcType="DECIMAL" property="exchangeRate" />
+    <result column="tax_total_cost_usd" jdbcType="DECIMAL" property="taxTotalCostUsd" />
+    <result column="notax_total_cost_usd" jdbcType="DECIMAL" property="notaxTotalCostUsd" />
+    <result column="tax_total_cost_rmb" jdbcType="DECIMAL" property="taxTotalCostRmb" />
+    <result column="notax_total_cost_rmb" jdbcType="DECIMAL" property="notaxTotalCostRmb" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="tax_amount_usd" jdbcType="DECIMAL" property="taxAmountUsd" />
+    <result column="tax_amount_rmb" jdbcType="DECIMAL" property="taxAmountRmb" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="source_table" jdbcType="VARCHAR" property="sourceTable" />
+    <result column="source_bill_code" jdbcType="VARCHAR" property="sourceBillCode" />
+    <result column="source_bill_id" jdbcType="INTEGER" property="sourceBillId" />
+    <result column="version_no" jdbcType="VARCHAR" property="versionNo" />
+    <result column="charge_inout_type" jdbcType="VARCHAR" property="chargeInoutType" />
+    <result column="create_bill_user" jdbcType="INTEGER" property="createBillUser" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bill_code, bill_month, bill_type, merchants_key, container_user, sapid, currency_type, 
+    exchange_rate, tax_total_cost_usd, notax_total_cost_usd, tax_total_cost_rmb, notax_total_cost_rmb, 
+    tax_rate, tax_amount_usd, tax_amount_rmb, remark, source_table, source_bill_code, 
+    source_bill_id, version_no, charge_inout_type, create_bill_user, is_enabled, is_del, 
+    create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.finance.entity.BusinessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_business
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_business
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_business
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.finance.entity.BusinessExample">
+    delete from finance_business
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.finance.entity.Business">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_business (bill_code, bill_month, bill_type, 
+      merchants_key, container_user, sapid, 
+      currency_type, exchange_rate, tax_total_cost_usd, 
+      notax_total_cost_usd, tax_total_cost_rmb, notax_total_cost_rmb, 
+      tax_rate, tax_amount_usd, tax_amount_rmb, 
+      remark, source_table, source_bill_code, 
+      source_bill_id, version_no, charge_inout_type, 
+      create_bill_user, is_enabled, is_del, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{billCode,jdbcType=VARCHAR}, #{billMonth,jdbcType=VARCHAR}, #{billType,jdbcType=VARCHAR}, 
+      #{merchantsKey,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, #{sapid,jdbcType=VARCHAR}, 
+      #{currencyType,jdbcType=VARCHAR}, #{exchangeRate,jdbcType=DECIMAL}, #{taxTotalCostUsd,jdbcType=DECIMAL}, 
+      #{notaxTotalCostUsd,jdbcType=DECIMAL}, #{taxTotalCostRmb,jdbcType=DECIMAL}, #{notaxTotalCostRmb,jdbcType=DECIMAL}, 
+      #{taxRate,jdbcType=DECIMAL}, #{taxAmountUsd,jdbcType=DECIMAL}, #{taxAmountRmb,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{sourceTable,jdbcType=VARCHAR}, #{sourceBillCode,jdbcType=VARCHAR}, 
+      #{sourceBillId,jdbcType=INTEGER}, #{versionNo,jdbcType=VARCHAR}, #{chargeInoutType,jdbcType=VARCHAR}, 
+      #{createBillUser,jdbcType=INTEGER}, #{isEnabled,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.finance.entity.Business">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_business
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="billCode != null">
+        bill_code,
+      </if>
+      <if test="billMonth != null">
+        bill_month,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+      <if test="merchantsKey != null">
+        merchants_key,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="sapid != null">
+        sapid,
+      </if>
+      <if test="currencyType != null">
+        currency_type,
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate,
+      </if>
+      <if test="taxTotalCostUsd != null">
+        tax_total_cost_usd,
+      </if>
+      <if test="notaxTotalCostUsd != null">
+        notax_total_cost_usd,
+      </if>
+      <if test="taxTotalCostRmb != null">
+        tax_total_cost_rmb,
+      </if>
+      <if test="notaxTotalCostRmb != null">
+        notax_total_cost_rmb,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="taxAmountUsd != null">
+        tax_amount_usd,
+      </if>
+      <if test="taxAmountRmb != null">
+        tax_amount_rmb,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="sourceTable != null">
+        source_table,
+      </if>
+      <if test="sourceBillCode != null">
+        source_bill_code,
+      </if>
+      <if test="sourceBillId != null">
+        source_bill_id,
+      </if>
+      <if test="versionNo != null">
+        version_no,
+      </if>
+      <if test="chargeInoutType != null">
+        charge_inout_type,
+      </if>
+      <if test="createBillUser != null">
+        create_bill_user,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="billCode != null">
+        #{billCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billMonth != null">
+        #{billMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantsKey != null">
+        #{merchantsKey,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sapid != null">
+        #{sapid,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyType != null">
+        #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null">
+        #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxTotalCostUsd != null">
+        #{taxTotalCostUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="notaxTotalCostUsd != null">
+        #{notaxTotalCostUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="taxTotalCostRmb != null">
+        #{taxTotalCostRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="notaxTotalCostRmb != null">
+        #{notaxTotalCostRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmountUsd != null">
+        #{taxAmountUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmountRmb != null">
+        #{taxAmountRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTable != null">
+        #{sourceTable,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBillCode != null">
+        #{sourceBillCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBillId != null">
+        #{sourceBillId,jdbcType=INTEGER},
+      </if>
+      <if test="versionNo != null">
+        #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeInoutType != null">
+        #{chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="createBillUser != null">
+        #{createBillUser,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.finance.entity.BusinessExample" resultType="java.lang.Long">
+    select count(*) from finance_business
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance_business
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.billCode != null">
+        bill_code = #{record.billCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billMonth != null">
+        bill_month = #{record.billMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billType != null">
+        bill_type = #{record.billType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantsKey != null">
+        merchants_key = #{record.merchantsKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sapid != null">
+        sapid = #{record.sapid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyType != null">
+        currency_type = #{record.currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exchangeRate != null">
+        exchange_rate = #{record.exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxTotalCostUsd != null">
+        tax_total_cost_usd = #{record.taxTotalCostUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notaxTotalCostUsd != null">
+        notax_total_cost_usd = #{record.notaxTotalCostUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxTotalCostRmb != null">
+        tax_total_cost_rmb = #{record.taxTotalCostRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notaxTotalCostRmb != null">
+        notax_total_cost_rmb = #{record.notaxTotalCostRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxRate != null">
+        tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxAmountUsd != null">
+        tax_amount_usd = #{record.taxAmountUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxAmountRmb != null">
+        tax_amount_rmb = #{record.taxAmountRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceTable != null">
+        source_table = #{record.sourceTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceBillCode != null">
+        source_bill_code = #{record.sourceBillCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceBillId != null">
+        source_bill_id = #{record.sourceBillId,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionNo != null">
+        version_no = #{record.versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeInoutType != null">
+        charge_inout_type = #{record.chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBillUser != null">
+        create_bill_user = #{record.createBillUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance_business
+    set id = #{record.id,jdbcType=INTEGER},
+      bill_code = #{record.billCode,jdbcType=VARCHAR},
+      bill_month = #{record.billMonth,jdbcType=VARCHAR},
+      bill_type = #{record.billType,jdbcType=VARCHAR},
+      merchants_key = #{record.merchantsKey,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      sapid = #{record.sapid,jdbcType=VARCHAR},
+      currency_type = #{record.currencyType,jdbcType=VARCHAR},
+      exchange_rate = #{record.exchangeRate,jdbcType=DECIMAL},
+      tax_total_cost_usd = #{record.taxTotalCostUsd,jdbcType=DECIMAL},
+      notax_total_cost_usd = #{record.notaxTotalCostUsd,jdbcType=DECIMAL},
+      tax_total_cost_rmb = #{record.taxTotalCostRmb,jdbcType=DECIMAL},
+      notax_total_cost_rmb = #{record.notaxTotalCostRmb,jdbcType=DECIMAL},
+      tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      tax_amount_usd = #{record.taxAmountUsd,jdbcType=DECIMAL},
+      tax_amount_rmb = #{record.taxAmountRmb,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      source_table = #{record.sourceTable,jdbcType=VARCHAR},
+      source_bill_code = #{record.sourceBillCode,jdbcType=VARCHAR},
+      source_bill_id = #{record.sourceBillId,jdbcType=INTEGER},
+      version_no = #{record.versionNo,jdbcType=VARCHAR},
+      charge_inout_type = #{record.chargeInoutType,jdbcType=VARCHAR},
+      create_bill_user = #{record.createBillUser,jdbcType=INTEGER},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.finance.entity.Business">
+    update finance_business
+    <set>
+      <if test="billCode != null">
+        bill_code = #{billCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billMonth != null">
+        bill_month = #{billMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null">
+        bill_type = #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantsKey != null">
+        merchants_key = #{merchantsKey,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sapid != null">
+        sapid = #{sapid,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyType != null">
+        currency_type = #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxTotalCostUsd != null">
+        tax_total_cost_usd = #{taxTotalCostUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="notaxTotalCostUsd != null">
+        notax_total_cost_usd = #{notaxTotalCostUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="taxTotalCostRmb != null">
+        tax_total_cost_rmb = #{taxTotalCostRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="notaxTotalCostRmb != null">
+        notax_total_cost_rmb = #{notaxTotalCostRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmountUsd != null">
+        tax_amount_usd = #{taxAmountUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmountRmb != null">
+        tax_amount_rmb = #{taxAmountRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTable != null">
+        source_table = #{sourceTable,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBillCode != null">
+        source_bill_code = #{sourceBillCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBillId != null">
+        source_bill_id = #{sourceBillId,jdbcType=INTEGER},
+      </if>
+      <if test="versionNo != null">
+        version_no = #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeInoutType != null">
+        charge_inout_type = #{chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="createBillUser != null">
+        create_bill_user = #{createBillUser,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.finance.entity.Business">
+    update finance_business
+    set bill_code = #{billCode,jdbcType=VARCHAR},
+      bill_month = #{billMonth,jdbcType=VARCHAR},
+      bill_type = #{billType,jdbcType=VARCHAR},
+      merchants_key = #{merchantsKey,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      sapid = #{sapid,jdbcType=VARCHAR},
+      currency_type = #{currencyType,jdbcType=VARCHAR},
+      exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      tax_total_cost_usd = #{taxTotalCostUsd,jdbcType=DECIMAL},
+      notax_total_cost_usd = #{notaxTotalCostUsd,jdbcType=DECIMAL},
+      tax_total_cost_rmb = #{taxTotalCostRmb,jdbcType=DECIMAL},
+      notax_total_cost_rmb = #{notaxTotalCostRmb,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      tax_amount_usd = #{taxAmountUsd,jdbcType=DECIMAL},
+      tax_amount_rmb = #{taxAmountRmb,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      source_table = #{sourceTable,jdbcType=VARCHAR},
+      source_bill_code = #{sourceBillCode,jdbcType=VARCHAR},
+      source_bill_id = #{sourceBillId,jdbcType=INTEGER},
+      version_no = #{versionNo,jdbcType=VARCHAR},
+      charge_inout_type = #{chargeInoutType,jdbcType=VARCHAR},
+      create_bill_user = #{createBillUser,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

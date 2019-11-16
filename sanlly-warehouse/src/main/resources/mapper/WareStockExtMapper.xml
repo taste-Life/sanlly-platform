@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareStockExtMapper">
+  
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareReturnWarehouse">
+    <id column="ware_return_warehouse_id" jdbcType="INTEGER" property="wareReturnWarehouseId" />
+    <result column="return_no" jdbcType="VARCHAR" property="returnNo" />
+    <result column="stockout_no" jdbcType="VARCHAR" property="stockoutNo" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+    <result column="return_date" jdbcType="TIMESTAMP" property="returnDate" />
+    <result column="operator" jdbcType="INTEGER" property="operator" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="returnReason" />
+    <result column="stockout_num" jdbcType="DOUBLE" property="returnNum" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="reasons_rejection" jdbcType="VARCHAR" property="reasonsRejection" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <update id="updateSurplusNum" parameterType="map">
+    update ware_stock
+     set   surplus_num = actual_surplus_num        
+    where company = #{company,jdbcType=VARCHAR} and is_del = 0;
+  </update>
+  <select id="selectStockOutNum" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+		sd.stockout_num,
+		so.stockout_no,
+		so.`no`,
+		so.bill_type,
+		sd.spare_parts
+	FROM
+		ware_stockout so,
+		ware_stockout_detail sd
+	WHERE
+		sd.spare_parts_batch IN (
+			SELECT
+				s.spare_parts_batch
+			FROM
+				ware_stock s
+			WHERE
+				s.spare_parts_original_batch = #{sparePartsOriginalBatch,jdbcType=VARCHAR}
+			AND s.spare_parts =  #{spareParts,jdbcType=VARCHAR}
+		)
+	AND so.ware_stockout_id = sd.ware_stockout_id
+	AND sd.spare_parts = #{spareParts,jdbcType=VARCHAR}
+	AND so.is_stock_sbs = 'LECOMMONOO001'
+  </select>
+</mapper>

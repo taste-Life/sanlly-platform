@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.ManhourRateMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.ManhourRate">
+    <id column="prod_manhour_rate_id" jdbcType="INTEGER" property="prodManhourRateId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="contbody_manhour_rate" jdbcType="DECIMAL" property="contbodyManhourRate" />
+    <result column="contbody_quoted_currency" jdbcType="VARCHAR" property="contbodyQuotedCurrency" />
+    <result column="contbody_rate_currency" jdbcType="VARCHAR" property="contbodyRateCurrency" />
+    <result column="contbody_exchange_rate" jdbcType="DECIMAL" property="contbodyExchangeRate" />
+    <result column="unit_manhour_rate" jdbcType="DECIMAL" property="unitManhourRate" />
+    <result column="unit_quoted_currency" jdbcType="VARCHAR" property="unitQuotedCurrency" />
+    <result column="unit_rate_currency" jdbcType="VARCHAR" property="unitRateCurrency" />
+    <result column="unit_exchange_rate" jdbcType="DECIMAL" property="unitExchangeRate" />
+    <result column="drycont_manhour_rate" jdbcType="DECIMAL" property="drycontManhourRate" />
+    <result column="drycont_quoted_currency" jdbcType="VARCHAR" property="drycontQuotedCurrency" />
+    <result column="drycont_rate_currency" jdbcType="VARCHAR" property="drycontRateCurrency" />
+    <result column="drycont_exchange_rate" jdbcType="DECIMAL" property="drycontExchangeRate" />
+    <result column="pti_rate" jdbcType="DECIMAL" property="ptiRate" />
+    <result column="bill_discount_rate" jdbcType="DECIMAL" property="billDiscountRate" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_manhour_rate_id, company, container_user, contbody_manhour_rate, contbody_quoted_currency, 
+    contbody_rate_currency, contbody_exchange_rate, unit_manhour_rate, unit_quoted_currency, 
+    unit_rate_currency, unit_exchange_rate, drycont_manhour_rate, drycont_quoted_currency, 
+    drycont_rate_currency, drycont_exchange_rate, pti_rate, bill_discount_rate, is_del, 
+    create_time, create_user, update_time, update_user, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.ManhourRateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_manhour_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_manhour_rate
+    where prod_manhour_rate_id = #{prodManhourRateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_manhour_rate
+    where prod_manhour_rate_id = #{prodManhourRateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.ManhourRateExample">
+    delete from prod_manhour_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.ManhourRate">
+    insert into prod_manhour_rate (prod_manhour_rate_id, company, container_user, 
+      contbody_manhour_rate, contbody_quoted_currency, 
+      contbody_rate_currency, contbody_exchange_rate, 
+      unit_manhour_rate, unit_quoted_currency, unit_rate_currency, 
+      unit_exchange_rate, drycont_manhour_rate, drycont_quoted_currency, 
+      drycont_rate_currency, drycont_exchange_rate, 
+      pti_rate, bill_discount_rate, is_del, 
+      create_time, create_user, update_time, 
+      update_user, remark)
+    values (#{prodManhourRateId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, 
+      #{contbodyManhourRate,jdbcType=DECIMAL}, #{contbodyQuotedCurrency,jdbcType=VARCHAR}, 
+      #{contbodyRateCurrency,jdbcType=VARCHAR}, #{contbodyExchangeRate,jdbcType=DECIMAL}, 
+      #{unitManhourRate,jdbcType=DECIMAL}, #{unitQuotedCurrency,jdbcType=VARCHAR}, #{unitRateCurrency,jdbcType=VARCHAR}, 
+      #{unitExchangeRate,jdbcType=DECIMAL}, #{drycontManhourRate,jdbcType=DECIMAL}, #{drycontQuotedCurrency,jdbcType=VARCHAR}, 
+      #{drycontRateCurrency,jdbcType=VARCHAR}, #{drycontExchangeRate,jdbcType=DECIMAL}, 
+      #{ptiRate,jdbcType=DECIMAL}, #{billDiscountRate,jdbcType=DECIMAL}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.ManhourRate">
+    insert into prod_manhour_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodManhourRateId != null">
+        prod_manhour_rate_id,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="contbodyManhourRate != null">
+        contbody_manhour_rate,
+      </if>
+      <if test="contbodyQuotedCurrency != null">
+        contbody_quoted_currency,
+      </if>
+      <if test="contbodyRateCurrency != null">
+        contbody_rate_currency,
+      </if>
+      <if test="contbodyExchangeRate != null">
+        contbody_exchange_rate,
+      </if>
+      <if test="unitManhourRate != null">
+        unit_manhour_rate,
+      </if>
+      <if test="unitQuotedCurrency != null">
+        unit_quoted_currency,
+      </if>
+      <if test="unitRateCurrency != null">
+        unit_rate_currency,
+      </if>
+      <if test="unitExchangeRate != null">
+        unit_exchange_rate,
+      </if>
+      <if test="drycontManhourRate != null">
+        drycont_manhour_rate,
+      </if>
+      <if test="drycontQuotedCurrency != null">
+        drycont_quoted_currency,
+      </if>
+      <if test="drycontRateCurrency != null">
+        drycont_rate_currency,
+      </if>
+      <if test="drycontExchangeRate != null">
+        drycont_exchange_rate,
+      </if>
+      <if test="ptiRate != null">
+        pti_rate,
+      </if>
+      <if test="billDiscountRate != null">
+        bill_discount_rate,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodManhourRateId != null">
+        #{prodManhourRateId,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="contbodyManhourRate != null">
+        #{contbodyManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="contbodyQuotedCurrency != null">
+        #{contbodyQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="contbodyRateCurrency != null">
+        #{contbodyRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="contbodyExchangeRate != null">
+        #{contbodyExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="unitManhourRate != null">
+        #{unitManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="unitQuotedCurrency != null">
+        #{unitQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="unitRateCurrency != null">
+        #{unitRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExchangeRate != null">
+        #{unitExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="drycontManhourRate != null">
+        #{drycontManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="drycontQuotedCurrency != null">
+        #{drycontQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="drycontRateCurrency != null">
+        #{drycontRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="drycontExchangeRate != null">
+        #{drycontExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ptiRate != null">
+        #{ptiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="billDiscountRate != null">
+        #{billDiscountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.ManhourRateExample" resultType="java.lang.Long">
+    select count(*) from prod_manhour_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_manhour_rate
+    <set>
+      <if test="record.prodManhourRateId != null">
+        prod_manhour_rate_id = #{record.prodManhourRateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contbodyManhourRate != null">
+        contbody_manhour_rate = #{record.contbodyManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contbodyQuotedCurrency != null">
+        contbody_quoted_currency = #{record.contbodyQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contbodyRateCurrency != null">
+        contbody_rate_currency = #{record.contbodyRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contbodyExchangeRate != null">
+        contbody_exchange_rate = #{record.contbodyExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unitManhourRate != null">
+        unit_manhour_rate = #{record.unitManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unitQuotedCurrency != null">
+        unit_quoted_currency = #{record.unitQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitRateCurrency != null">
+        unit_rate_currency = #{record.unitRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitExchangeRate != null">
+        unit_exchange_rate = #{record.unitExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.drycontManhourRate != null">
+        drycont_manhour_rate = #{record.drycontManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.drycontQuotedCurrency != null">
+        drycont_quoted_currency = #{record.drycontQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drycontRateCurrency != null">
+        drycont_rate_currency = #{record.drycontRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drycontExchangeRate != null">
+        drycont_exchange_rate = #{record.drycontExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ptiRate != null">
+        pti_rate = #{record.ptiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billDiscountRate != null">
+        bill_discount_rate = #{record.billDiscountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_manhour_rate
+    set prod_manhour_rate_id = #{record.prodManhourRateId,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      contbody_manhour_rate = #{record.contbodyManhourRate,jdbcType=DECIMAL},
+      contbody_quoted_currency = #{record.contbodyQuotedCurrency,jdbcType=VARCHAR},
+      contbody_rate_currency = #{record.contbodyRateCurrency,jdbcType=VARCHAR},
+      contbody_exchange_rate = #{record.contbodyExchangeRate,jdbcType=DECIMAL},
+      unit_manhour_rate = #{record.unitManhourRate,jdbcType=DECIMAL},
+      unit_quoted_currency = #{record.unitQuotedCurrency,jdbcType=VARCHAR},
+      unit_rate_currency = #{record.unitRateCurrency,jdbcType=VARCHAR},
+      unit_exchange_rate = #{record.unitExchangeRate,jdbcType=DECIMAL},
+      drycont_manhour_rate = #{record.drycontManhourRate,jdbcType=DECIMAL},
+      drycont_quoted_currency = #{record.drycontQuotedCurrency,jdbcType=VARCHAR},
+      drycont_rate_currency = #{record.drycontRateCurrency,jdbcType=VARCHAR},
+      drycont_exchange_rate = #{record.drycontExchangeRate,jdbcType=DECIMAL},
+      pti_rate = #{record.ptiRate,jdbcType=DECIMAL},
+      bill_discount_rate = #{record.billDiscountRate,jdbcType=DECIMAL},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.ManhourRate">
+    update prod_manhour_rate
+    <set>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="contbodyManhourRate != null">
+        contbody_manhour_rate = #{contbodyManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="contbodyQuotedCurrency != null">
+        contbody_quoted_currency = #{contbodyQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="contbodyRateCurrency != null">
+        contbody_rate_currency = #{contbodyRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="contbodyExchangeRate != null">
+        contbody_exchange_rate = #{contbodyExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="unitManhourRate != null">
+        unit_manhour_rate = #{unitManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="unitQuotedCurrency != null">
+        unit_quoted_currency = #{unitQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="unitRateCurrency != null">
+        unit_rate_currency = #{unitRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExchangeRate != null">
+        unit_exchange_rate = #{unitExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="drycontManhourRate != null">
+        drycont_manhour_rate = #{drycontManhourRate,jdbcType=DECIMAL},
+      </if>
+      <if test="drycontQuotedCurrency != null">
+        drycont_quoted_currency = #{drycontQuotedCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="drycontRateCurrency != null">
+        drycont_rate_currency = #{drycontRateCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="drycontExchangeRate != null">
+        drycont_exchange_rate = #{drycontExchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ptiRate != null">
+        pti_rate = #{ptiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="billDiscountRate != null">
+        bill_discount_rate = #{billDiscountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prod_manhour_rate_id = #{prodManhourRateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.ManhourRate">
+    update prod_manhour_rate
+    set company = #{company,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      contbody_manhour_rate = #{contbodyManhourRate,jdbcType=DECIMAL},
+      contbody_quoted_currency = #{contbodyQuotedCurrency,jdbcType=VARCHAR},
+      contbody_rate_currency = #{contbodyRateCurrency,jdbcType=VARCHAR},
+      contbody_exchange_rate = #{contbodyExchangeRate,jdbcType=DECIMAL},
+      unit_manhour_rate = #{unitManhourRate,jdbcType=DECIMAL},
+      unit_quoted_currency = #{unitQuotedCurrency,jdbcType=VARCHAR},
+      unit_rate_currency = #{unitRateCurrency,jdbcType=VARCHAR},
+      unit_exchange_rate = #{unitExchangeRate,jdbcType=DECIMAL},
+      drycont_manhour_rate = #{drycontManhourRate,jdbcType=DECIMAL},
+      drycont_quoted_currency = #{drycontQuotedCurrency,jdbcType=VARCHAR},
+      drycont_rate_currency = #{drycontRateCurrency,jdbcType=VARCHAR},
+      drycont_exchange_rate = #{drycontExchangeRate,jdbcType=DECIMAL},
+      pti_rate = #{ptiRate,jdbcType=DECIMAL},
+      bill_discount_rate = #{billDiscountRate,jdbcType=DECIMAL},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where prod_manhour_rate_id = #{prodManhourRateId,jdbcType=INTEGER}
+  </update>
+</mapper>

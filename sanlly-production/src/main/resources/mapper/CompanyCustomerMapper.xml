@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.CompanyCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.CompanyCustomer">
+    <id column="prod_edi_type_id" jdbcType="INTEGER" property="prodEdiTypeId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="ftp_receive_address" jdbcType="VARCHAR" property="ftpReceiveAddress" />
+    <result column="ftp_receive_port" jdbcType="INTEGER" property="ftpReceivePort" />
+    <result column="ftp_receive_directory" jdbcType="VARCHAR" property="ftpReceiveDirectory" />
+    <result column="ftp_send_account" jdbcType="VARCHAR" property="ftpSendAccount" />
+    <result column="ftp_send_pwd" jdbcType="VARCHAR" property="ftpSendPwd" />
+    <result column="send_email_address" jdbcType="VARCHAR" property="sendEmailAddress" />
+    <result column="send_smtp_content" jdbcType="VARCHAR" property="sendSmtpContent" />
+    <result column="send_smtp_port" jdbcType="INTEGER" property="sendSmtpPort" />
+    <result column="email_user" jdbcType="VARCHAR" property="emailUser" />
+    <result column="email_pwd" jdbcType="VARCHAR" property="emailPwd" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_edi_type_id, company, container_user, ftp_receive_address, ftp_receive_port, 
+    ftp_receive_directory, ftp_send_account, ftp_send_pwd, send_email_address, send_smtp_content, 
+    send_smtp_port, email_user, email_pwd, is_del, create_time, create_user, update_time, 
+    update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.CompanyCustomerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_company_customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_company_customer
+    where prod_edi_type_id = #{prodEdiTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_company_customer
+    where prod_edi_type_id = #{prodEdiTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.CompanyCustomerExample">
+    delete from prod_company_customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.CompanyCustomer">
+    insert into prod_company_customer (prod_edi_type_id, company, container_user, 
+      ftp_receive_address, ftp_receive_port, ftp_receive_directory, 
+      ftp_send_account, ftp_send_pwd, send_email_address, 
+      send_smtp_content, send_smtp_port, email_user, 
+      email_pwd, is_del, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodEdiTypeId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, 
+      #{ftpReceiveAddress,jdbcType=VARCHAR}, #{ftpReceivePort,jdbcType=INTEGER}, #{ftpReceiveDirectory,jdbcType=VARCHAR}, 
+      #{ftpSendAccount,jdbcType=VARCHAR}, #{ftpSendPwd,jdbcType=VARCHAR}, #{sendEmailAddress,jdbcType=VARCHAR}, 
+      #{sendSmtpContent,jdbcType=VARCHAR}, #{sendSmtpPort,jdbcType=INTEGER}, #{emailUser,jdbcType=VARCHAR}, 
+      #{emailPwd,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.CompanyCustomer">
+    insert into prod_company_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodEdiTypeId != null">
+        prod_edi_type_id,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="ftpReceiveAddress != null">
+        ftp_receive_address,
+      </if>
+      <if test="ftpReceivePort != null">
+        ftp_receive_port,
+      </if>
+      <if test="ftpReceiveDirectory != null">
+        ftp_receive_directory,
+      </if>
+      <if test="ftpSendAccount != null">
+        ftp_send_account,
+      </if>
+      <if test="ftpSendPwd != null">
+        ftp_send_pwd,
+      </if>
+      <if test="sendEmailAddress != null">
+        send_email_address,
+      </if>
+      <if test="sendSmtpContent != null">
+        send_smtp_content,
+      </if>
+      <if test="sendSmtpPort != null">
+        send_smtp_port,
+      </if>
+      <if test="emailUser != null">
+        email_user,
+      </if>
+      <if test="emailPwd != null">
+        email_pwd,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodEdiTypeId != null">
+        #{prodEdiTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpReceiveAddress != null">
+        #{ftpReceiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpReceivePort != null">
+        #{ftpReceivePort,jdbcType=INTEGER},
+      </if>
+      <if test="ftpReceiveDirectory != null">
+        #{ftpReceiveDirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpSendAccount != null">
+        #{ftpSendAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpSendPwd != null">
+        #{ftpSendPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sendEmailAddress != null">
+        #{sendEmailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSmtpContent != null">
+        #{sendSmtpContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSmtpPort != null">
+        #{sendSmtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="emailUser != null">
+        #{emailUser,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPwd != null">
+        #{emailPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.CompanyCustomerExample" resultType="java.lang.Long">
+    select count(*) from prod_company_customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_company_customer
+    <set>
+      <if test="record.prodEdiTypeId != null">
+        prod_edi_type_id = #{record.prodEdiTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftpReceiveAddress != null">
+        ftp_receive_address = #{record.ftpReceiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftpReceivePort != null">
+        ftp_receive_port = #{record.ftpReceivePort,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftpReceiveDirectory != null">
+        ftp_receive_directory = #{record.ftpReceiveDirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftpSendAccount != null">
+        ftp_send_account = #{record.ftpSendAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftpSendPwd != null">
+        ftp_send_pwd = #{record.ftpSendPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendEmailAddress != null">
+        send_email_address = #{record.sendEmailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendSmtpContent != null">
+        send_smtp_content = #{record.sendSmtpContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendSmtpPort != null">
+        send_smtp_port = #{record.sendSmtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.emailUser != null">
+        email_user = #{record.emailUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailPwd != null">
+        email_pwd = #{record.emailPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_company_customer
+    set prod_edi_type_id = #{record.prodEdiTypeId,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      ftp_receive_address = #{record.ftpReceiveAddress,jdbcType=VARCHAR},
+      ftp_receive_port = #{record.ftpReceivePort,jdbcType=INTEGER},
+      ftp_receive_directory = #{record.ftpReceiveDirectory,jdbcType=VARCHAR},
+      ftp_send_account = #{record.ftpSendAccount,jdbcType=VARCHAR},
+      ftp_send_pwd = #{record.ftpSendPwd,jdbcType=VARCHAR},
+      send_email_address = #{record.sendEmailAddress,jdbcType=VARCHAR},
+      send_smtp_content = #{record.sendSmtpContent,jdbcType=VARCHAR},
+      send_smtp_port = #{record.sendSmtpPort,jdbcType=INTEGER},
+      email_user = #{record.emailUser,jdbcType=VARCHAR},
+      email_pwd = #{record.emailPwd,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.CompanyCustomer">
+    update prod_company_customer
+    <set>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpReceiveAddress != null">
+        ftp_receive_address = #{ftpReceiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpReceivePort != null">
+        ftp_receive_port = #{ftpReceivePort,jdbcType=INTEGER},
+      </if>
+      <if test="ftpReceiveDirectory != null">
+        ftp_receive_directory = #{ftpReceiveDirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpSendAccount != null">
+        ftp_send_account = #{ftpSendAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpSendPwd != null">
+        ftp_send_pwd = #{ftpSendPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sendEmailAddress != null">
+        send_email_address = #{sendEmailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSmtpContent != null">
+        send_smtp_content = #{sendSmtpContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSmtpPort != null">
+        send_smtp_port = #{sendSmtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="emailUser != null">
+        email_user = #{emailUser,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPwd != null">
+        email_pwd = #{emailPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_edi_type_id = #{prodEdiTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.CompanyCustomer">
+    update prod_company_customer
+    set company = #{company,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      ftp_receive_address = #{ftpReceiveAddress,jdbcType=VARCHAR},
+      ftp_receive_port = #{ftpReceivePort,jdbcType=INTEGER},
+      ftp_receive_directory = #{ftpReceiveDirectory,jdbcType=VARCHAR},
+      ftp_send_account = #{ftpSendAccount,jdbcType=VARCHAR},
+      ftp_send_pwd = #{ftpSendPwd,jdbcType=VARCHAR},
+      send_email_address = #{sendEmailAddress,jdbcType=VARCHAR},
+      send_smtp_content = #{sendSmtpContent,jdbcType=VARCHAR},
+      send_smtp_port = #{sendSmtpPort,jdbcType=INTEGER},
+      email_user = #{emailUser,jdbcType=VARCHAR},
+      email_pwd = #{emailPwd,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_edi_type_id = #{prodEdiTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

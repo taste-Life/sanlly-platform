@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareSurplusLossesMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareSurplusLosses">
+    <id column="ware_surplus_losses_id" jdbcType="INTEGER" property="wareSurplusLossesId" />
+    <result column="surplus_losses_no" jdbcType="VARCHAR" property="surplusLossesNo" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="bill_status" jdbcType="VARCHAR" property="billStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="is_sbs" jdbcType="VARCHAR" property="isSbs" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_surplus_losses_id, surplus_losses_no, `type`, company, warehouse, bill_status, 
+    remark, is_del, create_time, create_user, update_time, update_user, yard, is_sbs
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareSurplusLossesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_surplus_losses
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_surplus_losses
+    where ware_surplus_losses_id = #{wareSurplusLossesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_surplus_losses
+    where ware_surplus_losses_id = #{wareSurplusLossesId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareSurplusLossesExample">
+    delete from ware_surplus_losses
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareSurplusLosses">
+    <selectKey keyProperty="wareSurplusLossesId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_surplus_losses (surplus_losses_no, `type`, company, 
+      warehouse, bill_status, remark, 
+      is_del, create_time, create_user, 
+      update_time, update_user, yard, 
+      is_sbs)
+    values (#{surplusLossesNo,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{warehouse,jdbcType=VARCHAR}, #{billStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{yard,jdbcType=VARCHAR}, 
+      #{isSbs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareSurplusLosses">
+    <selectKey keyProperty="wareSurplusLossesId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_surplus_losses
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="surplusLossesNo != null">
+        surplus_losses_no,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="billStatus != null">
+        bill_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="isSbs != null">
+        is_sbs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="surplusLossesNo != null">
+        #{surplusLossesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="isSbs != null">
+        #{isSbs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareSurplusLossesExample" resultType="java.lang.Long">
+    select count(*) from ware_surplus_losses
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_surplus_losses
+    <set>
+      <if test="record.wareSurplusLossesId != null">
+        ware_surplus_losses_id = #{record.wareSurplusLossesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.surplusLossesNo != null">
+        surplus_losses_no = #{record.surplusLossesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billStatus != null">
+        bill_status = #{record.billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSbs != null">
+        is_sbs = #{record.isSbs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_surplus_losses
+    set ware_surplus_losses_id = #{record.wareSurplusLossesId,jdbcType=INTEGER},
+      surplus_losses_no = #{record.surplusLossesNo,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      bill_status = #{record.billStatus,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      is_sbs = #{record.isSbs,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareSurplusLosses">
+    update ware_surplus_losses
+    <set>
+      <if test="surplusLossesNo != null">
+        surplus_losses_no = #{surplusLossesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null">
+        bill_status = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="isSbs != null">
+        is_sbs = #{isSbs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_surplus_losses_id = #{wareSurplusLossesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareSurplusLosses">
+    update ware_surplus_losses
+    set surplus_losses_no = #{surplusLossesNo,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      bill_status = #{billStatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      yard = #{yard,jdbcType=VARCHAR},
+      is_sbs = #{isSbs,jdbcType=VARCHAR}
+    where ware_surplus_losses_id = #{wareSurplusLossesId,jdbcType=INTEGER}
+  </update>
+</mapper>

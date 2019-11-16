@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.PtiRateMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.PtiRate">
+    <id column="prod_pti_rate_id" jdbcType="INTEGER" property="prodPtiRateId" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="container_user" jdbcType="INTEGER" property="containerUser" />
+    <result column="container_size" jdbcType="VARCHAR" property="containerSize" />
+    <result column="pti_type" jdbcType="VARCHAR" property="ptiType" />
+    <result column="pti_rate" jdbcType="DECIMAL" property="ptiRate" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_pti_rate_id, yard, container_user, container_size, pti_type, pti_rate, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.PtiRateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_pti_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_pti_rate
+    where prod_pti_rate_id = #{prodPtiRateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_pti_rate
+    where prod_pti_rate_id = #{prodPtiRateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.PtiRateExample">
+    delete from prod_pti_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.PtiRate">
+    insert into prod_pti_rate (prod_pti_rate_id, yard, container_user, 
+      container_size, pti_type, pti_rate, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{prodPtiRateId,jdbcType=INTEGER}, #{yard,jdbcType=VARCHAR}, #{containerUser,jdbcType=INTEGER}, 
+      #{containerSize,jdbcType=VARCHAR}, #{ptiType,jdbcType=VARCHAR}, #{ptiRate,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.PtiRate">
+    insert into prod_pti_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodPtiRateId != null">
+        prod_pti_rate_id,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="containerSize != null">
+        container_size,
+      </if>
+      <if test="ptiType != null">
+        pti_type,
+      </if>
+      <if test="ptiRate != null">
+        pti_rate,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodPtiRateId != null">
+        #{prodPtiRateId,jdbcType=INTEGER},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=INTEGER},
+      </if>
+      <if test="containerSize != null">
+        #{containerSize,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiType != null">
+        #{ptiType,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiRate != null">
+        #{ptiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.PtiRateExample" resultType="java.lang.Long">
+    select count(*) from prod_pti_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_pti_rate
+    <set>
+      <if test="record.prodPtiRateId != null">
+        prod_pti_rate_id = #{record.prodPtiRateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.containerSize != null">
+        container_size = #{record.containerSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptiType != null">
+        pti_type = #{record.ptiType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptiRate != null">
+        pti_rate = #{record.ptiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_pti_rate
+    set prod_pti_rate_id = #{record.prodPtiRateId,jdbcType=INTEGER},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=INTEGER},
+      container_size = #{record.containerSize,jdbcType=VARCHAR},
+      pti_type = #{record.ptiType,jdbcType=VARCHAR},
+      pti_rate = #{record.ptiRate,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.PtiRate">
+    update prod_pti_rate
+    <set>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=INTEGER},
+      </if>
+      <if test="containerSize != null">
+        container_size = #{containerSize,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiType != null">
+        pti_type = #{ptiType,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiRate != null">
+        pti_rate = #{ptiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_pti_rate_id = #{prodPtiRateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.PtiRate">
+    update prod_pti_rate
+    set yard = #{yard,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=INTEGER},
+      container_size = #{containerSize,jdbcType=VARCHAR},
+      pti_type = #{ptiType,jdbcType=VARCHAR},
+      pti_rate = #{ptiRate,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_pti_rate_id = #{prodPtiRateId,jdbcType=INTEGER}
+  </update>
+</mapper>

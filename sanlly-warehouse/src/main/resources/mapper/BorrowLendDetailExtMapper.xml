@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.sanlly.warehouse.dao.BorrowLendDetailExtMapper">
+	<resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.BorrowLendDetail">
+    <id column="ware_borrow_slip_detail_id" jdbcType="INTEGER" property="wareBorrowSlipDetailId" />
+    <result column="ware_borrow_lend_slip" jdbcType="INTEGER" property="wareBorrowLendSlip" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="spare_parts_batch" jdbcType="VARCHAR" property="sparePartsBatch" />
+    <result column="stockin_spare_parts" jdbcType="VARCHAR" property="stockinSpareParts" />
+    <result column="stockin_spare_parts_name" jdbcType="VARCHAR" property="stockinSparePartsName" />
+    <result column="escrow_company" jdbcType="VARCHAR" property="escrowCompany" />
+    <result column="in_warehouse_type" jdbcType="VARCHAR" property="inWarehouseType" />
+    <result column="out_warehouse_type" jdbcType="VARCHAR" property="outWarehouseType" />
+    <result column="out_storage_location" jdbcType="VARCHAR" property="outStorageLocation" />
+    <result column="in_storage_location" jdbcType="VARCHAR" property="inStorageLocation" />
+    <result column="borrow_num" jdbcType="DOUBLE" property="borrowNum" />
+    <result column="repay_num" jdbcType="DOUBLE" property="repayNum" />
+    <result column="return_num" jdbcType="DOUBLE" property="returnNum" />
+    <result column="borrow_price" jdbcType="DECIMAL" property="borrowPrice" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+
+	<select id="selectByCondition" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS
+		bld.*
+		FROM
+		ware_borrow_lend_detail bld
+		LEFT JOIN ware_borrow_lend_slip bls ON
+		bls.ware_borrow_lend_slip_id=bld.ware_borrow_lend_slip
+		LEFT JOIN
+		ware_spare_parts wsp ON wsp.`key`=bld.spare_parts
+		WHERE bls.is_del=0
+		AND bld.borrow_num>bld.return_num
+		<if test="category != null">
+			AND bls.category=#{category,jdbcType=INTEGER}
+		</if>
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND wsp.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="no != null and no != ''">
+			AND bls.borrow_lend_no LIKE
+			CONCAT('%',#{no,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="category != null">
+			AND bls.category = #{category,jdbcType=INTEGER}
+		</if>
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+	</select>
+
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+
+</mapper>

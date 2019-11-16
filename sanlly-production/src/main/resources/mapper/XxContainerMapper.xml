@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.XxContainerMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.XxContainer">
+    <id column="prod_xx_container_id" jdbcType="INTEGER" property="prodXxContainerId" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="container" jdbcType="VARCHAR" property="container" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="is_xx" jdbcType="VARCHAR" property="isXx" />
+    <result column="xx_state" jdbcType="VARCHAR" property="xxState" />
+    <result column="pti_result" jdbcType="VARCHAR" property="ptiResult" />
+    <result column="pti_last_result" jdbcType="VARCHAR" property="ptiLastResult" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_xx_container_id, course, container, container_no, is_xx, xx_state, pti_result, 
+    pti_last_result, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.XxContainerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_xx_container
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_xx_container
+    where prod_xx_container_id = #{prodXxContainerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_xx_container
+    where prod_xx_container_id = #{prodXxContainerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.XxContainerExample">
+    delete from prod_xx_container
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.XxContainer">
+    insert into prod_xx_container (prod_xx_container_id, course, container, 
+      container_no, is_xx, xx_state, 
+      pti_result, pti_last_result, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodXxContainerId,jdbcType=INTEGER}, #{course,jdbcType=VARCHAR}, #{container,jdbcType=VARCHAR}, 
+      #{containerNo,jdbcType=VARCHAR}, #{isXx,jdbcType=VARCHAR}, #{xxState,jdbcType=VARCHAR}, 
+      #{ptiResult,jdbcType=VARCHAR}, #{ptiLastResult,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.XxContainer">
+    insert into prod_xx_container
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodXxContainerId != null">
+        prod_xx_container_id,
+      </if>
+      <if test="course != null">
+        course,
+      </if>
+      <if test="container != null">
+        container,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="isXx != null">
+        is_xx,
+      </if>
+      <if test="xxState != null">
+        xx_state,
+      </if>
+      <if test="ptiResult != null">
+        pti_result,
+      </if>
+      <if test="ptiLastResult != null">
+        pti_last_result,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodXxContainerId != null">
+        #{prodXxContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="course != null">
+        #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="container != null">
+        #{container,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isXx != null">
+        #{isXx,jdbcType=VARCHAR},
+      </if>
+      <if test="xxState != null">
+        #{xxState,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiResult != null">
+        #{ptiResult,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiLastResult != null">
+        #{ptiLastResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.XxContainerExample" resultType="java.lang.Long">
+    select count(*) from prod_xx_container
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_xx_container
+    <set>
+      <if test="record.prodXxContainerId != null">
+        prod_xx_container_id = #{record.prodXxContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.course != null">
+        course = #{record.course,jdbcType=VARCHAR},
+      </if>
+      <if test="record.container != null">
+        container = #{record.container,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isXx != null">
+        is_xx = #{record.isXx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xxState != null">
+        xx_state = #{record.xxState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptiResult != null">
+        pti_result = #{record.ptiResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptiLastResult != null">
+        pti_last_result = #{record.ptiLastResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_xx_container
+    set prod_xx_container_id = #{record.prodXxContainerId,jdbcType=INTEGER},
+      course = #{record.course,jdbcType=VARCHAR},
+      container = #{record.container,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      is_xx = #{record.isXx,jdbcType=VARCHAR},
+      xx_state = #{record.xxState,jdbcType=VARCHAR},
+      pti_result = #{record.ptiResult,jdbcType=VARCHAR},
+      pti_last_result = #{record.ptiLastResult,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.XxContainer">
+    update prod_xx_container
+    <set>
+      <if test="course != null">
+        course = #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="container != null">
+        container = #{container,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isXx != null">
+        is_xx = #{isXx,jdbcType=VARCHAR},
+      </if>
+      <if test="xxState != null">
+        xx_state = #{xxState,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiResult != null">
+        pti_result = #{ptiResult,jdbcType=VARCHAR},
+      </if>
+      <if test="ptiLastResult != null">
+        pti_last_result = #{ptiLastResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_xx_container_id = #{prodXxContainerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.XxContainer">
+    update prod_xx_container
+    set course = #{course,jdbcType=VARCHAR},
+      container = #{container,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      is_xx = #{isXx,jdbcType=VARCHAR},
+      xx_state = #{xxState,jdbcType=VARCHAR},
+      pti_result = #{ptiResult,jdbcType=VARCHAR},
+      pti_last_result = #{ptiLastResult,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_xx_container_id = #{prodXxContainerId,jdbcType=INTEGER}
+  </update>
+</mapper>

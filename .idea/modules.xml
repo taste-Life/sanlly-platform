@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/sanlly-auth/sanlly-auth.iml" filepath="$PROJECT_DIR$/sanlly-auth/sanlly-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-common/sanlly-common.iml" filepath="$PROJECT_DIR$/sanlly-common/sanlly-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-eureka/sanlly-eureka.iml" filepath="$PROJECT_DIR$/sanlly-eureka/sanlly-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-finance/sanlly-finance.iml" filepath="$PROJECT_DIR$/sanlly-finance/sanlly-finance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-monitor/sanlly-monitor.iml" filepath="$PROJECT_DIR$/sanlly-monitor/sanlly-monitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/sanlly-platform.iml" filepath="$PROJECT_DIR$/.idea/sanlly-platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-production/sanlly-production.iml" filepath="$PROJECT_DIR$/sanlly-production/sanlly-production.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-purchase/sanlly-purchase.iml" filepath="$PROJECT_DIR$/sanlly-purchase/sanlly-purchase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-warehouse/sanlly-warehouse.iml" filepath="$PROJECT_DIR$/sanlly-warehouse/sanlly-warehouse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-workflow/sanlly-workflow.iml" filepath="$PROJECT_DIR$/sanlly-workflow/sanlly-workflow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sanlly-zuul/sanlly-zuul.iml" filepath="$PROJECT_DIR$/sanlly-zuul/sanlly-zuul.iml" />
+    </modules>
+  </component>
+</project>

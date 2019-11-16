@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.RateExhaustionMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.RateExhaustion">
+    <id column="prod_rate_exhaustion_id" jdbcType="VARCHAR" property="prodRateExhaustionId" />
+    <result column="rate_id" jdbcType="VARCHAR" property="rateId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="rate_code" jdbcType="VARCHAR" property="rateCode" />
+    <result column="position_code" jdbcType="VARCHAR" property="positionCode" />
+    <result column="container_type" jdbcType="VARCHAR" property="containerType" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="algorithm_basis" jdbcType="VARCHAR" property="algorithmBasis" />
+    <result column="rate_describe" jdbcType="VARCHAR" property="rateDescribe" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="man_hour" jdbcType="DOUBLE" property="manHour" />
+    <result column="material_cost" jdbcType="DECIMAL" property="materialCost" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_rate_exhaustion_id, rate_id, `type`, rate_code, position_code, container_type, 
+    `size`, algorithm_basis, rate_describe, `length`, width, quantity, man_hour, material_cost, 
+    remark, is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.RateExhaustionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_rate_exhaustion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_rate_exhaustion
+    where prod_rate_exhaustion_id = #{prodRateExhaustionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_rate_exhaustion
+    where prod_rate_exhaustion_id = #{prodRateExhaustionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.RateExhaustionExample">
+    delete from prod_rate_exhaustion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.RateExhaustion">
+    insert into prod_rate_exhaustion (prod_rate_exhaustion_id, rate_id, `type`, 
+      rate_code, position_code, container_type, 
+      `size`, algorithm_basis, rate_describe, 
+      `length`, width, quantity, 
+      man_hour, material_cost, remark, 
+      is_del, create_time, create_user, 
+      update_time, update_user)
+    values (#{prodRateExhaustionId,jdbcType=VARCHAR}, #{rateId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{rateCode,jdbcType=VARCHAR}, #{positionCode,jdbcType=VARCHAR}, #{containerType,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{algorithmBasis,jdbcType=VARCHAR}, #{rateDescribe,jdbcType=VARCHAR}, 
+      #{length,jdbcType=DOUBLE}, #{width,jdbcType=DOUBLE}, #{quantity,jdbcType=DOUBLE}, 
+      #{manHour,jdbcType=DOUBLE}, #{materialCost,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.RateExhaustion">
+    insert into prod_rate_exhaustion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodRateExhaustionId != null">
+        prod_rate_exhaustion_id,
+      </if>
+      <if test="rateId != null">
+        rate_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="rateCode != null">
+        rate_code,
+      </if>
+      <if test="positionCode != null">
+        position_code,
+      </if>
+      <if test="containerType != null">
+        container_type,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="algorithmBasis != null">
+        algorithm_basis,
+      </if>
+      <if test="rateDescribe != null">
+        rate_describe,
+      </if>
+      <if test="length != null">
+        `length`,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="manHour != null">
+        man_hour,
+      </if>
+      <if test="materialCost != null">
+        material_cost,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodRateExhaustionId != null">
+        #{prodRateExhaustionId,jdbcType=VARCHAR},
+      </if>
+      <if test="rateId != null">
+        #{rateId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="rateCode != null">
+        #{rateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="containerType != null">
+        #{containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="algorithmBasis != null">
+        #{algorithmBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="rateDescribe != null">
+        #{rateDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="manHour != null">
+        #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="materialCost != null">
+        #{materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.RateExhaustionExample" resultType="java.lang.Long">
+    select count(*) from prod_rate_exhaustion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_rate_exhaustion
+    <set>
+      <if test="record.prodRateExhaustionId != null">
+        prod_rate_exhaustion_id = #{record.prodRateExhaustionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateId != null">
+        rate_id = #{record.rateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateCode != null">
+        rate_code = #{record.rateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionCode != null">
+        position_code = #{record.positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerType != null">
+        container_type = #{record.containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.algorithmBasis != null">
+        algorithm_basis = #{record.algorithmBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateDescribe != null">
+        rate_describe = #{record.rateDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null">
+        `length` = #{record.length,jdbcType=DOUBLE},
+      </if>
+      <if test="record.width != null">
+        width = #{record.width,jdbcType=DOUBLE},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.manHour != null">
+        man_hour = #{record.manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="record.materialCost != null">
+        material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_rate_exhaustion
+    set prod_rate_exhaustion_id = #{record.prodRateExhaustionId,jdbcType=VARCHAR},
+      rate_id = #{record.rateId,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      rate_code = #{record.rateCode,jdbcType=VARCHAR},
+      position_code = #{record.positionCode,jdbcType=VARCHAR},
+      container_type = #{record.containerType,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      algorithm_basis = #{record.algorithmBasis,jdbcType=VARCHAR},
+      rate_describe = #{record.rateDescribe,jdbcType=VARCHAR},
+      `length` = #{record.length,jdbcType=DOUBLE},
+      width = #{record.width,jdbcType=DOUBLE},
+      quantity = #{record.quantity,jdbcType=DOUBLE},
+      man_hour = #{record.manHour,jdbcType=DOUBLE},
+      material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.RateExhaustion">
+    update prod_rate_exhaustion
+    <set>
+      <if test="rateId != null">
+        rate_id = #{rateId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="rateCode != null">
+        rate_code = #{rateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        position_code = #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="containerType != null">
+        container_type = #{containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="algorithmBasis != null">
+        algorithm_basis = #{algorithmBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="rateDescribe != null">
+        rate_describe = #{rateDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        `length` = #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="manHour != null">
+        man_hour = #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="materialCost != null">
+        material_cost = #{materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_rate_exhaustion_id = #{prodRateExhaustionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.RateExhaustion">
+    update prod_rate_exhaustion
+    set rate_id = #{rateId,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      rate_code = #{rateCode,jdbcType=VARCHAR},
+      position_code = #{positionCode,jdbcType=VARCHAR},
+      container_type = #{containerType,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      algorithm_basis = #{algorithmBasis,jdbcType=VARCHAR},
+      rate_describe = #{rateDescribe,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      man_hour = #{manHour,jdbcType=DOUBLE},
+      material_cost = #{materialCost,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_rate_exhaustion_id = #{prodRateExhaustionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

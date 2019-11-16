@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.UnitMaintenanceMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.UnitMaintenance">
+    <id column="prod_unit_maintenance_id" jdbcType="INTEGER" property="prodUnitMaintenanceId" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unit_company" jdbcType="VARCHAR" property="unitCompany" />
+    <result column="unit_type" jdbcType="VARCHAR" property="unitType" />
+    <result column="entire_repair_time" jdbcType="INTEGER" property="entireRepairTime" />
+    <result column="winder_repair_time" jdbcType="INTEGER" property="winderRepairTime" />
+    <result column="compressor_repair_time" jdbcType="INTEGER" property="compressorRepairTime" />
+    <result column="control_repair_time" jdbcType="INTEGER" property="controlRepairTime" />
+    <result column="base_repair_time" jdbcType="INTEGER" property="baseRepairTime" />
+    <result column="begin_maintenance" jdbcType="TIMESTAMP" property="beginMaintenance" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_unit_maintenance_id, unit, unit_company, unit_type, entire_repair_time, winder_repair_time, 
+    compressor_repair_time, control_repair_time, base_repair_time, begin_maintenance, 
+    create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.UnitMaintenanceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_unit_maintenance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_unit_maintenance
+    where prod_unit_maintenance_id = #{prodUnitMaintenanceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_unit_maintenance
+    where prod_unit_maintenance_id = #{prodUnitMaintenanceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.UnitMaintenanceExample">
+    delete from prod_unit_maintenance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.UnitMaintenance">
+    insert into prod_unit_maintenance (prod_unit_maintenance_id, unit, unit_company, 
+      unit_type, entire_repair_time, winder_repair_time, 
+      compressor_repair_time, control_repair_time, 
+      base_repair_time, begin_maintenance, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodUnitMaintenanceId,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, #{unitCompany,jdbcType=VARCHAR}, 
+      #{unitType,jdbcType=VARCHAR}, #{entireRepairTime,jdbcType=INTEGER}, #{winderRepairTime,jdbcType=INTEGER}, 
+      #{compressorRepairTime,jdbcType=INTEGER}, #{controlRepairTime,jdbcType=INTEGER}, 
+      #{baseRepairTime,jdbcType=INTEGER}, #{beginMaintenance,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.UnitMaintenance">
+    insert into prod_unit_maintenance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodUnitMaintenanceId != null">
+        prod_unit_maintenance_id,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="unitCompany != null">
+        unit_company,
+      </if>
+      <if test="unitType != null">
+        unit_type,
+      </if>
+      <if test="entireRepairTime != null">
+        entire_repair_time,
+      </if>
+      <if test="winderRepairTime != null">
+        winder_repair_time,
+      </if>
+      <if test="compressorRepairTime != null">
+        compressor_repair_time,
+      </if>
+      <if test="controlRepairTime != null">
+        control_repair_time,
+      </if>
+      <if test="baseRepairTime != null">
+        base_repair_time,
+      </if>
+      <if test="beginMaintenance != null">
+        begin_maintenance,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodUnitMaintenanceId != null">
+        #{prodUnitMaintenanceId,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCompany != null">
+        #{unitCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null">
+        #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="entireRepairTime != null">
+        #{entireRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="winderRepairTime != null">
+        #{winderRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="compressorRepairTime != null">
+        #{compressorRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="controlRepairTime != null">
+        #{controlRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="baseRepairTime != null">
+        #{baseRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="beginMaintenance != null">
+        #{beginMaintenance,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.UnitMaintenanceExample" resultType="java.lang.Long">
+    select count(*) from prod_unit_maintenance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_unit_maintenance
+    <set>
+      <if test="record.prodUnitMaintenanceId != null">
+        prod_unit_maintenance_id = #{record.prodUnitMaintenanceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitCompany != null">
+        unit_company = #{record.unitCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitType != null">
+        unit_type = #{record.unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entireRepairTime != null">
+        entire_repair_time = #{record.entireRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.winderRepairTime != null">
+        winder_repair_time = #{record.winderRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.compressorRepairTime != null">
+        compressor_repair_time = #{record.compressorRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.controlRepairTime != null">
+        control_repair_time = #{record.controlRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.baseRepairTime != null">
+        base_repair_time = #{record.baseRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginMaintenance != null">
+        begin_maintenance = #{record.beginMaintenance,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_unit_maintenance
+    set prod_unit_maintenance_id = #{record.prodUnitMaintenanceId,jdbcType=INTEGER},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      unit_company = #{record.unitCompany,jdbcType=VARCHAR},
+      unit_type = #{record.unitType,jdbcType=VARCHAR},
+      entire_repair_time = #{record.entireRepairTime,jdbcType=INTEGER},
+      winder_repair_time = #{record.winderRepairTime,jdbcType=INTEGER},
+      compressor_repair_time = #{record.compressorRepairTime,jdbcType=INTEGER},
+      control_repair_time = #{record.controlRepairTime,jdbcType=INTEGER},
+      base_repair_time = #{record.baseRepairTime,jdbcType=INTEGER},
+      begin_maintenance = #{record.beginMaintenance,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.UnitMaintenance">
+    update prod_unit_maintenance
+    <set>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCompany != null">
+        unit_company = #{unitCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null">
+        unit_type = #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="entireRepairTime != null">
+        entire_repair_time = #{entireRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="winderRepairTime != null">
+        winder_repair_time = #{winderRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="compressorRepairTime != null">
+        compressor_repair_time = #{compressorRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="controlRepairTime != null">
+        control_repair_time = #{controlRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="baseRepairTime != null">
+        base_repair_time = #{baseRepairTime,jdbcType=INTEGER},
+      </if>
+      <if test="beginMaintenance != null">
+        begin_maintenance = #{beginMaintenance,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_unit_maintenance_id = #{prodUnitMaintenanceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.UnitMaintenance">
+    update prod_unit_maintenance
+    set unit = #{unit,jdbcType=VARCHAR},
+      unit_company = #{unitCompany,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      entire_repair_time = #{entireRepairTime,jdbcType=INTEGER},
+      winder_repair_time = #{winderRepairTime,jdbcType=INTEGER},
+      compressor_repair_time = #{compressorRepairTime,jdbcType=INTEGER},
+      control_repair_time = #{controlRepairTime,jdbcType=INTEGER},
+      base_repair_time = #{baseRepairTime,jdbcType=INTEGER},
+      begin_maintenance = #{beginMaintenance,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_unit_maintenance_id = #{prodUnitMaintenanceId,jdbcType=INTEGER}
+  </update>
+</mapper>

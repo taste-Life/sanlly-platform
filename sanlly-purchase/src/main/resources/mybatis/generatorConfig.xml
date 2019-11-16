@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动 -->
+	<classPathEntry location="src/main/resources/mybatis/mysql-connector-java-5.1.40.jar" />
+	<context id="DB2tables" targetRuntime="MyBatis3">
+		<!-- 自动识别数据库关键字，默认false，如果设置为true -->
+		<property name="autoDelimitKeywords" value="true" />
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" /> 
+		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+		<plugin type="com.sanlly.purchase.config.mybatis.PaginationPlugin" />
+		<!-- <plugin type="com.sanlly.purchase.config.mybatis.BulkInsertPlugin" /> -->
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库相关属性设置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.0.233:3306/sanlly_dev?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="sanlly" password="123456" />
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		<!-- 生成实体类地址 -->
+		<javaModelGenerator targetPackage="com.sanlly.purchase.entity" targetProject="src/main/java">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		<!-- 生成mapxml文件 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		
+		<!-- 生成mapxml对应client，也就是接口dao -->
+		<javaClientGenerator targetPackage="com.sanlly.purchase.dao" targetProject="src/main/java" type="XMLMAPPER">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		
+		
+		
+		<!-- schema数据库名称；tableName表名； domainObjectName实体类名 -->
+		<!-- <table  schema="sanlly_dev"  tableName="purc_bank_information"  domainObjectName="BankInformation"/>
+		<table  schema="sanlly_dev"  tableName="purc_companycontact_information"  domainObjectName="CompanycontactInformation"/>
+		<table  schema="sanlly_dev"  tableName="purc_contact_information"  domainObjectName="ContactInformation"/>
+		<table  schema="sanlly_dev"  tableName="purc_import_log"  domainObjectName="ImportLog"/>
+		<table  schema="sanlly_dev"  tableName="purc_management"  domainObjectName="Management"/>
+		<table  schema="sanlly_dev"  tableName="purc_matter_demand"  domainObjectName="MatterDemand"/> -->
+		<table  schema="sanlly_dev"  tableName="purc_matter_temporary_purchase"  domainObjectName="MatterTemporaryPurchase"/>
+		<table  schema="sanlly_dev"  tableName="purc_matter_tender_product"  domainObjectName="MatterTenderProduct"/>
+		<table  schema="sanlly_dev"  tableName="purc_matter_tender_purchase"  domainObjectName="MatterTenderPurchase"/>
+	<!-- 	<table  schema="sanlly_dev"  tableName="purc_matter_tender_suppier"  domainObjectName="MatterTenderSuppier"/>
+		<table  schema="sanlly_dev"  tableName="purc_matter_tender_warehouse"  domainObjectName="MatterTenderWarehouse"/> -->
+	<!-- 	<table  schema="sanlly_dev"  tableName="purc_period_product"  domainObjectName="PeriodProduct"/>
+		<table  schema="sanlly_dev"  tableName="purc_period_product_remind"  domainObjectName="PeriodProductRemind"/>
+		<table  schema="sanlly_dev"  tableName="purc_purchase_bill"  domainObjectName="PurchaseBill"/>
+		<table  schema="sanlly_dev"  tableName="purc_purchase_delivery"  domainObjectName="PurchaseDelivery"/>
+		<table  schema="sanlly_dev"  tableName="purc_purchase_delivery_detail"  domainObjectName="PurchaseDeliveryDetail"/>
+		<table  schema="sanlly_dev"  tableName="purc_purchase_order"  domainObjectName="purchaseOrder"/>
+		<table  schema="sanlly_dev"  tableName="purc_purchase_order_detail"  domainObjectName="PurchaseOrderDetail"/>
+		<table  schema="sanlly_dev"  tableName="purc_qualification_documents"  domainObjectName="QualificationDocuments"/>
+		<table  schema="sanlly_dev"  tableName="purc_special_supplier"  domainObjectName="SpecialSupplier"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier"  domainObjectName="Supplier"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier_company"  domainObjectName="SupplierCompany"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier_special"  domainObjectName="SupplierSpecial"/>
+		<table  schema="sanlly_dev"  tableName="purc_template"  domainObjectName="Template"/>
+		<table  schema="sanlly_dev"  tableName="purc_tender_money"  domainObjectName="TenderMoney"/>
+		<table  schema="sanlly_dev"  tableName="purc_tender_notice"  domainObjectName="TenderNotice"/>
+		<table  schema="sanlly_dev"  tableName="purc_area_code"  domainObjectName="AreaCode"/>
+		<table  schema="sanlly_dev"  tableName="purc_email_record"  domainObjectName="EmailRecord"/>
+		<table  schema="sanlly_dev"  tableName="purc_evaluate_log"  domainObjectName="EvaluateLog"/>
+		<table  schema="sanlly_dev"  tableName="purc_procure_type"  domainObjectName="ProcureType"/>
+		<table  schema="sanlly_dev"  tableName="purc_receiver_score"  domainObjectName="ReceiverScore"/>
+		<table  schema="sanlly_dev"  tableName="purc_special_supplier_log"  domainObjectName="SpecialSupplierLog"/>
+		<table  schema="sanlly_dev"  tableName="purc_storehouse_type"  domainObjectName="StorehouseType"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier_tender"  domainObjectName="SupplierTender"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier_tender_product"  domainObjectName="SupplierTenderProduct"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier_type"  domainObjectName="SupplierType"/>
+		<table  schema="sanlly_dev"  tableName="purc_supplier_type_relational"  domainObjectName="SupplierTypeRelational"/> -->
+
+		<!--
+                <table schema="sanlly" tableName="t_menu" domainObjectName="Menu" />
+        -->
+<!-- 		<table schema="platform" tableName="t_subject" domainObjectName="Subject" /> -->
+<!-- 		<table schema="platform" tableName="t_notice" domainObjectName="Notice" > -->
+<!-- 			<generatedKey column="id" sqlStatement="MySql" identity="true" /> -->
+<!-- 		</table> -->
+
+	</context>
+</generatorConfiguration>  

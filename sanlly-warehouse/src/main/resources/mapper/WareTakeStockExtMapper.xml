@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareTakeStockExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareTakeStock">
+    <id column="ware_take_stock_id" jdbcType="INTEGER" property="wareTakeStockId" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="ware_stock_id" jdbcType="INTEGER" property="wareStockId" />
+    <result column="stockin_no" jdbcType="VARCHAR" property="stockinNo" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="escrow_company" jdbcType="VARCHAR" property="escrowCompany" />
+    <result column="storage_location" jdbcType="VARCHAR" property="storageLocation" />
+    <result column="spare_parts_categories" jdbcType="VARCHAR" property="sparePartsCategories" />
+    <result column="spare_parts_no" jdbcType="VARCHAR" property="sparePartsNo" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="spare_parts_unit" jdbcType="VARCHAR" property="sparePartsUnit" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="spare_parts_batch" jdbcType="VARCHAR" property="sparePartsBatch" />
+    <result column="spare_parts_original_batch" jdbcType="VARCHAR" property="sparePartsOriginalBatch" />
+    <result column="entry_num" jdbcType="DOUBLE" property="entryNum" />
+    <result column="surplus_num" jdbcType="DOUBLE" property="surplusNum" />
+    <result column="actual_surplus_num" jdbcType="DOUBLE" property="actualSurplusNum" />
+    <result column="original_area" jdbcType="DOUBLE" property="originalArea" />
+    <result column="surplus_area" jdbcType="DOUBLE" property="surplusArea" />
+    <result column="invoice_price" jdbcType="DECIMAL" property="invoicePrice" />
+    <result column="core" jdbcType="DECIMAL" property="core" />
+    <result column="vat" jdbcType="DECIMAL" property="vat" />
+    <result column="tariff_status" jdbcType="VARCHAR" property="tariffStatus" />
+    <result column="tariff" jdbcType="DECIMAL" property="tariff" />
+    <result column="tariff_no" jdbcType="VARCHAR" property="tariffNo" />
+    <result column="tariff_date" jdbcType="TIMESTAMP" property="tariffDate" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="old_stockin_date" jdbcType="TIMESTAMP" property="oldStockinDate" />
+    <result column="stockin_date" jdbcType="TIMESTAMP" property="stockinDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="spare_parts_name" jdbcType="VARCHAR" property="sparePartsName" />
+  </resultMap>
+
+	<select id="selectByCondition" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS
+			s.*
+		FROM
+			ware_take_stock s,
+			(
+				SELECT
+					max(s1.create_time) create_time,
+					s1.spare_parts_no,
+					s1.spare_parts_batch
+				FROM
+					ware_take_stock s1
+				GROUP BY
+					spare_parts_no,
+					spare_parts_batch
+			) s2
+		WHERE
+			s.create_time = s2.create_time
+		AND s.spare_parts_no = s2.spare_parts_no
+		AND s.spare_parts_batch = s2.spare_parts_batch
+		AND s.surplus_num>0
+		<if test="createTime != null">
+			<![CDATA[
+				AND s.create_time <= #{createTime,jdbcType=TIMESTAMP}
+			]]>
+		</if>
+		<if test="warehouseType != null and warehouseType != ''">
+			AND s.warehouse_type=#{warehouseType,jdbcType=VARCHAR}
+		</if>
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND s.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND s.spare_parts_name LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="storageLocation != null and storageLocation != ''">
+			AND s.storage_location=#{storageLocation,jdbcType=VARCHAR}
+		</if>
+		<if test="company != null and company != ''">
+			AND s.company =#{company,jdbcType=VARCHAR}
+		</if>
+		<if test="warehouse != null and warehouse != ''">
+			AND s.warehouse =#{warehouse,jdbcType=VARCHAR}
+		</if>
+		<if test="sparePartsCategories != null and sparePartsCategories != ''">
+			AND s.spare_parts_categories =#{sparePartsCategories,jdbcType=VARCHAR}
+		</if>
+		<if test="sparePartses != null and sparePartses.size()>0">
+			AND s.spare_parts in
+			 <foreach collection="sparePartses" item="item"  index="index"
+ 				open="("  separator="," close=")">#{item}
+             </foreach>
+		</if>
+		ORDER BY s.create_time DESC
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+	</select>
+
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+
+</mapper>

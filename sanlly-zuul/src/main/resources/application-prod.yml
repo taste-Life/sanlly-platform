@@ -1,0 +1,88 @@
+spring:
+    application:
+        name: zuul-gateway
+    servlet:
+        multipart:
+            maxFileSize: 400MB
+            maxRequestSize: 400MB
+server:
+    port: 9030
+    max-http-header-size: 104857600 #100M
+    tomcat:
+        max-http-header-size: 104857600 #100M
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    health-check-url-path: /actuator/health
+  client:
+      #刷新可用服务间隔
+      registry-fetch-interval-seconds: 10
+      service-url:
+        defaultZone: http://192.168.1.174:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+zuul:
+  ignoredServices: "*"
+  sensitive-headers: Cookie,Set-Cookie
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+  routes:
+    auth:
+      path: /web/auth/**
+      serviceId: auth
+    production:
+      path: /web/prod/**
+      serviceId: production
+    purchase:
+      path: /web/purc/**
+      serviceId: purchase
+    warehouse:
+      path: /web/ware/**
+      serviceId: warehouse
+    appWare:
+      path: /app/ware/**
+      serviceId: warehouse
+    app:
+      path: /app/prod/**
+      serviceId: production
+    workflow:
+      path: /web/wf/**
+      serviceId: workflow
+    webactivity:
+      path: /web/flow/**
+      serviceId: workflow
+    finance: 
+      path: /web/finance/**
+      serviceId: finance
+  retryable: true
+##############end#####################
+####超时配置####
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 10000
+  OkToRetryOnAllOperations: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eureka:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 600000
+###超时配置###

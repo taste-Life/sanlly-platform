@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.PoolLeaseMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.PoolLease">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="company_key" jdbcType="VARCHAR" property="companyKey" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="charge_object" jdbcType="VARCHAR" property="chargeObject" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="sapid" jdbcType="VARCHAR" property="sapid" />
+    <result column="contract_path" jdbcType="VARCHAR" property="contractPath" />
+    <result column="start_month" jdbcType="VARCHAR" property="startMonth" />
+    <result column="end_month" jdbcType="VARCHAR" property="endMonth" />
+    <result column="charge_type_key" jdbcType="VARCHAR" property="chargeTypeKey" />
+    <result column="charge_inout_type" jdbcType="VARCHAR" property="chargeInoutType" />
+    <result column="chargecode" jdbcType="VARCHAR" property="chargecode" />
+    <result column="real_currency_type" jdbcType="VARCHAR" property="realCurrencyType" />
+    <result column="formula_type" jdbcType="VARCHAR" property="formulaType" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="dept_key" jdbcType="VARCHAR" property="deptKey" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, company_key, yard, container_user, charge_object, customer_name, sapid, contract_path, 
+    start_month, end_month, charge_type_key, charge_inout_type, chargecode, real_currency_type, 
+    formula_type, amount, dept_key, is_enabled, remarks, is_del, create_time, create_user, 
+    update_time, update_user, dept_code
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.finance.entity.PoolLeaseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_pool_lease
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_pool_lease
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_pool_lease
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.finance.entity.PoolLeaseExample">
+    delete from finance_pool_lease
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.finance.entity.PoolLease">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_pool_lease (company_key, yard, container_user, 
+      charge_object, customer_name, sapid, 
+      contract_path, start_month, end_month, 
+      charge_type_key, charge_inout_type, chargecode, 
+      real_currency_type, formula_type, amount, 
+      dept_key, is_enabled, remarks, 
+      is_del, create_time, create_user, 
+      update_time, update_user, dept_code
+      )
+    values (#{companyKey,jdbcType=VARCHAR}, #{yard,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, 
+      #{chargeObject,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{sapid,jdbcType=VARCHAR}, 
+      #{contractPath,jdbcType=VARCHAR}, #{startMonth,jdbcType=VARCHAR}, #{endMonth,jdbcType=VARCHAR}, 
+      #{chargeTypeKey,jdbcType=VARCHAR}, #{chargeInoutType,jdbcType=VARCHAR}, #{chargecode,jdbcType=VARCHAR}, 
+      #{realCurrencyType,jdbcType=VARCHAR}, #{formulaType,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{deptKey,jdbcType=VARCHAR}, #{isEnabled,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{deptCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.finance.entity.PoolLease">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_pool_lease
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="companyKey != null">
+        company_key,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="chargeObject != null">
+        charge_object,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="sapid != null">
+        sapid,
+      </if>
+      <if test="contractPath != null">
+        contract_path,
+      </if>
+      <if test="startMonth != null">
+        start_month,
+      </if>
+      <if test="endMonth != null">
+        end_month,
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key,
+      </if>
+      <if test="chargeInoutType != null">
+        charge_inout_type,
+      </if>
+      <if test="chargecode != null">
+        chargecode,
+      </if>
+      <if test="realCurrencyType != null">
+        real_currency_type,
+      </if>
+      <if test="formulaType != null">
+        formula_type,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="deptKey != null">
+        dept_key,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="companyKey != null">
+        #{companyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeObject != null">
+        #{chargeObject,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sapid != null">
+        #{sapid,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPath != null">
+        #{contractPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startMonth != null">
+        #{startMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="endMonth != null">
+        #{endMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeInoutType != null">
+        #{chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="chargecode != null">
+        #{chargecode,jdbcType=VARCHAR},
+      </if>
+      <if test="realCurrencyType != null">
+        #{realCurrencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="formulaType != null">
+        #{formulaType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="deptKey != null">
+        #{deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.finance.entity.PoolLeaseExample" resultType="java.lang.Long">
+    select count(*) from finance_pool_lease
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance_pool_lease
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyKey != null">
+        company_key = #{record.companyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeObject != null">
+        charge_object = #{record.chargeObject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sapid != null">
+        sapid = #{record.sapid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractPath != null">
+        contract_path = #{record.contractPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startMonth != null">
+        start_month = #{record.startMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endMonth != null">
+        end_month = #{record.endMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeTypeKey != null">
+        charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeInoutType != null">
+        charge_inout_type = #{record.chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargecode != null">
+        chargecode = #{record.chargecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realCurrencyType != null">
+        real_currency_type = #{record.realCurrencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formulaType != null">
+        formula_type = #{record.formulaType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deptKey != null">
+        dept_key = #{record.deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptCode != null">
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance_pool_lease
+    set id = #{record.id,jdbcType=INTEGER},
+      company_key = #{record.companyKey,jdbcType=VARCHAR},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      charge_object = #{record.chargeObject,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      sapid = #{record.sapid,jdbcType=VARCHAR},
+      contract_path = #{record.contractPath,jdbcType=VARCHAR},
+      start_month = #{record.startMonth,jdbcType=VARCHAR},
+      end_month = #{record.endMonth,jdbcType=VARCHAR},
+      charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      charge_inout_type = #{record.chargeInoutType,jdbcType=VARCHAR},
+      chargecode = #{record.chargecode,jdbcType=VARCHAR},
+      real_currency_type = #{record.realCurrencyType,jdbcType=VARCHAR},
+      formula_type = #{record.formulaType,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      dept_key = #{record.deptKey,jdbcType=VARCHAR},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.finance.entity.PoolLease">
+    update finance_pool_lease
+    <set>
+      <if test="companyKey != null">
+        company_key = #{companyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeObject != null">
+        charge_object = #{chargeObject,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sapid != null">
+        sapid = #{sapid,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPath != null">
+        contract_path = #{contractPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startMonth != null">
+        start_month = #{startMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="endMonth != null">
+        end_month = #{endMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeInoutType != null">
+        charge_inout_type = #{chargeInoutType,jdbcType=VARCHAR},
+      </if>
+      <if test="chargecode != null">
+        chargecode = #{chargecode,jdbcType=VARCHAR},
+      </if>
+      <if test="realCurrencyType != null">
+        real_currency_type = #{realCurrencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="formulaType != null">
+        formula_type = #{formulaType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="deptKey != null">
+        dept_key = #{deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.finance.entity.PoolLease">
+    update finance_pool_lease
+    set company_key = #{companyKey,jdbcType=VARCHAR},
+      yard = #{yard,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      charge_object = #{chargeObject,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      sapid = #{sapid,jdbcType=VARCHAR},
+      contract_path = #{contractPath,jdbcType=VARCHAR},
+      start_month = #{startMonth,jdbcType=VARCHAR},
+      end_month = #{endMonth,jdbcType=VARCHAR},
+      charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      charge_inout_type = #{chargeInoutType,jdbcType=VARCHAR},
+      chargecode = #{chargecode,jdbcType=VARCHAR},
+      real_currency_type = #{realCurrencyType,jdbcType=VARCHAR},
+      formula_type = #{formulaType,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      dept_key = #{deptKey,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      dept_code = #{deptCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

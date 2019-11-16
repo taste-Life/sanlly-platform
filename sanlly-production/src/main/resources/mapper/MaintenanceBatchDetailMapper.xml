@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.MaintenanceBatchDetailMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.MaintenanceBatchDetail">
+    <id column="prod_maintenance_batch_detail_id" jdbcType="INTEGER" property="prodMaintenanceBatchDetailId" />
+    <result column="parts_type_code" jdbcType="VARCHAR" property="partsTypeCode" />
+    <result column="parts_details_code" jdbcType="VARCHAR" property="partsDetailsCode" />
+    <result column="damage_code" jdbcType="VARCHAR" property="damageCode" />
+    <result column="repair_code" jdbcType="VARCHAR" property="repairCode" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="spares_number" jdbcType="VARCHAR" property="sparesNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="prod_maintenance_batch_id" jdbcType="INTEGER" property="prodMaintenanceBatchId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_maintenance_batch_detail_id, parts_type_code, parts_details_code, damage_code, 
+    repair_code, quantity, spares_number, remarks, prod_maintenance_batch_id
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.MaintenanceBatchDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_maintenance_batch_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_maintenance_batch_detail
+    where prod_maintenance_batch_detail_id = #{prodMaintenanceBatchDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_maintenance_batch_detail
+    where prod_maintenance_batch_detail_id = #{prodMaintenanceBatchDetailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.MaintenanceBatchDetailExample">
+    delete from prod_maintenance_batch_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.MaintenanceBatchDetail">
+    insert into prod_maintenance_batch_detail (prod_maintenance_batch_detail_id, parts_type_code, 
+      parts_details_code, damage_code, repair_code, 
+      quantity, spares_number, remarks, 
+      prod_maintenance_batch_id)
+    values (#{prodMaintenanceBatchDetailId,jdbcType=INTEGER}, #{partsTypeCode,jdbcType=VARCHAR}, 
+      #{partsDetailsCode,jdbcType=VARCHAR}, #{damageCode,jdbcType=VARCHAR}, #{repairCode,jdbcType=VARCHAR}, 
+      #{quantity,jdbcType=DOUBLE}, #{sparesNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{prodMaintenanceBatchId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.MaintenanceBatchDetail">
+    insert into prod_maintenance_batch_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodMaintenanceBatchDetailId != null">
+        prod_maintenance_batch_detail_id,
+      </if>
+      <if test="partsTypeCode != null">
+        parts_type_code,
+      </if>
+      <if test="partsDetailsCode != null">
+        parts_details_code,
+      </if>
+      <if test="damageCode != null">
+        damage_code,
+      </if>
+      <if test="repairCode != null">
+        repair_code,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="sparesNumber != null">
+        spares_number,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="prodMaintenanceBatchId != null">
+        prod_maintenance_batch_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodMaintenanceBatchDetailId != null">
+        #{prodMaintenanceBatchDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="partsTypeCode != null">
+        #{partsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsCode != null">
+        #{partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="damageCode != null">
+        #{damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="sparesNumber != null">
+        #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="prodMaintenanceBatchId != null">
+        #{prodMaintenanceBatchId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.MaintenanceBatchDetailExample" resultType="java.lang.Long">
+    select count(*) from prod_maintenance_batch_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_maintenance_batch_detail
+    <set>
+      <if test="record.prodMaintenanceBatchDetailId != null">
+        prod_maintenance_batch_detail_id = #{record.prodMaintenanceBatchDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.partsTypeCode != null">
+        parts_type_code = #{record.partsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsDetailsCode != null">
+        parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.damageCode != null">
+        damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairCode != null">
+        repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.sparesNumber != null">
+        spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodMaintenanceBatchId != null">
+        prod_maintenance_batch_id = #{record.prodMaintenanceBatchId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_maintenance_batch_detail
+    set prod_maintenance_batch_detail_id = #{record.prodMaintenanceBatchDetailId,jdbcType=INTEGER},
+      parts_type_code = #{record.partsTypeCode,jdbcType=VARCHAR},
+      parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=DOUBLE},
+      spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      prod_maintenance_batch_id = #{record.prodMaintenanceBatchId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.MaintenanceBatchDetail">
+    update prod_maintenance_batch_detail
+    <set>
+      <if test="partsTypeCode != null">
+        parts_type_code = #{partsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsCode != null">
+        parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="damageCode != null">
+        damage_code = #{damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        repair_code = #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="sparesNumber != null">
+        spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="prodMaintenanceBatchId != null">
+        prod_maintenance_batch_id = #{prodMaintenanceBatchId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_maintenance_batch_detail_id = #{prodMaintenanceBatchDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.MaintenanceBatchDetail">
+    update prod_maintenance_batch_detail
+    set parts_type_code = #{partsTypeCode,jdbcType=VARCHAR},
+      parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      damage_code = #{damageCode,jdbcType=VARCHAR},
+      repair_code = #{repairCode,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      prod_maintenance_batch_id = #{prodMaintenanceBatchId,jdbcType=INTEGER}
+    where prod_maintenance_batch_detail_id = #{prodMaintenanceBatchDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.AuditAutomaticMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.AuditAutomatic">
+    <id column="prod_audit_automatic_id" jdbcType="INTEGER" property="prodAuditAutomaticId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="is_audit_enable" jdbcType="VARCHAR" property="isAuditEnable" />
+    <result column="is_referra_enable" jdbcType="VARCHAR" property="isReferraEnable" />
+    <result column="referra_money" jdbcType="DECIMAL" property="referraMoney" />
+    <result column="is_restrict" jdbcType="VARCHAR" property="isRestrict" />
+    <result column="is_inspector" jdbcType="VARCHAR" property="isInspector" />
+    <result column="is_quoted" jdbcType="VARCHAR" property="isQuoted" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_audit_automatic_id, company, container_user, container_category, is_audit_enable, 
+    is_referra_enable, referra_money, is_restrict, is_inspector, is_quoted, is_del, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.AuditAutomaticExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_audit_automatic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_audit_automatic
+    where prod_audit_automatic_id = #{prodAuditAutomaticId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_audit_automatic
+    where prod_audit_automatic_id = #{prodAuditAutomaticId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.AuditAutomaticExample">
+    delete from prod_audit_automatic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.AuditAutomatic">
+    insert into prod_audit_automatic (prod_audit_automatic_id, company, container_user, 
+      container_category, is_audit_enable, is_referra_enable, 
+      referra_money, is_restrict, is_inspector, 
+      is_quoted, is_del, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodAuditAutomaticId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, 
+      #{containerCategory,jdbcType=VARCHAR}, #{isAuditEnable,jdbcType=VARCHAR}, #{isReferraEnable,jdbcType=VARCHAR}, 
+      #{referraMoney,jdbcType=DECIMAL}, #{isRestrict,jdbcType=VARCHAR}, #{isInspector,jdbcType=VARCHAR}, 
+      #{isQuoted,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.AuditAutomatic">
+    insert into prod_audit_automatic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodAuditAutomaticId != null">
+        prod_audit_automatic_id,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="isAuditEnable != null">
+        is_audit_enable,
+      </if>
+      <if test="isReferraEnable != null">
+        is_referra_enable,
+      </if>
+      <if test="referraMoney != null">
+        referra_money,
+      </if>
+      <if test="isRestrict != null">
+        is_restrict,
+      </if>
+      <if test="isInspector != null">
+        is_inspector,
+      </if>
+      <if test="isQuoted != null">
+        is_quoted,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodAuditAutomaticId != null">
+        #{prodAuditAutomaticId,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuditEnable != null">
+        #{isAuditEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="isReferraEnable != null">
+        #{isReferraEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="referraMoney != null">
+        #{referraMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isRestrict != null">
+        #{isRestrict,jdbcType=VARCHAR},
+      </if>
+      <if test="isInspector != null">
+        #{isInspector,jdbcType=VARCHAR},
+      </if>
+      <if test="isQuoted != null">
+        #{isQuoted,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.AuditAutomaticExample" resultType="java.lang.Long">
+    select count(*) from prod_audit_automatic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_audit_automatic
+    <set>
+      <if test="record.prodAuditAutomaticId != null">
+        prod_audit_automatic_id = #{record.prodAuditAutomaticId,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAuditEnable != null">
+        is_audit_enable = #{record.isAuditEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isReferraEnable != null">
+        is_referra_enable = #{record.isReferraEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referraMoney != null">
+        referra_money = #{record.referraMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isRestrict != null">
+        is_restrict = #{record.isRestrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isInspector != null">
+        is_inspector = #{record.isInspector,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isQuoted != null">
+        is_quoted = #{record.isQuoted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_audit_automatic
+    set prod_audit_automatic_id = #{record.prodAuditAutomaticId,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      is_audit_enable = #{record.isAuditEnable,jdbcType=VARCHAR},
+      is_referra_enable = #{record.isReferraEnable,jdbcType=VARCHAR},
+      referra_money = #{record.referraMoney,jdbcType=DECIMAL},
+      is_restrict = #{record.isRestrict,jdbcType=VARCHAR},
+      is_inspector = #{record.isInspector,jdbcType=VARCHAR},
+      is_quoted = #{record.isQuoted,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.AuditAutomatic">
+    update prod_audit_automatic
+    <set>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuditEnable != null">
+        is_audit_enable = #{isAuditEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="isReferraEnable != null">
+        is_referra_enable = #{isReferraEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="referraMoney != null">
+        referra_money = #{referraMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isRestrict != null">
+        is_restrict = #{isRestrict,jdbcType=VARCHAR},
+      </if>
+      <if test="isInspector != null">
+        is_inspector = #{isInspector,jdbcType=VARCHAR},
+      </if>
+      <if test="isQuoted != null">
+        is_quoted = #{isQuoted,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_audit_automatic_id = #{prodAuditAutomaticId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.AuditAutomatic">
+    update prod_audit_automatic
+    set company = #{company,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      is_audit_enable = #{isAuditEnable,jdbcType=VARCHAR},
+      is_referra_enable = #{isReferraEnable,jdbcType=VARCHAR},
+      referra_money = #{referraMoney,jdbcType=DECIMAL},
+      is_restrict = #{isRestrict,jdbcType=VARCHAR},
+      is_inspector = #{isInspector,jdbcType=VARCHAR},
+      is_quoted = #{isQuoted,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_audit_automatic_id = #{prodAuditAutomaticId,jdbcType=INTEGER}
+  </update>
+</mapper>

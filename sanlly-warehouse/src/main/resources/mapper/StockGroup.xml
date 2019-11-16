@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.StockNumMapper">
+    <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareStock">
+        <id column="ware_stock_id" jdbcType="INTEGER" property="wareStockId" />
+        <result column="stockin_no" jdbcType="VARCHAR" property="stockinNo" />
+        <result column="company" jdbcType="VARCHAR" property="company" />
+        <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+        <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+        <result column="escrow_company" jdbcType="VARCHAR" property="escrowCompany" />
+        <result column="storage_location" jdbcType="VARCHAR" property="storageLocation" />
+        <result column="spare_parts_categories" jdbcType="VARCHAR" property="sparePartsCategories" />
+        <result column="spare_parts_no" jdbcType="VARCHAR" property="sparePartsNo" />
+        <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+        <result column="spare_parts_unit" jdbcType="VARCHAR" property="sparePartsUnit" />
+        <result column="length" jdbcType="DOUBLE" property="length" />
+        <result column="width" jdbcType="DOUBLE" property="width" />
+        <result column="spare_parts_batch" jdbcType="VARCHAR" property="sparePartsBatch" />
+        <result column="spare_parts_original_batch" jdbcType="VARCHAR" property="sparePartsOriginalBatch" />
+        <result column="entry_num" jdbcType="DOUBLE" property="entryNum" />
+        <result column="surplus_num" jdbcType="DOUBLE" property="surplusNum" />
+        <result column="actual_surplus_num" jdbcType="DOUBLE" property="actualSurplusNum" />
+        <result column="original_area" jdbcType="DOUBLE" property="originalArea" />
+        <result column="surplus_area" jdbcType="DOUBLE" property="surplusArea" />
+        <result column="invoice_price" jdbcType="DECIMAL" property="invoicePrice" />
+        <result column="core" jdbcType="DECIMAL" property="core" />
+        <result column="vat" jdbcType="DECIMAL" property="vat" />
+        <result column="tariff_status" jdbcType="VARCHAR" property="tariffStatus" />
+        <result column="tariff" jdbcType="DECIMAL" property="tariff" />
+        <result column="tariff_no" jdbcType="VARCHAR" property="tariffNo" />
+        <result column="tariff_date" jdbcType="TIMESTAMP" property="tariffDate" />
+        <result column="freight" jdbcType="DECIMAL" property="freight" />
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+        <result column="old_stockin_date" jdbcType="TIMESTAMP" property="oldStockinDate" />
+        <result column="stockin_date" jdbcType="TIMESTAMP" property="stockinDate" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="is_del" jdbcType="INTEGER" property="isDel" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_user" jdbcType="INTEGER" property="createUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+        <result column="spare_parts_name" jdbcType="VARCHAR" property="sparePartsName" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    ware_stock_id, stockin_no, company, warehouse_type, warehouse, escrow_company, storage_location,
+    spare_parts_categories, spare_parts_no, spare_parts, spare_parts_unit, `length`,
+    width, spare_parts_batch, spare_parts_original_batch, entry_num, sum(surplus_num) as surplus_num,sum(actual_surplus_num) as actual_surplus_num,
+    original_area, surplus_area, invoice_price, core, vat, tariff_status, tariff, tariff_no,
+    tariff_date, freight, unit_price, old_stockin_date, stockin_date, remark, is_del,
+    create_time, create_user, update_time, update_user, spare_parts_name
+    </sql>
+    <select id="getStockNum" parameterType="com.sanlly.warehouse.models.input.stock.SearchStockNumInput" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ware_stock
+        where company = #{company}
+
+        <if test="sparePartsName != null and sparePartsName != ''">
+            and spare_parts_name like %#{sparePartsName}%
+        </if>
+
+        <if test="sparePartsName != null and sparePartsName != ''">
+            and spare_parts_name like %#{sparePartsName}%
+        </if>
+        <if test="sparePartsNo != null and sparePartsNo != ''">
+            and spare_parts_no like %#{sparePartsNo}%
+        </if>
+
+        <if test="warehouseList != null">
+            and warehouse in
+            <foreach item="item" index="index" collection="warehouseList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+
+        GROUP BY spare_parts,warehouse,warehouse_type
+        <if test="limitStart != null and limitStart >=0">
+            limit ${limitStart} , ${limitEnd}
+        </if>
+        ;
+    </select>
+    <select id="getTotalCount" parameterType="com.sanlly.warehouse.models.input.stock.SearchStockNumInput" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        (select
+        <include refid="Base_Column_List" />
+        from ware_stock
+        where company = #{company}
+        <if test="sparePartsName != null and sparePartsName != ''">
+            and spare_parts_name like %#{sparePartsName}%
+        </if>
+        <if test="sparePartsNo != null and sparePartsNo != ''">
+            and spare_parts_no like %#{sparePartsNo}%
+        </if>
+        <if test="warehouseList != null">
+            and warehouse in
+            <foreach item="item" index="index" collection="warehouseList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY spare_parts,warehouse,warehouse_type) a
+        ;
+    </select>
+
+
+    <select id="getStockNumByCompany" parameterType="com.sanlly.warehouse.models.input.stock.SearchStockNumInput" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ware_stock
+        where company = #{company}
+        <if test="sparePartsName != null and sparePartsName != ''">
+            and spare_parts_name like %#{sparePartsName}%
+        </if>
+        <if test="sparePartsNo != null and sparePartsNo != ''">
+            and spare_parts_no like %#{sparePartsNo}%
+        </if>
+        <if test="sparePartsCategories != null and sparePartsCategories != ''">
+            and spare_parts_categories = #{sparePartsCategories}
+        </if>
+        GROUP BY spare_parts,warehouse
+        <if test="limitStart != null and limitStart >=0">
+            limit ${limitStart} , ${limitEnd}
+        </if>
+        ;
+    </select>
+    <select id="getTotalCountByCompany" parameterType="com.sanlly.warehouse.models.input.stock.SearchStockNumInput" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        (select
+        <include refid="Base_Column_List" />
+        from ware_stock
+        where company = #{company}
+        <if test="sparePartsName != null and sparePartsName != ''">
+            and spare_parts_name like %#{sparePartsName}%
+        </if>
+        <if test="sparePartsNo != null and sparePartsNo != ''">
+            and spare_parts_no like %#{sparePartsNo}%
+        </if>
+        <if test="sparePartsCategories != null and sparePartsCategories != ''">
+            and spare_parts_categories = #{sparePartsCategories}
+        </if>
+        GROUP BY spare_parts,warehouse) a
+        ;
+    </select>
+</mapper>

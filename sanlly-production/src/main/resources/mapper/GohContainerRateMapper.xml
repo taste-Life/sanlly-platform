@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.GohContainerRateMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.GohContainerRate">
+    <id column="prod_goh_container_rate_id" jdbcType="INTEGER" property="prodGohContainerRateId" />
+    <result column="structure" jdbcType="VARCHAR" property="structure" />
+    <result column="reshape_type" jdbcType="VARCHAR" property="reshapeType" />
+    <result column="tier_number" jdbcType="VARCHAR" property="tierNumber" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="rate_name" jdbcType="VARCHAR" property="rateName" />
+    <result column="spares_number" jdbcType="VARCHAR" property="sparesNumber" />
+    <result column="number_explain" jdbcType="VARCHAR" property="numberExplain" />
+    <result column="man_hour" jdbcType="DOUBLE" property="manHour" />
+    <result column="is_multiply_quantity" jdbcType="VARCHAR" property="isMultiplyQuantity" />
+    <result column="cardinal_number" jdbcType="DOUBLE" property="cardinalNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_goh_container_rate_id, `structure`, reshape_type, tier_number, `size`, rate_name, 
+    spares_number, number_explain, man_hour, is_multiply_quantity, cardinal_number, remarks, 
+    is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.GohContainerRateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_goh_container_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_goh_container_rate
+    where prod_goh_container_rate_id = #{prodGohContainerRateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_goh_container_rate
+    where prod_goh_container_rate_id = #{prodGohContainerRateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.GohContainerRateExample">
+    delete from prod_goh_container_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.GohContainerRate">
+    insert into prod_goh_container_rate (prod_goh_container_rate_id, `structure`, 
+      reshape_type, tier_number, `size`, 
+      rate_name, spares_number, number_explain, 
+      man_hour, is_multiply_quantity, cardinal_number, 
+      remarks, is_del, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodGohContainerRateId,jdbcType=INTEGER}, #{structure,jdbcType=VARCHAR}, 
+      #{reshapeType,jdbcType=VARCHAR}, #{tierNumber,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{rateName,jdbcType=VARCHAR}, #{sparesNumber,jdbcType=VARCHAR}, #{numberExplain,jdbcType=VARCHAR}, 
+      #{manHour,jdbcType=DOUBLE}, #{isMultiplyQuantity,jdbcType=VARCHAR}, #{cardinalNumber,jdbcType=DOUBLE}, 
+      #{remarks,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.GohContainerRate">
+    insert into prod_goh_container_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodGohContainerRateId != null">
+        prod_goh_container_rate_id,
+      </if>
+      <if test="structure != null">
+        `structure`,
+      </if>
+      <if test="reshapeType != null">
+        reshape_type,
+      </if>
+      <if test="tierNumber != null">
+        tier_number,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="rateName != null">
+        rate_name,
+      </if>
+      <if test="sparesNumber != null">
+        spares_number,
+      </if>
+      <if test="numberExplain != null">
+        number_explain,
+      </if>
+      <if test="manHour != null">
+        man_hour,
+      </if>
+      <if test="isMultiplyQuantity != null">
+        is_multiply_quantity,
+      </if>
+      <if test="cardinalNumber != null">
+        cardinal_number,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodGohContainerRateId != null">
+        #{prodGohContainerRateId,jdbcType=INTEGER},
+      </if>
+      <if test="structure != null">
+        #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="reshapeType != null">
+        #{reshapeType,jdbcType=VARCHAR},
+      </if>
+      <if test="tierNumber != null">
+        #{tierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="rateName != null">
+        #{rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesNumber != null">
+        #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="numberExplain != null">
+        #{numberExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="manHour != null">
+        #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="isMultiplyQuantity != null">
+        #{isMultiplyQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="cardinalNumber != null">
+        #{cardinalNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.GohContainerRateExample" resultType="java.lang.Long">
+    select count(*) from prod_goh_container_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_goh_container_rate
+    <set>
+      <if test="record.prodGohContainerRateId != null">
+        prod_goh_container_rate_id = #{record.prodGohContainerRateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.structure != null">
+        `structure` = #{record.structure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reshapeType != null">
+        reshape_type = #{record.reshapeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tierNumber != null">
+        tier_number = #{record.tierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateName != null">
+        rate_name = #{record.rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparesNumber != null">
+        spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numberExplain != null">
+        number_explain = #{record.numberExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manHour != null">
+        man_hour = #{record.manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isMultiplyQuantity != null">
+        is_multiply_quantity = #{record.isMultiplyQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardinalNumber != null">
+        cardinal_number = #{record.cardinalNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_goh_container_rate
+    set prod_goh_container_rate_id = #{record.prodGohContainerRateId,jdbcType=INTEGER},
+      `structure` = #{record.structure,jdbcType=VARCHAR},
+      reshape_type = #{record.reshapeType,jdbcType=VARCHAR},
+      tier_number = #{record.tierNumber,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      rate_name = #{record.rateName,jdbcType=VARCHAR},
+      spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      number_explain = #{record.numberExplain,jdbcType=VARCHAR},
+      man_hour = #{record.manHour,jdbcType=DOUBLE},
+      is_multiply_quantity = #{record.isMultiplyQuantity,jdbcType=VARCHAR},
+      cardinal_number = #{record.cardinalNumber,jdbcType=DOUBLE},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.GohContainerRate">
+    update prod_goh_container_rate
+    <set>
+      <if test="structure != null">
+        `structure` = #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="reshapeType != null">
+        reshape_type = #{reshapeType,jdbcType=VARCHAR},
+      </if>
+      <if test="tierNumber != null">
+        tier_number = #{tierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="rateName != null">
+        rate_name = #{rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesNumber != null">
+        spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="numberExplain != null">
+        number_explain = #{numberExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="manHour != null">
+        man_hour = #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="isMultiplyQuantity != null">
+        is_multiply_quantity = #{isMultiplyQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="cardinalNumber != null">
+        cardinal_number = #{cardinalNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_goh_container_rate_id = #{prodGohContainerRateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.GohContainerRate">
+    update prod_goh_container_rate
+    set `structure` = #{structure,jdbcType=VARCHAR},
+      reshape_type = #{reshapeType,jdbcType=VARCHAR},
+      tier_number = #{tierNumber,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      rate_name = #{rateName,jdbcType=VARCHAR},
+      spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      number_explain = #{numberExplain,jdbcType=VARCHAR},
+      man_hour = #{manHour,jdbcType=DOUBLE},
+      is_multiply_quantity = #{isMultiplyQuantity,jdbcType=VARCHAR},
+      cardinal_number = #{cardinalNumber,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_goh_container_rate_id = #{prodGohContainerRateId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareaAdvanceWarehouseReceiptMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceipt">
+    <id column="ware_advance_warehouse_receipt_id" jdbcType="INTEGER" property="wareAdvanceWarehouseReceiptId" />
+    <result column="advance_warehouse_receipt_no" jdbcType="VARCHAR" property="advanceWarehouseReceiptNo" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="stockout_no" jdbcType="VARCHAR" property="stockoutNo" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="spare_parts_num" jdbcType="DOUBLE" property="sparePartsNum" />
+    <result column="receive_num" jdbcType="DOUBLE" property="receiveNum" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="borrow_num" jdbcType="DOUBLE" property="borrowNum" />
+    <result column="receive_material_num" jdbcType="DOUBLE" property="receiveMaterialNum" />
+    <result column="is_delay" jdbcType="VARCHAR" property="isDelay" />
+    <result column="stockout_status" jdbcType="VARCHAR" property="stockoutStatus" />
+    <result column="receive_piece_num" jdbcType="DOUBLE" property="receivePieceNum" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_advance_warehouse_receipt_id, advance_warehouse_receipt_no, container_no, `no`, 
+    stockout_no, spare_parts, spare_parts_num, receive_num, warehouse, company, borrow_num, 
+    receive_material_num, is_delay, stockout_status, receive_piece_num, is_del, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceiptExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_advance_warehouse_receipt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_advance_warehouse_receipt
+    where ware_advance_warehouse_receipt_id = #{wareAdvanceWarehouseReceiptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_advance_warehouse_receipt
+    where ware_advance_warehouse_receipt_id = #{wareAdvanceWarehouseReceiptId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceiptExample">
+    delete from ware_advance_warehouse_receipt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceipt">
+    insert into ware_advance_warehouse_receipt (ware_advance_warehouse_receipt_id, advance_warehouse_receipt_no, 
+      container_no, `no`, stockout_no, 
+      spare_parts, spare_parts_num, receive_num, 
+      warehouse, company, borrow_num, 
+      receive_material_num, is_delay, stockout_status, 
+      receive_piece_num, is_del, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{wareAdvanceWarehouseReceiptId,jdbcType=INTEGER}, #{advanceWarehouseReceiptNo,jdbcType=VARCHAR}, 
+      #{containerNo,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{stockoutNo,jdbcType=VARCHAR}, 
+      #{spareParts,jdbcType=VARCHAR}, #{sparePartsNum,jdbcType=DOUBLE}, #{receiveNum,jdbcType=DOUBLE}, 
+      #{warehouse,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{borrowNum,jdbcType=DOUBLE}, 
+      #{receiveMaterialNum,jdbcType=DOUBLE}, #{isDelay,jdbcType=VARCHAR}, #{stockoutStatus,jdbcType=VARCHAR}, 
+      #{receivePieceNum,jdbcType=DOUBLE}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceipt">
+    insert into ware_advance_warehouse_receipt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareAdvanceWarehouseReceiptId != null">
+        ware_advance_warehouse_receipt_id,
+      </if>
+      <if test="advanceWarehouseReceiptNo != null">
+        advance_warehouse_receipt_no,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="stockoutNo != null">
+        stockout_no,
+      </if>
+      <if test="spareParts != null">
+        spare_parts,
+      </if>
+      <if test="sparePartsNum != null">
+        spare_parts_num,
+      </if>
+      <if test="receiveNum != null">
+        receive_num,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="borrowNum != null">
+        borrow_num,
+      </if>
+      <if test="receiveMaterialNum != null">
+        receive_material_num,
+      </if>
+      <if test="isDelay != null">
+        is_delay,
+      </if>
+      <if test="stockoutStatus != null">
+        stockout_status,
+      </if>
+      <if test="receivePieceNum != null">
+        receive_piece_num,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareAdvanceWarehouseReceiptId != null">
+        #{wareAdvanceWarehouseReceiptId,jdbcType=INTEGER},
+      </if>
+      <if test="advanceWarehouseReceiptNo != null">
+        #{advanceWarehouseReceiptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="stockoutNo != null">
+        #{stockoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsNum != null">
+        #{sparePartsNum,jdbcType=DOUBLE},
+      </if>
+      <if test="receiveNum != null">
+        #{receiveNum,jdbcType=DOUBLE},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNum != null">
+        #{borrowNum,jdbcType=DOUBLE},
+      </if>
+      <if test="receiveMaterialNum != null">
+        #{receiveMaterialNum,jdbcType=DOUBLE},
+      </if>
+      <if test="isDelay != null">
+        #{isDelay,jdbcType=VARCHAR},
+      </if>
+      <if test="stockoutStatus != null">
+        #{stockoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePieceNum != null">
+        #{receivePieceNum,jdbcType=DOUBLE},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceiptExample" resultType="java.lang.Long">
+    select count(*) from ware_advance_warehouse_receipt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_advance_warehouse_receipt
+    <set>
+      <if test="record.wareAdvanceWarehouseReceiptId != null">
+        ware_advance_warehouse_receipt_id = #{record.wareAdvanceWarehouseReceiptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.advanceWarehouseReceiptNo != null">
+        advance_warehouse_receipt_no = #{record.advanceWarehouseReceiptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.no != null">
+        `no` = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockoutNo != null">
+        stockout_no = #{record.stockoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareParts != null">
+        spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsNum != null">
+        spare_parts_num = #{record.sparePartsNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.receiveNum != null">
+        receive_num = #{record.receiveNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowNum != null">
+        borrow_num = #{record.borrowNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.receiveMaterialNum != null">
+        receive_material_num = #{record.receiveMaterialNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isDelay != null">
+        is_delay = #{record.isDelay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockoutStatus != null">
+        stockout_status = #{record.stockoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivePieceNum != null">
+        receive_piece_num = #{record.receivePieceNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_advance_warehouse_receipt
+    set ware_advance_warehouse_receipt_id = #{record.wareAdvanceWarehouseReceiptId,jdbcType=INTEGER},
+      advance_warehouse_receipt_no = #{record.advanceWarehouseReceiptNo,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      `no` = #{record.no,jdbcType=VARCHAR},
+      stockout_no = #{record.stockoutNo,jdbcType=VARCHAR},
+      spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      spare_parts_num = #{record.sparePartsNum,jdbcType=DOUBLE},
+      receive_num = #{record.receiveNum,jdbcType=DOUBLE},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      borrow_num = #{record.borrowNum,jdbcType=DOUBLE},
+      receive_material_num = #{record.receiveMaterialNum,jdbcType=DOUBLE},
+      is_delay = #{record.isDelay,jdbcType=VARCHAR},
+      stockout_status = #{record.stockoutStatus,jdbcType=VARCHAR},
+      receive_piece_num = #{record.receivePieceNum,jdbcType=DOUBLE},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceipt">
+    update ware_advance_warehouse_receipt
+    <set>
+      <if test="advanceWarehouseReceiptNo != null">
+        advance_warehouse_receipt_no = #{advanceWarehouseReceiptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="stockoutNo != null">
+        stockout_no = #{stockoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        spare_parts = #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsNum != null">
+        spare_parts_num = #{sparePartsNum,jdbcType=DOUBLE},
+      </if>
+      <if test="receiveNum != null">
+        receive_num = #{receiveNum,jdbcType=DOUBLE},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNum != null">
+        borrow_num = #{borrowNum,jdbcType=DOUBLE},
+      </if>
+      <if test="receiveMaterialNum != null">
+        receive_material_num = #{receiveMaterialNum,jdbcType=DOUBLE},
+      </if>
+      <if test="isDelay != null">
+        is_delay = #{isDelay,jdbcType=VARCHAR},
+      </if>
+      <if test="stockoutStatus != null">
+        stockout_status = #{stockoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePieceNum != null">
+        receive_piece_num = #{receivePieceNum,jdbcType=DOUBLE},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_advance_warehouse_receipt_id = #{wareAdvanceWarehouseReceiptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareaAdvanceWarehouseReceipt">
+    update ware_advance_warehouse_receipt
+    set advance_warehouse_receipt_no = #{advanceWarehouseReceiptNo,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      `no` = #{no,jdbcType=VARCHAR},
+      stockout_no = #{stockoutNo,jdbcType=VARCHAR},
+      spare_parts = #{spareParts,jdbcType=VARCHAR},
+      spare_parts_num = #{sparePartsNum,jdbcType=DOUBLE},
+      receive_num = #{receiveNum,jdbcType=DOUBLE},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      borrow_num = #{borrowNum,jdbcType=DOUBLE},
+      receive_material_num = #{receiveMaterialNum,jdbcType=DOUBLE},
+      is_delay = #{isDelay,jdbcType=VARCHAR},
+      stockout_status = #{stockoutStatus,jdbcType=VARCHAR},
+      receive_piece_num = #{receivePieceNum,jdbcType=DOUBLE},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_advance_warehouse_receipt_id = #{wareAdvanceWarehouseReceiptId,jdbcType=INTEGER}
+  </update>
+</mapper>

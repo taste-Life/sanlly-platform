@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.GohContainerCostMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.GohContainerCost">
+    <id column="prod_goh_container_cost_id" jdbcType="INTEGER" property="prodGohContainerCostId" />
+    <result column="reshape_type" jdbcType="VARCHAR" property="reshapeType" />
+    <result column="tier_number" jdbcType="VARCHAR" property="tierNumber" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="invoice_cost" jdbcType="DECIMAL" property="invoiceCost" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_goh_container_cost_id, reshape_type, tier_number, `size`, weight, invoice_cost, 
+    remarks, is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.GohContainerCostExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_goh_container_cost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_goh_container_cost
+    where prod_goh_container_cost_id = #{prodGohContainerCostId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_goh_container_cost
+    where prod_goh_container_cost_id = #{prodGohContainerCostId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.GohContainerCostExample">
+    delete from prod_goh_container_cost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.GohContainerCost">
+    insert into prod_goh_container_cost (prod_goh_container_cost_id, reshape_type, 
+      tier_number, `size`, weight, 
+      invoice_cost, remarks, is_del, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{prodGohContainerCostId,jdbcType=INTEGER}, #{reshapeType,jdbcType=VARCHAR}, 
+      #{tierNumber,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{invoiceCost,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.GohContainerCost">
+    insert into prod_goh_container_cost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodGohContainerCostId != null">
+        prod_goh_container_cost_id,
+      </if>
+      <if test="reshapeType != null">
+        reshape_type,
+      </if>
+      <if test="tierNumber != null">
+        tier_number,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="invoiceCost != null">
+        invoice_cost,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodGohContainerCostId != null">
+        #{prodGohContainerCostId,jdbcType=INTEGER},
+      </if>
+      <if test="reshapeType != null">
+        #{reshapeType,jdbcType=VARCHAR},
+      </if>
+      <if test="tierNumber != null">
+        #{tierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCost != null">
+        #{invoiceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.GohContainerCostExample" resultType="java.lang.Long">
+    select count(*) from prod_goh_container_cost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_goh_container_cost
+    <set>
+      <if test="record.prodGohContainerCostId != null">
+        prod_goh_container_cost_id = #{record.prodGohContainerCostId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reshapeType != null">
+        reshape_type = #{record.reshapeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tierNumber != null">
+        tier_number = #{record.tierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceCost != null">
+        invoice_cost = #{record.invoiceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_goh_container_cost
+    set prod_goh_container_cost_id = #{record.prodGohContainerCostId,jdbcType=INTEGER},
+      reshape_type = #{record.reshapeType,jdbcType=VARCHAR},
+      tier_number = #{record.tierNumber,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=VARCHAR},
+      invoice_cost = #{record.invoiceCost,jdbcType=DECIMAL},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.GohContainerCost">
+    update prod_goh_container_cost
+    <set>
+      <if test="reshapeType != null">
+        reshape_type = #{reshapeType,jdbcType=VARCHAR},
+      </if>
+      <if test="tierNumber != null">
+        tier_number = #{tierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCost != null">
+        invoice_cost = #{invoiceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_goh_container_cost_id = #{prodGohContainerCostId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.GohContainerCost">
+    update prod_goh_container_cost
+    set reshape_type = #{reshapeType,jdbcType=VARCHAR},
+      tier_number = #{tierNumber,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      invoice_cost = #{invoiceCost,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_goh_container_cost_id = #{prodGohContainerCostId,jdbcType=INTEGER}
+  </update>
+</mapper>

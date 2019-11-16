@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.purchase.dao.SupplierMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.purchase.entity.Supplier">
+    <id column="purc_supplier_id" jdbcType="INTEGER" property="purcSupplierId" />
+    <result column="mobile_phone_num" jdbcType="VARCHAR" property="mobilePhoneNum" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="name_en" jdbcType="VARCHAR" property="nameEn" />
+    <result column="credit_code" jdbcType="VARCHAR" property="creditCode" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="reg_address" jdbcType="VARCHAR" property="regAddress" />
+    <result column="busniess_address" jdbcType="VARCHAR" property="busniessAddress" />
+    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="services_content" jdbcType="VARCHAR" property="servicesContent" />
+    <result column="nature_id" jdbcType="VARCHAR" property="natureId" />
+    <result column="registered_funds" jdbcType="VARCHAR" property="registeredFunds" />
+    <result column="found_date" jdbcType="TIMESTAMP" property="foundDate" />
+    <result column="settlement_cycle" jdbcType="VARCHAR" property="settlementCycle" />
+    <result column="vendor_code" jdbcType="VARCHAR" property="vendorCode" />
+    <result column="sap_id" jdbcType="VARCHAR" property="sapId" />
+    <result column="process_id" jdbcType="VARCHAR" property="processId" />
+    <result column="period_supplier" jdbcType="VARCHAR" property="periodSupplier" />
+    <result column="settlement_type" jdbcType="VARCHAR" property="settlementType" />
+    <result column="is_black" jdbcType="VARCHAR" property="isBlack" />
+    <result column="is_special" jdbcType="VARCHAR" property="isSpecial" />
+    <result column="procure_type" jdbcType="VARCHAR" property="procureType" />
+    <result column="registration_method" jdbcType="VARCHAR" property="registrationMethod" />
+    <result column="storehouse_type" jdbcType="VARCHAR" property="storehouseType" />
+    <result column="is_single_supplier" jdbcType="VARCHAR" property="isSingleSupplier" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="is_eliminate" jdbcType="VARCHAR" property="isEliminate" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="is_materials" jdbcType="VARCHAR" property="isMaterials" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="comments" jdbcType="VARCHAR" property="comments" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="current_status" jdbcType="VARCHAR" property="currentStatus" />
+    <result column="pre_grade" jdbcType="VARCHAR" property="preGrade" />
+    <result column="is_one_time" jdbcType="VARCHAR" property="isOneTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    purc_supplier_id, mobile_phone_num, `name`, name_en, credit_code, country, city, 
+    currency, reg_address, busniess_address, legal_person, services_content, nature_id, 
+    registered_funds, found_date, settlement_cycle, vendor_code, sap_id, process_id, 
+    period_supplier, settlement_type, is_black, is_special, procure_type, registration_method, 
+    storehouse_type, is_single_supplier, grade, audit_status, is_eliminate, user_id, 
+    is_del, create_time, create_user, update_time, update_user, is_materials, `key`, 
+    comments, `status`, current_status, pre_grade, is_one_time
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.purchase.entity.SupplierExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purc_supplier
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from purc_supplier
+    where purc_supplier_id = #{purcSupplierId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from purc_supplier
+    where purc_supplier_id = #{purcSupplierId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.purchase.entity.SupplierExample">
+    delete from purc_supplier
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.purchase.entity.Supplier">
+    insert into purc_supplier (purc_supplier_id, mobile_phone_num, `name`, 
+      name_en, credit_code, country, 
+      city, currency, reg_address, 
+      busniess_address, legal_person, services_content, 
+      nature_id, registered_funds, found_date, 
+      settlement_cycle, vendor_code, sap_id, 
+      process_id, period_supplier, settlement_type, 
+      is_black, is_special, procure_type, 
+      registration_method, storehouse_type, is_single_supplier, 
+      grade, audit_status, is_eliminate, 
+      user_id, is_del, create_time, 
+      create_user, update_time, update_user, 
+      is_materials, `key`, comments, 
+      `status`, current_status, pre_grade, 
+      is_one_time)
+    values (#{purcSupplierId,jdbcType=INTEGER}, #{mobilePhoneNum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{nameEn,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, #{regAddress,jdbcType=VARCHAR}, 
+      #{busniessAddress,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{servicesContent,jdbcType=VARCHAR}, 
+      #{natureId,jdbcType=VARCHAR}, #{registeredFunds,jdbcType=VARCHAR}, #{foundDate,jdbcType=TIMESTAMP}, 
+      #{settlementCycle,jdbcType=VARCHAR}, #{vendorCode,jdbcType=VARCHAR}, #{sapId,jdbcType=VARCHAR}, 
+      #{processId,jdbcType=VARCHAR}, #{periodSupplier,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, 
+      #{isBlack,jdbcType=VARCHAR}, #{isSpecial,jdbcType=VARCHAR}, #{procureType,jdbcType=VARCHAR}, 
+      #{registrationMethod,jdbcType=VARCHAR}, #{storehouseType,jdbcType=VARCHAR}, #{isSingleSupplier,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{auditStatus,jdbcType=VARCHAR}, #{isEliminate,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{isMaterials,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{currentStatus,jdbcType=VARCHAR}, #{preGrade,jdbcType=VARCHAR}, 
+      #{isOneTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.purchase.entity.Supplier">
+    insert into purc_supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purcSupplierId != null">
+        purc_supplier_id,
+      </if>
+      <if test="mobilePhoneNum != null">
+        mobile_phone_num,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="nameEn != null">
+        name_en,
+      </if>
+      <if test="creditCode != null">
+        credit_code,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="regAddress != null">
+        reg_address,
+      </if>
+      <if test="busniessAddress != null">
+        busniess_address,
+      </if>
+      <if test="legalPerson != null">
+        legal_person,
+      </if>
+      <if test="servicesContent != null">
+        services_content,
+      </if>
+      <if test="natureId != null">
+        nature_id,
+      </if>
+      <if test="registeredFunds != null">
+        registered_funds,
+      </if>
+      <if test="foundDate != null">
+        found_date,
+      </if>
+      <if test="settlementCycle != null">
+        settlement_cycle,
+      </if>
+      <if test="vendorCode != null">
+        vendor_code,
+      </if>
+      <if test="sapId != null">
+        sap_id,
+      </if>
+      <if test="processId != null">
+        process_id,
+      </if>
+      <if test="periodSupplier != null">
+        period_supplier,
+      </if>
+      <if test="settlementType != null">
+        settlement_type,
+      </if>
+      <if test="isBlack != null">
+        is_black,
+      </if>
+      <if test="isSpecial != null">
+        is_special,
+      </if>
+      <if test="procureType != null">
+        procure_type,
+      </if>
+      <if test="registrationMethod != null">
+        registration_method,
+      </if>
+      <if test="storehouseType != null">
+        storehouse_type,
+      </if>
+      <if test="isSingleSupplier != null">
+        is_single_supplier,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="isEliminate != null">
+        is_eliminate,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isMaterials != null">
+        is_materials,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+      <if test="comments != null">
+        comments,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="currentStatus != null">
+        current_status,
+      </if>
+      <if test="preGrade != null">
+        pre_grade,
+      </if>
+      <if test="isOneTime != null">
+        is_one_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purcSupplierId != null">
+        #{purcSupplierId,jdbcType=INTEGER},
+      </if>
+      <if test="mobilePhoneNum != null">
+        #{mobilePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null">
+        #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="regAddress != null">
+        #{regAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="busniessAddress != null">
+        #{busniessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="servicesContent != null">
+        #{servicesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="natureId != null">
+        #{natureId,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredFunds != null">
+        #{registeredFunds,jdbcType=VARCHAR},
+      </if>
+      <if test="foundDate != null">
+        #{foundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlementCycle != null">
+        #{settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorCode != null">
+        #{vendorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sapId != null">
+        #{sapId,jdbcType=VARCHAR},
+      </if>
+      <if test="processId != null">
+        #{processId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodSupplier != null">
+        #{periodSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null">
+        #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlack != null">
+        #{isBlack,jdbcType=VARCHAR},
+      </if>
+      <if test="isSpecial != null">
+        #{isSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="procureType != null">
+        #{procureType,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationMethod != null">
+        #{registrationMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="storehouseType != null">
+        #{storehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSingleSupplier != null">
+        #{isSingleSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isEliminate != null">
+        #{isEliminate,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isMaterials != null">
+        #{isMaterials,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStatus != null">
+        #{currentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="preGrade != null">
+        #{preGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="isOneTime != null">
+        #{isOneTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.purchase.entity.SupplierExample" resultType="java.lang.Long">
+    select count(*) from purc_supplier
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update purc_supplier
+    <set>
+      <if test="record.purcSupplierId != null">
+        purc_supplier_id = #{record.purcSupplierId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobilePhoneNum != null">
+        mobile_phone_num = #{record.mobilePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameEn != null">
+        name_en = #{record.nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditCode != null">
+        credit_code = #{record.creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currency != null">
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regAddress != null">
+        reg_address = #{record.regAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busniessAddress != null">
+        busniess_address = #{record.busniessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPerson != null">
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicesContent != null">
+        services_content = #{record.servicesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.natureId != null">
+        nature_id = #{record.natureId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registeredFunds != null">
+        registered_funds = #{record.registeredFunds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foundDate != null">
+        found_date = #{record.foundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.settlementCycle != null">
+        settlement_cycle = #{record.settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendorCode != null">
+        vendor_code = #{record.vendorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sapId != null">
+        sap_id = #{record.sapId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processId != null">
+        process_id = #{record.processId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodSupplier != null">
+        period_supplier = #{record.periodSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlementType != null">
+        settlement_type = #{record.settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBlack != null">
+        is_black = #{record.isBlack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSpecial != null">
+        is_special = #{record.isSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procureType != null">
+        procure_type = #{record.procureType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registrationMethod != null">
+        registration_method = #{record.registrationMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storehouseType != null">
+        storehouse_type = #{record.storehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSingleSupplier != null">
+        is_single_supplier = #{record.isSingleSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null">
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEliminate != null">
+        is_eliminate = #{record.isEliminate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.isMaterials != null">
+        is_materials = #{record.isMaterials,jdbcType=VARCHAR},
+      </if>
+      <if test="record.key != null">
+        `key` = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comments != null">
+        comments = #{record.comments,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentStatus != null">
+        current_status = #{record.currentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preGrade != null">
+        pre_grade = #{record.preGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOneTime != null">
+        is_one_time = #{record.isOneTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update purc_supplier
+    set purc_supplier_id = #{record.purcSupplierId,jdbcType=INTEGER},
+      mobile_phone_num = #{record.mobilePhoneNum,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      name_en = #{record.nameEn,jdbcType=VARCHAR},
+      credit_code = #{record.creditCode,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      reg_address = #{record.regAddress,jdbcType=VARCHAR},
+      busniess_address = #{record.busniessAddress,jdbcType=VARCHAR},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      services_content = #{record.servicesContent,jdbcType=VARCHAR},
+      nature_id = #{record.natureId,jdbcType=VARCHAR},
+      registered_funds = #{record.registeredFunds,jdbcType=VARCHAR},
+      found_date = #{record.foundDate,jdbcType=TIMESTAMP},
+      settlement_cycle = #{record.settlementCycle,jdbcType=VARCHAR},
+      vendor_code = #{record.vendorCode,jdbcType=VARCHAR},
+      sap_id = #{record.sapId,jdbcType=VARCHAR},
+      process_id = #{record.processId,jdbcType=VARCHAR},
+      period_supplier = #{record.periodSupplier,jdbcType=VARCHAR},
+      settlement_type = #{record.settlementType,jdbcType=VARCHAR},
+      is_black = #{record.isBlack,jdbcType=VARCHAR},
+      is_special = #{record.isSpecial,jdbcType=VARCHAR},
+      procure_type = #{record.procureType,jdbcType=VARCHAR},
+      registration_method = #{record.registrationMethod,jdbcType=VARCHAR},
+      storehouse_type = #{record.storehouseType,jdbcType=VARCHAR},
+      is_single_supplier = #{record.isSingleSupplier,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      is_eliminate = #{record.isEliminate,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      is_materials = #{record.isMaterials,jdbcType=VARCHAR},
+      `key` = #{record.key,jdbcType=VARCHAR},
+      comments = #{record.comments,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=VARCHAR},
+      current_status = #{record.currentStatus,jdbcType=VARCHAR},
+      pre_grade = #{record.preGrade,jdbcType=VARCHAR},
+      is_one_time = #{record.isOneTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.purchase.entity.Supplier">
+    update purc_supplier
+    <set>
+      <if test="mobilePhoneNum != null">
+        mobile_phone_num = #{mobilePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        name_en = #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null">
+        credit_code = #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="regAddress != null">
+        reg_address = #{regAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="busniessAddress != null">
+        busniess_address = #{busniessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="servicesContent != null">
+        services_content = #{servicesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="natureId != null">
+        nature_id = #{natureId,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredFunds != null">
+        registered_funds = #{registeredFunds,jdbcType=VARCHAR},
+      </if>
+      <if test="foundDate != null">
+        found_date = #{foundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlementCycle != null">
+        settlement_cycle = #{settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorCode != null">
+        vendor_code = #{vendorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sapId != null">
+        sap_id = #{sapId,jdbcType=VARCHAR},
+      </if>
+      <if test="processId != null">
+        process_id = #{processId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodSupplier != null">
+        period_supplier = #{periodSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null">
+        settlement_type = #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlack != null">
+        is_black = #{isBlack,jdbcType=VARCHAR},
+      </if>
+      <if test="isSpecial != null">
+        is_special = #{isSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="procureType != null">
+        procure_type = #{procureType,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationMethod != null">
+        registration_method = #{registrationMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="storehouseType != null">
+        storehouse_type = #{storehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSingleSupplier != null">
+        is_single_supplier = #{isSingleSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isEliminate != null">
+        is_eliminate = #{isEliminate,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isMaterials != null">
+        is_materials = #{isMaterials,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStatus != null">
+        current_status = #{currentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="preGrade != null">
+        pre_grade = #{preGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="isOneTime != null">
+        is_one_time = #{isOneTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purc_supplier_id = #{purcSupplierId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.purchase.entity.Supplier">
+    update purc_supplier
+    set mobile_phone_num = #{mobilePhoneNum,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      name_en = #{nameEn,jdbcType=VARCHAR},
+      credit_code = #{creditCode,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      reg_address = #{regAddress,jdbcType=VARCHAR},
+      busniess_address = #{busniessAddress,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      services_content = #{servicesContent,jdbcType=VARCHAR},
+      nature_id = #{natureId,jdbcType=VARCHAR},
+      registered_funds = #{registeredFunds,jdbcType=VARCHAR},
+      found_date = #{foundDate,jdbcType=TIMESTAMP},
+      settlement_cycle = #{settlementCycle,jdbcType=VARCHAR},
+      vendor_code = #{vendorCode,jdbcType=VARCHAR},
+      sap_id = #{sapId,jdbcType=VARCHAR},
+      process_id = #{processId,jdbcType=VARCHAR},
+      period_supplier = #{periodSupplier,jdbcType=VARCHAR},
+      settlement_type = #{settlementType,jdbcType=VARCHAR},
+      is_black = #{isBlack,jdbcType=VARCHAR},
+      is_special = #{isSpecial,jdbcType=VARCHAR},
+      procure_type = #{procureType,jdbcType=VARCHAR},
+      registration_method = #{registrationMethod,jdbcType=VARCHAR},
+      storehouse_type = #{storehouseType,jdbcType=VARCHAR},
+      is_single_supplier = #{isSingleSupplier,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      is_eliminate = #{isEliminate,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      is_materials = #{isMaterials,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      comments = #{comments,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      current_status = #{currentStatus,jdbcType=VARCHAR},
+      pre_grade = #{preGrade,jdbcType=VARCHAR},
+      is_one_time = #{isOneTime,jdbcType=VARCHAR}
+    where purc_supplier_id = #{purcSupplierId,jdbcType=INTEGER}
+  </update>
+</mapper>

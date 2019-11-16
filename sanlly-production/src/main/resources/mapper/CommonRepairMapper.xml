@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.CommonRepairMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.CommonRepair">
+    <id column="prod_common_repair_id" jdbcType="INTEGER" property="prodCommonRepairId" />
+    <result column="common_repair_code" jdbcType="VARCHAR" property="commonRepairCode" />
+    <result column="common_repair_name" jdbcType="VARCHAR" property="commonRepairName" />
+    <result column="position_code" jdbcType="VARCHAR" property="positionCode" />
+    <result column="parts_details_code" jdbcType="VARCHAR" property="partsDetailsCode" />
+    <result column="repair_code" jdbcType="VARCHAR" property="repairCode" />
+    <result column="parts_repair_code" jdbcType="VARCHAR" property="partsRepairCode" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_common_repair_id, common_repair_code, common_repair_name, position_code, parts_details_code, 
+    repair_code, parts_repair_code, is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.CommonRepairExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_common_repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_common_repair
+    where prod_common_repair_id = #{prodCommonRepairId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_common_repair
+    where prod_common_repair_id = #{prodCommonRepairId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.CommonRepairExample">
+    delete from prod_common_repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.CommonRepair">
+    insert into prod_common_repair (prod_common_repair_id, common_repair_code, 
+      common_repair_name, position_code, parts_details_code, 
+      repair_code, parts_repair_code, is_del, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{prodCommonRepairId,jdbcType=INTEGER}, #{commonRepairCode,jdbcType=VARCHAR}, 
+      #{commonRepairName,jdbcType=VARCHAR}, #{positionCode,jdbcType=VARCHAR}, #{partsDetailsCode,jdbcType=VARCHAR}, 
+      #{repairCode,jdbcType=VARCHAR}, #{partsRepairCode,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.CommonRepair">
+    insert into prod_common_repair
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodCommonRepairId != null">
+        prod_common_repair_id,
+      </if>
+      <if test="commonRepairCode != null">
+        common_repair_code,
+      </if>
+      <if test="commonRepairName != null">
+        common_repair_name,
+      </if>
+      <if test="positionCode != null">
+        position_code,
+      </if>
+      <if test="partsDetailsCode != null">
+        parts_details_code,
+      </if>
+      <if test="repairCode != null">
+        repair_code,
+      </if>
+      <if test="partsRepairCode != null">
+        parts_repair_code,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodCommonRepairId != null">
+        #{prodCommonRepairId,jdbcType=INTEGER},
+      </if>
+      <if test="commonRepairCode != null">
+        #{commonRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="commonRepairName != null">
+        #{commonRepairName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsCode != null">
+        #{partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsRepairCode != null">
+        #{partsRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.CommonRepairExample" resultType="java.lang.Long">
+    select count(*) from prod_common_repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_common_repair
+    <set>
+      <if test="record.prodCommonRepairId != null">
+        prod_common_repair_id = #{record.prodCommonRepairId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commonRepairCode != null">
+        common_repair_code = #{record.commonRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonRepairName != null">
+        common_repair_name = #{record.commonRepairName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionCode != null">
+        position_code = #{record.positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsDetailsCode != null">
+        parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairCode != null">
+        repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsRepairCode != null">
+        parts_repair_code = #{record.partsRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_common_repair
+    set prod_common_repair_id = #{record.prodCommonRepairId,jdbcType=INTEGER},
+      common_repair_code = #{record.commonRepairCode,jdbcType=VARCHAR},
+      common_repair_name = #{record.commonRepairName,jdbcType=VARCHAR},
+      position_code = #{record.positionCode,jdbcType=VARCHAR},
+      parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      parts_repair_code = #{record.partsRepairCode,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.CommonRepair">
+    update prod_common_repair
+    <set>
+      <if test="commonRepairCode != null">
+        common_repair_code = #{commonRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="commonRepairName != null">
+        common_repair_name = #{commonRepairName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        position_code = #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsCode != null">
+        parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        repair_code = #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsRepairCode != null">
+        parts_repair_code = #{partsRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_common_repair_id = #{prodCommonRepairId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.CommonRepair">
+    update prod_common_repair
+    set common_repair_code = #{commonRepairCode,jdbcType=VARCHAR},
+      common_repair_name = #{commonRepairName,jdbcType=VARCHAR},
+      position_code = #{positionCode,jdbcType=VARCHAR},
+      parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      repair_code = #{repairCode,jdbcType=VARCHAR},
+      parts_repair_code = #{partsRepairCode,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_common_repair_id = #{prodCommonRepairId,jdbcType=INTEGER}
+  </update>
+</mapper>

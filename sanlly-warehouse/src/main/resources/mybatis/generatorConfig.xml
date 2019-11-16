@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动 -->
+	<classPathEntry location="F:\zh\eclipse\sanlly-platform\sanlly-warehouse\src\main\resources\mybatis\mysql-connector-java-5.1.40.jar" />
+	<context id="DB2tables" targetRuntime="MyBatis3">
+		<!-- 自动识别数据库关键字，默认false，如果设置为true -->
+		<property name="autoDelimitKeywords" value="true" />
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" /> 
+		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+		<plugin type="com.sanlly.warehouse.config.mybatis.PaginationPlugin" />
+		<!-- <plugin type="com.sanlly.warehouse.config.mybatis.BulkInsertPlugin" /> -->
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库相关属性设置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.0.233:3306/sanlly_dev?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="sanlly" password="123456" />
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		<!-- 生成实体类地址 -->
+		<javaModelGenerator targetPackage="com.sanlly.warehouse.entity" targetProject="src/main/java">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		<!-- 生成mapxml文件 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		
+		<!-- 生成mapxml对应client，也就是接口dao -->
+		<javaClientGenerator targetPackage="com.sanlly.warehouse.dao" targetProject="src/main/java" type="XMLMAPPER">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		
+		
+		<!--<table schema="sanlly_dev" tableName="ware_spare_parts" domainObjectName="WareSpareParts">-->
+		<!--</table>-->
+		<!-- <table schema="sanlly_dev" tableName="ware_advance_warehouse_receipt" domainObjectName="WareaAdvanceWarehouseReceipt" /> -->
+		<!-- <table schema="sanlly_dev" tableName="ware_asset_apply" domainObjectName="WareAssetApply" />
+		<table schema="sanlly_dev" tableName="ware_asset_management" domainObjectName="WareAssetManagement" />
+		<table schema="sanlly_dev" tableName="ware_asset_type" domainObjectName="WareAssetType" />
+		<table schema="sanlly_dev" tableName="ware_bill_type" domainObjectName="WareBillType" />
+		<table schema="sanlly_dev" tableName="ware_billtype_warehousetype" domainObjectName="WareBilltypeWarehousetype" />
+		<table schema="sanlly_dev" tableName="ware_borrow_lend_detail" domainObjectName="WareBorrowLendDetail" />
+		<table schema="sanlly_dev" tableName="ware_borrow_lend_slip" domainObjectName="WareBorrowLendSlip" />
+		<table schema="sanlly_dev" tableName="ware_company" domainObjectName="WareCompany" />
+		<table schema="sanlly_dev" tableName="ware_debit_slip" domainObjectName="WareDebitSlip" />
+		<table schema="sanlly_dev" tableName="ware_debit_slip_detail" domainObjectName="WareDebitSlipDetail" />
+		<table schema="sanlly_dev" tableName="ware_delivery_slip" domainObjectName="WareDeliverySlip" />
+		<table schema="sanlly_dev" tableName="ware_departments" domainObjectName="WareDepartments" />
+		<table schema="sanlly_dev" tableName="ware_entrusted_processing" domainObjectName="WareEntrustedProcessing" />
+		<table schema="sanlly_dev" tableName="ware_entrusted_processing_material" domainObjectName="WareEntrustedProcessingMaterial" />
+		<table schema="sanlly_dev" tableName="ware_entrusted_processing_produc" domainObjectName="WareEntrustedProcessingProduc" />
+		<table schema="sanlly_dev" tableName="ware_entry_adjustment" domainObjectName="WareEntryAdjustment" />
+		<table schema="sanlly_dev" tableName="ware_entry_adjustment_detail" domainObjectName="WareEntryAdjustmentDetail" />
+		<table schema="sanlly_dev" tableName="ware_escrow_company" domainObjectName="WareEscrowCompany" />
+		<table schema="sanlly_dev" tableName="ware_external_sales" domainObjectName="WareExternalSales" />
+		<table schema="sanlly_dev" tableName="ware_external_sales_detail" domainObjectName="WareExternalSalesDetail" />
+		<table schema="sanlly_dev" tableName="ware_images" domainObjectName="WareImages" />
+		<table schema="sanlly_dev" tableName="ware_internal_procurement" domainObjectName="WareInternalProcurement" />
+		<table schema="sanlly_dev" tableName="ware_internal_procurement_detail" domainObjectName="WareInternalProcurementDetail" />
+		<table schema="sanlly_dev" tableName="ware_invoice_type" domainObjectName="WareInvoiceType" />
+		<table schema="sanlly_dev" tableName="ware_labor_information_staff" domainObjectName="WareLaborInformationStaff" />
+		<table schema="sanlly_dev" tableName="ware_labor_insurance" domainObjectName="WareLaborInsurance" />
+		<table schema="sanlly_dev" tableName="ware_labor_insurance_detail" domainObjectName="WareLaborInsuranceDetail" />
+		<table schema="sanlly_dev" tableName="ware_labor_receive" domainObjectName="WareLaborReceive" />
+		<table schema="sanlly_dev" tableName="ware_labor_receive_detail" domainObjectName="WareLaborReceiveDetail" />
+		<table schema="sanlly_dev" tableName="ware_labor_stock" domainObjectName="WareLaborStock" />
+		<table schema="sanlly_dev" tableName="ware_maintain_department" domainObjectName="WareMaintainDepartment" />
+		<table schema="sanlly_dev" tableName="ware_maintain_department_type" domainObjectName="WareMaintainDepartmentType" />
+		<table schema="sanlly_dev" tableName="ware_maintain_presentation" domainObjectName="WareMaintainPresentation" />
+		<table schema="sanlly_dev" tableName="ware_maintain_presentation_detail" domainObjectName="WareMaintainPresentationDetail" />
+		<table schema="sanlly_dev" tableName="ware_maintain_spare_parts" domainObjectName="WareMaintainSpareParts" />
+		<table schema="sanlly_dev" tableName="ware_maintain_type" domainObjectName="WareMaintainType" />
+		<table schema="sanlly_dev" tableName="ware_master_device" domainObjectName="WareMasterDevice" />
+		<table schema="sanlly_dev" tableName="ware_master_rate_relation" domainObjectName="WareMasterRateRelation" />
+		<table schema="sanlly_dev" tableName="ware_master_spare_parts" domainObjectName="WareMasterSpareParts" />
+		<table schema="sanlly_dev" tableName="ware_purchase_requisitions" domainObjectName="WarePurchaseRequisitions" />
+		<table schema="sanlly_dev" tableName="ware_quote_currency" domainObjectName="WareQuoteCurrency" />
+		<table schema="sanlly_dev" tableName="ware_refrigerator_company" domainObjectName="WareRefrigeratorCompany" />
+		<table schema="sanlly_dev" tableName="ware_return_slip" domainObjectName="WareReturnSlip" />
+		<table schema="sanlly_dev" tableName="ware_return_slip_detail" domainObjectName="WareReturnSlipDetail" /> -->
+		<!-- <table schema="sanlly_dev" tableName="ware_return_warehouse" domainObjectName="WareReturnWarehouse" /> -->
+		<!-- <table schema="sanlly_dev" tableName="ware_return_warehouse_detail" domainObjectName="WareReturnWarehouseDetail" />
+		<table schema="sanlly_dev" tableName="ware_safe_stock" domainObjectName="WareSafeStock" />
+		<table schema="sanlly_dev" tableName="ware_sell_programme" domainObjectName="WareSellProgramme" />
+		<table schema="sanlly_dev" tableName="ware_sell_programme_detail" domainObjectName="WareSellProgramme_detail" />
+		<table schema="sanlly_dev" tableName="ware_ship_supply_replace" domainObjectName="WareShipSupplyReplace" />
+		<table schema="sanlly_dev" tableName="ware_ship_supplyreplace_detail" domainObjectName="WareShipSupplyreplaceDetail" />
+		<table schema="sanlly_dev" tableName="ware_shoule_spare_return" domainObjectName="WareShouleSpareReturn" />
+		<table schema="sanlly_dev" tableName="ware_spare_parts" domainObjectName="WareSpareParts" />
+		<table schema="sanlly_dev" tableName="ware_spare_parts_categories" domainObjectName="WareSparePartsCategories" />
+		<table schema="sanlly_dev" tableName="ware_spare_parts_return" domainObjectName="WareSparePartsReturn" />
+		<table schema="sanlly_dev" tableName="ware_spareparts_categories_details" domainObjectName="WareSparepartsCategoriesDetails" />
+		<table schema="sanlly_dev" tableName="ware_stock" domainObjectName="WareStock" />
+		<table schema="sanlly_dev" tableName="ware_stockin" domainObjectName="WareStockin" />
+
+		<table schema="sanlly_dev" tableName="ware_stockin_detail_labaor" domainObjectName="WareStockinDetailLabaor" />
+		<table schema="sanlly_dev" tableName="ware_stockin_labaor" domainObjectName="WareStockinLabaor" />
+		<table schema="sanlly_dev" tableName="ware_stockout" domainObjectName="WareStockout" />
+		<table schema="sanlly_dev" tableName="ware_stockout_apply" domainObjectName="WareStockoutApply" />
+		<table schema="sanlly_dev" tableName="ware_stockout_apply_detail" domainObjectName="WareStockoutApplyDetail" />
+		<table schema="sanlly_dev" tableName="ware_stockout_apply_type" domainObjectName="WareStockoutApplyType" />
+		<table schema="sanlly_dev" tableName="ware_stockout_detail" domainObjectName="WareStockoutDetail" />
+		<table schema="sanlly_dev" tableName="ware_stockout_detail_labaor" domainObjectName="WareStockoutDetailLabaor" />
+		<table schema="sanlly_dev" tableName="ware_stockout_labaor" domainObjectName="WareStockoutLabaor" />
+		<table schema="sanlly_dev" tableName="ware_stockout_maintain" domainObjectName="WareStockoutMaintain" />
+		<table schema="sanlly_dev" tableName="ware_stockout_maintain_detail" domainObjectName="WareStockoutMaintainDetail" />
+		<table schema="sanlly_dev" tableName="ware_surplus_losses" domainObjectName="WareSurplusLosses" />
+		<table schema="sanlly_dev" tableName="ware_surplus_losses_detail" domainObjectName="WareSurplusLossesDetail" />
+		<table schema="sanlly_dev" tableName="ware_take_stock" domainObjectName="WareTakeStock" />
+		<table schema="sanlly_dev" tableName="ware_texture" domainObjectName="WareTexture" />
+		<table schema="sanlly_dev" tableName="ware_tool_apply" domainObjectName="WareToolApply" />
+		<table schema="sanlly_dev" tableName="ware_tool_apply_detail" domainObjectName="WareToolApplyDetail" />
+		<table schema="sanlly_dev" tableName="ware_tool_manage" domainObjectName="WareToolManage" />
+		<table schema="sanlly_dev" tableName="ware_transfer_slip" domainObjectName="WareTransferSlip" />
+		<table schema="sanlly_dev" tableName="ware_unit" domainObjectName="WareUnit" />
+		<table schema="sanlly_dev" tableName="ware_warehouse" domainObjectName="WareWarehouse" />
+		<table schema="sanlly_dev" tableName="ware_warehouse_type" domainObjectName="WareWarehouseType" />
+		<table schema="sanlly_dev" tableName="ware_warehouse_type_relation" domainObjectName="WareWarehouseTypeRelation" />
+		<table schema="sanlly_dev" tableName="ware_warehouse_yard" domainObjectName="WareWarehouseYard" />
+		<table schema="sanlly_dev" tableName="ware_waste_warehouse" domainObjectName="WareWasteWarehouse" />
+		<table schema="sanlly_dev" tableName="ware_yard" domainObjectName="WareYard" />
+		<table schema="sanlly_dev" tableName="warn_transfer_slip_detail" domainObjectName="WarnTransferSlipDetail" /> -->
+		<!-- schema数据库名称；tableName表名； domainObjectName实体类名 -->
+		<!-- <table schema="sanlly" tableName="t_menu" domainObjectName="Menu" /> -->
+		<!-- <table schema="platform" tableName="t_subject" domainObjectName="Subject" /> -->
+		<!-- <table schema="platform" tableName="t_notice" domainObjectName="Notice" > -->
+		<!-- <generatedKey column="id" sqlStatement="MySql" identity="true" /> -->
+		<!-- </table> -->
+		<!--<table schema="sanlly_dev" tableName="ware_master_device" domainObjectName="WareMasterDevice" />-->
+		<!--<table schema="sanlly_dev" tableName="ware_spare_unit" domainObjectName="WareSpareUnit" />-->
+		<!--<table schema="sanlly_dev" tableName="ware_spare_texture" domainObjectName="WareSpareTexture" />-->
+		
+		
+	    <table schema="sanlly_dev" tableName="ware_labor_receive_detail" domainObjectName="WareLaborReceiveDetail">
+		</table>
+		<table schema="sanlly_dev" tableName="ware_return_warehouse_detail_labor" domainObjectName="WareReturnWarehouseDetailLabor">
+		</table>
+	</context>
+</generatorConfiguration>  

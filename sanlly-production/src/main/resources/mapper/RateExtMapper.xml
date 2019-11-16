@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.RateExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.models.output.rate.SearchCostRateMasterOutput">
+    <id column="prod_rate_id" jdbcType="VARCHAR" property="rateId" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategoryLang" />
+    <result column="partsTypeCode" jdbcType="VARCHAR" property="partsType" />
+    <result column="partsTypeKey" jdbcType="VARCHAR" property="partsTypeNameLang" />
+    <result column="partsDetailsCode" jdbcType="VARCHAR" property="partsDetails" />
+    <result column="parts_details_name" jdbcType="VARCHAR" property="partsDetailsName" />
+    <result column="repairCode" jdbcType="VARCHAR" property="repair" />
+    <result column="materialCode" jdbcType="VARCHAR" property="materialCode" />
+    <result column="rate_name" jdbcType="VARCHAR" property="rateDescribe" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="getCostRatePagedList" parameterType="com.sanlly.production.models.input.rate.SearchCostRateInput" resultMap="BaseResultMap">
+    select m.update_time,m.container_category, m.prod_rate_id,m.company,m.parts_type partsTypeKey,m.parts_type partsTypeCode,m.parts_details partsDetailsCode,
+		r.key repairKey,r.repair_code repairCode,p.key materialKey,p.material_code materialCode,m.rate_name,m.remark,m.parts_details_name
+		from prod_rate m
+		LEFT JOIN prod_parts_type y on m.parts_type=y.parts_type_code
+		LEFT JOIN prod_repair r on m.repair=r.repair_code
+		LEFT JOIN prod_material p on m.material=p.material_code
+	where m.is_del = 0 and m.standard_rate is null
+		<if test="containerCategory != null and containerCategory != ''">
+			and m.container_category = #{containerCategory}
+		</if>
+		<if test="partsType != null and partsType != ''">
+			and m.parts_type = #{partsType}
+		</if>
+		<if test="partsDetails != null and partsDetails != ''">
+			and m.parts_details like CONCAT('%',#{partsDetails},'%')
+		</if>
+		<if test="repair != null and repair != ''">
+			and m.repair = #{repair}
+		</if>
+		<if test="materialCode != null and materialCode != ''">
+			and m.material = #{materialCode}
+		</if>
+		ORDER BY m.update_time DESC
+		limit #{pageIndex} , #{pageSize}
+	
+  </select>
+  
+  <select id="getCostRatePagedCount" parameterType="com.sanlly.production.models.input.rate.SearchCostRateInput" resultType="java.lang.Integer">
+    select count(1)
+    from prod_rate m
+		LEFT JOIN prod_parts_type y on m.parts_type=y.parts_type_code
+		LEFT JOIN prod_repair r on m.repair=r.repair_code
+		LEFT JOIN prod_material p on m.material=p.material_code
+	where m.is_del = 0 and m.standard_rate is null
+		<if test="partsType != null and partsType != ''">
+			and m.parts_type = #{partsType}
+		</if>
+		<if test="partsDetails != null and partsDetails != ''">
+			and m.parts_details like CONCAT('%',#{partsDetails},'%')
+		</if>
+		<if test="repair != null and repair != ''">
+			and m.repair = #{repair}
+		</if>
+		<if test="materialCode != null and materialCode != ''">
+			and m.material = #{materialCode}
+		</if>
+  </select>
+	
+  <resultMap id="SelectItemOutput" type="com.sanlly.production.models.output.rate.SelectItemOutput">
+    <result column="code" jdbcType="VARCHAR" property="value" />
+    <result column="key" jdbcType="VARCHAR" property="labelLang" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+
+  <select id="getPartsTypeSelect" parameterType="java.lang.String" resultMap="SelectItemOutput">
+    select a.key,a.parts_type_code code from prod_parts_type a 
+    where a.is_del = 0
+  </select>
+
+  <!-- <select id="getPartsDetailsSelect" parameterType="java.lang.String" resultMap="SelectItemOutput">
+    select a.key,a.parts_details_code code from prod_parts_details a 
+    where a.is_del = 0
+  </select> -->
+
+  <select id="getRepairSelect" parameterType="java.lang.String" resultMap="SelectItemOutput">
+    select a.key,a.repair_code code from prod_repair a 
+    where a.is_del = 0
+  </select>
+
+  <resultMap id="SelectItemOutputTwo" type="com.sanlly.production.models.output.rate.SelectItemOutput">
+    <result column="key" jdbcType="VARCHAR" property="value" />
+    <result column="key" jdbcType="VARCHAR" property="labelLang" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  
+  <select id="getMaterialSelect" parameterType="java.lang.String" resultMap="SelectItemOutputTwo">
+    select a.key,a.material_code code from prod_material a 
+    where a.is_del = 0
+  </select>
+
+  <resultMap id="SanRateListOutput" type="com.sanlly.production.models.output.rate.SearchSanRateOutput">
+    <id column="prod_rate_id" jdbcType="VARCHAR" property="rateId" />
+    <result column="containerKey" jdbcType="VARCHAR" property="containerCategoryLang" />
+    <result column="partsTypeCode" jdbcType="VARCHAR" property="partsType" />
+    <result column="partsDetailsCode" jdbcType="VARCHAR" property="partsDetails" />
+    <result column="repairCode" jdbcType="VARCHAR" property="repair" />
+    <result column="calculation_type" jdbcType="VARCHAR" property="calculationTypeLang" />
+    <result column="calculation_type" jdbcType="VARCHAR" property="calculationTypeKey" />
+  </resultMap>
+
+  <select id="getSanRateList" parameterType="com.sanlly.production.models.input.rate.SearchRateInput" resultMap="SanRateListOutput">
+    select m.prod_rate_id,m.parts_type partsTypeCode,m.parts_details partsDetailsCode,
+		m.repair repairCode,m.container_category containerKey,m.calculation_type
+		from prod_rate m
+	where m.is_del = 0 and m.standard_rate is null
+		<if test="partsType != null and partsType != ''">
+			and m.parts_type = #{partsType}
+		</if>
+		<if test="partsDetails != null and partsDetails != ''">
+			and m.parts_details like CONCAT('%',#{partsDetails},'%')
+		</if>
+		<if test="repair != null and repair != ''">
+			and m.repair = #{repair}
+		</if>
+		<if test="containerCategory != null and containerCategory != ''">
+			and m.container_category = #{containerCategory}
+		</if>
+		ORDER BY m.create_time DESC
+		limit 0 , 200
+	
+  </select>
+
+  <resultMap id="SanUserRateListOutput" type="com.sanlly.production.models.output.rate.SearchUserRateOutput">
+    <id column="prod_rate_id" jdbcType="VARCHAR" property="rateId" />
+    <result column="containerUser" jdbcType="VARCHAR" property="containerUserLang" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategoryLang" />
+    <result column="partsTypeCode" jdbcType="VARCHAR" property="partsType" />
+    <result column="partsDetailsCode" jdbcType="VARCHAR" property="partsDetails" />
+    <result column="repairCode" jdbcType="VARCHAR" property="repair" />
+    <result column="calculation_type" jdbcType="VARCHAR" property="calculationTypeLang" />
+    <result column="calculation_type" jdbcType="VARCHAR" property="calculationTypeKey" />
+  </resultMap>
+
+  <select id="getUserRateList" parameterType="java.lang.String" resultMap="SanUserRateListOutput">
+    select m.prod_rate_id,m.container_user containerUser,m.parts_type partsTypeCode,m.parts_details partsDetailsCode,
+		m.repair repairCode,m.container_category,m.calculation_type
+		from prod_rate m
+	where m.is_del = 0 and m.standard_rate = #{rateId}
+	ORDER BY m.create_time DESC
+  </select>
+
+  <resultMap id="AuditRateOutput" type="com.sanlly.production.models.output.containerTesting.SearchAuditRateOutput">
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategoryLang" />
+    <result column="rate_code" jdbcType="VARCHAR" property="rateCode" />
+    <result column="parts_details" jdbcType="VARCHAR" property="partsDetails" />
+    <result column="repair" jdbcType="VARCHAR" property="repair" />
+  </resultMap>
+
+  <select id="getAuditRateList" parameterType="com.sanlly.production.models.input.containerTesting.SearchAuditRateInput" resultMap="AuditRateOutput">
+    select rate_code,parts_details,repair,container_category from prod_rate
+	where is_del=0 and standard_rate is null
+	<if test="containerCategory != null and containerCategory != ''">
+		and container_category like CONCAT('%',#{containerCategory},'%')
+	</if>
+	<if test="partsDetails != null and partsDetails != ''">
+		and parts_details like CONCAT('%',#{partsDetails},'%')
+	</if>
+	<if test="repair != null and repair != ''">
+		and repair = #{repair}
+	</if>
+	ORDER BY create_time DESC
+	limit #{pageIndex} , #{pageSize}
+  </select>
+  <select id="getAuditRateCount" parameterType="com.sanlly.production.models.input.containerTesting.SearchAuditRateInput" resultType="java.lang.Integer">
+   select count(1)  from prod_rate
+	where is_del=0 and standard_rate is null
+	<if test="containerCategory != null and containerCategory != ''">
+		and container_category like CONCAT('%',#{containerCategory},'%')
+	</if>
+	<if test="partsDetails != null and partsDetails != ''">
+		and parts_details like CONCAT('%',#{partsDetails},'%')
+	</if>
+	<if test="repair != null and repair != ''">
+		and repair = #{repair}
+	</if>
+  </select>
+</mapper>

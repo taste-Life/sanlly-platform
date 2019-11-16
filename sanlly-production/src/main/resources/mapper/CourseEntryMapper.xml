@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.CourseEntryMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.CourseEntry">
+    <id column="prod_course_entry_id" jdbcType="VARCHAR" property="prodCourseEntryId" />
+    <result column="serial_number" jdbcType="INTEGER" property="serialNumber" />
+    <result column="rate_id" jdbcType="VARCHAR" property="rateId" />
+    <result column="five_code" jdbcType="VARCHAR" property="fiveCode" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="position_code" jdbcType="VARCHAR" property="positionCode" />
+    <result column="parts_type_code" jdbcType="VARCHAR" property="partsTypeCode" />
+    <result column="parts_details_code" jdbcType="VARCHAR" property="partsDetailsCode" />
+    <result column="parts_repair_code" jdbcType="VARCHAR" property="partsRepairCode" />
+    <result column="damage_code" jdbcType="VARCHAR" property="damageCode" />
+    <result column="repair_code" jdbcType="VARCHAR" property="repairCode" />
+    <result column="material_code" jdbcType="VARCHAR" property="materialCode" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="spares_number" jdbcType="VARCHAR" property="sparesNumber" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="is_original" jdbcType="VARCHAR" property="isOriginal" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="man_hour" jdbcType="DOUBLE" property="manHour" />
+    <result column="man_hour_cost" jdbcType="DECIMAL" property="manHourCost" />
+    <result column="material_cost" jdbcType="DECIMAL" property="materialCost" />
+    <result column="thirdparty_money" jdbcType="DECIMAL" property="thirdpartyMoney" />
+    <result column="is_charge" jdbcType="VARCHAR" property="isCharge" />
+    <result column="sum_money" jdbcType="DECIMAL" property="sumMoney" />
+    <result column="paying_party" jdbcType="VARCHAR" property="payingParty" />
+    <result column="is_must_photo" jdbcType="VARCHAR" property="isMustPhoto" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sanlly.production.entity.CourseEntry">
+    <result column="photo" jdbcType="LONGVARCHAR" property="photo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_course_entry_id, serial_number, rate_id, five_code, course, container_category, 
+    position_code, parts_type_code, parts_details_code, parts_repair_code, damage_code, 
+    repair_code, material_code, device, spares_number, warehouse_type, price, is_original, 
+    company, warehouse, `length`, width, quantity, man_hour, man_hour_cost, material_cost, 
+    thirdparty_money, is_charge, sum_money, paying_party, is_must_photo, remarks, is_del, 
+    create_time, create_user, update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    photo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sanlly.production.entity.CourseEntryExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_course_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.CourseEntryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_course_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_course_entry
+    where prod_course_entry_id = #{prodCourseEntryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_course_entry
+    where prod_course_entry_id = #{prodCourseEntryId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.CourseEntryExample">
+    delete from prod_course_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.CourseEntry">
+    insert into prod_course_entry (prod_course_entry_id, serial_number, 
+      rate_id, five_code, course, 
+      container_category, position_code, parts_type_code, 
+      parts_details_code, parts_repair_code, damage_code, 
+      repair_code, material_code, device, 
+      spares_number, warehouse_type, price, 
+      is_original, company, warehouse, 
+      `length`, width, quantity, 
+      man_hour, man_hour_cost, material_cost, 
+      thirdparty_money, is_charge, sum_money, 
+      paying_party, is_must_photo, remarks, 
+      is_del, create_time, create_user, 
+      update_time, update_user, photo
+      )
+    values (#{prodCourseEntryId,jdbcType=VARCHAR}, #{serialNumber,jdbcType=INTEGER}, 
+      #{rateId,jdbcType=VARCHAR}, #{fiveCode,jdbcType=VARCHAR}, #{course,jdbcType=VARCHAR}, 
+      #{containerCategory,jdbcType=VARCHAR}, #{positionCode,jdbcType=VARCHAR}, #{partsTypeCode,jdbcType=VARCHAR}, 
+      #{partsDetailsCode,jdbcType=VARCHAR}, #{partsRepairCode,jdbcType=VARCHAR}, #{damageCode,jdbcType=VARCHAR}, 
+      #{repairCode,jdbcType=VARCHAR}, #{materialCode,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, 
+      #{sparesNumber,jdbcType=VARCHAR}, #{warehouseType,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{isOriginal,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{warehouse,jdbcType=VARCHAR}, 
+      #{length,jdbcType=DOUBLE}, #{width,jdbcType=DOUBLE}, #{quantity,jdbcType=DOUBLE}, 
+      #{manHour,jdbcType=DOUBLE}, #{manHourCost,jdbcType=DECIMAL}, #{materialCost,jdbcType=DECIMAL}, 
+      #{thirdpartyMoney,jdbcType=DECIMAL}, #{isCharge,jdbcType=VARCHAR}, #{sumMoney,jdbcType=DECIMAL}, 
+      #{payingParty,jdbcType=VARCHAR}, #{isMustPhoto,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{photo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.CourseEntry">
+    insert into prod_course_entry
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodCourseEntryId != null">
+        prod_course_entry_id,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="rateId != null">
+        rate_id,
+      </if>
+      <if test="fiveCode != null">
+        five_code,
+      </if>
+      <if test="course != null">
+        course,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="positionCode != null">
+        position_code,
+      </if>
+      <if test="partsTypeCode != null">
+        parts_type_code,
+      </if>
+      <if test="partsDetailsCode != null">
+        parts_details_code,
+      </if>
+      <if test="partsRepairCode != null">
+        parts_repair_code,
+      </if>
+      <if test="damageCode != null">
+        damage_code,
+      </if>
+      <if test="repairCode != null">
+        repair_code,
+      </if>
+      <if test="materialCode != null">
+        material_code,
+      </if>
+      <if test="device != null">
+        device,
+      </if>
+      <if test="sparesNumber != null">
+        spares_number,
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="isOriginal != null">
+        is_original,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="length != null">
+        `length`,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="manHour != null">
+        man_hour,
+      </if>
+      <if test="manHourCost != null">
+        man_hour_cost,
+      </if>
+      <if test="materialCost != null">
+        material_cost,
+      </if>
+      <if test="thirdpartyMoney != null">
+        thirdparty_money,
+      </if>
+      <if test="isCharge != null">
+        is_charge,
+      </if>
+      <if test="sumMoney != null">
+        sum_money,
+      </if>
+      <if test="payingParty != null">
+        paying_party,
+      </if>
+      <if test="isMustPhoto != null">
+        is_must_photo,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodCourseEntryId != null">
+        #{prodCourseEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="rateId != null">
+        #{rateId,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveCode != null">
+        #{fiveCode,jdbcType=VARCHAR},
+      </if>
+      <if test="course != null">
+        #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsTypeCode != null">
+        #{partsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsCode != null">
+        #{partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsRepairCode != null">
+        #{partsRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="damageCode != null">
+        #{damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCode != null">
+        #{materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        #{device,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesNumber != null">
+        #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isOriginal != null">
+        #{isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="manHour != null">
+        #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="manHourCost != null">
+        #{manHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="materialCost != null">
+        #{materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdpartyMoney != null">
+        #{thirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isCharge != null">
+        #{isCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="sumMoney != null">
+        #{sumMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payingParty != null">
+        #{payingParty,jdbcType=VARCHAR},
+      </if>
+      <if test="isMustPhoto != null">
+        #{isMustPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.CourseEntryExample" resultType="java.lang.Long">
+    select count(*) from prod_course_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_course_entry
+    <set>
+      <if test="record.prodCourseEntryId != null">
+        prod_course_entry_id = #{record.prodCourseEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNumber != null">
+        serial_number = #{record.serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.rateId != null">
+        rate_id = #{record.rateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fiveCode != null">
+        five_code = #{record.fiveCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course != null">
+        course = #{record.course,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionCode != null">
+        position_code = #{record.positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsTypeCode != null">
+        parts_type_code = #{record.partsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsDetailsCode != null">
+        parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsRepairCode != null">
+        parts_repair_code = #{record.partsRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.damageCode != null">
+        damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairCode != null">
+        repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialCode != null">
+        material_code = #{record.materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.device != null">
+        device = #{record.device,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparesNumber != null">
+        spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null">
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isOriginal != null">
+        is_original = #{record.isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null">
+        `length` = #{record.length,jdbcType=DOUBLE},
+      </if>
+      <if test="record.width != null">
+        width = #{record.width,jdbcType=DOUBLE},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.manHour != null">
+        man_hour = #{record.manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="record.manHourCost != null">
+        man_hour_cost = #{record.manHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.materialCost != null">
+        material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thirdpartyMoney != null">
+        thirdparty_money = #{record.thirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isCharge != null">
+        is_charge = #{record.isCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumMoney != null">
+        sum_money = #{record.sumMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payingParty != null">
+        paying_party = #{record.payingParty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMustPhoto != null">
+        is_must_photo = #{record.isMustPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.photo != null">
+        photo = #{record.photo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update prod_course_entry
+    set prod_course_entry_id = #{record.prodCourseEntryId,jdbcType=VARCHAR},
+      serial_number = #{record.serialNumber,jdbcType=INTEGER},
+      rate_id = #{record.rateId,jdbcType=VARCHAR},
+      five_code = #{record.fiveCode,jdbcType=VARCHAR},
+      course = #{record.course,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      position_code = #{record.positionCode,jdbcType=VARCHAR},
+      parts_type_code = #{record.partsTypeCode,jdbcType=VARCHAR},
+      parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      parts_repair_code = #{record.partsRepairCode,jdbcType=VARCHAR},
+      damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      material_code = #{record.materialCode,jdbcType=VARCHAR},
+      device = #{record.device,jdbcType=VARCHAR},
+      spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      is_original = #{record.isOriginal,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      `length` = #{record.length,jdbcType=DOUBLE},
+      width = #{record.width,jdbcType=DOUBLE},
+      quantity = #{record.quantity,jdbcType=DOUBLE},
+      man_hour = #{record.manHour,jdbcType=DOUBLE},
+      man_hour_cost = #{record.manHourCost,jdbcType=DECIMAL},
+      material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      thirdparty_money = #{record.thirdpartyMoney,jdbcType=DECIMAL},
+      is_charge = #{record.isCharge,jdbcType=VARCHAR},
+      sum_money = #{record.sumMoney,jdbcType=DECIMAL},
+      paying_party = #{record.payingParty,jdbcType=VARCHAR},
+      is_must_photo = #{record.isMustPhoto,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      photo = #{record.photo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_course_entry
+    set prod_course_entry_id = #{record.prodCourseEntryId,jdbcType=VARCHAR},
+      serial_number = #{record.serialNumber,jdbcType=INTEGER},
+      rate_id = #{record.rateId,jdbcType=VARCHAR},
+      five_code = #{record.fiveCode,jdbcType=VARCHAR},
+      course = #{record.course,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      position_code = #{record.positionCode,jdbcType=VARCHAR},
+      parts_type_code = #{record.partsTypeCode,jdbcType=VARCHAR},
+      parts_details_code = #{record.partsDetailsCode,jdbcType=VARCHAR},
+      parts_repair_code = #{record.partsRepairCode,jdbcType=VARCHAR},
+      damage_code = #{record.damageCode,jdbcType=VARCHAR},
+      repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      material_code = #{record.materialCode,jdbcType=VARCHAR},
+      device = #{record.device,jdbcType=VARCHAR},
+      spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      is_original = #{record.isOriginal,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      `length` = #{record.length,jdbcType=DOUBLE},
+      width = #{record.width,jdbcType=DOUBLE},
+      quantity = #{record.quantity,jdbcType=DOUBLE},
+      man_hour = #{record.manHour,jdbcType=DOUBLE},
+      man_hour_cost = #{record.manHourCost,jdbcType=DECIMAL},
+      material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      thirdparty_money = #{record.thirdpartyMoney,jdbcType=DECIMAL},
+      is_charge = #{record.isCharge,jdbcType=VARCHAR},
+      sum_money = #{record.sumMoney,jdbcType=DECIMAL},
+      paying_party = #{record.payingParty,jdbcType=VARCHAR},
+      is_must_photo = #{record.isMustPhoto,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.CourseEntry">
+    update prod_course_entry
+    <set>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="rateId != null">
+        rate_id = #{rateId,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveCode != null">
+        five_code = #{fiveCode,jdbcType=VARCHAR},
+      </if>
+      <if test="course != null">
+        course = #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        position_code = #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsTypeCode != null">
+        parts_type_code = #{partsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsCode != null">
+        parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsRepairCode != null">
+        parts_repair_code = #{partsRepairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="damageCode != null">
+        damage_code = #{damageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        repair_code = #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCode != null">
+        material_code = #{materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        device = #{device,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesNumber != null">
+        spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isOriginal != null">
+        is_original = #{isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        `length` = #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="manHour != null">
+        man_hour = #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="manHourCost != null">
+        man_hour_cost = #{manHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="materialCost != null">
+        material_cost = #{materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdpartyMoney != null">
+        thirdparty_money = #{thirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isCharge != null">
+        is_charge = #{isCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="sumMoney != null">
+        sum_money = #{sumMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payingParty != null">
+        paying_party = #{payingParty,jdbcType=VARCHAR},
+      </if>
+      <if test="isMustPhoto != null">
+        is_must_photo = #{isMustPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where prod_course_entry_id = #{prodCourseEntryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sanlly.production.entity.CourseEntry">
+    update prod_course_entry
+    set serial_number = #{serialNumber,jdbcType=INTEGER},
+      rate_id = #{rateId,jdbcType=VARCHAR},
+      five_code = #{fiveCode,jdbcType=VARCHAR},
+      course = #{course,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      position_code = #{positionCode,jdbcType=VARCHAR},
+      parts_type_code = #{partsTypeCode,jdbcType=VARCHAR},
+      parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      parts_repair_code = #{partsRepairCode,jdbcType=VARCHAR},
+      damage_code = #{damageCode,jdbcType=VARCHAR},
+      repair_code = #{repairCode,jdbcType=VARCHAR},
+      material_code = #{materialCode,jdbcType=VARCHAR},
+      device = #{device,jdbcType=VARCHAR},
+      spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      is_original = #{isOriginal,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      man_hour = #{manHour,jdbcType=DOUBLE},
+      man_hour_cost = #{manHourCost,jdbcType=DECIMAL},
+      material_cost = #{materialCost,jdbcType=DECIMAL},
+      thirdparty_money = #{thirdpartyMoney,jdbcType=DECIMAL},
+      is_charge = #{isCharge,jdbcType=VARCHAR},
+      sum_money = #{sumMoney,jdbcType=DECIMAL},
+      paying_party = #{payingParty,jdbcType=VARCHAR},
+      is_must_photo = #{isMustPhoto,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      photo = #{photo,jdbcType=LONGVARCHAR}
+    where prod_course_entry_id = #{prodCourseEntryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.CourseEntry">
+    update prod_course_entry
+    set serial_number = #{serialNumber,jdbcType=INTEGER},
+      rate_id = #{rateId,jdbcType=VARCHAR},
+      five_code = #{fiveCode,jdbcType=VARCHAR},
+      course = #{course,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      position_code = #{positionCode,jdbcType=VARCHAR},
+      parts_type_code = #{partsTypeCode,jdbcType=VARCHAR},
+      parts_details_code = #{partsDetailsCode,jdbcType=VARCHAR},
+      parts_repair_code = #{partsRepairCode,jdbcType=VARCHAR},
+      damage_code = #{damageCode,jdbcType=VARCHAR},
+      repair_code = #{repairCode,jdbcType=VARCHAR},
+      material_code = #{materialCode,jdbcType=VARCHAR},
+      device = #{device,jdbcType=VARCHAR},
+      spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      is_original = #{isOriginal,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      man_hour = #{manHour,jdbcType=DOUBLE},
+      man_hour_cost = #{manHourCost,jdbcType=DECIMAL},
+      material_cost = #{materialCost,jdbcType=DECIMAL},
+      thirdparty_money = #{thirdpartyMoney,jdbcType=DECIMAL},
+      is_charge = #{isCharge,jdbcType=VARCHAR},
+      sum_money = #{sumMoney,jdbcType=DECIMAL},
+      paying_party = #{payingParty,jdbcType=VARCHAR},
+      is_must_photo = #{isMustPhoto,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_course_entry_id = #{prodCourseEntryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

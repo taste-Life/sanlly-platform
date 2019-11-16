@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WarePurchaseRequisitionsMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WarePurchaseRequisitions">
+    <id column="ware_purchase_requisitions_id" jdbcType="INTEGER" property="warePurchaseRequisitionsId" />
+    <result column="purchase_requisitions_no" jdbcType="VARCHAR" property="purchaseRequisitionsNo" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="purchasing_pattern" jdbcType="VARCHAR" property="purchasingPattern" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="apply_num" jdbcType="DOUBLE" property="applyNum" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="reasons_rejection" jdbcType="VARCHAR" property="reasonsRejection" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="require_arrive_time" jdbcType="TIMESTAMP" property="requireArriveTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_purchase_requisitions_id, purchase_requisitions_no, spare_parts, warehouse, 
+    purchasing_pattern, warehouse_type, apply_num, audit_status, reasons_rejection, `type`, 
+    is_del, remark, create_time, create_user, update_time, update_user, require_arrive_time
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitionsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_purchase_requisitions
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_purchase_requisitions
+    where ware_purchase_requisitions_id = #{warePurchaseRequisitionsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_purchase_requisitions
+    where ware_purchase_requisitions_id = #{warePurchaseRequisitionsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitionsExample">
+    delete from ware_purchase_requisitions
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitions">
+    insert into ware_purchase_requisitions (ware_purchase_requisitions_id, purchase_requisitions_no, 
+      spare_parts, warehouse, purchasing_pattern, 
+      warehouse_type, apply_num, audit_status, 
+      reasons_rejection, `type`, is_del, 
+      remark, create_time, create_user, 
+      update_time, update_user, require_arrive_time
+      )
+    values (#{warePurchaseRequisitionsId,jdbcType=INTEGER}, #{purchaseRequisitionsNo,jdbcType=VARCHAR}, 
+      #{spareParts,jdbcType=VARCHAR}, #{warehouse,jdbcType=VARCHAR}, #{purchasingPattern,jdbcType=VARCHAR}, 
+      #{warehouseType,jdbcType=VARCHAR}, #{applyNum,jdbcType=DOUBLE}, #{auditStatus,jdbcType=VARCHAR}, 
+      #{reasonsRejection,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{requireArriveTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitions">
+    insert into ware_purchase_requisitions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warePurchaseRequisitionsId != null">
+        ware_purchase_requisitions_id,
+      </if>
+      <if test="purchaseRequisitionsNo != null">
+        purchase_requisitions_no,
+      </if>
+      <if test="spareParts != null">
+        spare_parts,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="purchasingPattern != null">
+        purchasing_pattern,
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type,
+      </if>
+      <if test="applyNum != null">
+        apply_num,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="requireArriveTime != null">
+        require_arrive_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warePurchaseRequisitionsId != null">
+        #{warePurchaseRequisitionsId,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseRequisitionsNo != null">
+        #{purchaseRequisitionsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasingPattern != null">
+        #{purchasingPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNum != null">
+        #{applyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="requireArriveTime != null">
+        #{requireArriveTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitionsExample" resultType="java.lang.Long">
+    select count(*) from ware_purchase_requisitions
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_purchase_requisitions
+    <set>
+      <if test="record.warePurchaseRequisitionsId != null">
+        ware_purchase_requisitions_id = #{record.warePurchaseRequisitionsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseRequisitionsNo != null">
+        purchase_requisitions_no = #{record.purchaseRequisitionsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareParts != null">
+        spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchasingPattern != null">
+        purchasing_pattern = #{record.purchasingPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null">
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyNum != null">
+        apply_num = #{record.applyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsRejection != null">
+        reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.requireArriveTime != null">
+        require_arrive_time = #{record.requireArriveTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_purchase_requisitions
+    set ware_purchase_requisitions_id = #{record.warePurchaseRequisitionsId,jdbcType=INTEGER},
+      purchase_requisitions_no = #{record.purchaseRequisitionsNo,jdbcType=VARCHAR},
+      spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      purchasing_pattern = #{record.purchasingPattern,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      apply_num = #{record.applyNum,jdbcType=DOUBLE},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      require_arrive_time = #{record.requireArriveTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitions">
+    update ware_purchase_requisitions
+    <set>
+      <if test="purchaseRequisitionsNo != null">
+        purchase_requisitions_no = #{purchaseRequisitionsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        spare_parts = #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasingPattern != null">
+        purchasing_pattern = #{purchasingPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNum != null">
+        apply_num = #{applyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="requireArriveTime != null">
+        require_arrive_time = #{requireArriveTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ware_purchase_requisitions_id = #{warePurchaseRequisitionsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WarePurchaseRequisitions">
+    update ware_purchase_requisitions
+    set purchase_requisitions_no = #{purchaseRequisitionsNo,jdbcType=VARCHAR},
+      spare_parts = #{spareParts,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      purchasing_pattern = #{purchasingPattern,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      apply_num = #{applyNum,jdbcType=DOUBLE},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      require_arrive_time = #{requireArriveTime,jdbcType=TIMESTAMP}
+    where ware_purchase_requisitions_id = #{warePurchaseRequisitionsId,jdbcType=INTEGER}
+  </update>
+</mapper>

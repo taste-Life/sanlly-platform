@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.BillSceneDetailMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.BillSceneDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bill_id" jdbcType="INTEGER" property="billId" />
+    <result column="prod_course_id" jdbcType="VARCHAR" property="prodCourseId" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="repair_code" jdbcType="VARCHAR" property="repairCode" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="chargecode" jdbcType="VARCHAR" property="chargecode" />
+    <result column="charge_type_key" jdbcType="VARCHAR" property="chargeTypeKey" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="dept_key" jdbcType="VARCHAR" property="deptKey" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="version_no" jdbcType="VARCHAR" property="versionNo" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="free_status" jdbcType="VARCHAR" property="freeStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bill_id, prod_course_id, container_category, repair_code, container_user, amount, 
+    chargecode, charge_type_key, remarks, dept_key, dept_code, version_no, is_enabled, 
+    is_del, free_status, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.finance.entity.BillSceneDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_bill_scene_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_bill_scene_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_bill_scene_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.finance.entity.BillSceneDetailExample">
+    delete from finance_bill_scene_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.finance.entity.BillSceneDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_bill_scene_detail (bill_id, prod_course_id, container_category, 
+      repair_code, container_user, amount, 
+      chargecode, charge_type_key, remarks, 
+      dept_key, dept_code, version_no, 
+      is_enabled, is_del, free_status, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{billId,jdbcType=INTEGER}, #{prodCourseId,jdbcType=VARCHAR}, #{containerCategory,jdbcType=VARCHAR}, 
+      #{repairCode,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{chargecode,jdbcType=VARCHAR}, #{chargeTypeKey,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{deptKey,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{versionNo,jdbcType=VARCHAR}, 
+      #{isEnabled,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{freeStatus,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.finance.entity.BillSceneDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_bill_scene_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="billId != null">
+        bill_id,
+      </if>
+      <if test="prodCourseId != null">
+        prod_course_id,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="repairCode != null">
+        repair_code,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="chargecode != null">
+        chargecode,
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="deptKey != null">
+        dept_key,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="versionNo != null">
+        version_no,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="freeStatus != null">
+        free_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="billId != null">
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="prodCourseId != null">
+        #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="chargecode != null">
+        #{chargecode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="deptKey != null">
+        #{deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null">
+        #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="freeStatus != null">
+        #{freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.finance.entity.BillSceneDetailExample" resultType="java.lang.Long">
+    select count(*) from finance_bill_scene_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance_bill_scene_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.billId != null">
+        bill_id = #{record.billId,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodCourseId != null">
+        prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairCode != null">
+        repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chargecode != null">
+        chargecode = #{record.chargecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeTypeKey != null">
+        charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptKey != null">
+        dept_key = #{record.deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null">
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionNo != null">
+        version_no = #{record.versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.freeStatus != null">
+        free_status = #{record.freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance_bill_scene_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      bill_id = #{record.billId,jdbcType=INTEGER},
+      prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      repair_code = #{record.repairCode,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      chargecode = #{record.chargecode,jdbcType=VARCHAR},
+      charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      dept_key = #{record.deptKey,jdbcType=VARCHAR},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      version_no = #{record.versionNo,jdbcType=VARCHAR},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      free_status = #{record.freeStatus,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.finance.entity.BillSceneDetail">
+    update finance_bill_scene_detail
+    <set>
+      <if test="billId != null">
+        bill_id = #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="prodCourseId != null">
+        prod_course_id = #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="repairCode != null">
+        repair_code = #{repairCode,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="chargecode != null">
+        chargecode = #{chargecode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="deptKey != null">
+        dept_key = #{deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null">
+        version_no = #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="freeStatus != null">
+        free_status = #{freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.finance.entity.BillSceneDetail">
+    update finance_bill_scene_detail
+    set bill_id = #{billId,jdbcType=INTEGER},
+      prod_course_id = #{prodCourseId,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      repair_code = #{repairCode,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      chargecode = #{chargecode,jdbcType=VARCHAR},
+      charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      dept_key = #{deptKey,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      version_no = #{versionNo,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      free_status = #{freeStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

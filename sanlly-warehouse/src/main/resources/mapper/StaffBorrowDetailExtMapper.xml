@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.sanlly.warehouse.dao.StaffBorrowDetailExtMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sanlly.warehouse.entity.StaffBorrowDetail">
+		<id column="ware_staff_borrow_detail_id" jdbcType="INTEGER"
+			property="wareStaffBorrowDetailId" />
+		<result column="ware_staff_borrow" jdbcType="INTEGER"
+			property="wareStaffBorrow" />
+		<result column="spare_parts_categories" jdbcType="VARCHAR"
+			property="sparePartsCategories" />
+		<result column="spare_parts" jdbcType="VARCHAR"
+			property="spareParts" />
+		<result column="warehouse_type" jdbcType="VARCHAR"
+			property="warehouseType" />
+		<result column="borrow_num" jdbcType="DOUBLE"
+			property="borrowNum" />
+		<result column="return_num" jdbcType="DOUBLE"
+			property="returnNum" />
+		<result column="bill_status" jdbcType="VARCHAR"
+			property="billStatus" />
+		<result column="upper_container_num" jdbcType="DOUBLE"
+			property="upperContainerNum" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="is_del" jdbcType="INTEGER" property="isDel" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="create_user" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="update_user" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="spare_parts_batch" jdbcType="VARCHAR"
+			property="sparePartsBatch" />
+		<result column="warehouse" jdbcType="VARCHAR"
+			property="warehouse" />
+	</resultMap>
+
+	<select id="selectByCondition" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS
+		sbd.*
+		FROM
+		ware_staff_borrow_detail sbd
+		LEFT
+		JOIN ware_staff_borrow sb ON
+		sb.ware_staff_borrow_id=sbd.ware_staff_borrow
+		LEFT JOIN
+		ware_spare_parts wsp ON wsp.`key`=sbd.spare_parts
+		WHERE
+		(sbd.bill_status='LESTAFFBORROW02'
+		OR
+		sbd.bill_status='LESTAFFBORROW03')
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND wsp.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="no != null and no != ''">
+			AND sb.staff_borrow_no LIKE
+			CONCAT('%',#{no,jdbcType=VARCHAR},'%')
+		</if>
+
+		<if test="borrowUser != null">
+			AND sb.borrow_user=#{borrowUser,jdbcType=INTEGER}
+		</if>
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+	</select>
+
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+
+
+</mapper>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.ValuationExtMapper">
+  	<resultMap id="BaseResultMap" type="com.sanlly.production.entity.Valuation">
+    	<id column="prod_course_id" jdbcType="VARCHAR" property="prodCourseId" />
+	    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+	    <result column="size" jdbcType="VARCHAR" property="size" />
+	    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+	    <result column="container_type" jdbcType="VARCHAR" property="containerType" />
+	    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+	    <result column="container_grade" jdbcType="VARCHAR" property="containerGrade" />
+	    <result column="bill_of_lading_no" jdbcType="VARCHAR" property="ladingNo" />
+	    <result column="domestic_foreign_trade" jdbcType="VARCHAR" property="trade" />
+	    <result column="yard" jdbcType="VARCHAR" property="yard" />
+	    <result column="course_type" jdbcType="VARCHAR" property="courseType" />
+	    <result column="course_time" jdbcType="TIMESTAMP" property="courseTime" />
+	    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+	    <result column="valuation_no" jdbcType="VARCHAR" property="valuationNo" />
+	    <result column="use_reply_state" jdbcType="VARCHAR" property="useValuationState" />
+	    <result column="valuation_user" jdbcType="INTEGER" property="valuationUser" />
+	    <result column="valuation_remarks" jdbcType="VARCHAR" property="valuationRemarks" />
+	    <result column="referral_state" jdbcType="VARCHAR" property="referralState" />
+	    <result column="finish_user" jdbcType="INTEGER" property="finishUser" />
+	    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+	    <result column="valuation_money" jdbcType="DECIMAL" property="valuationMoney" />
+  	</resultMap>
+
+	<select id="selectValuationCodeList" parameterType="Map" resultMap="BaseResultMap">
+		select * from 
+			(select c.prod_course_id, c.valuation_no, c.container_no, c.size, c.container_type, c.container_user, c.course_type, 
+			c.yard, c.course_time, c.bill_of_lading_no, c.domestic_foreign_trade, c.container_grade, c.audit_time, c.container_category,
+			c.use_reply_state, c.valuation_user, c.referral_state, c.finish_user, c.finish_time, c.valuation_remarks, c.valuation_money
+			from prod_course c 
+			<where>
+				c.container_category = 'LECONTCATE02' and c.container_condition = 'LEContainStateEnum03'
+				<if test = "beginCourseTime !=null and beginCourseTime != '' and endCourseTime != null and endCourseTime !=''">
+					and c.course_time between #{beginCourseTime} and #{endCourseTime}
+				</if>
+				<if test = "beginValuationTime !=null and beginValuationTime != '' and endValuationTime != null and endValuationTime !=''">
+					and c.valuation_time between #{beginValuationTime} and #{endValuationTime}
+				</if>
+				<if test = "beginReplyTime !=null and beginReplyTime != '' and endReplyTime != null and endReplyTime !=''">
+					and c.use_reply_time between #{beginReplyTime} and #{endReplyTime}
+				</if>
+				<if test = "ladingNo != null and ladingNo != ''">
+					and c.bill_of_lading_no like concat(concat('%',#{ladingNo}),'%')
+				</if>
+				<if test = "containerNo != null and containerNo != ''">
+					and c.container_no like concat(concat('%',#{containerNo}),'%')
+				</if>
+				<if test = "containerUser != null and containerUser != ''">
+					and c.container_user = #{containerUser}
+				</if>
+				<if test = "courseType != null and courseType != ''">
+					and c.course_type = #{courseType}
+				</if>
+				and c.use_reply_state in 
+					<foreach item="item" index="index" collection="valuationStates" open="(" separator="," close=")">  
+				      #{item}  
+				    </foreach> 
+			</where>
+			union all
+			select uc.prod_course_id, uc.valuation_no, uc.container_no, c.size, c.container_type, c.container_user, c.course_type, 
+			c.yard, c.course_time, c.bill_of_lading_no, c.domestic_foreign_trade, c.container_grade, uc.audit_time, 'LECONTCATE03' as container_category,
+			uc.use_reply_state, uc.valuation_user, uc.referral_state, uc.finish_user, uc.finish_time, uc.valuation_remarks, uc.valuation_money from prod_unit_course uc 
+			left join prod_course c
+			on uc.prod_course_id = c.prod_course_id
+			<where>
+				uc.unit_state = 'LEUnitStateEnum03'
+				<if test = "beginCourseTime !=null and beginCourseTime != '' and endCourseTime != null and endCourseTime !=''">
+					and c.course_time between #{beginCourseTime} and #{endCourseTime}
+				</if>
+				<if test = "beginValuationTime !=null and beginValuationTime != '' and endValuationTime != null and endValuationTime !=''">
+					and uc.valuation_time between #{beginValuationTime} and #{endValuationTime}
+				</if>
+				<if test = "beginReplyTime !=null and beginReplyTime != '' and endReplyTime != null and endReplyTime !=''">
+					and uc.use_reply_time between #{beginReplyTime} and #{endReplyTime}
+				</if>
+				<if test = "ladingNo != null and ladingNo != ''">
+					and c.bill_of_lading_no like concat(concat('%',#{ladingNo}),'%')
+				</if>
+				<if test = "containerNo != null and containerNo != ''">
+					and c.container_no like concat(concat('%',#{containerNo}),'%')
+				</if>
+				<if test = "containerUser != null and containerUser != ''">
+					and c.container_user = #{containerUser}
+				</if>
+				<if test = "courseType != null and courseType != ''">
+					and c.course_type = #{courseType}
+				</if>
+				and uc.use_reply_state in 
+					<foreach item="item" index="index" collection="valuationStates" open="(" separator="," close=")">  
+				      #{item}  
+				    </foreach> 
+			</where>
+			) t
+		order by audit_time desc
+		limit #{startLimit}, #{endLimit}
+	</select>
+	
+	<select id="selectValuationCodeCount" parameterType="Map" resultType="Integer">
+		select count(1) from 
+			(select c.prod_course_id, c.valuation_no, c.container_no, c.size, c.container_type, c.container_user, c.course_type, 
+				c.yard, c.course_time, c.bill_of_lading_no, c.domestic_foreign_trade, c.container_grade, c.audit_time, c.container_category,
+				c.use_reply_state, c.valuation_user, c.referral_state, c.finish_user, c.finish_time, c.valuation_remarks, c.valuation_money
+				from prod_course c 
+				<where>
+					c.container_category = 'LECONTCATE02' and c.container_condition = 'LEContainStateEnum03'
+					<if test = "beginCourseTime !=null and beginCourseTime != '' and endCourseTime != null and endCourseTime !=''">
+						and c.course_time between #{beginCourseTime} and #{endCourseTime}
+					</if>
+					<if test = "beginValuationTime !=null and beginValuationTime != '' and endValuationTime != null and endValuationTime !=''">
+						and c.valuation_time between #{beginValuationTime} and #{endValuationTime}
+					</if>
+					<if test = "beginReplyTime !=null and beginReplyTime != '' and endReplyTime != null and endReplyTime !=''">
+						and c.use_reply_time between #{beginReplyTime} and #{endReplyTime}
+					</if>
+					<if test = "ladingNo != null and ladingNo != ''">
+						and c.bill_of_lading_no like concat(concat('%',#{ladingNo}),'%')
+					</if>
+					<if test = "containerNo != null and containerNo != ''">
+						and c.container_no like concat(concat('%',#{containerNo}),'%')
+					</if>
+					<if test = "containerUser != null and containerUser != ''">
+						and c.container_user = #{containerUser}
+					</if>
+					<if test = "courseType != null and courseType != ''">
+						and c.course_type = #{courseType}
+					</if>
+					and c.use_reply_state in 
+						<foreach item="item" index="index" collection="valuationStates" open="(" separator="," close=")">  
+					      #{item}  
+					    </foreach> 
+				</where>
+				union all
+				select uc.prod_course_id, uc.valuation_no, uc.container_no, c.size, c.container_type, c.container_user, c.course_type, 
+				c.yard, c.course_time, c.bill_of_lading_no, c.domestic_foreign_trade, c.container_grade, uc.audit_time, 'LECONTCATE03' as container_category,
+				uc.use_reply_state, uc.valuation_user, uc.referral_state, uc.finish_user, uc.finish_time, uc.valuation_remarks, uc.valuation_money from prod_unit_course uc 
+				left join prod_course c
+				on uc.prod_course_id = c.prod_course_id
+				<where>
+					uc.unit_state = 'LEUnitStateEnum03'
+					<if test = "beginCourseTime !=null and beginCourseTime != '' and endCourseTime != null and endCourseTime !=''">
+						and c.course_time between #{beginCourseTime} and #{endCourseTime}
+					</if>
+					<if test = "beginValuationTime !=null and beginValuationTime != '' and endValuationTime != null and endValuationTime !=''">
+						and uc.valuation_time between #{beginValuationTime} and #{endValuationTime}
+					</if>
+					<if test = "beginReplyTime !=null and beginReplyTime != '' and endReplyTime != null and endReplyTime !=''">
+						and uc.use_reply_time between #{beginReplyTime} and #{endReplyTime}
+					</if>
+					<if test = "ladingNo != null and ladingNo != ''">
+						and c.bill_of_lading_no like concat(concat('%',#{ladingNo}),'%')
+					</if>
+					<if test = "containerNo != null and containerNo != ''">
+						and uc.container_no like concat(concat('%',#{containerNo}),'%')
+					</if>
+					<if test = "containerUser != null and containerUser != ''">
+						and c.container_user = #{containerUser}
+					</if>
+					<if test = "courseType != null and courseType != ''">
+						and c.course_type = #{courseType}
+					</if>
+					and uc.use_reply_state in 
+						<foreach item="item" index="index" collection="valuationStates" open="(" separator="," close=")">  
+					      #{item}  
+					    </foreach> 
+				</where>
+				) t
+	</select>
+</mapper>

@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.purchase.dao.MatterTenderPurchaseMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.purchase.entity.MatterTenderPurchase">
+    <id column="purc_matter_tender_purchase_id" jdbcType="INTEGER" property="purcMatterTenderPurchaseId" />
+    <result column="is_day_pruchase" jdbcType="VARCHAR" property="isDayPruchase" />
+    <result column="tender_name" jdbcType="VARCHAR" property="tenderName" />
+    <result column="tender_id" jdbcType="VARCHAR" property="tenderId" />
+    <result column="tender_type" jdbcType="VARCHAR" property="tenderType" />
+    <result column="purchase_company" jdbcType="VARCHAR" property="purchaseCompany" />
+    <result column="buyer_id" jdbcType="INTEGER" property="buyerId" />
+    <result column="contact_type" jdbcType="VARCHAR" property="contactType" />
+    <result column="tender_content" jdbcType="VARCHAR" property="tenderContent" />
+    <result column="tender_condition" jdbcType="VARCHAR" property="tenderCondition" />
+    <result column="first_instance_time" jdbcType="TIMESTAMP" property="firstInstanceTime" />
+    <result column="tender_method" jdbcType="VARCHAR" property="tenderMethod" />
+    <result column="supply_time" jdbcType="TIMESTAMP" property="supplyTime" />
+    <result column="supply_end_time" jdbcType="TIMESTAMP" property="supplyEndTime" />
+    <result column="is_period" jdbcType="VARCHAR" property="isPeriod" />
+    <result column="inquiry_num" jdbcType="INTEGER" property="inquiryNum" />
+    <result column="bidding_num" jdbcType="INTEGER" property="biddingNum" />
+    <result column="bidding_start_time" jdbcType="TIMESTAMP" property="biddingStartTime" />
+    <result column="bidding_end_time" jdbcType="TIMESTAMP" property="biddingEndTime" />
+    <result column="tender_end_time" jdbcType="TIMESTAMP" property="tenderEndTime" />
+    <result column="is_first_trial" jdbcType="VARCHAR" property="isFirstTrial" />
+    <result column="tender_status" jdbcType="VARCHAR" property="tenderStatus" />
+    <result column="reminder" jdbcType="VARCHAR" property="reminder" />
+    <result column="select_supplier" jdbcType="VARCHAR" property="selectSupplier" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="invoice" jdbcType="VARCHAR" property="invoice" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    purc_matter_tender_purchase_id, is_day_pruchase, tender_name, tender_id, tender_type, 
+    purchase_company, buyer_id, contact_type, tender_content, tender_condition, first_instance_time, 
+    tender_method, supply_time, supply_end_time, is_period, inquiry_num, bidding_num, 
+    bidding_start_time, bidding_end_time, tender_end_time, is_first_trial, tender_status, 
+    reminder, select_supplier, reason, invoice, is_del, create_time, create_user, update_time, 
+    update_user, process_instance_id, audit_status
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.purchase.entity.MatterTenderPurchaseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purc_matter_tender_purchase
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from purc_matter_tender_purchase
+    where purc_matter_tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from purc_matter_tender_purchase
+    where purc_matter_tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.purchase.entity.MatterTenderPurchaseExample">
+    delete from purc_matter_tender_purchase
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.purchase.entity.MatterTenderPurchase">
+    <selectKey keyProperty="purcMatterTenderPurchaseId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into purc_matter_tender_purchase (is_day_pruchase, tender_name, tender_id, 
+      tender_type, purchase_company, buyer_id, 
+      contact_type, tender_content, tender_condition, 
+      first_instance_time, tender_method, supply_time, 
+      supply_end_time, is_period, inquiry_num, 
+      bidding_num, bidding_start_time, bidding_end_time, 
+      tender_end_time, is_first_trial, tender_status, 
+      reminder, select_supplier, reason, 
+      invoice, is_del, create_time, 
+      create_user, update_time, update_user, 
+      process_instance_id, audit_status)
+    values (#{isDayPruchase,jdbcType=VARCHAR}, #{tenderName,jdbcType=VARCHAR}, #{tenderId,jdbcType=VARCHAR}, 
+      #{tenderType,jdbcType=VARCHAR}, #{purchaseCompany,jdbcType=VARCHAR}, #{buyerId,jdbcType=INTEGER}, 
+      #{contactType,jdbcType=VARCHAR}, #{tenderContent,jdbcType=VARCHAR}, #{tenderCondition,jdbcType=VARCHAR}, 
+      #{firstInstanceTime,jdbcType=TIMESTAMP}, #{tenderMethod,jdbcType=VARCHAR}, #{supplyTime,jdbcType=TIMESTAMP}, 
+      #{supplyEndTime,jdbcType=TIMESTAMP}, #{isPeriod,jdbcType=VARCHAR}, #{inquiryNum,jdbcType=INTEGER}, 
+      #{biddingNum,jdbcType=INTEGER}, #{biddingStartTime,jdbcType=TIMESTAMP}, #{biddingEndTime,jdbcType=TIMESTAMP}, 
+      #{tenderEndTime,jdbcType=TIMESTAMP}, #{isFirstTrial,jdbcType=VARCHAR}, #{tenderStatus,jdbcType=VARCHAR}, 
+      #{reminder,jdbcType=VARCHAR}, #{selectSupplier,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{invoice,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{processInstanceId,jdbcType=VARCHAR}, #{auditStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.purchase.entity.MatterTenderPurchase">
+    <selectKey keyProperty="purcMatterTenderPurchaseId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into purc_matter_tender_purchase
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="isDayPruchase != null">
+        is_day_pruchase,
+      </if>
+      <if test="tenderName != null">
+        tender_name,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="tenderType != null">
+        tender_type,
+      </if>
+      <if test="purchaseCompany != null">
+        purchase_company,
+      </if>
+      <if test="buyerId != null">
+        buyer_id,
+      </if>
+      <if test="contactType != null">
+        contact_type,
+      </if>
+      <if test="tenderContent != null">
+        tender_content,
+      </if>
+      <if test="tenderCondition != null">
+        tender_condition,
+      </if>
+      <if test="firstInstanceTime != null">
+        first_instance_time,
+      </if>
+      <if test="tenderMethod != null">
+        tender_method,
+      </if>
+      <if test="supplyTime != null">
+        supply_time,
+      </if>
+      <if test="supplyEndTime != null">
+        supply_end_time,
+      </if>
+      <if test="isPeriod != null">
+        is_period,
+      </if>
+      <if test="inquiryNum != null">
+        inquiry_num,
+      </if>
+      <if test="biddingNum != null">
+        bidding_num,
+      </if>
+      <if test="biddingStartTime != null">
+        bidding_start_time,
+      </if>
+      <if test="biddingEndTime != null">
+        bidding_end_time,
+      </if>
+      <if test="tenderEndTime != null">
+        tender_end_time,
+      </if>
+      <if test="isFirstTrial != null">
+        is_first_trial,
+      </if>
+      <if test="tenderStatus != null">
+        tender_status,
+      </if>
+      <if test="reminder != null">
+        reminder,
+      </if>
+      <if test="selectSupplier != null">
+        select_supplier,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="invoice != null">
+        invoice,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="processInstanceId != null">
+        process_instance_id,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="isDayPruchase != null">
+        #{isDayPruchase,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderName != null">
+        #{tenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderType != null">
+        #{tenderType,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCompany != null">
+        #{purchaseCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null">
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="contactType != null">
+        #{contactType,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderContent != null">
+        #{tenderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderCondition != null">
+        #{tenderCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="firstInstanceTime != null">
+        #{firstInstanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tenderMethod != null">
+        #{tenderMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyTime != null">
+        #{supplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplyEndTime != null">
+        #{supplyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPeriod != null">
+        #{isPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryNum != null">
+        #{inquiryNum,jdbcType=INTEGER},
+      </if>
+      <if test="biddingNum != null">
+        #{biddingNum,jdbcType=INTEGER},
+      </if>
+      <if test="biddingStartTime != null">
+        #{biddingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="biddingEndTime != null">
+        #{biddingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tenderEndTime != null">
+        #{tenderEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFirstTrial != null">
+        #{isFirstTrial,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderStatus != null">
+        #{tenderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="selectSupplier != null">
+        #{selectSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null">
+        #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="processInstanceId != null">
+        #{processInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.purchase.entity.MatterTenderPurchaseExample" resultType="java.lang.Long">
+    select count(*) from purc_matter_tender_purchase
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update purc_matter_tender_purchase
+    <set>
+      <if test="record.purcMatterTenderPurchaseId != null">
+        purc_matter_tender_purchase_id = #{record.purcMatterTenderPurchaseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDayPruchase != null">
+        is_day_pruchase = #{record.isDayPruchase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderName != null">
+        tender_name = #{record.tenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderType != null">
+        tender_type = #{record.tenderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseCompany != null">
+        purchase_company = #{record.purchaseCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyerId != null">
+        buyer_id = #{record.buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactType != null">
+        contact_type = #{record.contactType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderContent != null">
+        tender_content = #{record.tenderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderCondition != null">
+        tender_condition = #{record.tenderCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstInstanceTime != null">
+        first_instance_time = #{record.firstInstanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tenderMethod != null">
+        tender_method = #{record.tenderMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyTime != null">
+        supply_time = #{record.supplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supplyEndTime != null">
+        supply_end_time = #{record.supplyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isPeriod != null">
+        is_period = #{record.isPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inquiryNum != null">
+        inquiry_num = #{record.inquiryNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.biddingNum != null">
+        bidding_num = #{record.biddingNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.biddingStartTime != null">
+        bidding_start_time = #{record.biddingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.biddingEndTime != null">
+        bidding_end_time = #{record.biddingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tenderEndTime != null">
+        tender_end_time = #{record.tenderEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isFirstTrial != null">
+        is_first_trial = #{record.isFirstTrial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderStatus != null">
+        tender_status = #{record.tenderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reminder != null">
+        reminder = #{record.reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selectSupplier != null">
+        select_supplier = #{record.selectSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null">
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoice != null">
+        invoice = #{record.invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.processInstanceId != null">
+        process_instance_id = #{record.processInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update purc_matter_tender_purchase
+    set purc_matter_tender_purchase_id = #{record.purcMatterTenderPurchaseId,jdbcType=INTEGER},
+      is_day_pruchase = #{record.isDayPruchase,jdbcType=VARCHAR},
+      tender_name = #{record.tenderName,jdbcType=VARCHAR},
+      tender_id = #{record.tenderId,jdbcType=VARCHAR},
+      tender_type = #{record.tenderType,jdbcType=VARCHAR},
+      purchase_company = #{record.purchaseCompany,jdbcType=VARCHAR},
+      buyer_id = #{record.buyerId,jdbcType=INTEGER},
+      contact_type = #{record.contactType,jdbcType=VARCHAR},
+      tender_content = #{record.tenderContent,jdbcType=VARCHAR},
+      tender_condition = #{record.tenderCondition,jdbcType=VARCHAR},
+      first_instance_time = #{record.firstInstanceTime,jdbcType=TIMESTAMP},
+      tender_method = #{record.tenderMethod,jdbcType=VARCHAR},
+      supply_time = #{record.supplyTime,jdbcType=TIMESTAMP},
+      supply_end_time = #{record.supplyEndTime,jdbcType=TIMESTAMP},
+      is_period = #{record.isPeriod,jdbcType=VARCHAR},
+      inquiry_num = #{record.inquiryNum,jdbcType=INTEGER},
+      bidding_num = #{record.biddingNum,jdbcType=INTEGER},
+      bidding_start_time = #{record.biddingStartTime,jdbcType=TIMESTAMP},
+      bidding_end_time = #{record.biddingEndTime,jdbcType=TIMESTAMP},
+      tender_end_time = #{record.tenderEndTime,jdbcType=TIMESTAMP},
+      is_first_trial = #{record.isFirstTrial,jdbcType=VARCHAR},
+      tender_status = #{record.tenderStatus,jdbcType=VARCHAR},
+      reminder = #{record.reminder,jdbcType=VARCHAR},
+      select_supplier = #{record.selectSupplier,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      invoice = #{record.invoice,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      process_instance_id = #{record.processInstanceId,jdbcType=VARCHAR},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.purchase.entity.MatterTenderPurchase">
+    update purc_matter_tender_purchase
+    <set>
+      <if test="isDayPruchase != null">
+        is_day_pruchase = #{isDayPruchase,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderName != null">
+        tender_name = #{tenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderType != null">
+        tender_type = #{tenderType,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCompany != null">
+        purchase_company = #{purchaseCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null">
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="contactType != null">
+        contact_type = #{contactType,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderContent != null">
+        tender_content = #{tenderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderCondition != null">
+        tender_condition = #{tenderCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="firstInstanceTime != null">
+        first_instance_time = #{firstInstanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tenderMethod != null">
+        tender_method = #{tenderMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyTime != null">
+        supply_time = #{supplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplyEndTime != null">
+        supply_end_time = #{supplyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPeriod != null">
+        is_period = #{isPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryNum != null">
+        inquiry_num = #{inquiryNum,jdbcType=INTEGER},
+      </if>
+      <if test="biddingNum != null">
+        bidding_num = #{biddingNum,jdbcType=INTEGER},
+      </if>
+      <if test="biddingStartTime != null">
+        bidding_start_time = #{biddingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="biddingEndTime != null">
+        bidding_end_time = #{biddingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tenderEndTime != null">
+        tender_end_time = #{tenderEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFirstTrial != null">
+        is_first_trial = #{isFirstTrial,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderStatus != null">
+        tender_status = #{tenderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        reminder = #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="selectSupplier != null">
+        select_supplier = #{selectSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null">
+        invoice = #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="processInstanceId != null">
+        process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purc_matter_tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.purchase.entity.MatterTenderPurchase">
+    update purc_matter_tender_purchase
+    set is_day_pruchase = #{isDayPruchase,jdbcType=VARCHAR},
+      tender_name = #{tenderName,jdbcType=VARCHAR},
+      tender_id = #{tenderId,jdbcType=VARCHAR},
+      tender_type = #{tenderType,jdbcType=VARCHAR},
+      purchase_company = #{purchaseCompany,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=INTEGER},
+      contact_type = #{contactType,jdbcType=VARCHAR},
+      tender_content = #{tenderContent,jdbcType=VARCHAR},
+      tender_condition = #{tenderCondition,jdbcType=VARCHAR},
+      first_instance_time = #{firstInstanceTime,jdbcType=TIMESTAMP},
+      tender_method = #{tenderMethod,jdbcType=VARCHAR},
+      supply_time = #{supplyTime,jdbcType=TIMESTAMP},
+      supply_end_time = #{supplyEndTime,jdbcType=TIMESTAMP},
+      is_period = #{isPeriod,jdbcType=VARCHAR},
+      inquiry_num = #{inquiryNum,jdbcType=INTEGER},
+      bidding_num = #{biddingNum,jdbcType=INTEGER},
+      bidding_start_time = #{biddingStartTime,jdbcType=TIMESTAMP},
+      bidding_end_time = #{biddingEndTime,jdbcType=TIMESTAMP},
+      tender_end_time = #{tenderEndTime,jdbcType=TIMESTAMP},
+      is_first_trial = #{isFirstTrial,jdbcType=VARCHAR},
+      tender_status = #{tenderStatus,jdbcType=VARCHAR},
+      reminder = #{reminder,jdbcType=VARCHAR},
+      select_supplier = #{selectSupplier,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      invoice = #{invoice,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=VARCHAR}
+    where purc_matter_tender_purchase_id = #{purcMatterTenderPurchaseId,jdbcType=INTEGER}
+  </update>
+</mapper>

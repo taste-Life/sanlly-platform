@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareCBSWarehouseTypeMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareCBSWarehouseType">
+    <id column="ware_cbs_warehouse_type_id" jdbcType="INTEGER" property="wareCbsWarehouseTypeId" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="cbs_warehouse_type_name_en" jdbcType="VARCHAR" property="cbsWarehouseTypeNameEn" />
+    <result column="cbs_warehouse_type_name" jdbcType="VARCHAR" property="cbsWarehouseTypeName" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_cbs_warehouse_type_id, `key`, cbs_warehouse_type_name_en, cbs_warehouse_type_name, 
+    is_del, create_time, create_user, update_time, update_user, code
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_cbs_warehouse_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_cbs_warehouse_type
+    where ware_cbs_warehouse_type_id = #{wareCbsWarehouseTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_cbs_warehouse_type
+    where ware_cbs_warehouse_type_id = #{wareCbsWarehouseTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseTypeExample">
+    delete from ware_cbs_warehouse_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseType">
+    insert into ware_cbs_warehouse_type (ware_cbs_warehouse_type_id, `key`, cbs_warehouse_type_name_en, 
+      cbs_warehouse_type_name, is_del, create_time, 
+      create_user, update_time, update_user, 
+      code)
+    values (#{wareCbsWarehouseTypeId,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{cbsWarehouseTypeNameEn,jdbcType=VARCHAR}, 
+      #{cbsWarehouseTypeName,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseType">
+    insert into ware_cbs_warehouse_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareCbsWarehouseTypeId != null">
+        ware_cbs_warehouse_type_id,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+      <if test="cbsWarehouseTypeNameEn != null">
+        cbs_warehouse_type_name_en,
+      </if>
+      <if test="cbsWarehouseTypeName != null">
+        cbs_warehouse_type_name,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareCbsWarehouseTypeId != null">
+        #{wareCbsWarehouseTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="cbsWarehouseTypeNameEn != null">
+        #{cbsWarehouseTypeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="cbsWarehouseTypeName != null">
+        #{cbsWarehouseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseTypeExample" resultType="java.lang.Long">
+    select count(*) from ware_cbs_warehouse_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_cbs_warehouse_type
+    <set>
+      <if test="record.wareCbsWarehouseTypeId != null">
+        ware_cbs_warehouse_type_id = #{record.wareCbsWarehouseTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.key != null">
+        `key` = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbsWarehouseTypeNameEn != null">
+        cbs_warehouse_type_name_en = #{record.cbsWarehouseTypeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbsWarehouseTypeName != null">
+        cbs_warehouse_type_name = #{record.cbsWarehouseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_cbs_warehouse_type
+    set ware_cbs_warehouse_type_id = #{record.wareCbsWarehouseTypeId,jdbcType=INTEGER},
+      `key` = #{record.key,jdbcType=VARCHAR},
+      cbs_warehouse_type_name_en = #{record.cbsWarehouseTypeNameEn,jdbcType=VARCHAR},
+      cbs_warehouse_type_name = #{record.cbsWarehouseTypeName,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseType">
+    update ware_cbs_warehouse_type
+    <set>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="cbsWarehouseTypeNameEn != null">
+        cbs_warehouse_type_name_en = #{cbsWarehouseTypeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="cbsWarehouseTypeName != null">
+        cbs_warehouse_type_name = #{cbsWarehouseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_cbs_warehouse_type_id = #{wareCbsWarehouseTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareCBSWarehouseType">
+    update ware_cbs_warehouse_type
+    set `key` = #{key,jdbcType=VARCHAR},
+      cbs_warehouse_type_name_en = #{cbsWarehouseTypeNameEn,jdbcType=VARCHAR},
+      cbs_warehouse_type_name = #{cbsWarehouseTypeName,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR}
+    where ware_cbs_warehouse_type_id = #{wareCbsWarehouseTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

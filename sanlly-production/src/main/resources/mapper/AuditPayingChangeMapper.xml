@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.AuditPayingChangeMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.AuditPayingChange">
+    <id column="prod_audit_paying_change_id" jdbcType="INTEGER" property="prodAuditPayingChangeId" />
+    <result column="paying_party_change" jdbcType="INTEGER" property="payingPartyChange" />
+    <result column="initial_paying" jdbcType="VARCHAR" property="initialPaying" />
+    <result column="man_hour_coefficient" jdbcType="DOUBLE" property="manHourCoefficient" />
+    <result column="material_coefficient" jdbcType="DOUBLE" property="materialCoefficient" />
+    <result column="sum_cost_coefficient" jdbcType="DOUBLE" property="sumCostCoefficient" />
+    <result column="calculation_type" jdbcType="VARCHAR" property="calculationType" />
+    <result column="dispose_type" jdbcType="VARCHAR" property="disposeType" />
+    <result column="sum_cost_condition" jdbcType="VARCHAR" property="sumCostCondition" />
+    <result column="sum_cost_base" jdbcType="DECIMAL" property="sumCostBase" />
+    <result column="final_paying" jdbcType="VARCHAR" property="finalPaying" />
+    <result column="is_valid" jdbcType="INTEGER" property="isValid" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_audit_paying_change_id, paying_party_change, initial_paying, man_hour_coefficient, 
+    material_coefficient, sum_cost_coefficient, calculation_type, dispose_type, sum_cost_condition, 
+    sum_cost_base, final_paying, is_valid, is_del, create_user, create_time, update_user, 
+    update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.AuditPayingChangeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_audit_paying_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_audit_paying_change
+    where prod_audit_paying_change_id = #{prodAuditPayingChangeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_audit_paying_change
+    where prod_audit_paying_change_id = #{prodAuditPayingChangeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.AuditPayingChangeExample">
+    delete from prod_audit_paying_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.AuditPayingChange">
+    insert into prod_audit_paying_change (prod_audit_paying_change_id, paying_party_change, 
+      initial_paying, man_hour_coefficient, material_coefficient, 
+      sum_cost_coefficient, calculation_type, dispose_type, 
+      sum_cost_condition, sum_cost_base, final_paying, 
+      is_valid, is_del, create_user, 
+      create_time, update_user, update_time
+      )
+    values (#{prodAuditPayingChangeId,jdbcType=INTEGER}, #{payingPartyChange,jdbcType=INTEGER}, 
+      #{initialPaying,jdbcType=VARCHAR}, #{manHourCoefficient,jdbcType=DOUBLE}, #{materialCoefficient,jdbcType=DOUBLE}, 
+      #{sumCostCoefficient,jdbcType=DOUBLE}, #{calculationType,jdbcType=VARCHAR}, #{disposeType,jdbcType=VARCHAR}, 
+      #{sumCostCondition,jdbcType=VARCHAR}, #{sumCostBase,jdbcType=DECIMAL}, #{finalPaying,jdbcType=VARCHAR}, 
+      #{isValid,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.AuditPayingChange">
+    insert into prod_audit_paying_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodAuditPayingChangeId != null">
+        prod_audit_paying_change_id,
+      </if>
+      <if test="payingPartyChange != null">
+        paying_party_change,
+      </if>
+      <if test="initialPaying != null">
+        initial_paying,
+      </if>
+      <if test="manHourCoefficient != null">
+        man_hour_coefficient,
+      </if>
+      <if test="materialCoefficient != null">
+        material_coefficient,
+      </if>
+      <if test="sumCostCoefficient != null">
+        sum_cost_coefficient,
+      </if>
+      <if test="calculationType != null">
+        calculation_type,
+      </if>
+      <if test="disposeType != null">
+        dispose_type,
+      </if>
+      <if test="sumCostCondition != null">
+        sum_cost_condition,
+      </if>
+      <if test="sumCostBase != null">
+        sum_cost_base,
+      </if>
+      <if test="finalPaying != null">
+        final_paying,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodAuditPayingChangeId != null">
+        #{prodAuditPayingChangeId,jdbcType=INTEGER},
+      </if>
+      <if test="payingPartyChange != null">
+        #{payingPartyChange,jdbcType=INTEGER},
+      </if>
+      <if test="initialPaying != null">
+        #{initialPaying,jdbcType=VARCHAR},
+      </if>
+      <if test="manHourCoefficient != null">
+        #{manHourCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="materialCoefficient != null">
+        #{materialCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="sumCostCoefficient != null">
+        #{sumCostCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="calculationType != null">
+        #{calculationType,jdbcType=VARCHAR},
+      </if>
+      <if test="disposeType != null">
+        #{disposeType,jdbcType=VARCHAR},
+      </if>
+      <if test="sumCostCondition != null">
+        #{sumCostCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="sumCostBase != null">
+        #{sumCostBase,jdbcType=DECIMAL},
+      </if>
+      <if test="finalPaying != null">
+        #{finalPaying,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.AuditPayingChangeExample" resultType="java.lang.Long">
+    select count(*) from prod_audit_paying_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_audit_paying_change
+    <set>
+      <if test="record.prodAuditPayingChangeId != null">
+        prod_audit_paying_change_id = #{record.prodAuditPayingChangeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payingPartyChange != null">
+        paying_party_change = #{record.payingPartyChange,jdbcType=INTEGER},
+      </if>
+      <if test="record.initialPaying != null">
+        initial_paying = #{record.initialPaying,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manHourCoefficient != null">
+        man_hour_coefficient = #{record.manHourCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="record.materialCoefficient != null">
+        material_coefficient = #{record.materialCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="record.sumCostCoefficient != null">
+        sum_cost_coefficient = #{record.sumCostCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="record.calculationType != null">
+        calculation_type = #{record.calculationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disposeType != null">
+        dispose_type = #{record.disposeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumCostCondition != null">
+        sum_cost_condition = #{record.sumCostCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumCostBase != null">
+        sum_cost_base = #{record.sumCostBase,jdbcType=DECIMAL},
+      </if>
+      <if test="record.finalPaying != null">
+        final_paying = #{record.finalPaying,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_audit_paying_change
+    set prod_audit_paying_change_id = #{record.prodAuditPayingChangeId,jdbcType=INTEGER},
+      paying_party_change = #{record.payingPartyChange,jdbcType=INTEGER},
+      initial_paying = #{record.initialPaying,jdbcType=VARCHAR},
+      man_hour_coefficient = #{record.manHourCoefficient,jdbcType=DOUBLE},
+      material_coefficient = #{record.materialCoefficient,jdbcType=DOUBLE},
+      sum_cost_coefficient = #{record.sumCostCoefficient,jdbcType=DOUBLE},
+      calculation_type = #{record.calculationType,jdbcType=VARCHAR},
+      dispose_type = #{record.disposeType,jdbcType=VARCHAR},
+      sum_cost_condition = #{record.sumCostCondition,jdbcType=VARCHAR},
+      sum_cost_base = #{record.sumCostBase,jdbcType=DECIMAL},
+      final_paying = #{record.finalPaying,jdbcType=VARCHAR},
+      is_valid = #{record.isValid,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.AuditPayingChange">
+    update prod_audit_paying_change
+    <set>
+      <if test="payingPartyChange != null">
+        paying_party_change = #{payingPartyChange,jdbcType=INTEGER},
+      </if>
+      <if test="initialPaying != null">
+        initial_paying = #{initialPaying,jdbcType=VARCHAR},
+      </if>
+      <if test="manHourCoefficient != null">
+        man_hour_coefficient = #{manHourCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="materialCoefficient != null">
+        material_coefficient = #{materialCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="sumCostCoefficient != null">
+        sum_cost_coefficient = #{sumCostCoefficient,jdbcType=DOUBLE},
+      </if>
+      <if test="calculationType != null">
+        calculation_type = #{calculationType,jdbcType=VARCHAR},
+      </if>
+      <if test="disposeType != null">
+        dispose_type = #{disposeType,jdbcType=VARCHAR},
+      </if>
+      <if test="sumCostCondition != null">
+        sum_cost_condition = #{sumCostCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="sumCostBase != null">
+        sum_cost_base = #{sumCostBase,jdbcType=DECIMAL},
+      </if>
+      <if test="finalPaying != null">
+        final_paying = #{finalPaying,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prod_audit_paying_change_id = #{prodAuditPayingChangeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.AuditPayingChange">
+    update prod_audit_paying_change
+    set paying_party_change = #{payingPartyChange,jdbcType=INTEGER},
+      initial_paying = #{initialPaying,jdbcType=VARCHAR},
+      man_hour_coefficient = #{manHourCoefficient,jdbcType=DOUBLE},
+      material_coefficient = #{materialCoefficient,jdbcType=DOUBLE},
+      sum_cost_coefficient = #{sumCostCoefficient,jdbcType=DOUBLE},
+      calculation_type = #{calculationType,jdbcType=VARCHAR},
+      dispose_type = #{disposeType,jdbcType=VARCHAR},
+      sum_cost_condition = #{sumCostCondition,jdbcType=VARCHAR},
+      sum_cost_base = #{sumCostBase,jdbcType=DECIMAL},
+      final_paying = #{finalPaying,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where prod_audit_paying_change_id = #{prodAuditPayingChangeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.PoolCostTransportMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.PoolCostTransport">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="prod_course_id" jdbcType="VARCHAR" property="prodCourseId" />
+    <result column="prod_container_id" jdbcType="INTEGER" property="prodContainerId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="allocation_no" jdbcType="VARCHAR" property="allocationNo" />
+    <result column="out_yard" jdbcType="VARCHAR" property="outYard" />
+    <result column="int_yard" jdbcType="VARCHAR" property="intYard" />
+    <result column="fleet" jdbcType="VARCHAR" property="fleet" />
+    <result column="plate_no" jdbcType="VARCHAR" property="plateNo" />
+    <result column="cost_usd" jdbcType="DECIMAL" property="costUsd" />
+    <result column="cost_rmb" jdbcType="DECIMAL" property="costRmb" />
+    <result column="allocation_time" jdbcType="TIMESTAMP" property="allocationTime" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="cost_center" jdbcType="VARCHAR" property="costCenter" />
+    <result column="allocation_type" jdbcType="VARCHAR" property="allocationType" />
+    <result column="directive_issuer" jdbcType="VARCHAR" property="directiveIssuer" />
+    <result column="directive_time" jdbcType="TIMESTAMP" property="directiveTime" />
+    <result column="identify_people" jdbcType="VARCHAR" property="identifyPeople" />
+    <result column="identify_time" jdbcType="TIMESTAMP" property="identifyTime" />
+    <result column="dept_key" jdbcType="VARCHAR" property="deptKey" />
+    <result column="charge_type_key" jdbcType="VARCHAR" property="chargeTypeKey" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="item_status" jdbcType="INTEGER" property="itemStatus" />
+    <result column="no_cost_desc" jdbcType="VARCHAR" property="noCostDesc" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="free_status" jdbcType="VARCHAR" property="freeStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, prod_course_id, prod_container_id, container_no, container_user, allocation_no, 
+    out_yard, int_yard, fleet, plate_no, cost_usd, cost_rmb, allocation_time, `state`, 
+    reason, cost_center, allocation_type, directive_issuer, directive_time, identify_people, 
+    identify_time, dept_key, charge_type_key, dept_code, remarks, item_status, no_cost_desc, 
+    is_enabled, is_del, free_status, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.finance.entity.PoolCostTransportExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_pool_cost_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_pool_cost_transport
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_pool_cost_transport
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.finance.entity.PoolCostTransportExample">
+    delete from finance_pool_cost_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.finance.entity.PoolCostTransport">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_pool_cost_transport (prod_course_id, prod_container_id, container_no, 
+      container_user, allocation_no, out_yard, 
+      int_yard, fleet, plate_no, 
+      cost_usd, cost_rmb, allocation_time, 
+      `state`, reason, cost_center, 
+      allocation_type, directive_issuer, directive_time, 
+      identify_people, identify_time, dept_key, 
+      charge_type_key, dept_code, remarks, 
+      item_status, no_cost_desc, is_enabled, 
+      is_del, free_status, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodCourseId,jdbcType=VARCHAR}, #{prodContainerId,jdbcType=INTEGER}, #{containerNo,jdbcType=VARCHAR}, 
+      #{containerUser,jdbcType=VARCHAR}, #{allocationNo,jdbcType=VARCHAR}, #{outYard,jdbcType=VARCHAR}, 
+      #{intYard,jdbcType=VARCHAR}, #{fleet,jdbcType=VARCHAR}, #{plateNo,jdbcType=VARCHAR}, 
+      #{costUsd,jdbcType=DECIMAL}, #{costRmb,jdbcType=DECIMAL}, #{allocationTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{costCenter,jdbcType=VARCHAR}, 
+      #{allocationType,jdbcType=VARCHAR}, #{directiveIssuer,jdbcType=VARCHAR}, #{directiveTime,jdbcType=TIMESTAMP}, 
+      #{identifyPeople,jdbcType=VARCHAR}, #{identifyTime,jdbcType=TIMESTAMP}, #{deptKey,jdbcType=VARCHAR}, 
+      #{chargeTypeKey,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{itemStatus,jdbcType=INTEGER}, #{noCostDesc,jdbcType=VARCHAR}, #{isEnabled,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{freeStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.finance.entity.PoolCostTransport">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_pool_cost_transport
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodCourseId != null">
+        prod_course_id,
+      </if>
+      <if test="prodContainerId != null">
+        prod_container_id,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="allocationNo != null">
+        allocation_no,
+      </if>
+      <if test="outYard != null">
+        out_yard,
+      </if>
+      <if test="intYard != null">
+        int_yard,
+      </if>
+      <if test="fleet != null">
+        fleet,
+      </if>
+      <if test="plateNo != null">
+        plate_no,
+      </if>
+      <if test="costUsd != null">
+        cost_usd,
+      </if>
+      <if test="costRmb != null">
+        cost_rmb,
+      </if>
+      <if test="allocationTime != null">
+        allocation_time,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="costCenter != null">
+        cost_center,
+      </if>
+      <if test="allocationType != null">
+        allocation_type,
+      </if>
+      <if test="directiveIssuer != null">
+        directive_issuer,
+      </if>
+      <if test="directiveTime != null">
+        directive_time,
+      </if>
+      <if test="identifyPeople != null">
+        identify_people,
+      </if>
+      <if test="identifyTime != null">
+        identify_time,
+      </if>
+      <if test="deptKey != null">
+        dept_key,
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="itemStatus != null">
+        item_status,
+      </if>
+      <if test="noCostDesc != null">
+        no_cost_desc,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="freeStatus != null">
+        free_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodCourseId != null">
+        #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="prodContainerId != null">
+        #{prodContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationNo != null">
+        #{allocationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outYard != null">
+        #{outYard,jdbcType=VARCHAR},
+      </if>
+      <if test="intYard != null">
+        #{intYard,jdbcType=VARCHAR},
+      </if>
+      <if test="fleet != null">
+        #{fleet,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNo != null">
+        #{plateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="costUsd != null">
+        #{costUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="costRmb != null">
+        #{costRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="allocationTime != null">
+        #{allocationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="costCenter != null">
+        #{costCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationType != null">
+        #{allocationType,jdbcType=VARCHAR},
+      </if>
+      <if test="directiveIssuer != null">
+        #{directiveIssuer,jdbcType=VARCHAR},
+      </if>
+      <if test="directiveTime != null">
+        #{directiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identifyPeople != null">
+        #{identifyPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="identifyTime != null">
+        #{identifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptKey != null">
+        #{deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStatus != null">
+        #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="noCostDesc != null">
+        #{noCostDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="freeStatus != null">
+        #{freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.finance.entity.PoolCostTransportExample" resultType="java.lang.Long">
+    select count(*) from finance_pool_cost_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance_pool_cost_transport
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodCourseId != null">
+        prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodContainerId != null">
+        prod_container_id = #{record.prodContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allocationNo != null">
+        allocation_no = #{record.allocationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outYard != null">
+        out_yard = #{record.outYard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intYard != null">
+        int_yard = #{record.intYard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fleet != null">
+        fleet = #{record.fleet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNo != null">
+        plate_no = #{record.plateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costUsd != null">
+        cost_usd = #{record.costUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costRmb != null">
+        cost_rmb = #{record.costRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.allocationTime != null">
+        allocation_time = #{record.allocationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null">
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costCenter != null">
+        cost_center = #{record.costCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allocationType != null">
+        allocation_type = #{record.allocationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directiveIssuer != null">
+        directive_issuer = #{record.directiveIssuer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directiveTime != null">
+        directive_time = #{record.directiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.identifyPeople != null">
+        identify_people = #{record.identifyPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identifyTime != null">
+        identify_time = #{record.identifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deptKey != null">
+        dept_key = #{record.deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeTypeKey != null">
+        charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null">
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemStatus != null">
+        item_status = #{record.itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.noCostDesc != null">
+        no_cost_desc = #{record.noCostDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnabled != null">
+        is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.freeStatus != null">
+        free_status = #{record.freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance_pool_cost_transport
+    set id = #{record.id,jdbcType=INTEGER},
+      prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      prod_container_id = #{record.prodContainerId,jdbcType=INTEGER},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      allocation_no = #{record.allocationNo,jdbcType=VARCHAR},
+      out_yard = #{record.outYard,jdbcType=VARCHAR},
+      int_yard = #{record.intYard,jdbcType=VARCHAR},
+      fleet = #{record.fleet,jdbcType=VARCHAR},
+      plate_no = #{record.plateNo,jdbcType=VARCHAR},
+      cost_usd = #{record.costUsd,jdbcType=DECIMAL},
+      cost_rmb = #{record.costRmb,jdbcType=DECIMAL},
+      allocation_time = #{record.allocationTime,jdbcType=TIMESTAMP},
+      `state` = #{record.state,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      cost_center = #{record.costCenter,jdbcType=VARCHAR},
+      allocation_type = #{record.allocationType,jdbcType=VARCHAR},
+      directive_issuer = #{record.directiveIssuer,jdbcType=VARCHAR},
+      directive_time = #{record.directiveTime,jdbcType=TIMESTAMP},
+      identify_people = #{record.identifyPeople,jdbcType=VARCHAR},
+      identify_time = #{record.identifyTime,jdbcType=TIMESTAMP},
+      dept_key = #{record.deptKey,jdbcType=VARCHAR},
+      charge_type_key = #{record.chargeTypeKey,jdbcType=VARCHAR},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      item_status = #{record.itemStatus,jdbcType=INTEGER},
+      no_cost_desc = #{record.noCostDesc,jdbcType=VARCHAR},
+      is_enabled = #{record.isEnabled,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      free_status = #{record.freeStatus,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.finance.entity.PoolCostTransport">
+    update finance_pool_cost_transport
+    <set>
+      <if test="prodCourseId != null">
+        prod_course_id = #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="prodContainerId != null">
+        prod_container_id = #{prodContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationNo != null">
+        allocation_no = #{allocationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outYard != null">
+        out_yard = #{outYard,jdbcType=VARCHAR},
+      </if>
+      <if test="intYard != null">
+        int_yard = #{intYard,jdbcType=VARCHAR},
+      </if>
+      <if test="fleet != null">
+        fleet = #{fleet,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNo != null">
+        plate_no = #{plateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="costUsd != null">
+        cost_usd = #{costUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="costRmb != null">
+        cost_rmb = #{costRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="allocationTime != null">
+        allocation_time = #{allocationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="costCenter != null">
+        cost_center = #{costCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationType != null">
+        allocation_type = #{allocationType,jdbcType=VARCHAR},
+      </if>
+      <if test="directiveIssuer != null">
+        directive_issuer = #{directiveIssuer,jdbcType=VARCHAR},
+      </if>
+      <if test="directiveTime != null">
+        directive_time = #{directiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identifyPeople != null">
+        identify_people = #{identifyPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="identifyTime != null">
+        identify_time = #{identifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptKey != null">
+        dept_key = #{deptKey,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeTypeKey != null">
+        charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStatus != null">
+        item_status = #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="noCostDesc != null">
+        no_cost_desc = #{noCostDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="freeStatus != null">
+        free_status = #{freeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.finance.entity.PoolCostTransport">
+    update finance_pool_cost_transport
+    set prod_course_id = #{prodCourseId,jdbcType=VARCHAR},
+      prod_container_id = #{prodContainerId,jdbcType=INTEGER},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      allocation_no = #{allocationNo,jdbcType=VARCHAR},
+      out_yard = #{outYard,jdbcType=VARCHAR},
+      int_yard = #{intYard,jdbcType=VARCHAR},
+      fleet = #{fleet,jdbcType=VARCHAR},
+      plate_no = #{plateNo,jdbcType=VARCHAR},
+      cost_usd = #{costUsd,jdbcType=DECIMAL},
+      cost_rmb = #{costRmb,jdbcType=DECIMAL},
+      allocation_time = #{allocationTime,jdbcType=TIMESTAMP},
+      `state` = #{state,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      cost_center = #{costCenter,jdbcType=VARCHAR},
+      allocation_type = #{allocationType,jdbcType=VARCHAR},
+      directive_issuer = #{directiveIssuer,jdbcType=VARCHAR},
+      directive_time = #{directiveTime,jdbcType=TIMESTAMP},
+      identify_people = #{identifyPeople,jdbcType=VARCHAR},
+      identify_time = #{identifyTime,jdbcType=TIMESTAMP},
+      dept_key = #{deptKey,jdbcType=VARCHAR},
+      charge_type_key = #{chargeTypeKey,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      item_status = #{itemStatus,jdbcType=INTEGER},
+      no_cost_desc = #{noCostDesc,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      free_status = #{freeStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

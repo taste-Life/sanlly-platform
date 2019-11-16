@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.PlanStockMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.PlanStock">
+    <id column="prod_plan_stock_id" jdbcType="INTEGER" property="prodPlanStockId" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="referral_no" jdbcType="VARCHAR" property="referralNo" />
+    <result column="referral_entry_id" jdbcType="VARCHAR" property="referralEntryId" />
+    <result column="spares_number" jdbcType="VARCHAR" property="sparesNumber" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="length" jdbcType="DOUBLE" property="length" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="picking_quantity" jdbcType="DOUBLE" property="pickingQuantity" />
+    <result column="borrow_quantity" jdbcType="DOUBLE" property="borrowQuantity" />
+    <result column="picking_state" jdbcType="VARCHAR" property="pickingState" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="is_original" jdbcType="VARCHAR" property="isOriginal" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_plan_stock_id, course, container_category, container_no, referral_no, referral_entry_id, 
+    spares_number, warehouse_type, `length`, width, quantity, picking_quantity, borrow_quantity, 
+    picking_state, warehouse, company, price, is_original, remarks, is_del, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.PlanStockExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_plan_stock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_plan_stock
+    where prod_plan_stock_id = #{prodPlanStockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_plan_stock
+    where prod_plan_stock_id = #{prodPlanStockId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.PlanStockExample">
+    delete from prod_plan_stock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.PlanStock">
+    insert into prod_plan_stock (prod_plan_stock_id, course, container_category, 
+      container_no, referral_no, referral_entry_id, 
+      spares_number, warehouse_type, `length`, 
+      width, quantity, picking_quantity, 
+      borrow_quantity, picking_state, warehouse, 
+      company, price, is_original, 
+      remarks, is_del, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{prodPlanStockId,jdbcType=INTEGER}, #{course,jdbcType=VARCHAR}, #{containerCategory,jdbcType=VARCHAR}, 
+      #{containerNo,jdbcType=VARCHAR}, #{referralNo,jdbcType=VARCHAR}, #{referralEntryId,jdbcType=VARCHAR}, 
+      #{sparesNumber,jdbcType=VARCHAR}, #{warehouseType,jdbcType=VARCHAR}, #{length,jdbcType=DOUBLE}, 
+      #{width,jdbcType=DOUBLE}, #{quantity,jdbcType=DOUBLE}, #{pickingQuantity,jdbcType=DOUBLE}, 
+      #{borrowQuantity,jdbcType=DOUBLE}, #{pickingState,jdbcType=VARCHAR}, #{warehouse,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{isOriginal,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.PlanStock">
+    insert into prod_plan_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodPlanStockId != null">
+        prod_plan_stock_id,
+      </if>
+      <if test="course != null">
+        course,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="referralNo != null">
+        referral_no,
+      </if>
+      <if test="referralEntryId != null">
+        referral_entry_id,
+      </if>
+      <if test="sparesNumber != null">
+        spares_number,
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type,
+      </if>
+      <if test="length != null">
+        `length`,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="pickingQuantity != null">
+        picking_quantity,
+      </if>
+      <if test="borrowQuantity != null">
+        borrow_quantity,
+      </if>
+      <if test="pickingState != null">
+        picking_state,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="isOriginal != null">
+        is_original,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodPlanStockId != null">
+        #{prodPlanStockId,jdbcType=INTEGER},
+      </if>
+      <if test="course != null">
+        #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="referralNo != null">
+        #{referralNo,jdbcType=VARCHAR},
+      </if>
+      <if test="referralEntryId != null">
+        #{referralEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesNumber != null">
+        #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="pickingQuantity != null">
+        #{pickingQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowQuantity != null">
+        #{borrowQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="pickingState != null">
+        #{pickingState,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isOriginal != null">
+        #{isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.PlanStockExample" resultType="java.lang.Long">
+    select count(*) from prod_plan_stock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_plan_stock
+    <set>
+      <if test="record.prodPlanStockId != null">
+        prod_plan_stock_id = #{record.prodPlanStockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.course != null">
+        course = #{record.course,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralNo != null">
+        referral_no = #{record.referralNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralEntryId != null">
+        referral_entry_id = #{record.referralEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparesNumber != null">
+        spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null">
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null">
+        `length` = #{record.length,jdbcType=DOUBLE},
+      </if>
+      <if test="record.width != null">
+        width = #{record.width,jdbcType=DOUBLE},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pickingQuantity != null">
+        picking_quantity = #{record.pickingQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.borrowQuantity != null">
+        borrow_quantity = #{record.borrowQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pickingState != null">
+        picking_state = #{record.pickingState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isOriginal != null">
+        is_original = #{record.isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_plan_stock
+    set prod_plan_stock_id = #{record.prodPlanStockId,jdbcType=INTEGER},
+      course = #{record.course,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      referral_no = #{record.referralNo,jdbcType=VARCHAR},
+      referral_entry_id = #{record.referralEntryId,jdbcType=VARCHAR},
+      spares_number = #{record.sparesNumber,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      `length` = #{record.length,jdbcType=DOUBLE},
+      width = #{record.width,jdbcType=DOUBLE},
+      quantity = #{record.quantity,jdbcType=DOUBLE},
+      picking_quantity = #{record.pickingQuantity,jdbcType=DOUBLE},
+      borrow_quantity = #{record.borrowQuantity,jdbcType=DOUBLE},
+      picking_state = #{record.pickingState,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      is_original = #{record.isOriginal,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.PlanStock">
+    update prod_plan_stock
+    <set>
+      <if test="course != null">
+        course = #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="referralNo != null">
+        referral_no = #{referralNo,jdbcType=VARCHAR},
+      </if>
+      <if test="referralEntryId != null">
+        referral_entry_id = #{referralEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesNumber != null">
+        spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        `length` = #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="pickingQuantity != null">
+        picking_quantity = #{pickingQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowQuantity != null">
+        borrow_quantity = #{borrowQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="pickingState != null">
+        picking_state = #{pickingState,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isOriginal != null">
+        is_original = #{isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_plan_stock_id = #{prodPlanStockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.PlanStock">
+    update prod_plan_stock
+    set course = #{course,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      referral_no = #{referralNo,jdbcType=VARCHAR},
+      referral_entry_id = #{referralEntryId,jdbcType=VARCHAR},
+      spares_number = #{sparesNumber,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      picking_quantity = #{pickingQuantity,jdbcType=DOUBLE},
+      borrow_quantity = #{borrowQuantity,jdbcType=DOUBLE},
+      picking_state = #{pickingState,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      is_original = #{isOriginal,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_plan_stock_id = #{prodPlanStockId,jdbcType=INTEGER}
+  </update>
+</mapper>

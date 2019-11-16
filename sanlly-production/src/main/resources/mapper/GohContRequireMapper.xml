@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.GohContRequireMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.GohContRequire">
+    <id column="prod_goh_cont_require_id" jdbcType="INTEGER" property="prodGohContRequireId" />
+    <result column="require_name" jdbcType="VARCHAR" property="requireName" />
+    <result column="estimated_quantity" jdbcType="INTEGER" property="estimatedQuantity" />
+    <result column="beam_quantity" jdbcType="DOUBLE" property="beamQuantity" />
+    <result column="rope_quantity" jdbcType="DOUBLE" property="ropeQuantity" />
+    <result column="knot_quantity" jdbcType="DOUBLE" property="knotQuantity" />
+    <result column="beam_distance" jdbcType="DOUBLE" property="beamDistance" />
+    <result column="knot_distance" jdbcType="DOUBLE" property="knotDistance" />
+    <result column="around_distance" jdbcType="DOUBLE" property="aroundDistance" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sanlly.production.entity.GohContRequire">
+    <result column="require_content" jdbcType="LONGVARCHAR" property="requireContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_goh_cont_require_id, require_name, estimated_quantity, beam_quantity, rope_quantity, 
+    knot_quantity, beam_distance, knot_distance, around_distance, remarks, is_del, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    require_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sanlly.production.entity.GohContRequireExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_goh_cont_require
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.GohContRequireExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_goh_cont_require
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_goh_cont_require
+    where prod_goh_cont_require_id = #{prodGohContRequireId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_goh_cont_require
+    where prod_goh_cont_require_id = #{prodGohContRequireId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.GohContRequireExample">
+    delete from prod_goh_cont_require
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.GohContRequire">
+    <selectKey keyProperty="prodGohContRequireId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into prod_goh_cont_require (require_name, estimated_quantity, beam_quantity, 
+      rope_quantity, knot_quantity, beam_distance, 
+      knot_distance, around_distance, remarks, 
+      is_del, create_time, create_user, 
+      update_time, update_user, require_content
+      )
+    values (#{requireName,jdbcType=VARCHAR}, #{estimatedQuantity,jdbcType=INTEGER}, #{beamQuantity,jdbcType=DOUBLE}, 
+      #{ropeQuantity,jdbcType=DOUBLE}, #{knotQuantity,jdbcType=DOUBLE}, #{beamDistance,jdbcType=DOUBLE}, 
+      #{knotDistance,jdbcType=DOUBLE}, #{aroundDistance,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{requireContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.GohContRequire">
+    <selectKey keyProperty="prodGohContRequireId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into prod_goh_cont_require
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="requireName != null">
+        require_name,
+      </if>
+      <if test="estimatedQuantity != null">
+        estimated_quantity,
+      </if>
+      <if test="beamQuantity != null">
+        beam_quantity,
+      </if>
+      <if test="ropeQuantity != null">
+        rope_quantity,
+      </if>
+      <if test="knotQuantity != null">
+        knot_quantity,
+      </if>
+      <if test="beamDistance != null">
+        beam_distance,
+      </if>
+      <if test="knotDistance != null">
+        knot_distance,
+      </if>
+      <if test="aroundDistance != null">
+        around_distance,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="requireContent != null">
+        require_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="requireName != null">
+        #{requireName,jdbcType=VARCHAR},
+      </if>
+      <if test="estimatedQuantity != null">
+        #{estimatedQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="beamQuantity != null">
+        #{beamQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="ropeQuantity != null">
+        #{ropeQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="knotQuantity != null">
+        #{knotQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="beamDistance != null">
+        #{beamDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="knotDistance != null">
+        #{knotDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="aroundDistance != null">
+        #{aroundDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="requireContent != null">
+        #{requireContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.GohContRequireExample" resultType="java.lang.Long">
+    select count(*) from prod_goh_cont_require
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_goh_cont_require
+    <set>
+      <if test="record.prodGohContRequireId != null">
+        prod_goh_cont_require_id = #{record.prodGohContRequireId,jdbcType=INTEGER},
+      </if>
+      <if test="record.requireName != null">
+        require_name = #{record.requireName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.estimatedQuantity != null">
+        estimated_quantity = #{record.estimatedQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.beamQuantity != null">
+        beam_quantity = #{record.beamQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ropeQuantity != null">
+        rope_quantity = #{record.ropeQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.knotQuantity != null">
+        knot_quantity = #{record.knotQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="record.beamDistance != null">
+        beam_distance = #{record.beamDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.knotDistance != null">
+        knot_distance = #{record.knotDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.aroundDistance != null">
+        around_distance = #{record.aroundDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.requireContent != null">
+        require_content = #{record.requireContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update prod_goh_cont_require
+    set prod_goh_cont_require_id = #{record.prodGohContRequireId,jdbcType=INTEGER},
+      require_name = #{record.requireName,jdbcType=VARCHAR},
+      estimated_quantity = #{record.estimatedQuantity,jdbcType=INTEGER},
+      beam_quantity = #{record.beamQuantity,jdbcType=DOUBLE},
+      rope_quantity = #{record.ropeQuantity,jdbcType=DOUBLE},
+      knot_quantity = #{record.knotQuantity,jdbcType=DOUBLE},
+      beam_distance = #{record.beamDistance,jdbcType=DOUBLE},
+      knot_distance = #{record.knotDistance,jdbcType=DOUBLE},
+      around_distance = #{record.aroundDistance,jdbcType=DOUBLE},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      require_content = #{record.requireContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_goh_cont_require
+    set prod_goh_cont_require_id = #{record.prodGohContRequireId,jdbcType=INTEGER},
+      require_name = #{record.requireName,jdbcType=VARCHAR},
+      estimated_quantity = #{record.estimatedQuantity,jdbcType=INTEGER},
+      beam_quantity = #{record.beamQuantity,jdbcType=DOUBLE},
+      rope_quantity = #{record.ropeQuantity,jdbcType=DOUBLE},
+      knot_quantity = #{record.knotQuantity,jdbcType=DOUBLE},
+      beam_distance = #{record.beamDistance,jdbcType=DOUBLE},
+      knot_distance = #{record.knotDistance,jdbcType=DOUBLE},
+      around_distance = #{record.aroundDistance,jdbcType=DOUBLE},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.GohContRequire">
+    update prod_goh_cont_require
+    <set>
+      <if test="requireName != null">
+        require_name = #{requireName,jdbcType=VARCHAR},
+      </if>
+      <if test="estimatedQuantity != null">
+        estimated_quantity = #{estimatedQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="beamQuantity != null">
+        beam_quantity = #{beamQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="ropeQuantity != null">
+        rope_quantity = #{ropeQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="knotQuantity != null">
+        knot_quantity = #{knotQuantity,jdbcType=DOUBLE},
+      </if>
+      <if test="beamDistance != null">
+        beam_distance = #{beamDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="knotDistance != null">
+        knot_distance = #{knotDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="aroundDistance != null">
+        around_distance = #{aroundDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="requireContent != null">
+        require_content = #{requireContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where prod_goh_cont_require_id = #{prodGohContRequireId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sanlly.production.entity.GohContRequire">
+    update prod_goh_cont_require
+    set require_name = #{requireName,jdbcType=VARCHAR},
+      estimated_quantity = #{estimatedQuantity,jdbcType=INTEGER},
+      beam_quantity = #{beamQuantity,jdbcType=DOUBLE},
+      rope_quantity = #{ropeQuantity,jdbcType=DOUBLE},
+      knot_quantity = #{knotQuantity,jdbcType=DOUBLE},
+      beam_distance = #{beamDistance,jdbcType=DOUBLE},
+      knot_distance = #{knotDistance,jdbcType=DOUBLE},
+      around_distance = #{aroundDistance,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      require_content = #{requireContent,jdbcType=LONGVARCHAR}
+    where prod_goh_cont_require_id = #{prodGohContRequireId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.GohContRequire">
+    update prod_goh_cont_require
+    set require_name = #{requireName,jdbcType=VARCHAR},
+      estimated_quantity = #{estimatedQuantity,jdbcType=INTEGER},
+      beam_quantity = #{beamQuantity,jdbcType=DOUBLE},
+      rope_quantity = #{ropeQuantity,jdbcType=DOUBLE},
+      knot_quantity = #{knotQuantity,jdbcType=DOUBLE},
+      beam_distance = #{beamDistance,jdbcType=DOUBLE},
+      knot_distance = #{knotDistance,jdbcType=DOUBLE},
+      around_distance = #{aroundDistance,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_goh_cont_require_id = #{prodGohContRequireId,jdbcType=INTEGER}
+  </update>
+</mapper>

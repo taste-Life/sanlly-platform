@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.sanlly.warehouse.dao.WareToolManageExtMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sanlly.warehouse.entity.WareToolExtManage">
+		<id column="ware_tool_manage_id" jdbcType="INTEGER"
+			property="wareToolManageId" />
+		<result column="department" jdbcType="VARCHAR"
+			property="department" />
+		<result column="company" jdbcType="VARCHAR" property="company" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="spare_parts" jdbcType="VARCHAR"
+			property="spareParts" />
+		<result column="spare_parts_batch" jdbcType="VARCHAR"
+			property="sparePartsBatch" />
+		<result column="num" jdbcType="DOUBLE" property="num" />
+		<result column="liable_person" jdbcType="INTEGER"
+			property="liablePerson" />
+		<result column="distribute_date" jdbcType="TIMESTAMP"
+			property="distributeDate" />
+		<result column="distribute_status" jdbcType="VARCHAR"
+			property="distributeStatus" />
+		<result column="is_del" jdbcType="INTEGER" property="isDel" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="create_user" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="update_user" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="use_user" jdbcType="INTEGER" property="useUser" />
+		<result column="tool_status" jdbcType="VARCHAR"
+			property="toolStatus" />
+		<result column="transfer_record" jdbcType="VARCHAR"
+			property="transferRecord" />
+		<result column="spare_parts_no" jdbcType="VARCHAR"
+			property="sparePartsNo" />
+		<result column="scraped_num" jdbcType="INTEGER"
+			property="scrapedNum" />
+	</resultMap>
+
+	<select id="selectPageTools" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS tm.*,sp.spare_parts_no,SUM(tad.scrap_num)
+		scraped_num
+		FROM ware_tool_manage
+		tm
+		LEFT JOIN ware_spare_parts sp ON
+		sp.`key`=tm.spare_parts
+		LEFT JOIN ware_tool_apply_detail tad ON
+		tad.ware_tool_manage_id=tm.ware_tool_manage_id
+		WHERE
+		tm.is_del=0
+		AND
+		(tad.is_del IS NULL OR tad.is_del=0)
+		<if test="distributeStatus != null and distributeStatus != ''">
+			AND
+			tm.distribute_status=#{distributeStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="toolStatus != null and toolStatus != ''">
+			AND tm.tool_status=#{toolStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="department != null and department != ''">
+			AND tm.department=#{department,jdbcType=VARCHAR}
+		</if>
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND sp.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="liablePerson != null">
+			AND tm.liable_person=#{liablePerson,jdbcType=INTEGER}
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND sp.spare_parts_name LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsNameEn != null and sparePartsNameEn != ''">
+			AND sp.spare_parts_name_en LIKE
+			CONCAT('%',#{sparePartsNameEn,jdbcType=VARCHAR},'%')
+		</if>
+		GROUP BY tm.ware_tool_manage_id
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+
+	</select>
+
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+
+
+</mapper>

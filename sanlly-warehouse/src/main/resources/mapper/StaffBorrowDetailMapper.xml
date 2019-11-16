@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.StaffBorrowDetailMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.StaffBorrowDetail">
+    <id column="ware_staff_borrow_detail_id" jdbcType="INTEGER" property="wareStaffBorrowDetailId" />
+    <result column="ware_staff_borrow" jdbcType="INTEGER" property="wareStaffBorrow" />
+    <result column="spare_parts_categories" jdbcType="VARCHAR" property="sparePartsCategories" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="storage_location" jdbcType="VARCHAR" property="storageLocation" />
+    <result column="borrow_num" jdbcType="DOUBLE" property="borrowNum" />
+    <result column="return_num" jdbcType="DOUBLE" property="returnNum" />
+    <result column="bill_status" jdbcType="VARCHAR" property="billStatus" />
+    <result column="upper_container_num" jdbcType="DOUBLE" property="upperContainerNum" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="spare_parts_batch" jdbcType="VARCHAR" property="sparePartsBatch" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="spare_parts_original_batch" jdbcType="VARCHAR" property="sparePartsOriginalBatch" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_staff_borrow_detail_id, ware_staff_borrow, spare_parts_categories, container_no, 
+    spare_parts, warehouse_type, storage_location, borrow_num, return_num, bill_status, 
+    upper_container_num, remark, is_del, create_time, create_user, update_time, update_user, 
+    spare_parts_batch, warehouse, spare_parts_original_batch
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_staff_borrow_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_staff_borrow_detail
+    where ware_staff_borrow_detail_id = #{wareStaffBorrowDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_staff_borrow_detail
+    where ware_staff_borrow_detail_id = #{wareStaffBorrowDetailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetailExample">
+    delete from ware_staff_borrow_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetail">
+    insert into ware_staff_borrow_detail (ware_staff_borrow_detail_id, ware_staff_borrow, 
+      spare_parts_categories, container_no, spare_parts, 
+      warehouse_type, storage_location, borrow_num, 
+      return_num, bill_status, upper_container_num, 
+      remark, is_del, create_time, 
+      create_user, update_time, update_user, 
+      spare_parts_batch, warehouse, spare_parts_original_batch
+      )
+    values (#{wareStaffBorrowDetailId,jdbcType=INTEGER}, #{wareStaffBorrow,jdbcType=INTEGER}, 
+      #{sparePartsCategories,jdbcType=VARCHAR}, #{containerNo,jdbcType=VARCHAR}, #{spareParts,jdbcType=VARCHAR}, 
+      #{warehouseType,jdbcType=VARCHAR}, #{storageLocation,jdbcType=VARCHAR}, #{borrowNum,jdbcType=DOUBLE}, 
+      #{returnNum,jdbcType=DOUBLE}, #{billStatus,jdbcType=VARCHAR}, #{upperContainerNum,jdbcType=DOUBLE}, 
+      #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{sparePartsBatch,jdbcType=VARCHAR}, #{warehouse,jdbcType=VARCHAR}, #{sparePartsOriginalBatch,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetail">
+    insert into ware_staff_borrow_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareStaffBorrowDetailId != null">
+        ware_staff_borrow_detail_id,
+      </if>
+      <if test="wareStaffBorrow != null">
+        ware_staff_borrow,
+      </if>
+      <if test="sparePartsCategories != null">
+        spare_parts_categories,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="spareParts != null">
+        spare_parts,
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type,
+      </if>
+      <if test="storageLocation != null">
+        storage_location,
+      </if>
+      <if test="borrowNum != null">
+        borrow_num,
+      </if>
+      <if test="returnNum != null">
+        return_num,
+      </if>
+      <if test="billStatus != null">
+        bill_status,
+      </if>
+      <if test="upperContainerNum != null">
+        upper_container_num,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="sparePartsBatch != null">
+        spare_parts_batch,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="sparePartsOriginalBatch != null">
+        spare_parts_original_batch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareStaffBorrowDetailId != null">
+        #{wareStaffBorrowDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="wareStaffBorrow != null">
+        #{wareStaffBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="sparePartsCategories != null">
+        #{sparePartsCategories,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="storageLocation != null">
+        #{storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNum != null">
+        #{borrowNum,jdbcType=DOUBLE},
+      </if>
+      <if test="returnNum != null">
+        #{returnNum,jdbcType=DOUBLE},
+      </if>
+      <if test="billStatus != null">
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="upperContainerNum != null">
+        #{upperContainerNum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="sparePartsBatch != null">
+        #{sparePartsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsOriginalBatch != null">
+        #{sparePartsOriginalBatch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetailExample" resultType="java.lang.Long">
+    select count(*) from ware_staff_borrow_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_staff_borrow_detail
+    <set>
+      <if test="record.wareStaffBorrowDetailId != null">
+        ware_staff_borrow_detail_id = #{record.wareStaffBorrowDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wareStaffBorrow != null">
+        ware_staff_borrow = #{record.wareStaffBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="record.sparePartsCategories != null">
+        spare_parts_categories = #{record.sparePartsCategories,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareParts != null">
+        spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null">
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storageLocation != null">
+        storage_location = #{record.storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowNum != null">
+        borrow_num = #{record.borrowNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.returnNum != null">
+        return_num = #{record.returnNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.billStatus != null">
+        bill_status = #{record.billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upperContainerNum != null">
+        upper_container_num = #{record.upperContainerNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.sparePartsBatch != null">
+        spare_parts_batch = #{record.sparePartsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsOriginalBatch != null">
+        spare_parts_original_batch = #{record.sparePartsOriginalBatch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_staff_borrow_detail
+    set ware_staff_borrow_detail_id = #{record.wareStaffBorrowDetailId,jdbcType=INTEGER},
+      ware_staff_borrow = #{record.wareStaffBorrow,jdbcType=INTEGER},
+      spare_parts_categories = #{record.sparePartsCategories,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      storage_location = #{record.storageLocation,jdbcType=VARCHAR},
+      borrow_num = #{record.borrowNum,jdbcType=DOUBLE},
+      return_num = #{record.returnNum,jdbcType=DOUBLE},
+      bill_status = #{record.billStatus,jdbcType=VARCHAR},
+      upper_container_num = #{record.upperContainerNum,jdbcType=DOUBLE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      spare_parts_batch = #{record.sparePartsBatch,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      spare_parts_original_batch = #{record.sparePartsOriginalBatch,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetail">
+    update ware_staff_borrow_detail
+    <set>
+      <if test="wareStaffBorrow != null">
+        ware_staff_borrow = #{wareStaffBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="sparePartsCategories != null">
+        spare_parts_categories = #{sparePartsCategories,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        spare_parts = #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="storageLocation != null">
+        storage_location = #{storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNum != null">
+        borrow_num = #{borrowNum,jdbcType=DOUBLE},
+      </if>
+      <if test="returnNum != null">
+        return_num = #{returnNum,jdbcType=DOUBLE},
+      </if>
+      <if test="billStatus != null">
+        bill_status = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="upperContainerNum != null">
+        upper_container_num = #{upperContainerNum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="sparePartsBatch != null">
+        spare_parts_batch = #{sparePartsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsOriginalBatch != null">
+        spare_parts_original_batch = #{sparePartsOriginalBatch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_staff_borrow_detail_id = #{wareStaffBorrowDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.StaffBorrowDetail">
+    update ware_staff_borrow_detail
+    set ware_staff_borrow = #{wareStaffBorrow,jdbcType=INTEGER},
+      spare_parts_categories = #{sparePartsCategories,jdbcType=VARCHAR},
+      container_no = #{containerNo,jdbcType=VARCHAR},
+      spare_parts = #{spareParts,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      storage_location = #{storageLocation,jdbcType=VARCHAR},
+      borrow_num = #{borrowNum,jdbcType=DOUBLE},
+      return_num = #{returnNum,jdbcType=DOUBLE},
+      bill_status = #{billStatus,jdbcType=VARCHAR},
+      upper_container_num = #{upperContainerNum,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      spare_parts_batch = #{sparePartsBatch,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      spare_parts_original_batch = #{sparePartsOriginalBatch,jdbcType=VARCHAR}
+    where ware_staff_borrow_detail_id = #{wareStaffBorrowDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

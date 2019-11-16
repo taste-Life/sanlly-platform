@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.StaffBorrowExtMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sanlly.warehouse.entity.StaffBorrow">
+		<id column="ware_staff_borrow_id" jdbcType="INTEGER"
+			property="wareStaffBorrowId" />
+		<result column="staff_borrow_no" jdbcType="VARCHAR"
+			property="staffBorrowNo" />
+		<result column="container_no" jdbcType="VARCHAR"
+			property="containerNo" />
+		<result column="company" jdbcType="VARCHAR" property="company" />
+		<result column="yard" jdbcType="VARCHAR" property="yard" />
+		<result column="borrow_type" jdbcType="VARCHAR"
+			property="borrowType" />
+		<result column="warehouse" jdbcType="VARCHAR"
+			property="warehouse" />
+		<result column="borrow_department" jdbcType="VARCHAR"
+			property="borrowDepartment" />
+		<result column="borrow_user" jdbcType="INTEGER"
+			property="borrowUser" />
+		<result column="bill_status" jdbcType="VARCHAR"
+			property="billStatus" />
+		<result column="audit_status" jdbcType="VARCHAR"
+			property="auditStatus" />
+		<result column="reasons_rejection" jdbcType="VARCHAR"
+			property="reasonsRejection" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="is_del" jdbcType="INTEGER" property="isDel" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="create_user" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="update_user" jdbcType="INTEGER"
+			property="updateUser" />
+	</resultMap>
+
+	<select id="selectByCondition" parameterType="Map"
+		resultMap="BaseResultMap">
+		SELECT SQL_CALC_FOUND_ROWS
+		sb.*
+		FROM
+		ware_staff_borrow sb
+		LEFT JOIN
+		ware_staff_borrow_detail
+		sbd ON
+		sbd.ware_staff_borrow=sb.ware_staff_borrow_id
+		LEFT JOIN
+		ware_spare_parts sp ON sp.`key`=sbd.spare_parts
+		WHERE sb.is_del=0
+		<if test="startDate != null and endDate != null">
+			AND sb.create_time BETWEEN #{startDate,jdbcType=DATE} and
+			#{endDate,jdbcType=DATE}
+		</if>
+		<if test="yard != null and yard != ''">
+			AND sb.yard=#{yard,jdbcType=VARCHAR}
+		</if>
+		<if test="no != null and no != ''">
+			AND sb.staff_borrow_no LIKE
+			CONCAT('%',#{no,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="containerNo != null and containerNo != ''">
+			AND sb.container_no LIKE
+			CONCAT('%',#{containerNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="status != null and status != ''">
+			AND sb.bill_status=#{status,jdbcType=VARCHAR}
+		</if>
+		<if test="warehouse != null and warehouse != ''">
+			AND sbd.warehouse =#{warehouse,jdbcType=VARCHAR}
+		</if>
+		<if test="warehouseType != null and warehouseType != ''">
+			AND sbd.warehouse_type =#{yard,jdbcType=VARCHAR}
+		</if>
+		<if test="sparePartsNo != null and sparePartsNo != ''">
+			AND sp.spare_parts_no LIKE
+			CONCAT('%',#{sparePartsNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND sp.spare_parts_name LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="sparePartsName != null and sparePartsName != ''">
+			AND sp.spare_parts_name_en LIKE
+			CONCAT('%',#{sparePartsName,jdbcType=VARCHAR},'%')
+		</if>
+		GROUP BY sb.ware_staff_borrow_id
+		ORDER BY sb.create_time DESC
+		<if test="limitStart != null and limitStart >=0">
+			LIMIT ${limitStart} , ${limitEnd}
+		</if>
+	</select>
+
+	<select id="getTotal" resultType="Integer">
+		SELECT
+		FOUND_ROWS()
+	</select>
+
+</mapper>

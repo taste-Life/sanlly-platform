@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.ShouldReturnMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.ShouldReturn">
+    <id column="ware_should_return_id" jdbcType="INTEGER" property="wareShouldReturnId" />
+    <result column="stockout" jdbcType="INTEGER" property="stockout" />
+    <result column="stockout_detail" jdbcType="INTEGER" property="stockoutDetail" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+    <result column="return_type" jdbcType="VARCHAR" property="returnType" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="out_yard" jdbcType="VARCHAR" property="outYard" />
+    <result column="out_warehouse" jdbcType="VARCHAR" property="outWarehouse" />
+    <result column="receive_department" jdbcType="VARCHAR" property="receiveDepartment" />
+    <result column="receive_user" jdbcType="INTEGER" property="receiveUser" />
+    <result column="stockout_date" jdbcType="TIMESTAMP" property="stockoutDate" />
+    <result column="use_container_user" jdbcType="VARCHAR" property="useContainerUser" />
+    <result column="stockout_go" jdbcType="VARCHAR" property="stockoutGo" />
+    <result column="spare_parts" jdbcType="VARCHAR" property="spareParts" />
+    <result column="spare_parts_no" jdbcType="VARCHAR" property="sparePartsNo" />
+    <result column="return_num" jdbcType="DOUBLE" property="returnNum" />
+    <result column="return_yard" jdbcType="VARCHAR" property="returnYard" />
+    <result column="return_warehouse" jdbcType="VARCHAR" property="returnWarehouse" />
+    <result column="return_status" jdbcType="VARCHAR" property="returnStatus" />
+    <result column="accept_user" jdbcType="INTEGER" property="acceptUser" />
+    <result column="accept_date" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="reality_stockout_num" jdbcType="DOUBLE" property="realityStockoutNum" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="reasons_rejection" jdbcType="VARCHAR" property="reasonsRejection" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_should_return_id, stockout, stockout_detail, bill_type, return_type, company, 
+    site, out_yard, out_warehouse, receive_department, receive_user, stockout_date, use_container_user, 
+    stockout_go, spare_parts, spare_parts_no, return_num, return_yard, return_warehouse, 
+    return_status, accept_user, accept_date, reality_stockout_num, audit_status, reasons_rejection, 
+    remark, is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.ShouldReturnExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_should_return
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_should_return
+    where ware_should_return_id = #{wareShouldReturnId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_should_return
+    where ware_should_return_id = #{wareShouldReturnId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.ShouldReturnExample">
+    delete from ware_should_return
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.ShouldReturn">
+    insert into ware_should_return (ware_should_return_id, stockout, stockout_detail, 
+      bill_type, return_type, company, 
+      site, out_yard, out_warehouse, 
+      receive_department, receive_user, stockout_date, 
+      use_container_user, stockout_go, spare_parts, 
+      spare_parts_no, return_num, return_yard, 
+      return_warehouse, return_status, accept_user, 
+      accept_date, reality_stockout_num, audit_status, 
+      reasons_rejection, remark, is_del, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{wareShouldReturnId,jdbcType=INTEGER}, #{stockout,jdbcType=INTEGER}, #{stockoutDetail,jdbcType=INTEGER}, 
+      #{billType,jdbcType=VARCHAR}, #{returnType,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{site,jdbcType=VARCHAR}, #{outYard,jdbcType=VARCHAR}, #{outWarehouse,jdbcType=VARCHAR}, 
+      #{receiveDepartment,jdbcType=VARCHAR}, #{receiveUser,jdbcType=INTEGER}, #{stockoutDate,jdbcType=TIMESTAMP}, 
+      #{useContainerUser,jdbcType=VARCHAR}, #{stockoutGo,jdbcType=VARCHAR}, #{spareParts,jdbcType=VARCHAR}, 
+      #{sparePartsNo,jdbcType=VARCHAR}, #{returnNum,jdbcType=DOUBLE}, #{returnYard,jdbcType=VARCHAR}, 
+      #{returnWarehouse,jdbcType=VARCHAR}, #{returnStatus,jdbcType=VARCHAR}, #{acceptUser,jdbcType=INTEGER}, 
+      #{acceptDate,jdbcType=TIMESTAMP}, #{realityStockoutNum,jdbcType=DOUBLE}, #{auditStatus,jdbcType=VARCHAR}, 
+      #{reasonsRejection,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.ShouldReturn">
+    insert into ware_should_return
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareShouldReturnId != null">
+        ware_should_return_id,
+      </if>
+      <if test="stockout != null">
+        stockout,
+      </if>
+      <if test="stockoutDetail != null">
+        stockout_detail,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+      <if test="returnType != null">
+        return_type,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="outYard != null">
+        out_yard,
+      </if>
+      <if test="outWarehouse != null">
+        out_warehouse,
+      </if>
+      <if test="receiveDepartment != null">
+        receive_department,
+      </if>
+      <if test="receiveUser != null">
+        receive_user,
+      </if>
+      <if test="stockoutDate != null">
+        stockout_date,
+      </if>
+      <if test="useContainerUser != null">
+        use_container_user,
+      </if>
+      <if test="stockoutGo != null">
+        stockout_go,
+      </if>
+      <if test="spareParts != null">
+        spare_parts,
+      </if>
+      <if test="sparePartsNo != null">
+        spare_parts_no,
+      </if>
+      <if test="returnNum != null">
+        return_num,
+      </if>
+      <if test="returnYard != null">
+        return_yard,
+      </if>
+      <if test="returnWarehouse != null">
+        return_warehouse,
+      </if>
+      <if test="returnStatus != null">
+        return_status,
+      </if>
+      <if test="acceptUser != null">
+        accept_user,
+      </if>
+      <if test="acceptDate != null">
+        accept_date,
+      </if>
+      <if test="realityStockoutNum != null">
+        reality_stockout_num,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareShouldReturnId != null">
+        #{wareShouldReturnId,jdbcType=INTEGER},
+      </if>
+      <if test="stockout != null">
+        #{stockout,jdbcType=INTEGER},
+      </if>
+      <if test="stockoutDetail != null">
+        #{stockoutDetail,jdbcType=INTEGER},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="returnType != null">
+        #{returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="outYard != null">
+        #{outYard,jdbcType=VARCHAR},
+      </if>
+      <if test="outWarehouse != null">
+        #{outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveDepartment != null">
+        #{receiveDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUser != null">
+        #{receiveUser,jdbcType=INTEGER},
+      </if>
+      <if test="stockoutDate != null">
+        #{stockoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useContainerUser != null">
+        #{useContainerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="stockoutGo != null">
+        #{stockoutGo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsNo != null">
+        #{sparePartsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnNum != null">
+        #{returnNum,jdbcType=DOUBLE},
+      </if>
+      <if test="returnYard != null">
+        #{returnYard,jdbcType=VARCHAR},
+      </if>
+      <if test="returnWarehouse != null">
+        #{returnWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="returnStatus != null">
+        #{returnStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptUser != null">
+        #{acceptUser,jdbcType=INTEGER},
+      </if>
+      <if test="acceptDate != null">
+        #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realityStockoutNum != null">
+        #{realityStockoutNum,jdbcType=DOUBLE},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.ShouldReturnExample" resultType="java.lang.Long">
+    select count(*) from ware_should_return
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_should_return
+    <set>
+      <if test="record.wareShouldReturnId != null">
+        ware_should_return_id = #{record.wareShouldReturnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockout != null">
+        stockout = #{record.stockout,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockoutDetail != null">
+        stockout_detail = #{record.stockoutDetail,jdbcType=INTEGER},
+      </if>
+      <if test="record.billType != null">
+        bill_type = #{record.billType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnType != null">
+        return_type = #{record.returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.site != null">
+        site = #{record.site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outYard != null">
+        out_yard = #{record.outYard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outWarehouse != null">
+        out_warehouse = #{record.outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveDepartment != null">
+        receive_department = #{record.receiveDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveUser != null">
+        receive_user = #{record.receiveUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockoutDate != null">
+        stockout_date = #{record.stockoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.useContainerUser != null">
+        use_container_user = #{record.useContainerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockoutGo != null">
+        stockout_go = #{record.stockoutGo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareParts != null">
+        spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparePartsNo != null">
+        spare_parts_no = #{record.sparePartsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnNum != null">
+        return_num = #{record.returnNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.returnYard != null">
+        return_yard = #{record.returnYard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnWarehouse != null">
+        return_warehouse = #{record.returnWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnStatus != null">
+        return_status = #{record.returnStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptUser != null">
+        accept_user = #{record.acceptUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.acceptDate != null">
+        accept_date = #{record.acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realityStockoutNum != null">
+        reality_stockout_num = #{record.realityStockoutNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsRejection != null">
+        reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_should_return
+    set ware_should_return_id = #{record.wareShouldReturnId,jdbcType=INTEGER},
+      stockout = #{record.stockout,jdbcType=INTEGER},
+      stockout_detail = #{record.stockoutDetail,jdbcType=INTEGER},
+      bill_type = #{record.billType,jdbcType=VARCHAR},
+      return_type = #{record.returnType,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      site = #{record.site,jdbcType=VARCHAR},
+      out_yard = #{record.outYard,jdbcType=VARCHAR},
+      out_warehouse = #{record.outWarehouse,jdbcType=VARCHAR},
+      receive_department = #{record.receiveDepartment,jdbcType=VARCHAR},
+      receive_user = #{record.receiveUser,jdbcType=INTEGER},
+      stockout_date = #{record.stockoutDate,jdbcType=TIMESTAMP},
+      use_container_user = #{record.useContainerUser,jdbcType=VARCHAR},
+      stockout_go = #{record.stockoutGo,jdbcType=VARCHAR},
+      spare_parts = #{record.spareParts,jdbcType=VARCHAR},
+      spare_parts_no = #{record.sparePartsNo,jdbcType=VARCHAR},
+      return_num = #{record.returnNum,jdbcType=DOUBLE},
+      return_yard = #{record.returnYard,jdbcType=VARCHAR},
+      return_warehouse = #{record.returnWarehouse,jdbcType=VARCHAR},
+      return_status = #{record.returnStatus,jdbcType=VARCHAR},
+      accept_user = #{record.acceptUser,jdbcType=INTEGER},
+      accept_date = #{record.acceptDate,jdbcType=TIMESTAMP},
+      reality_stockout_num = #{record.realityStockoutNum,jdbcType=DOUBLE},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.ShouldReturn">
+    update ware_should_return
+    <set>
+      <if test="stockout != null">
+        stockout = #{stockout,jdbcType=INTEGER},
+      </if>
+      <if test="stockoutDetail != null">
+        stockout_detail = #{stockoutDetail,jdbcType=INTEGER},
+      </if>
+      <if test="billType != null">
+        bill_type = #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="returnType != null">
+        return_type = #{returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="outYard != null">
+        out_yard = #{outYard,jdbcType=VARCHAR},
+      </if>
+      <if test="outWarehouse != null">
+        out_warehouse = #{outWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveDepartment != null">
+        receive_department = #{receiveDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUser != null">
+        receive_user = #{receiveUser,jdbcType=INTEGER},
+      </if>
+      <if test="stockoutDate != null">
+        stockout_date = #{stockoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useContainerUser != null">
+        use_container_user = #{useContainerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="stockoutGo != null">
+        stockout_go = #{stockoutGo,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null">
+        spare_parts = #{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="sparePartsNo != null">
+        spare_parts_no = #{sparePartsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnNum != null">
+        return_num = #{returnNum,jdbcType=DOUBLE},
+      </if>
+      <if test="returnYard != null">
+        return_yard = #{returnYard,jdbcType=VARCHAR},
+      </if>
+      <if test="returnWarehouse != null">
+        return_warehouse = #{returnWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="returnStatus != null">
+        return_status = #{returnStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptUser != null">
+        accept_user = #{acceptUser,jdbcType=INTEGER},
+      </if>
+      <if test="acceptDate != null">
+        accept_date = #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realityStockoutNum != null">
+        reality_stockout_num = #{realityStockoutNum,jdbcType=DOUBLE},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_should_return_id = #{wareShouldReturnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.ShouldReturn">
+    update ware_should_return
+    set stockout = #{stockout,jdbcType=INTEGER},
+      stockout_detail = #{stockoutDetail,jdbcType=INTEGER},
+      bill_type = #{billType,jdbcType=VARCHAR},
+      return_type = #{returnType,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      out_yard = #{outYard,jdbcType=VARCHAR},
+      out_warehouse = #{outWarehouse,jdbcType=VARCHAR},
+      receive_department = #{receiveDepartment,jdbcType=VARCHAR},
+      receive_user = #{receiveUser,jdbcType=INTEGER},
+      stockout_date = #{stockoutDate,jdbcType=TIMESTAMP},
+      use_container_user = #{useContainerUser,jdbcType=VARCHAR},
+      stockout_go = #{stockoutGo,jdbcType=VARCHAR},
+      spare_parts = #{spareParts,jdbcType=VARCHAR},
+      spare_parts_no = #{sparePartsNo,jdbcType=VARCHAR},
+      return_num = #{returnNum,jdbcType=DOUBLE},
+      return_yard = #{returnYard,jdbcType=VARCHAR},
+      return_warehouse = #{returnWarehouse,jdbcType=VARCHAR},
+      return_status = #{returnStatus,jdbcType=VARCHAR},
+      accept_user = #{acceptUser,jdbcType=INTEGER},
+      accept_date = #{acceptDate,jdbcType=TIMESTAMP},
+      reality_stockout_num = #{realityStockoutNum,jdbcType=DOUBLE},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_should_return_id = #{wareShouldReturnId,jdbcType=INTEGER}
+  </update>
+</mapper>

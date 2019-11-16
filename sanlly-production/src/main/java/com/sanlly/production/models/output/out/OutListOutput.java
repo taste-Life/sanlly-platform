@@ -1,0 +1,214 @@
+package com.sanlly.production.models.output.out;
+
+/**
+* @Package com.sanlly.production.models.output.out 
+* @Description: 出箱列表输出类 
+* @author zhangkai   
+* @date 2019年8月28日 下午2:19:33 
+* @version V1.0   
+ */
+public class OutListOutput {
+	
+	private String prodCourseId;
+	
+	private String containerNo;
+	
+	private String zoneLang;
+	
+	private String containerUserLang;
+	
+	private String ptiResultLang;
+	
+	private String containerConditionLang;
+	
+	private String containerReferralStateLang;
+	
+	private String unitStateLang;
+	
+	private String unitReferralStateLang;
+	
+	private String washStateLang;
+	
+	private String unitTypeLang;
+	
+	private String startDate;
+	
+	private String isTemperatureLang;
+	
+	private String isHumidityLang;
+	
+	private String isVentilationLang;
+	
+	private String isFireTestLang;
+	
+	private String previewStateLang;
+	
+	private String containerVolume;
+	
+	private String outContainerRemarks;
+	
+	private String ptiResultKey;
+
+	public String getProdCourseId() {
+		return prodCourseId;
+	}
+
+	public void setProdCourseId(String prodCourseId) {
+		this.prodCourseId = prodCourseId;
+	}
+
+	public String getContainerNo() {
+		return containerNo;
+	}
+
+	public void setContainerNo(String containerNo) {
+		this.containerNo = containerNo;
+	}
+
+	public String getZoneLang() {
+		return zoneLang;
+	}
+
+	public void setZoneLang(String zoneLang) {
+		this.zoneLang = zoneLang;
+	}
+
+	public String getContainerUserLang() {
+		return containerUserLang;
+	}
+
+	public void setContainerUserLang(String containerUserLang) {
+		this.containerUserLang = containerUserLang;
+	}
+
+	public String getPtiResultLang() {
+		return ptiResultLang;
+	}
+
+	public void setPtiResultLang(String ptiResultLang) {
+		this.ptiResultLang = ptiResultLang;
+	}
+
+	public String getContainerConditionLang() {
+		return containerConditionLang;
+	}
+
+	public void setContainerConditionLang(String containerConditionLang) {
+		this.containerConditionLang = containerConditionLang;
+	}
+
+	public String getContainerReferralStateLang() {
+		return containerReferralStateLang;
+	}
+
+	public void setContainerReferralStateLang(String containerReferralStateLang) {
+		this.containerReferralStateLang = containerReferralStateLang;
+	}
+
+	public String getUnitStateLang() {
+		return unitStateLang;
+	}
+
+	public void setUnitStateLang(String unitStateLang) {
+		this.unitStateLang = unitStateLang;
+	}
+
+	public String getUnitReferralStateLang() {
+		return unitReferralStateLang;
+	}
+
+	public void setUnitReferralStateLang(String unitReferralStateLang) {
+		this.unitReferralStateLang = unitReferralStateLang;
+	}
+
+	public String getWashStateLang() {
+		return washStateLang;
+	}
+
+	public void setWashStateLang(String washStateLang) {
+		this.washStateLang = washStateLang;
+	}
+
+	public String getUnitTypeLang() {
+		return unitTypeLang;
+	}
+
+	public void setUnitTypeLang(String unitTypeLang) {
+		this.unitTypeLang = unitTypeLang;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getIsTemperatureLang() {
+		return isTemperatureLang;
+	}
+
+	public void setIsTemperatureLang(String isTemperatureLang) {
+		this.isTemperatureLang = isTemperatureLang;
+	}
+
+	public String getIsHumidityLang() {
+		return isHumidityLang;
+	}
+
+	public void setIsHumidityLang(String isHumidityLang) {
+		this.isHumidityLang = isHumidityLang;
+	}
+
+	public String getIsVentilationLang() {
+		return isVentilationLang;
+	}
+
+	public void setIsVentilationLang(String isVentilationLang) {
+		this.isVentilationLang = isVentilationLang;
+	}
+
+	public String getIsFireTestLang() {
+		return isFireTestLang;
+	}
+
+	public void setIsFireTestLang(String isFireTestLang) {
+		this.isFireTestLang = isFireTestLang;
+	}
+
+	public String getPreviewStateLang() {
+		return previewStateLang;
+	}
+
+	public void setPreviewStateLang(String previewStateLang) {
+		this.previewStateLang = previewStateLang;
+	}
+
+	public String getContainerVolume() {
+		return containerVolume;
+	}
+
+	public void setContainerVolume(String containerVolume) {
+		this.containerVolume = containerVolume;
+	}
+
+	public String getOutContainerRemarks() {
+		return outContainerRemarks;
+	}
+
+	public void setOutContainerRemarks(String outContainerRemarks) {
+		this.outContainerRemarks = outContainerRemarks;
+	}
+
+	public String getPtiResultKey() {
+		return ptiResultKey;
+	}
+
+	public void setPtiResultKey(String ptiResultKey) {
+		this.ptiResultKey = ptiResultKey;
+	}
+
+	
+
+}

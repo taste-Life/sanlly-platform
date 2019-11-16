@@ -1,0 +1,2183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.Course">
+    <id column="prod_course_id" jdbcType="VARCHAR" property="prodCourseId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="is_preview" jdbcType="VARCHAR" property="isPreview" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="container_type" jdbcType="VARCHAR" property="containerType" />
+    <result column="container_age" jdbcType="VARCHAR" property="containerAge" />
+    <result column="container_tare" jdbcType="VARCHAR" property="containerTare" />
+    <result column="container_load" jdbcType="VARCHAR" property="containerLoad" />
+    <result column="container_volume" jdbcType="VARCHAR" property="containerVolume" />
+    <result column="gross_weight" jdbcType="VARCHAR" property="grossWeight" />
+    <result column="unit_type" jdbcType="VARCHAR" property="unitType" />
+    <result column="right_angle" jdbcType="VARCHAR" property="rightAngle" />
+    <result column="is_label" jdbcType="VARCHAR" property="isLabel" />
+    <result column="container_owner" jdbcType="VARCHAR" property="containerOwner" />
+    <result column="container_belong" jdbcType="VARCHAR" property="containerBelong" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="container_grade" jdbcType="VARCHAR" property="containerGrade" />
+    <result column="container_condition" jdbcType="VARCHAR" property="containerCondition" />
+    <result column="bill_of_lading_no" jdbcType="VARCHAR" property="billOfLadingNo" />
+    <result column="vessel_voyage" jdbcType="VARCHAR" property="vesselVoyage" />
+    <result column="domestic_foreign_trade" jdbcType="VARCHAR" property="domesticForeignTrade" />
+    <result column="is_gon_container" jdbcType="VARCHAR" property="isGonContainer" />
+    <result column="is_freeze_dry" jdbcType="VARCHAR" property="isFreezeDry" />
+    <result column="is_surrender" jdbcType="VARCHAR" property="isSurrender" />
+    <result column="surrender_course" jdbcType="VARCHAR" property="surrenderCourse" />
+    <result column="labelling" jdbcType="VARCHAR" property="labelling" />
+    <result column="yard_container_type" jdbcType="VARCHAR" property="yardContainerType" />
+    <result column="yard_cont_grade" jdbcType="VARCHAR" property="yardContGrade" />
+    <result column="lead_sealing" jdbcType="VARCHAR" property="leadSealing" />
+    <result column="bare_weight" jdbcType="VARCHAR" property="bareWeight" />
+    <result column="is_cleanout" jdbcType="VARCHAR" property="isCleanout" />
+    <result column="is_locator" jdbcType="VARCHAR" property="isLocator" />
+    <result column="motorcade" jdbcType="VARCHAR" property="motorcade" />
+    <result column="car_number" jdbcType="VARCHAR" property="carNumber" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="course_type" jdbcType="VARCHAR" property="courseType" />
+    <result column="course_time" jdbcType="TIMESTAMP" property="courseTime" />
+    <result column="testing_user" jdbcType="INTEGER" property="testingUser" />
+    <result column="testing_state" jdbcType="VARCHAR" property="testingState" />
+    <result column="testing_reject" jdbcType="VARCHAR" property="testingReject" />
+    <result column="testing_time" jdbcType="TIMESTAMP" property="testingTime" />
+    <result column="testing_end_time" jdbcType="TIMESTAMP" property="testingEndTime" />
+    <result column="testing_man_hour_cost" jdbcType="DECIMAL" property="testingManHourCost" />
+    <result column="testing_material_cost" jdbcType="DECIMAL" property="testingMaterialCost" />
+    <result column="testing_thirdparty_money" jdbcType="DECIMAL" property="testingThirdpartyMoney" />
+    <result column="testing_money" jdbcType="DECIMAL" property="testingMoney" />
+    <result column="audit_type" jdbcType="VARCHAR" property="auditType" />
+    <result column="audit_user" jdbcType="INTEGER" property="auditUser" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="testing_remarks" jdbcType="VARCHAR" property="testingRemarks" />
+    <result column="surrender_type" jdbcType="VARCHAR" property="surrenderType" />
+    <result column="surrender_bill_type" jdbcType="VARCHAR" property="surrenderBillType" />
+    <result column="is_owner_charge" jdbcType="VARCHAR" property="isOwnerCharge" />
+    <result column="valuation_no" jdbcType="VARCHAR" property="valuationNo" />
+    <result column="use_reply_state" jdbcType="VARCHAR" property="useReplyState" />
+    <result column="use_reply_time" jdbcType="TIMESTAMP" property="useReplyTime" />
+    <result column="master_reply_state" jdbcType="VARCHAR" property="masterReplyState" />
+    <result column="master_reply_time" jdbcType="TIMESTAMP" property="masterReplyTime" />
+    <result column="thirdparty_charge_state" jdbcType="VARCHAR" property="thirdpartyChargeState" />
+    <result column="already_use_cont_user" jdbcType="INTEGER" property="alreadyUseContUser" />
+    <result column="valuation_currency" jdbcType="VARCHAR" property="valuationCurrency" />
+    <result column="valuation_man_hour_cost" jdbcType="DECIMAL" property="valuationManHourCost" />
+    <result column="valuation_material_cost" jdbcType="DECIMAL" property="valuationMaterialCost" />
+    <result column="valuation_thirdparty_money" jdbcType="DECIMAL" property="valuationThirdpartyMoney" />
+    <result column="valuation_money" jdbcType="DECIMAL" property="valuationMoney" />
+    <result column="master_reply_money_rmb" jdbcType="DECIMAL" property="masterReplyMoneyRmb" />
+    <result column="master_reply_money_usd" jdbcType="DECIMAL" property="masterReplyMoneyUsd" />
+    <result column="use_reply_money_rmb" jdbcType="DECIMAL" property="useReplyMoneyRmb" />
+    <result column="use_reply_money_usd" jdbcType="DECIMAL" property="useReplyMoneyUsd" />
+    <result column="receipts_master_money_rmb" jdbcType="DECIMAL" property="receiptsMasterMoneyRmb" />
+    <result column="receipts_master_money_usd" jdbcType="DECIMAL" property="receiptsMasterMoneyUsd" />
+    <result column="receipts_use_money_rmb" jdbcType="DECIMAL" property="receiptsUseMoneyRmb" />
+    <result column="receipts_use_money_usd" jdbcType="DECIMAL" property="receiptsUseMoneyUsd" />
+    <result column="urgency" jdbcType="VARCHAR" property="urgency" />
+    <result column="valuation_time" jdbcType="TIMESTAMP" property="valuationTime" />
+    <result column="valuation_user" jdbcType="INTEGER" property="valuationUser" />
+    <result column="valuation_reject" jdbcType="VARCHAR" property="valuationReject" />
+    <result column="valuation_remarks" jdbcType="VARCHAR" property="valuationRemarks" />
+    <result column="designate_user" jdbcType="INTEGER" property="designateUser" />
+    <result column="designate_time" jdbcType="TIMESTAMP" property="designateTime" />
+    <result column="referral_state" jdbcType="VARCHAR" property="referralState" />
+    <result column="finish_user" jdbcType="INTEGER" property="finishUser" />
+    <result column="referral_type" jdbcType="VARCHAR" property="referralType" />
+    <result column="referral_time" jdbcType="TIMESTAMP" property="referralTime" />
+    <result column="predict_time" jdbcType="VARCHAR" property="predictTime" />
+    <result column="man_hour" jdbcType="DOUBLE" property="manHour" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="finish_audit_user" jdbcType="INTEGER" property="finishAuditUser" />
+    <result column="finish_audit_time" jdbcType="TIMESTAMP" property="finishAuditTime" />
+    <result column="referral_remarks" jdbcType="VARCHAR" property="referralRemarks" />
+    <result column="quality_type" jdbcType="VARCHAR" property="qualityType" />
+    <result column="quality_state" jdbcType="VARCHAR" property="qualityState" />
+    <result column="quality_result" jdbcType="VARCHAR" property="qualityResult" />
+    <result column="quality_user" jdbcType="INTEGER" property="qualityUser" />
+    <result column="quality_time" jdbcType="TIMESTAMP" property="qualityTime" />
+    <result column="quality_timeout" jdbcType="DOUBLE" property="qualityTimeout" />
+    <result column="pk_quality_state" jdbcType="VARCHAR" property="pkQualityState" />
+    <result column="pk_quality_user" jdbcType="INTEGER" property="pkQualityUser" />
+    <result column="pk_quality_time" jdbcType="TIMESTAMP" property="pkQualityTime" />
+    <result column="pk_quality_remarks" jdbcType="VARCHAR" property="pkQualityRemarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sanlly.production.entity.CourseWithBLOBs">
+    <result column="testing_photo" jdbcType="LONGVARCHAR" property="testingPhoto" />
+    <result column="speed_photo" jdbcType="LONGVARCHAR" property="speedPhoto" />
+    <result column="after_photo" jdbcType="LONGVARCHAR" property="afterPhoto" />
+    <result column="quality_photo" jdbcType="LONGVARCHAR" property="qualityPhoto" />
+    <result column="recheck_photo" jdbcType="LONGVARCHAR" property="recheckPhoto" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <trim prefix="(" prefixOverrides="and" suffix=")">
+          <if test="criteria.valid">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </if>
+          <if test="criteria.validOr">
+            and
+            <foreach collection="criteria.orCriteria" item="criteriaItem" separator="and">
+              <if test="criteriaItem.valid">
+                <trim prefix="(" prefixOverrides="or" suffix=")">
+                  <foreach collection="criteriaItem.criteria" item="criterionItem">
+                    <choose>
+                      <when test="criterionItem.noValue">
+                        or ${criterionItem.condition}
+                      </when>
+                      <when test="criterionItem.singleValue">
+                        or ${criterionItem.condition} #{criterionItem.value}
+                      </when>
+                      <when test="criterionItem.betweenValue">
+                        or ${criterionItem.condition} #{criterionItem.value} and #{criterionItem.secondValue}
+                      </when>
+                      <when test="criterionItem.listValue">
+                        or ${criterionItem.condition}
+                        <foreach close=")" collection="criterionItem.value" item="listItem" open="(" separator=",">
+                          #{listItem}
+                        </foreach>
+                      </when>
+                    </choose>
+                  </foreach>
+                </trim>
+              </if>
+            </foreach>
+          </if>
+        </trim>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <trim prefix="(" prefixOverrides="and" suffix=")">
+          <if test="criteria.valid">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </if>
+          <if test="criteria.validOr">
+            and
+            <foreach collection="criteria.orCriteria" item="criteriaItem" separator="and">
+              <if test="criteriaItem.valid">
+                <trim prefix="(" prefixOverrides="or" suffix=")">
+                  <foreach collection="criteriaItem.criteria" item="criterionItem">
+                    <choose>
+                      <when test="criterionItem.noValue">
+                        or ${criterionItem.condition}
+                      </when>
+                      <when test="criterionItem.singleValue">
+                        or ${criterionItem.condition} #{criterionItem.value}
+                      </when>
+                      <when test="criterionItem.betweenValue">
+                        or ${criterionItem.condition} #{criterionItem.value} and #{criterionItem.secondValue}
+                      </when>
+                      <when test="criterionItem.listValue">
+                        or ${criterionItem.condition}
+                        <foreach close=")" collection="criterionItem.value" item="listItem" open="(" separator=",">
+                          #{listItem}
+                        </foreach>
+                      </when>
+                    </choose>
+                  </foreach>
+                </trim>
+              </if>
+            </foreach>
+          </if>
+        </trim>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_course_id, container_no, is_preview, `size`, container_category, container_type, 
+    container_age, container_tare, container_load, container_volume, gross_weight, unit_type, 
+    right_angle, is_label, container_owner, container_belong, container_user, container_grade, 
+    container_condition, bill_of_lading_no, vessel_voyage, domestic_foreign_trade, is_gon_container, 
+    is_freeze_dry, is_surrender, surrender_course, labelling, yard_container_type, yard_cont_grade, 
+    lead_sealing, bare_weight, is_cleanout, is_locator, motorcade, car_number, yard, 
+    course_type, course_time, testing_user, testing_state, testing_reject, testing_time, 
+    testing_end_time, testing_man_hour_cost, testing_material_cost, testing_thirdparty_money, 
+    testing_money, audit_type, audit_user, audit_time, testing_remarks, surrender_type, 
+    surrender_bill_type, is_owner_charge, valuation_no, use_reply_state, use_reply_time, 
+    master_reply_state, master_reply_time, thirdparty_charge_state, already_use_cont_user, 
+    valuation_currency, valuation_man_hour_cost, valuation_material_cost, valuation_thirdparty_money, 
+    valuation_money, master_reply_money_rmb, master_reply_money_usd, use_reply_money_rmb, 
+    use_reply_money_usd, receipts_master_money_rmb, receipts_master_money_usd, receipts_use_money_rmb, 
+    receipts_use_money_usd, urgency, valuation_time, valuation_user, valuation_reject, 
+    valuation_remarks, designate_user, designate_time, referral_state, finish_user, referral_type, 
+    referral_time, predict_time, man_hour, finish_time, finish_audit_user, finish_audit_time, 
+    referral_remarks, quality_type, quality_state, quality_result, quality_user, quality_time, 
+    quality_timeout, pk_quality_state, pk_quality_user, pk_quality_time, pk_quality_remarks, 
+    create_time, create_user, update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    testing_photo, speed_photo, after_photo, quality_photo, recheck_photo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sanlly.production.entity.CourseExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_course
+    where prod_course_id = #{prodCourseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_course
+    where prod_course_id = #{prodCourseId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.CourseExample">
+    delete from prod_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.CourseWithBLOBs">
+    insert into prod_course (prod_course_id, container_no, is_preview, 
+      `size`, container_category, container_type, 
+      container_age, container_tare, container_load, 
+      container_volume, gross_weight, unit_type, 
+      right_angle, is_label, container_owner, 
+      container_belong, container_user, container_grade, 
+      container_condition, bill_of_lading_no, vessel_voyage, 
+      domestic_foreign_trade, is_gon_container, is_freeze_dry, 
+      is_surrender, surrender_course, labelling, 
+      yard_container_type, yard_cont_grade, lead_sealing, 
+      bare_weight, is_cleanout, is_locator, 
+      motorcade, car_number, yard, 
+      course_type, course_time, testing_user, 
+      testing_state, testing_reject, testing_time, 
+      testing_end_time, testing_man_hour_cost, testing_material_cost, 
+      testing_thirdparty_money, testing_money, audit_type, 
+      audit_user, audit_time, testing_remarks, 
+      surrender_type, surrender_bill_type, is_owner_charge, 
+      valuation_no, use_reply_state, use_reply_time, 
+      master_reply_state, master_reply_time, thirdparty_charge_state, 
+      already_use_cont_user, valuation_currency, 
+      valuation_man_hour_cost, valuation_material_cost, 
+      valuation_thirdparty_money, valuation_money, 
+      master_reply_money_rmb, master_reply_money_usd, 
+      use_reply_money_rmb, use_reply_money_usd, receipts_master_money_rmb, 
+      receipts_master_money_usd, receipts_use_money_rmb, 
+      receipts_use_money_usd, urgency, valuation_time, 
+      valuation_user, valuation_reject, valuation_remarks, 
+      designate_user, designate_time, referral_state, 
+      finish_user, referral_type, referral_time, 
+      predict_time, man_hour, finish_time, 
+      finish_audit_user, finish_audit_time, referral_remarks, 
+      quality_type, quality_state, quality_result, 
+      quality_user, quality_time, quality_timeout, 
+      pk_quality_state, pk_quality_user, pk_quality_time, 
+      pk_quality_remarks, create_time, create_user, 
+      update_time, update_user, testing_photo, 
+      speed_photo, after_photo, quality_photo, 
+      recheck_photo)
+    values (#{prodCourseId,jdbcType=VARCHAR}, #{containerNo,jdbcType=VARCHAR}, #{isPreview,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{containerCategory,jdbcType=VARCHAR}, #{containerType,jdbcType=VARCHAR}, 
+      #{containerAge,jdbcType=VARCHAR}, #{containerTare,jdbcType=VARCHAR}, #{containerLoad,jdbcType=VARCHAR}, 
+      #{containerVolume,jdbcType=VARCHAR}, #{grossWeight,jdbcType=VARCHAR}, #{unitType,jdbcType=VARCHAR}, 
+      #{rightAngle,jdbcType=VARCHAR}, #{isLabel,jdbcType=VARCHAR}, #{containerOwner,jdbcType=VARCHAR}, 
+      #{containerBelong,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, #{containerGrade,jdbcType=VARCHAR}, 
+      #{containerCondition,jdbcType=VARCHAR}, #{billOfLadingNo,jdbcType=VARCHAR}, #{vesselVoyage,jdbcType=VARCHAR}, 
+      #{domesticForeignTrade,jdbcType=VARCHAR}, #{isGonContainer,jdbcType=VARCHAR}, #{isFreezeDry,jdbcType=VARCHAR}, 
+      #{isSurrender,jdbcType=VARCHAR}, #{surrenderCourse,jdbcType=VARCHAR}, #{labelling,jdbcType=VARCHAR}, 
+      #{yardContainerType,jdbcType=VARCHAR}, #{yardContGrade,jdbcType=VARCHAR}, #{leadSealing,jdbcType=VARCHAR}, 
+      #{bareWeight,jdbcType=VARCHAR}, #{isCleanout,jdbcType=VARCHAR}, #{isLocator,jdbcType=VARCHAR}, 
+      #{motorcade,jdbcType=VARCHAR}, #{carNumber,jdbcType=VARCHAR}, #{yard,jdbcType=VARCHAR}, 
+      #{courseType,jdbcType=VARCHAR}, #{courseTime,jdbcType=TIMESTAMP}, #{testingUser,jdbcType=INTEGER}, 
+      #{testingState,jdbcType=VARCHAR}, #{testingReject,jdbcType=VARCHAR}, #{testingTime,jdbcType=TIMESTAMP}, 
+      #{testingEndTime,jdbcType=TIMESTAMP}, #{testingManHourCost,jdbcType=DECIMAL}, #{testingMaterialCost,jdbcType=DECIMAL}, 
+      #{testingThirdpartyMoney,jdbcType=DECIMAL}, #{testingMoney,jdbcType=DECIMAL}, #{auditType,jdbcType=VARCHAR}, 
+      #{auditUser,jdbcType=INTEGER}, #{auditTime,jdbcType=TIMESTAMP}, #{testingRemarks,jdbcType=VARCHAR}, 
+      #{surrenderType,jdbcType=VARCHAR}, #{surrenderBillType,jdbcType=VARCHAR}, #{isOwnerCharge,jdbcType=VARCHAR}, 
+      #{valuationNo,jdbcType=VARCHAR}, #{useReplyState,jdbcType=VARCHAR}, #{useReplyTime,jdbcType=TIMESTAMP}, 
+      #{masterReplyState,jdbcType=VARCHAR}, #{masterReplyTime,jdbcType=TIMESTAMP}, #{thirdpartyChargeState,jdbcType=VARCHAR}, 
+      #{alreadyUseContUser,jdbcType=INTEGER}, #{valuationCurrency,jdbcType=VARCHAR}, 
+      #{valuationManHourCost,jdbcType=DECIMAL}, #{valuationMaterialCost,jdbcType=DECIMAL}, 
+      #{valuationThirdpartyMoney,jdbcType=DECIMAL}, #{valuationMoney,jdbcType=DECIMAL}, 
+      #{masterReplyMoneyRmb,jdbcType=DECIMAL}, #{masterReplyMoneyUsd,jdbcType=DECIMAL}, 
+      #{useReplyMoneyRmb,jdbcType=DECIMAL}, #{useReplyMoneyUsd,jdbcType=DECIMAL}, #{receiptsMasterMoneyRmb,jdbcType=DECIMAL}, 
+      #{receiptsMasterMoneyUsd,jdbcType=DECIMAL}, #{receiptsUseMoneyRmb,jdbcType=DECIMAL}, 
+      #{receiptsUseMoneyUsd,jdbcType=DECIMAL}, #{urgency,jdbcType=VARCHAR}, #{valuationTime,jdbcType=TIMESTAMP}, 
+      #{valuationUser,jdbcType=INTEGER}, #{valuationReject,jdbcType=VARCHAR}, #{valuationRemarks,jdbcType=VARCHAR}, 
+      #{designateUser,jdbcType=INTEGER}, #{designateTime,jdbcType=TIMESTAMP}, #{referralState,jdbcType=VARCHAR}, 
+      #{finishUser,jdbcType=INTEGER}, #{referralType,jdbcType=VARCHAR}, #{referralTime,jdbcType=TIMESTAMP}, 
+      #{predictTime,jdbcType=VARCHAR}, #{manHour,jdbcType=DOUBLE}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{finishAuditUser,jdbcType=INTEGER}, #{finishAuditTime,jdbcType=TIMESTAMP}, #{referralRemarks,jdbcType=VARCHAR}, 
+      #{qualityType,jdbcType=VARCHAR}, #{qualityState,jdbcType=VARCHAR}, #{qualityResult,jdbcType=VARCHAR}, 
+      #{qualityUser,jdbcType=INTEGER}, #{qualityTime,jdbcType=TIMESTAMP}, #{qualityTimeout,jdbcType=DOUBLE}, 
+      #{pkQualityState,jdbcType=VARCHAR}, #{pkQualityUser,jdbcType=INTEGER}, #{pkQualityTime,jdbcType=TIMESTAMP}, 
+      #{pkQualityRemarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{testingPhoto,jdbcType=LONGVARCHAR}, 
+      #{speedPhoto,jdbcType=LONGVARCHAR}, #{afterPhoto,jdbcType=LONGVARCHAR}, #{qualityPhoto,jdbcType=LONGVARCHAR}, 
+      #{recheckPhoto,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.CourseWithBLOBs">
+    insert into prod_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodCourseId != null">
+        prod_course_id,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="isPreview != null">
+        is_preview,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="containerType != null">
+        container_type,
+      </if>
+      <if test="containerAge != null">
+        container_age,
+      </if>
+      <if test="containerTare != null">
+        container_tare,
+      </if>
+      <if test="containerLoad != null">
+        container_load,
+      </if>
+      <if test="containerVolume != null">
+        container_volume,
+      </if>
+      <if test="grossWeight != null">
+        gross_weight,
+      </if>
+      <if test="unitType != null">
+        unit_type,
+      </if>
+      <if test="rightAngle != null">
+        right_angle,
+      </if>
+      <if test="isLabel != null">
+        is_label,
+      </if>
+      <if test="containerOwner != null">
+        container_owner,
+      </if>
+      <if test="containerBelong != null">
+        container_belong,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="containerGrade != null">
+        container_grade,
+      </if>
+      <if test="containerCondition != null">
+        container_condition,
+      </if>
+      <if test="billOfLadingNo != null">
+        bill_of_lading_no,
+      </if>
+      <if test="vesselVoyage != null">
+        vessel_voyage,
+      </if>
+      <if test="domesticForeignTrade != null">
+        domestic_foreign_trade,
+      </if>
+      <if test="isGonContainer != null">
+        is_gon_container,
+      </if>
+      <if test="isFreezeDry != null">
+        is_freeze_dry,
+      </if>
+      <if test="isSurrender != null">
+        is_surrender,
+      </if>
+      <if test="surrenderCourse != null">
+        surrender_course,
+      </if>
+      <if test="labelling != null">
+        labelling,
+      </if>
+      <if test="yardContainerType != null">
+        yard_container_type,
+      </if>
+      <if test="yardContGrade != null">
+        yard_cont_grade,
+      </if>
+      <if test="leadSealing != null">
+        lead_sealing,
+      </if>
+      <if test="bareWeight != null">
+        bare_weight,
+      </if>
+      <if test="isCleanout != null">
+        is_cleanout,
+      </if>
+      <if test="isLocator != null">
+        is_locator,
+      </if>
+      <if test="motorcade != null">
+        motorcade,
+      </if>
+      <if test="carNumber != null">
+        car_number,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="courseType != null">
+        course_type,
+      </if>
+      <if test="courseTime != null">
+        course_time,
+      </if>
+      <if test="testingUser != null">
+        testing_user,
+      </if>
+      <if test="testingState != null">
+        testing_state,
+      </if>
+      <if test="testingReject != null">
+        testing_reject,
+      </if>
+      <if test="testingTime != null">
+        testing_time,
+      </if>
+      <if test="testingEndTime != null">
+        testing_end_time,
+      </if>
+      <if test="testingManHourCost != null">
+        testing_man_hour_cost,
+      </if>
+      <if test="testingMaterialCost != null">
+        testing_material_cost,
+      </if>
+      <if test="testingThirdpartyMoney != null">
+        testing_thirdparty_money,
+      </if>
+      <if test="testingMoney != null">
+        testing_money,
+      </if>
+      <if test="auditType != null">
+        audit_type,
+      </if>
+      <if test="auditUser != null">
+        audit_user,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="testingRemarks != null">
+        testing_remarks,
+      </if>
+      <if test="surrenderType != null">
+        surrender_type,
+      </if>
+      <if test="surrenderBillType != null">
+        surrender_bill_type,
+      </if>
+      <if test="isOwnerCharge != null">
+        is_owner_charge,
+      </if>
+      <if test="valuationNo != null">
+        valuation_no,
+      </if>
+      <if test="useReplyState != null">
+        use_reply_state,
+      </if>
+      <if test="useReplyTime != null">
+        use_reply_time,
+      </if>
+      <if test="masterReplyState != null">
+        master_reply_state,
+      </if>
+      <if test="masterReplyTime != null">
+        master_reply_time,
+      </if>
+      <if test="thirdpartyChargeState != null">
+        thirdparty_charge_state,
+      </if>
+      <if test="alreadyUseContUser != null">
+        already_use_cont_user,
+      </if>
+      <if test="valuationCurrency != null">
+        valuation_currency,
+      </if>
+      <if test="valuationManHourCost != null">
+        valuation_man_hour_cost,
+      </if>
+      <if test="valuationMaterialCost != null">
+        valuation_material_cost,
+      </if>
+      <if test="valuationThirdpartyMoney != null">
+        valuation_thirdparty_money,
+      </if>
+      <if test="valuationMoney != null">
+        valuation_money,
+      </if>
+      <if test="masterReplyMoneyRmb != null">
+        master_reply_money_rmb,
+      </if>
+      <if test="masterReplyMoneyUsd != null">
+        master_reply_money_usd,
+      </if>
+      <if test="useReplyMoneyRmb != null">
+        use_reply_money_rmb,
+      </if>
+      <if test="useReplyMoneyUsd != null">
+        use_reply_money_usd,
+      </if>
+      <if test="receiptsMasterMoneyRmb != null">
+        receipts_master_money_rmb,
+      </if>
+      <if test="receiptsMasterMoneyUsd != null">
+        receipts_master_money_usd,
+      </if>
+      <if test="receiptsUseMoneyRmb != null">
+        receipts_use_money_rmb,
+      </if>
+      <if test="receiptsUseMoneyUsd != null">
+        receipts_use_money_usd,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="valuationTime != null">
+        valuation_time,
+      </if>
+      <if test="valuationUser != null">
+        valuation_user,
+      </if>
+      <if test="valuationReject != null">
+        valuation_reject,
+      </if>
+      <if test="valuationRemarks != null">
+        valuation_remarks,
+      </if>
+      <if test="designateUser != null">
+        designate_user,
+      </if>
+      <if test="designateTime != null">
+        designate_time,
+      </if>
+      <if test="referralState != null">
+        referral_state,
+      </if>
+      <if test="finishUser != null">
+        finish_user,
+      </if>
+      <if test="referralType != null">
+        referral_type,
+      </if>
+      <if test="referralTime != null">
+        referral_time,
+      </if>
+      <if test="predictTime != null">
+        predict_time,
+      </if>
+      <if test="manHour != null">
+        man_hour,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="finishAuditUser != null">
+        finish_audit_user,
+      </if>
+      <if test="finishAuditTime != null">
+        finish_audit_time,
+      </if>
+      <if test="referralRemarks != null">
+        referral_remarks,
+      </if>
+      <if test="qualityType != null">
+        quality_type,
+      </if>
+      <if test="qualityState != null">
+        quality_state,
+      </if>
+      <if test="qualityResult != null">
+        quality_result,
+      </if>
+      <if test="qualityUser != null">
+        quality_user,
+      </if>
+      <if test="qualityTime != null">
+        quality_time,
+      </if>
+      <if test="qualityTimeout != null">
+        quality_timeout,
+      </if>
+      <if test="pkQualityState != null">
+        pk_quality_state,
+      </if>
+      <if test="pkQualityUser != null">
+        pk_quality_user,
+      </if>
+      <if test="pkQualityTime != null">
+        pk_quality_time,
+      </if>
+      <if test="pkQualityRemarks != null">
+        pk_quality_remarks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="testingPhoto != null">
+        testing_photo,
+      </if>
+      <if test="speedPhoto != null">
+        speed_photo,
+      </if>
+      <if test="afterPhoto != null">
+        after_photo,
+      </if>
+      <if test="qualityPhoto != null">
+        quality_photo,
+      </if>
+      <if test="recheckPhoto != null">
+        recheck_photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodCourseId != null">
+        #{prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isPreview != null">
+        #{isPreview,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="containerType != null">
+        #{containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="containerAge != null">
+        #{containerAge,jdbcType=VARCHAR},
+      </if>
+      <if test="containerTare != null">
+        #{containerTare,jdbcType=VARCHAR},
+      </if>
+      <if test="containerLoad != null">
+        #{containerLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="containerVolume != null">
+        #{containerVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="grossWeight != null">
+        #{grossWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null">
+        #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="rightAngle != null">
+        #{rightAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="isLabel != null">
+        #{isLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="containerOwner != null">
+        #{containerOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="containerBelong != null">
+        #{containerBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="containerGrade != null">
+        #{containerGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCondition != null">
+        #{containerCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="billOfLadingNo != null">
+        #{billOfLadingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vesselVoyage != null">
+        #{vesselVoyage,jdbcType=VARCHAR},
+      </if>
+      <if test="domesticForeignTrade != null">
+        #{domesticForeignTrade,jdbcType=VARCHAR},
+      </if>
+      <if test="isGonContainer != null">
+        #{isGonContainer,jdbcType=VARCHAR},
+      </if>
+      <if test="isFreezeDry != null">
+        #{isFreezeDry,jdbcType=VARCHAR},
+      </if>
+      <if test="isSurrender != null">
+        #{isSurrender,jdbcType=VARCHAR},
+      </if>
+      <if test="surrenderCourse != null">
+        #{surrenderCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="labelling != null">
+        #{labelling,jdbcType=VARCHAR},
+      </if>
+      <if test="yardContainerType != null">
+        #{yardContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="yardContGrade != null">
+        #{yardContGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="leadSealing != null">
+        #{leadSealing,jdbcType=VARCHAR},
+      </if>
+      <if test="bareWeight != null">
+        #{bareWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="isCleanout != null">
+        #{isCleanout,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocator != null">
+        #{isLocator,jdbcType=VARCHAR},
+      </if>
+      <if test="motorcade != null">
+        #{motorcade,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null">
+        #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null">
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        #{courseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingUser != null">
+        #{testingUser,jdbcType=INTEGER},
+      </if>
+      <if test="testingState != null">
+        #{testingState,jdbcType=VARCHAR},
+      </if>
+      <if test="testingReject != null">
+        #{testingReject,jdbcType=VARCHAR},
+      </if>
+      <if test="testingTime != null">
+        #{testingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingEndTime != null">
+        #{testingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingManHourCost != null">
+        #{testingManHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="testingMaterialCost != null">
+        #{testingMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="testingThirdpartyMoney != null">
+        #{testingThirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="testingMoney != null">
+        #{testingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="auditType != null">
+        #{auditType,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUser != null">
+        #{auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingRemarks != null">
+        #{testingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="surrenderType != null">
+        #{surrenderType,jdbcType=VARCHAR},
+      </if>
+      <if test="surrenderBillType != null">
+        #{surrenderBillType,jdbcType=VARCHAR},
+      </if>
+      <if test="isOwnerCharge != null">
+        #{isOwnerCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationNo != null">
+        #{valuationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="useReplyState != null">
+        #{useReplyState,jdbcType=VARCHAR},
+      </if>
+      <if test="useReplyTime != null">
+        #{useReplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="masterReplyState != null">
+        #{masterReplyState,jdbcType=VARCHAR},
+      </if>
+      <if test="masterReplyTime != null">
+        #{masterReplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdpartyChargeState != null">
+        #{thirdpartyChargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="alreadyUseContUser != null">
+        #{alreadyUseContUser,jdbcType=INTEGER},
+      </if>
+      <if test="valuationCurrency != null">
+        #{valuationCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationManHourCost != null">
+        #{valuationManHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="valuationMaterialCost != null">
+        #{valuationMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="valuationThirdpartyMoney != null">
+        #{valuationThirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="valuationMoney != null">
+        #{valuationMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="masterReplyMoneyRmb != null">
+        #{masterReplyMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="masterReplyMoneyUsd != null">
+        #{masterReplyMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="useReplyMoneyRmb != null">
+        #{useReplyMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="useReplyMoneyUsd != null">
+        #{useReplyMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsMasterMoneyRmb != null">
+        #{receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsMasterMoneyUsd != null">
+        #{receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsUseMoneyRmb != null">
+        #{receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsUseMoneyUsd != null">
+        #{receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationTime != null">
+        #{valuationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valuationUser != null">
+        #{valuationUser,jdbcType=INTEGER},
+      </if>
+      <if test="valuationReject != null">
+        #{valuationReject,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationRemarks != null">
+        #{valuationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="designateUser != null">
+        #{designateUser,jdbcType=INTEGER},
+      </if>
+      <if test="designateTime != null">
+        #{designateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="referralState != null">
+        #{referralState,jdbcType=VARCHAR},
+      </if>
+      <if test="finishUser != null">
+        #{finishUser,jdbcType=INTEGER},
+      </if>
+      <if test="referralType != null">
+        #{referralType,jdbcType=VARCHAR},
+      </if>
+      <if test="referralTime != null">
+        #{referralTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="predictTime != null">
+        #{predictTime,jdbcType=VARCHAR},
+      </if>
+      <if test="manHour != null">
+        #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishAuditUser != null">
+        #{finishAuditUser,jdbcType=INTEGER},
+      </if>
+      <if test="finishAuditTime != null">
+        #{finishAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="referralRemarks != null">
+        #{referralRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityType != null">
+        #{qualityType,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityState != null">
+        #{qualityState,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityResult != null">
+        #{qualityResult,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityUser != null">
+        #{qualityUser,jdbcType=INTEGER},
+      </if>
+      <if test="qualityTime != null">
+        #{qualityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qualityTimeout != null">
+        #{qualityTimeout,jdbcType=DOUBLE},
+      </if>
+      <if test="pkQualityState != null">
+        #{pkQualityState,jdbcType=VARCHAR},
+      </if>
+      <if test="pkQualityUser != null">
+        #{pkQualityUser,jdbcType=INTEGER},
+      </if>
+      <if test="pkQualityTime != null">
+        #{pkQualityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pkQualityRemarks != null">
+        #{pkQualityRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="testingPhoto != null">
+        #{testingPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="speedPhoto != null">
+        #{speedPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="afterPhoto != null">
+        #{afterPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="qualityPhoto != null">
+        #{qualityPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recheckPhoto != null">
+        #{recheckPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.CourseExample" resultType="java.lang.Long">
+    select count(*) from prod_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_course
+    <set>
+      <if test="record.prodCourseId != null">
+        prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPreview != null">
+        is_preview = #{record.isPreview,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerType != null">
+        container_type = #{record.containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerAge != null">
+        container_age = #{record.containerAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerTare != null">
+        container_tare = #{record.containerTare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerLoad != null">
+        container_load = #{record.containerLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerVolume != null">
+        container_volume = #{record.containerVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grossWeight != null">
+        gross_weight = #{record.grossWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitType != null">
+        unit_type = #{record.unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightAngle != null">
+        right_angle = #{record.rightAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isLabel != null">
+        is_label = #{record.isLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerOwner != null">
+        container_owner = #{record.containerOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerBelong != null">
+        container_belong = #{record.containerBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerGrade != null">
+        container_grade = #{record.containerGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCondition != null">
+        container_condition = #{record.containerCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billOfLadingNo != null">
+        bill_of_lading_no = #{record.billOfLadingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vesselVoyage != null">
+        vessel_voyage = #{record.vesselVoyage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domesticForeignTrade != null">
+        domestic_foreign_trade = #{record.domesticForeignTrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isGonContainer != null">
+        is_gon_container = #{record.isGonContainer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFreezeDry != null">
+        is_freeze_dry = #{record.isFreezeDry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSurrender != null">
+        is_surrender = #{record.isSurrender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surrenderCourse != null">
+        surrender_course = #{record.surrenderCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.labelling != null">
+        labelling = #{record.labelling,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yardContainerType != null">
+        yard_container_type = #{record.yardContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yardContGrade != null">
+        yard_cont_grade = #{record.yardContGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leadSealing != null">
+        lead_sealing = #{record.leadSealing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bareWeight != null">
+        bare_weight = #{record.bareWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCleanout != null">
+        is_cleanout = #{record.isCleanout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isLocator != null">
+        is_locator = #{record.isLocator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.motorcade != null">
+        motorcade = #{record.motorcade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carNumber != null">
+        car_number = #{record.carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yard != null">
+        yard = #{record.yard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseType != null">
+        course_type = #{record.courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseTime != null">
+        course_time = #{record.courseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.testingUser != null">
+        testing_user = #{record.testingUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.testingState != null">
+        testing_state = #{record.testingState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testingReject != null">
+        testing_reject = #{record.testingReject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testingTime != null">
+        testing_time = #{record.testingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.testingEndTime != null">
+        testing_end_time = #{record.testingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.testingManHourCost != null">
+        testing_man_hour_cost = #{record.testingManHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.testingMaterialCost != null">
+        testing_material_cost = #{record.testingMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.testingThirdpartyMoney != null">
+        testing_thirdparty_money = #{record.testingThirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.testingMoney != null">
+        testing_money = #{record.testingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.auditType != null">
+        audit_type = #{record.auditType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditUser != null">
+        audit_user = #{record.auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditTime != null">
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.testingRemarks != null">
+        testing_remarks = #{record.testingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surrenderType != null">
+        surrender_type = #{record.surrenderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surrenderBillType != null">
+        surrender_bill_type = #{record.surrenderBillType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOwnerCharge != null">
+        is_owner_charge = #{record.isOwnerCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valuationNo != null">
+        valuation_no = #{record.valuationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useReplyState != null">
+        use_reply_state = #{record.useReplyState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useReplyTime != null">
+        use_reply_time = #{record.useReplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.masterReplyState != null">
+        master_reply_state = #{record.masterReplyState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterReplyTime != null">
+        master_reply_time = #{record.masterReplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.thirdpartyChargeState != null">
+        thirdparty_charge_state = #{record.thirdpartyChargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alreadyUseContUser != null">
+        already_use_cont_user = #{record.alreadyUseContUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.valuationCurrency != null">
+        valuation_currency = #{record.valuationCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valuationManHourCost != null">
+        valuation_man_hour_cost = #{record.valuationManHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.valuationMaterialCost != null">
+        valuation_material_cost = #{record.valuationMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.valuationThirdpartyMoney != null">
+        valuation_thirdparty_money = #{record.valuationThirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.valuationMoney != null">
+        valuation_money = #{record.valuationMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.masterReplyMoneyRmb != null">
+        master_reply_money_rmb = #{record.masterReplyMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.masterReplyMoneyUsd != null">
+        master_reply_money_usd = #{record.masterReplyMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.useReplyMoneyRmb != null">
+        use_reply_money_rmb = #{record.useReplyMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.useReplyMoneyUsd != null">
+        use_reply_money_usd = #{record.useReplyMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiptsMasterMoneyRmb != null">
+        receipts_master_money_rmb = #{record.receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiptsMasterMoneyUsd != null">
+        receipts_master_money_usd = #{record.receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiptsUseMoneyRmb != null">
+        receipts_use_money_rmb = #{record.receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiptsUseMoneyUsd != null">
+        receipts_use_money_usd = #{record.receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valuationTime != null">
+        valuation_time = #{record.valuationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.valuationUser != null">
+        valuation_user = #{record.valuationUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.valuationReject != null">
+        valuation_reject = #{record.valuationReject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valuationRemarks != null">
+        valuation_remarks = #{record.valuationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designateUser != null">
+        designate_user = #{record.designateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.designateTime != null">
+        designate_time = #{record.designateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.referralState != null">
+        referral_state = #{record.referralState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishUser != null">
+        finish_user = #{record.finishUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.referralType != null">
+        referral_type = #{record.referralType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralTime != null">
+        referral_time = #{record.referralTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.predictTime != null">
+        predict_time = #{record.predictTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manHour != null">
+        man_hour = #{record.manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="record.finishTime != null">
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishAuditUser != null">
+        finish_audit_user = #{record.finishAuditUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.finishAuditTime != null">
+        finish_audit_time = #{record.finishAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.referralRemarks != null">
+        referral_remarks = #{record.referralRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qualityType != null">
+        quality_type = #{record.qualityType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qualityState != null">
+        quality_state = #{record.qualityState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qualityResult != null">
+        quality_result = #{record.qualityResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qualityUser != null">
+        quality_user = #{record.qualityUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.qualityTime != null">
+        quality_time = #{record.qualityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.qualityTimeout != null">
+        quality_timeout = #{record.qualityTimeout,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pkQualityState != null">
+        pk_quality_state = #{record.pkQualityState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pkQualityUser != null">
+        pk_quality_user = #{record.pkQualityUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.pkQualityTime != null">
+        pk_quality_time = #{record.pkQualityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pkQualityRemarks != null">
+        pk_quality_remarks = #{record.pkQualityRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.testingPhoto != null">
+        testing_photo = #{record.testingPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.speedPhoto != null">
+        speed_photo = #{record.speedPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.afterPhoto != null">
+        after_photo = #{record.afterPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.qualityPhoto != null">
+        quality_photo = #{record.qualityPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.recheckPhoto != null">
+        recheck_photo = #{record.recheckPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update prod_course
+    set prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      is_preview = #{record.isPreview,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      container_type = #{record.containerType,jdbcType=VARCHAR},
+      container_age = #{record.containerAge,jdbcType=VARCHAR},
+      container_tare = #{record.containerTare,jdbcType=VARCHAR},
+      container_load = #{record.containerLoad,jdbcType=VARCHAR},
+      container_volume = #{record.containerVolume,jdbcType=VARCHAR},
+      gross_weight = #{record.grossWeight,jdbcType=VARCHAR},
+      unit_type = #{record.unitType,jdbcType=VARCHAR},
+      right_angle = #{record.rightAngle,jdbcType=VARCHAR},
+      is_label = #{record.isLabel,jdbcType=VARCHAR},
+      container_owner = #{record.containerOwner,jdbcType=VARCHAR},
+      container_belong = #{record.containerBelong,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      container_grade = #{record.containerGrade,jdbcType=VARCHAR},
+      container_condition = #{record.containerCondition,jdbcType=VARCHAR},
+      bill_of_lading_no = #{record.billOfLadingNo,jdbcType=VARCHAR},
+      vessel_voyage = #{record.vesselVoyage,jdbcType=VARCHAR},
+      domestic_foreign_trade = #{record.domesticForeignTrade,jdbcType=VARCHAR},
+      is_gon_container = #{record.isGonContainer,jdbcType=VARCHAR},
+      is_freeze_dry = #{record.isFreezeDry,jdbcType=VARCHAR},
+      is_surrender = #{record.isSurrender,jdbcType=VARCHAR},
+      surrender_course = #{record.surrenderCourse,jdbcType=VARCHAR},
+      labelling = #{record.labelling,jdbcType=VARCHAR},
+      yard_container_type = #{record.yardContainerType,jdbcType=VARCHAR},
+      yard_cont_grade = #{record.yardContGrade,jdbcType=VARCHAR},
+      lead_sealing = #{record.leadSealing,jdbcType=VARCHAR},
+      bare_weight = #{record.bareWeight,jdbcType=VARCHAR},
+      is_cleanout = #{record.isCleanout,jdbcType=VARCHAR},
+      is_locator = #{record.isLocator,jdbcType=VARCHAR},
+      motorcade = #{record.motorcade,jdbcType=VARCHAR},
+      car_number = #{record.carNumber,jdbcType=VARCHAR},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      course_type = #{record.courseType,jdbcType=VARCHAR},
+      course_time = #{record.courseTime,jdbcType=TIMESTAMP},
+      testing_user = #{record.testingUser,jdbcType=INTEGER},
+      testing_state = #{record.testingState,jdbcType=VARCHAR},
+      testing_reject = #{record.testingReject,jdbcType=VARCHAR},
+      testing_time = #{record.testingTime,jdbcType=TIMESTAMP},
+      testing_end_time = #{record.testingEndTime,jdbcType=TIMESTAMP},
+      testing_man_hour_cost = #{record.testingManHourCost,jdbcType=DECIMAL},
+      testing_material_cost = #{record.testingMaterialCost,jdbcType=DECIMAL},
+      testing_thirdparty_money = #{record.testingThirdpartyMoney,jdbcType=DECIMAL},
+      testing_money = #{record.testingMoney,jdbcType=DECIMAL},
+      audit_type = #{record.auditType,jdbcType=VARCHAR},
+      audit_user = #{record.auditUser,jdbcType=INTEGER},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{record.testingRemarks,jdbcType=VARCHAR},
+      surrender_type = #{record.surrenderType,jdbcType=VARCHAR},
+      surrender_bill_type = #{record.surrenderBillType,jdbcType=VARCHAR},
+      is_owner_charge = #{record.isOwnerCharge,jdbcType=VARCHAR},
+      valuation_no = #{record.valuationNo,jdbcType=VARCHAR},
+      use_reply_state = #{record.useReplyState,jdbcType=VARCHAR},
+      use_reply_time = #{record.useReplyTime,jdbcType=TIMESTAMP},
+      master_reply_state = #{record.masterReplyState,jdbcType=VARCHAR},
+      master_reply_time = #{record.masterReplyTime,jdbcType=TIMESTAMP},
+      thirdparty_charge_state = #{record.thirdpartyChargeState,jdbcType=VARCHAR},
+      already_use_cont_user = #{record.alreadyUseContUser,jdbcType=INTEGER},
+      valuation_currency = #{record.valuationCurrency,jdbcType=VARCHAR},
+      valuation_man_hour_cost = #{record.valuationManHourCost,jdbcType=DECIMAL},
+      valuation_material_cost = #{record.valuationMaterialCost,jdbcType=DECIMAL},
+      valuation_thirdparty_money = #{record.valuationThirdpartyMoney,jdbcType=DECIMAL},
+      valuation_money = #{record.valuationMoney,jdbcType=DECIMAL},
+      master_reply_money_rmb = #{record.masterReplyMoneyRmb,jdbcType=DECIMAL},
+      master_reply_money_usd = #{record.masterReplyMoneyUsd,jdbcType=DECIMAL},
+      use_reply_money_rmb = #{record.useReplyMoneyRmb,jdbcType=DECIMAL},
+      use_reply_money_usd = #{record.useReplyMoneyUsd,jdbcType=DECIMAL},
+      receipts_master_money_rmb = #{record.receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      receipts_master_money_usd = #{record.receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      receipts_use_money_rmb = #{record.receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      receipts_use_money_usd = #{record.receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      urgency = #{record.urgency,jdbcType=VARCHAR},
+      valuation_time = #{record.valuationTime,jdbcType=TIMESTAMP},
+      valuation_user = #{record.valuationUser,jdbcType=INTEGER},
+      valuation_reject = #{record.valuationReject,jdbcType=VARCHAR},
+      valuation_remarks = #{record.valuationRemarks,jdbcType=VARCHAR},
+      designate_user = #{record.designateUser,jdbcType=INTEGER},
+      designate_time = #{record.designateTime,jdbcType=TIMESTAMP},
+      referral_state = #{record.referralState,jdbcType=VARCHAR},
+      finish_user = #{record.finishUser,jdbcType=INTEGER},
+      referral_type = #{record.referralType,jdbcType=VARCHAR},
+      referral_time = #{record.referralTime,jdbcType=TIMESTAMP},
+      predict_time = #{record.predictTime,jdbcType=VARCHAR},
+      man_hour = #{record.manHour,jdbcType=DOUBLE},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      finish_audit_user = #{record.finishAuditUser,jdbcType=INTEGER},
+      finish_audit_time = #{record.finishAuditTime,jdbcType=TIMESTAMP},
+      referral_remarks = #{record.referralRemarks,jdbcType=VARCHAR},
+      quality_type = #{record.qualityType,jdbcType=VARCHAR},
+      quality_state = #{record.qualityState,jdbcType=VARCHAR},
+      quality_result = #{record.qualityResult,jdbcType=VARCHAR},
+      quality_user = #{record.qualityUser,jdbcType=INTEGER},
+      quality_time = #{record.qualityTime,jdbcType=TIMESTAMP},
+      quality_timeout = #{record.qualityTimeout,jdbcType=DOUBLE},
+      pk_quality_state = #{record.pkQualityState,jdbcType=VARCHAR},
+      pk_quality_user = #{record.pkQualityUser,jdbcType=INTEGER},
+      pk_quality_time = #{record.pkQualityTime,jdbcType=TIMESTAMP},
+      pk_quality_remarks = #{record.pkQualityRemarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      testing_photo = #{record.testingPhoto,jdbcType=LONGVARCHAR},
+      speed_photo = #{record.speedPhoto,jdbcType=LONGVARCHAR},
+      after_photo = #{record.afterPhoto,jdbcType=LONGVARCHAR},
+      quality_photo = #{record.qualityPhoto,jdbcType=LONGVARCHAR},
+      recheck_photo = #{record.recheckPhoto,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_course
+    set prod_course_id = #{record.prodCourseId,jdbcType=VARCHAR},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      is_preview = #{record.isPreview,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      container_type = #{record.containerType,jdbcType=VARCHAR},
+      container_age = #{record.containerAge,jdbcType=VARCHAR},
+      container_tare = #{record.containerTare,jdbcType=VARCHAR},
+      container_load = #{record.containerLoad,jdbcType=VARCHAR},
+      container_volume = #{record.containerVolume,jdbcType=VARCHAR},
+      gross_weight = #{record.grossWeight,jdbcType=VARCHAR},
+      unit_type = #{record.unitType,jdbcType=VARCHAR},
+      right_angle = #{record.rightAngle,jdbcType=VARCHAR},
+      is_label = #{record.isLabel,jdbcType=VARCHAR},
+      container_owner = #{record.containerOwner,jdbcType=VARCHAR},
+      container_belong = #{record.containerBelong,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      container_grade = #{record.containerGrade,jdbcType=VARCHAR},
+      container_condition = #{record.containerCondition,jdbcType=VARCHAR},
+      bill_of_lading_no = #{record.billOfLadingNo,jdbcType=VARCHAR},
+      vessel_voyage = #{record.vesselVoyage,jdbcType=VARCHAR},
+      domestic_foreign_trade = #{record.domesticForeignTrade,jdbcType=VARCHAR},
+      is_gon_container = #{record.isGonContainer,jdbcType=VARCHAR},
+      is_freeze_dry = #{record.isFreezeDry,jdbcType=VARCHAR},
+      is_surrender = #{record.isSurrender,jdbcType=VARCHAR},
+      surrender_course = #{record.surrenderCourse,jdbcType=VARCHAR},
+      labelling = #{record.labelling,jdbcType=VARCHAR},
+      yard_container_type = #{record.yardContainerType,jdbcType=VARCHAR},
+      yard_cont_grade = #{record.yardContGrade,jdbcType=VARCHAR},
+      lead_sealing = #{record.leadSealing,jdbcType=VARCHAR},
+      bare_weight = #{record.bareWeight,jdbcType=VARCHAR},
+      is_cleanout = #{record.isCleanout,jdbcType=VARCHAR},
+      is_locator = #{record.isLocator,jdbcType=VARCHAR},
+      motorcade = #{record.motorcade,jdbcType=VARCHAR},
+      car_number = #{record.carNumber,jdbcType=VARCHAR},
+      yard = #{record.yard,jdbcType=VARCHAR},
+      course_type = #{record.courseType,jdbcType=VARCHAR},
+      course_time = #{record.courseTime,jdbcType=TIMESTAMP},
+      testing_user = #{record.testingUser,jdbcType=INTEGER},
+      testing_state = #{record.testingState,jdbcType=VARCHAR},
+      testing_reject = #{record.testingReject,jdbcType=VARCHAR},
+      testing_time = #{record.testingTime,jdbcType=TIMESTAMP},
+      testing_end_time = #{record.testingEndTime,jdbcType=TIMESTAMP},
+      testing_man_hour_cost = #{record.testingManHourCost,jdbcType=DECIMAL},
+      testing_material_cost = #{record.testingMaterialCost,jdbcType=DECIMAL},
+      testing_thirdparty_money = #{record.testingThirdpartyMoney,jdbcType=DECIMAL},
+      testing_money = #{record.testingMoney,jdbcType=DECIMAL},
+      audit_type = #{record.auditType,jdbcType=VARCHAR},
+      audit_user = #{record.auditUser,jdbcType=INTEGER},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{record.testingRemarks,jdbcType=VARCHAR},
+      surrender_type = #{record.surrenderType,jdbcType=VARCHAR},
+      surrender_bill_type = #{record.surrenderBillType,jdbcType=VARCHAR},
+      is_owner_charge = #{record.isOwnerCharge,jdbcType=VARCHAR},
+      valuation_no = #{record.valuationNo,jdbcType=VARCHAR},
+      use_reply_state = #{record.useReplyState,jdbcType=VARCHAR},
+      use_reply_time = #{record.useReplyTime,jdbcType=TIMESTAMP},
+      master_reply_state = #{record.masterReplyState,jdbcType=VARCHAR},
+      master_reply_time = #{record.masterReplyTime,jdbcType=TIMESTAMP},
+      thirdparty_charge_state = #{record.thirdpartyChargeState,jdbcType=VARCHAR},
+      already_use_cont_user = #{record.alreadyUseContUser,jdbcType=INTEGER},
+      valuation_currency = #{record.valuationCurrency,jdbcType=VARCHAR},
+      valuation_man_hour_cost = #{record.valuationManHourCost,jdbcType=DECIMAL},
+      valuation_material_cost = #{record.valuationMaterialCost,jdbcType=DECIMAL},
+      valuation_thirdparty_money = #{record.valuationThirdpartyMoney,jdbcType=DECIMAL},
+      valuation_money = #{record.valuationMoney,jdbcType=DECIMAL},
+      master_reply_money_rmb = #{record.masterReplyMoneyRmb,jdbcType=DECIMAL},
+      master_reply_money_usd = #{record.masterReplyMoneyUsd,jdbcType=DECIMAL},
+      use_reply_money_rmb = #{record.useReplyMoneyRmb,jdbcType=DECIMAL},
+      use_reply_money_usd = #{record.useReplyMoneyUsd,jdbcType=DECIMAL},
+      receipts_master_money_rmb = #{record.receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      receipts_master_money_usd = #{record.receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      receipts_use_money_rmb = #{record.receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      receipts_use_money_usd = #{record.receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      urgency = #{record.urgency,jdbcType=VARCHAR},
+      valuation_time = #{record.valuationTime,jdbcType=TIMESTAMP},
+      valuation_user = #{record.valuationUser,jdbcType=INTEGER},
+      valuation_reject = #{record.valuationReject,jdbcType=VARCHAR},
+      valuation_remarks = #{record.valuationRemarks,jdbcType=VARCHAR},
+      designate_user = #{record.designateUser,jdbcType=INTEGER},
+      designate_time = #{record.designateTime,jdbcType=TIMESTAMP},
+      referral_state = #{record.referralState,jdbcType=VARCHAR},
+      finish_user = #{record.finishUser,jdbcType=INTEGER},
+      referral_type = #{record.referralType,jdbcType=VARCHAR},
+      referral_time = #{record.referralTime,jdbcType=TIMESTAMP},
+      predict_time = #{record.predictTime,jdbcType=VARCHAR},
+      man_hour = #{record.manHour,jdbcType=DOUBLE},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      finish_audit_user = #{record.finishAuditUser,jdbcType=INTEGER},
+      finish_audit_time = #{record.finishAuditTime,jdbcType=TIMESTAMP},
+      referral_remarks = #{record.referralRemarks,jdbcType=VARCHAR},
+      quality_type = #{record.qualityType,jdbcType=VARCHAR},
+      quality_state = #{record.qualityState,jdbcType=VARCHAR},
+      quality_result = #{record.qualityResult,jdbcType=VARCHAR},
+      quality_user = #{record.qualityUser,jdbcType=INTEGER},
+      quality_time = #{record.qualityTime,jdbcType=TIMESTAMP},
+      quality_timeout = #{record.qualityTimeout,jdbcType=DOUBLE},
+      pk_quality_state = #{record.pkQualityState,jdbcType=VARCHAR},
+      pk_quality_user = #{record.pkQualityUser,jdbcType=INTEGER},
+      pk_quality_time = #{record.pkQualityTime,jdbcType=TIMESTAMP},
+      pk_quality_remarks = #{record.pkQualityRemarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.CourseWithBLOBs">
+    update prod_course
+    <set>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isPreview != null">
+        is_preview = #{isPreview,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="containerType != null">
+        container_type = #{containerType,jdbcType=VARCHAR},
+      </if>
+      <if test="containerAge != null">
+        container_age = #{containerAge,jdbcType=VARCHAR},
+      </if>
+      <if test="containerTare != null">
+        container_tare = #{containerTare,jdbcType=VARCHAR},
+      </if>
+      <if test="containerLoad != null">
+        container_load = #{containerLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="containerVolume != null">
+        container_volume = #{containerVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="grossWeight != null">
+        gross_weight = #{grossWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null">
+        unit_type = #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="rightAngle != null">
+        right_angle = #{rightAngle,jdbcType=VARCHAR},
+      </if>
+      <if test="isLabel != null">
+        is_label = #{isLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="containerOwner != null">
+        container_owner = #{containerOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="containerBelong != null">
+        container_belong = #{containerBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="containerGrade != null">
+        container_grade = #{containerGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCondition != null">
+        container_condition = #{containerCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="billOfLadingNo != null">
+        bill_of_lading_no = #{billOfLadingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vesselVoyage != null">
+        vessel_voyage = #{vesselVoyage,jdbcType=VARCHAR},
+      </if>
+      <if test="domesticForeignTrade != null">
+        domestic_foreign_trade = #{domesticForeignTrade,jdbcType=VARCHAR},
+      </if>
+      <if test="isGonContainer != null">
+        is_gon_container = #{isGonContainer,jdbcType=VARCHAR},
+      </if>
+      <if test="isFreezeDry != null">
+        is_freeze_dry = #{isFreezeDry,jdbcType=VARCHAR},
+      </if>
+      <if test="isSurrender != null">
+        is_surrender = #{isSurrender,jdbcType=VARCHAR},
+      </if>
+      <if test="surrenderCourse != null">
+        surrender_course = #{surrenderCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="labelling != null">
+        labelling = #{labelling,jdbcType=VARCHAR},
+      </if>
+      <if test="yardContainerType != null">
+        yard_container_type = #{yardContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="yardContGrade != null">
+        yard_cont_grade = #{yardContGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="leadSealing != null">
+        lead_sealing = #{leadSealing,jdbcType=VARCHAR},
+      </if>
+      <if test="bareWeight != null">
+        bare_weight = #{bareWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="isCleanout != null">
+        is_cleanout = #{isCleanout,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocator != null">
+        is_locator = #{isLocator,jdbcType=VARCHAR},
+      </if>
+      <if test="motorcade != null">
+        motorcade = #{motorcade,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null">
+        car_number = #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null">
+        course_type = #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        course_time = #{courseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingUser != null">
+        testing_user = #{testingUser,jdbcType=INTEGER},
+      </if>
+      <if test="testingState != null">
+        testing_state = #{testingState,jdbcType=VARCHAR},
+      </if>
+      <if test="testingReject != null">
+        testing_reject = #{testingReject,jdbcType=VARCHAR},
+      </if>
+      <if test="testingTime != null">
+        testing_time = #{testingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingEndTime != null">
+        testing_end_time = #{testingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingManHourCost != null">
+        testing_man_hour_cost = #{testingManHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="testingMaterialCost != null">
+        testing_material_cost = #{testingMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="testingThirdpartyMoney != null">
+        testing_thirdparty_money = #{testingThirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="testingMoney != null">
+        testing_money = #{testingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="auditType != null">
+        audit_type = #{auditType,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUser != null">
+        audit_user = #{auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingRemarks != null">
+        testing_remarks = #{testingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="surrenderType != null">
+        surrender_type = #{surrenderType,jdbcType=VARCHAR},
+      </if>
+      <if test="surrenderBillType != null">
+        surrender_bill_type = #{surrenderBillType,jdbcType=VARCHAR},
+      </if>
+      <if test="isOwnerCharge != null">
+        is_owner_charge = #{isOwnerCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationNo != null">
+        valuation_no = #{valuationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="useReplyState != null">
+        use_reply_state = #{useReplyState,jdbcType=VARCHAR},
+      </if>
+      <if test="useReplyTime != null">
+        use_reply_time = #{useReplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="masterReplyState != null">
+        master_reply_state = #{masterReplyState,jdbcType=VARCHAR},
+      </if>
+      <if test="masterReplyTime != null">
+        master_reply_time = #{masterReplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdpartyChargeState != null">
+        thirdparty_charge_state = #{thirdpartyChargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="alreadyUseContUser != null">
+        already_use_cont_user = #{alreadyUseContUser,jdbcType=INTEGER},
+      </if>
+      <if test="valuationCurrency != null">
+        valuation_currency = #{valuationCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationManHourCost != null">
+        valuation_man_hour_cost = #{valuationManHourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="valuationMaterialCost != null">
+        valuation_material_cost = #{valuationMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="valuationThirdpartyMoney != null">
+        valuation_thirdparty_money = #{valuationThirdpartyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="valuationMoney != null">
+        valuation_money = #{valuationMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="masterReplyMoneyRmb != null">
+        master_reply_money_rmb = #{masterReplyMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="masterReplyMoneyUsd != null">
+        master_reply_money_usd = #{masterReplyMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="useReplyMoneyRmb != null">
+        use_reply_money_rmb = #{useReplyMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="useReplyMoneyUsd != null">
+        use_reply_money_usd = #{useReplyMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsMasterMoneyRmb != null">
+        receipts_master_money_rmb = #{receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsMasterMoneyUsd != null">
+        receipts_master_money_usd = #{receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsUseMoneyRmb != null">
+        receipts_use_money_rmb = #{receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptsUseMoneyUsd != null">
+        receipts_use_money_usd = #{receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationTime != null">
+        valuation_time = #{valuationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valuationUser != null">
+        valuation_user = #{valuationUser,jdbcType=INTEGER},
+      </if>
+      <if test="valuationReject != null">
+        valuation_reject = #{valuationReject,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationRemarks != null">
+        valuation_remarks = #{valuationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="designateUser != null">
+        designate_user = #{designateUser,jdbcType=INTEGER},
+      </if>
+      <if test="designateTime != null">
+        designate_time = #{designateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="referralState != null">
+        referral_state = #{referralState,jdbcType=VARCHAR},
+      </if>
+      <if test="finishUser != null">
+        finish_user = #{finishUser,jdbcType=INTEGER},
+      </if>
+      <if test="referralType != null">
+        referral_type = #{referralType,jdbcType=VARCHAR},
+      </if>
+      <if test="referralTime != null">
+        referral_time = #{referralTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="predictTime != null">
+        predict_time = #{predictTime,jdbcType=VARCHAR},
+      </if>
+      <if test="manHour != null">
+        man_hour = #{manHour,jdbcType=DOUBLE},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishAuditUser != null">
+        finish_audit_user = #{finishAuditUser,jdbcType=INTEGER},
+      </if>
+      <if test="finishAuditTime != null">
+        finish_audit_time = #{finishAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="referralRemarks != null">
+        referral_remarks = #{referralRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityType != null">
+        quality_type = #{qualityType,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityState != null">
+        quality_state = #{qualityState,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityResult != null">
+        quality_result = #{qualityResult,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityUser != null">
+        quality_user = #{qualityUser,jdbcType=INTEGER},
+      </if>
+      <if test="qualityTime != null">
+        quality_time = #{qualityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qualityTimeout != null">
+        quality_timeout = #{qualityTimeout,jdbcType=DOUBLE},
+      </if>
+      <if test="pkQualityState != null">
+        pk_quality_state = #{pkQualityState,jdbcType=VARCHAR},
+      </if>
+      <if test="pkQualityUser != null">
+        pk_quality_user = #{pkQualityUser,jdbcType=INTEGER},
+      </if>
+      <if test="pkQualityTime != null">
+        pk_quality_time = #{pkQualityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pkQualityRemarks != null">
+        pk_quality_remarks = #{pkQualityRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="testingPhoto != null">
+        testing_photo = #{testingPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="speedPhoto != null">
+        speed_photo = #{speedPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="afterPhoto != null">
+        after_photo = #{afterPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="qualityPhoto != null">
+        quality_photo = #{qualityPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recheckPhoto != null">
+        recheck_photo = #{recheckPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where prod_course_id = #{prodCourseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sanlly.production.entity.CourseWithBLOBs">
+    update prod_course
+    set container_no = #{containerNo,jdbcType=VARCHAR},
+      is_preview = #{isPreview,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      container_type = #{containerType,jdbcType=VARCHAR},
+      container_age = #{containerAge,jdbcType=VARCHAR},
+      container_tare = #{containerTare,jdbcType=VARCHAR},
+      container_load = #{containerLoad,jdbcType=VARCHAR},
+      container_volume = #{containerVolume,jdbcType=VARCHAR},
+      gross_weight = #{grossWeight,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      right_angle = #{rightAngle,jdbcType=VARCHAR},
+      is_label = #{isLabel,jdbcType=VARCHAR},
+      container_owner = #{containerOwner,jdbcType=VARCHAR},
+      container_belong = #{containerBelong,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      container_grade = #{containerGrade,jdbcType=VARCHAR},
+      container_condition = #{containerCondition,jdbcType=VARCHAR},
+      bill_of_lading_no = #{billOfLadingNo,jdbcType=VARCHAR},
+      vessel_voyage = #{vesselVoyage,jdbcType=VARCHAR},
+      domestic_foreign_trade = #{domesticForeignTrade,jdbcType=VARCHAR},
+      is_gon_container = #{isGonContainer,jdbcType=VARCHAR},
+      is_freeze_dry = #{isFreezeDry,jdbcType=VARCHAR},
+      is_surrender = #{isSurrender,jdbcType=VARCHAR},
+      surrender_course = #{surrenderCourse,jdbcType=VARCHAR},
+      labelling = #{labelling,jdbcType=VARCHAR},
+      yard_container_type = #{yardContainerType,jdbcType=VARCHAR},
+      yard_cont_grade = #{yardContGrade,jdbcType=VARCHAR},
+      lead_sealing = #{leadSealing,jdbcType=VARCHAR},
+      bare_weight = #{bareWeight,jdbcType=VARCHAR},
+      is_cleanout = #{isCleanout,jdbcType=VARCHAR},
+      is_locator = #{isLocator,jdbcType=VARCHAR},
+      motorcade = #{motorcade,jdbcType=VARCHAR},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      yard = #{yard,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      course_time = #{courseTime,jdbcType=TIMESTAMP},
+      testing_user = #{testingUser,jdbcType=INTEGER},
+      testing_state = #{testingState,jdbcType=VARCHAR},
+      testing_reject = #{testingReject,jdbcType=VARCHAR},
+      testing_time = #{testingTime,jdbcType=TIMESTAMP},
+      testing_end_time = #{testingEndTime,jdbcType=TIMESTAMP},
+      testing_man_hour_cost = #{testingManHourCost,jdbcType=DECIMAL},
+      testing_material_cost = #{testingMaterialCost,jdbcType=DECIMAL},
+      testing_thirdparty_money = #{testingThirdpartyMoney,jdbcType=DECIMAL},
+      testing_money = #{testingMoney,jdbcType=DECIMAL},
+      audit_type = #{auditType,jdbcType=VARCHAR},
+      audit_user = #{auditUser,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{testingRemarks,jdbcType=VARCHAR},
+      surrender_type = #{surrenderType,jdbcType=VARCHAR},
+      surrender_bill_type = #{surrenderBillType,jdbcType=VARCHAR},
+      is_owner_charge = #{isOwnerCharge,jdbcType=VARCHAR},
+      valuation_no = #{valuationNo,jdbcType=VARCHAR},
+      use_reply_state = #{useReplyState,jdbcType=VARCHAR},
+      use_reply_time = #{useReplyTime,jdbcType=TIMESTAMP},
+      master_reply_state = #{masterReplyState,jdbcType=VARCHAR},
+      master_reply_time = #{masterReplyTime,jdbcType=TIMESTAMP},
+      thirdparty_charge_state = #{thirdpartyChargeState,jdbcType=VARCHAR},
+      already_use_cont_user = #{alreadyUseContUser,jdbcType=INTEGER},
+      valuation_currency = #{valuationCurrency,jdbcType=VARCHAR},
+      valuation_man_hour_cost = #{valuationManHourCost,jdbcType=DECIMAL},
+      valuation_material_cost = #{valuationMaterialCost,jdbcType=DECIMAL},
+      valuation_thirdparty_money = #{valuationThirdpartyMoney,jdbcType=DECIMAL},
+      valuation_money = #{valuationMoney,jdbcType=DECIMAL},
+      master_reply_money_rmb = #{masterReplyMoneyRmb,jdbcType=DECIMAL},
+      master_reply_money_usd = #{masterReplyMoneyUsd,jdbcType=DECIMAL},
+      use_reply_money_rmb = #{useReplyMoneyRmb,jdbcType=DECIMAL},
+      use_reply_money_usd = #{useReplyMoneyUsd,jdbcType=DECIMAL},
+      receipts_master_money_rmb = #{receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      receipts_master_money_usd = #{receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      receipts_use_money_rmb = #{receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      receipts_use_money_usd = #{receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      urgency = #{urgency,jdbcType=VARCHAR},
+      valuation_time = #{valuationTime,jdbcType=TIMESTAMP},
+      valuation_user = #{valuationUser,jdbcType=INTEGER},
+      valuation_reject = #{valuationReject,jdbcType=VARCHAR},
+      valuation_remarks = #{valuationRemarks,jdbcType=VARCHAR},
+      designate_user = #{designateUser,jdbcType=INTEGER},
+      designate_time = #{designateTime,jdbcType=TIMESTAMP},
+      referral_state = #{referralState,jdbcType=VARCHAR},
+      finish_user = #{finishUser,jdbcType=INTEGER},
+      referral_type = #{referralType,jdbcType=VARCHAR},
+      referral_time = #{referralTime,jdbcType=TIMESTAMP},
+      predict_time = #{predictTime,jdbcType=VARCHAR},
+      man_hour = #{manHour,jdbcType=DOUBLE},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      finish_audit_user = #{finishAuditUser,jdbcType=INTEGER},
+      finish_audit_time = #{finishAuditTime,jdbcType=TIMESTAMP},
+      referral_remarks = #{referralRemarks,jdbcType=VARCHAR},
+      quality_type = #{qualityType,jdbcType=VARCHAR},
+      quality_state = #{qualityState,jdbcType=VARCHAR},
+      quality_result = #{qualityResult,jdbcType=VARCHAR},
+      quality_user = #{qualityUser,jdbcType=INTEGER},
+      quality_time = #{qualityTime,jdbcType=TIMESTAMP},
+      quality_timeout = #{qualityTimeout,jdbcType=DOUBLE},
+      pk_quality_state = #{pkQualityState,jdbcType=VARCHAR},
+      pk_quality_user = #{pkQualityUser,jdbcType=INTEGER},
+      pk_quality_time = #{pkQualityTime,jdbcType=TIMESTAMP},
+      pk_quality_remarks = #{pkQualityRemarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      testing_photo = #{testingPhoto,jdbcType=LONGVARCHAR},
+      speed_photo = #{speedPhoto,jdbcType=LONGVARCHAR},
+      after_photo = #{afterPhoto,jdbcType=LONGVARCHAR},
+      quality_photo = #{qualityPhoto,jdbcType=LONGVARCHAR},
+      recheck_photo = #{recheckPhoto,jdbcType=LONGVARCHAR}
+    where prod_course_id = #{prodCourseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.Course">
+    update prod_course
+    set container_no = #{containerNo,jdbcType=VARCHAR},
+      is_preview = #{isPreview,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      container_type = #{containerType,jdbcType=VARCHAR},
+      container_age = #{containerAge,jdbcType=VARCHAR},
+      container_tare = #{containerTare,jdbcType=VARCHAR},
+      container_load = #{containerLoad,jdbcType=VARCHAR},
+      container_volume = #{containerVolume,jdbcType=VARCHAR},
+      gross_weight = #{grossWeight,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      right_angle = #{rightAngle,jdbcType=VARCHAR},
+      is_label = #{isLabel,jdbcType=VARCHAR},
+      container_owner = #{containerOwner,jdbcType=VARCHAR},
+      container_belong = #{containerBelong,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      container_grade = #{containerGrade,jdbcType=VARCHAR},
+      container_condition = #{containerCondition,jdbcType=VARCHAR},
+      bill_of_lading_no = #{billOfLadingNo,jdbcType=VARCHAR},
+      vessel_voyage = #{vesselVoyage,jdbcType=VARCHAR},
+      domestic_foreign_trade = #{domesticForeignTrade,jdbcType=VARCHAR},
+      is_gon_container = #{isGonContainer,jdbcType=VARCHAR},
+      is_freeze_dry = #{isFreezeDry,jdbcType=VARCHAR},
+      is_surrender = #{isSurrender,jdbcType=VARCHAR},
+      surrender_course = #{surrenderCourse,jdbcType=VARCHAR},
+      labelling = #{labelling,jdbcType=VARCHAR},
+      yard_container_type = #{yardContainerType,jdbcType=VARCHAR},
+      yard_cont_grade = #{yardContGrade,jdbcType=VARCHAR},
+      lead_sealing = #{leadSealing,jdbcType=VARCHAR},
+      bare_weight = #{bareWeight,jdbcType=VARCHAR},
+      is_cleanout = #{isCleanout,jdbcType=VARCHAR},
+      is_locator = #{isLocator,jdbcType=VARCHAR},
+      motorcade = #{motorcade,jdbcType=VARCHAR},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      yard = #{yard,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      course_time = #{courseTime,jdbcType=TIMESTAMP},
+      testing_user = #{testingUser,jdbcType=INTEGER},
+      testing_state = #{testingState,jdbcType=VARCHAR},
+      testing_reject = #{testingReject,jdbcType=VARCHAR},
+      testing_time = #{testingTime,jdbcType=TIMESTAMP},
+      testing_end_time = #{testingEndTime,jdbcType=TIMESTAMP},
+      testing_man_hour_cost = #{testingManHourCost,jdbcType=DECIMAL},
+      testing_material_cost = #{testingMaterialCost,jdbcType=DECIMAL},
+      testing_thirdparty_money = #{testingThirdpartyMoney,jdbcType=DECIMAL},
+      testing_money = #{testingMoney,jdbcType=DECIMAL},
+      audit_type = #{auditType,jdbcType=VARCHAR},
+      audit_user = #{auditUser,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{testingRemarks,jdbcType=VARCHAR},
+      surrender_type = #{surrenderType,jdbcType=VARCHAR},
+      surrender_bill_type = #{surrenderBillType,jdbcType=VARCHAR},
+      is_owner_charge = #{isOwnerCharge,jdbcType=VARCHAR},
+      valuation_no = #{valuationNo,jdbcType=VARCHAR},
+      use_reply_state = #{useReplyState,jdbcType=VARCHAR},
+      use_reply_time = #{useReplyTime,jdbcType=TIMESTAMP},
+      master_reply_state = #{masterReplyState,jdbcType=VARCHAR},
+      master_reply_time = #{masterReplyTime,jdbcType=TIMESTAMP},
+      thirdparty_charge_state = #{thirdpartyChargeState,jdbcType=VARCHAR},
+      already_use_cont_user = #{alreadyUseContUser,jdbcType=INTEGER},
+      valuation_currency = #{valuationCurrency,jdbcType=VARCHAR},
+      valuation_man_hour_cost = #{valuationManHourCost,jdbcType=DECIMAL},
+      valuation_material_cost = #{valuationMaterialCost,jdbcType=DECIMAL},
+      valuation_thirdparty_money = #{valuationThirdpartyMoney,jdbcType=DECIMAL},
+      valuation_money = #{valuationMoney,jdbcType=DECIMAL},
+      master_reply_money_rmb = #{masterReplyMoneyRmb,jdbcType=DECIMAL},
+      master_reply_money_usd = #{masterReplyMoneyUsd,jdbcType=DECIMAL},
+      use_reply_money_rmb = #{useReplyMoneyRmb,jdbcType=DECIMAL},
+      use_reply_money_usd = #{useReplyMoneyUsd,jdbcType=DECIMAL},
+      receipts_master_money_rmb = #{receiptsMasterMoneyRmb,jdbcType=DECIMAL},
+      receipts_master_money_usd = #{receiptsMasterMoneyUsd,jdbcType=DECIMAL},
+      receipts_use_money_rmb = #{receiptsUseMoneyRmb,jdbcType=DECIMAL},
+      receipts_use_money_usd = #{receiptsUseMoneyUsd,jdbcType=DECIMAL},
+      urgency = #{urgency,jdbcType=VARCHAR},
+      valuation_time = #{valuationTime,jdbcType=TIMESTAMP},
+      valuation_user = #{valuationUser,jdbcType=INTEGER},
+      valuation_reject = #{valuationReject,jdbcType=VARCHAR},
+      valuation_remarks = #{valuationRemarks,jdbcType=VARCHAR},
+      designate_user = #{designateUser,jdbcType=INTEGER},
+      designate_time = #{designateTime,jdbcType=TIMESTAMP},
+      referral_state = #{referralState,jdbcType=VARCHAR},
+      finish_user = #{finishUser,jdbcType=INTEGER},
+      referral_type = #{referralType,jdbcType=VARCHAR},
+      referral_time = #{referralTime,jdbcType=TIMESTAMP},
+      predict_time = #{predictTime,jdbcType=VARCHAR},
+      man_hour = #{manHour,jdbcType=DOUBLE},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      finish_audit_user = #{finishAuditUser,jdbcType=INTEGER},
+      finish_audit_time = #{finishAuditTime,jdbcType=TIMESTAMP},
+      referral_remarks = #{referralRemarks,jdbcType=VARCHAR},
+      quality_type = #{qualityType,jdbcType=VARCHAR},
+      quality_state = #{qualityState,jdbcType=VARCHAR},
+      quality_result = #{qualityResult,jdbcType=VARCHAR},
+      quality_user = #{qualityUser,jdbcType=INTEGER},
+      quality_time = #{qualityTime,jdbcType=TIMESTAMP},
+      quality_timeout = #{qualityTimeout,jdbcType=DOUBLE},
+      pk_quality_state = #{pkQualityState,jdbcType=VARCHAR},
+      pk_quality_user = #{pkQualityUser,jdbcType=INTEGER},
+      pk_quality_time = #{pkQualityTime,jdbcType=TIMESTAMP},
+      pk_quality_remarks = #{pkQualityRemarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_course_id = #{prodCourseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

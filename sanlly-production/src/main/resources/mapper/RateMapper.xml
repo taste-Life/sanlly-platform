@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.RateMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.Rate">
+    <id column="prod_rate_id" jdbcType="VARCHAR" property="prodRateId" />
+    <result column="standard_rate" jdbcType="VARCHAR" property="standardRate" />
+    <result column="container_category" jdbcType="VARCHAR" property="containerCategory" />
+    <result column="calculation_type" jdbcType="VARCHAR" property="calculationType" />
+    <result column="rate_code" jdbcType="VARCHAR" property="rateCode" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="parts_type" jdbcType="VARCHAR" property="partsType" />
+    <result column="parts_details" jdbcType="VARCHAR" property="partsDetails" />
+    <result column="parts_details_name" jdbcType="VARCHAR" property="partsDetailsName" />
+    <result column="parts_details_name_en" jdbcType="VARCHAR" property="partsDetailsNameEn" />
+    <result column="repair" jdbcType="VARCHAR" property="repair" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="container_user_describe" jdbcType="VARCHAR" property="containerUserDescribe" />
+    <result column="rate_name" jdbcType="VARCHAR" property="rateName" />
+    <result column="rate_name_en" jdbcType="VARCHAR" property="rateNameEn" />
+    <result column="is_container_user_rate" jdbcType="VARCHAR" property="isContainerUserRate" />
+    <result column="is_repeat_prompts" jdbcType="VARCHAR" property="isRepeatPrompts" />
+    <result column="is_must_photo" jdbcType="VARCHAR" property="isMustPhoto" />
+    <result column="is_gz" jdbcType="VARCHAR" property="isGz" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_rate_id, standard_rate, container_category, calculation_type, rate_code, container_user, 
+    company, parts_type, parts_details, parts_details_name, parts_details_name_en, repair, 
+    material, container_user_describe, rate_name, rate_name_en, is_container_user_rate, 
+    is_repeat_prompts, is_must_photo, is_gz, remark, is_del, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.RateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_rate
+    where prod_rate_id = #{prodRateId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_rate
+    where prod_rate_id = #{prodRateId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.RateExample">
+    delete from prod_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.Rate">
+    insert into prod_rate (prod_rate_id, standard_rate, container_category, 
+      calculation_type, rate_code, container_user, 
+      company, parts_type, parts_details, 
+      parts_details_name, parts_details_name_en, repair, 
+      material, container_user_describe, rate_name, 
+      rate_name_en, is_container_user_rate, is_repeat_prompts, 
+      is_must_photo, is_gz, remark, 
+      is_del, create_time, create_user, 
+      update_time, update_user)
+    values (#{prodRateId,jdbcType=VARCHAR}, #{standardRate,jdbcType=VARCHAR}, #{containerCategory,jdbcType=VARCHAR}, 
+      #{calculationType,jdbcType=VARCHAR}, #{rateCode,jdbcType=VARCHAR}, #{containerUser,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{partsType,jdbcType=VARCHAR}, #{partsDetails,jdbcType=VARCHAR}, 
+      #{partsDetailsName,jdbcType=VARCHAR}, #{partsDetailsNameEn,jdbcType=VARCHAR}, #{repair,jdbcType=VARCHAR}, 
+      #{material,jdbcType=VARCHAR}, #{containerUserDescribe,jdbcType=VARCHAR}, #{rateName,jdbcType=VARCHAR}, 
+      #{rateNameEn,jdbcType=VARCHAR}, #{isContainerUserRate,jdbcType=VARCHAR}, #{isRepeatPrompts,jdbcType=VARCHAR}, 
+      #{isMustPhoto,jdbcType=VARCHAR}, #{isGz,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.Rate">
+    insert into prod_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodRateId != null">
+        prod_rate_id,
+      </if>
+      <if test="standardRate != null">
+        standard_rate,
+      </if>
+      <if test="containerCategory != null">
+        container_category,
+      </if>
+      <if test="calculationType != null">
+        calculation_type,
+      </if>
+      <if test="rateCode != null">
+        rate_code,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="partsType != null">
+        parts_type,
+      </if>
+      <if test="partsDetails != null">
+        parts_details,
+      </if>
+      <if test="partsDetailsName != null">
+        parts_details_name,
+      </if>
+      <if test="partsDetailsNameEn != null">
+        parts_details_name_en,
+      </if>
+      <if test="repair != null">
+        repair,
+      </if>
+      <if test="material != null">
+        material,
+      </if>
+      <if test="containerUserDescribe != null">
+        container_user_describe,
+      </if>
+      <if test="rateName != null">
+        rate_name,
+      </if>
+      <if test="rateNameEn != null">
+        rate_name_en,
+      </if>
+      <if test="isContainerUserRate != null">
+        is_container_user_rate,
+      </if>
+      <if test="isRepeatPrompts != null">
+        is_repeat_prompts,
+      </if>
+      <if test="isMustPhoto != null">
+        is_must_photo,
+      </if>
+      <if test="isGz != null">
+        is_gz,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodRateId != null">
+        #{prodRateId,jdbcType=VARCHAR},
+      </if>
+      <if test="standardRate != null">
+        #{standardRate,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="calculationType != null">
+        #{calculationType,jdbcType=VARCHAR},
+      </if>
+      <if test="rateCode != null">
+        #{rateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="partsType != null">
+        #{partsType,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetails != null">
+        #{partsDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsName != null">
+        #{partsDetailsName,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsNameEn != null">
+        #{partsDetailsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="repair != null">
+        #{repair,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUserDescribe != null">
+        #{containerUserDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="rateName != null">
+        #{rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="rateNameEn != null">
+        #{rateNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="isContainerUserRate != null">
+        #{isContainerUserRate,jdbcType=VARCHAR},
+      </if>
+      <if test="isRepeatPrompts != null">
+        #{isRepeatPrompts,jdbcType=VARCHAR},
+      </if>
+      <if test="isMustPhoto != null">
+        #{isMustPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="isGz != null">
+        #{isGz,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.RateExample" resultType="java.lang.Long">
+    select count(*) from prod_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_rate
+    <set>
+      <if test="record.prodRateId != null">
+        prod_rate_id = #{record.prodRateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standardRate != null">
+        standard_rate = #{record.standardRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerCategory != null">
+        container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calculationType != null">
+        calculation_type = #{record.calculationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateCode != null">
+        rate_code = #{record.rateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsType != null">
+        parts_type = #{record.partsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsDetails != null">
+        parts_details = #{record.partsDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsDetailsName != null">
+        parts_details_name = #{record.partsDetailsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsDetailsNameEn != null">
+        parts_details_name_en = #{record.partsDetailsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repair != null">
+        repair = #{record.repair,jdbcType=VARCHAR},
+      </if>
+      <if test="record.material != null">
+        material = #{record.material,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUserDescribe != null">
+        container_user_describe = #{record.containerUserDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateName != null">
+        rate_name = #{record.rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateNameEn != null">
+        rate_name_en = #{record.rateNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isContainerUserRate != null">
+        is_container_user_rate = #{record.isContainerUserRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRepeatPrompts != null">
+        is_repeat_prompts = #{record.isRepeatPrompts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMustPhoto != null">
+        is_must_photo = #{record.isMustPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isGz != null">
+        is_gz = #{record.isGz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_rate
+    set prod_rate_id = #{record.prodRateId,jdbcType=VARCHAR},
+      standard_rate = #{record.standardRate,jdbcType=VARCHAR},
+      container_category = #{record.containerCategory,jdbcType=VARCHAR},
+      calculation_type = #{record.calculationType,jdbcType=VARCHAR},
+      rate_code = #{record.rateCode,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      parts_type = #{record.partsType,jdbcType=VARCHAR},
+      parts_details = #{record.partsDetails,jdbcType=VARCHAR},
+      parts_details_name = #{record.partsDetailsName,jdbcType=VARCHAR},
+      parts_details_name_en = #{record.partsDetailsNameEn,jdbcType=VARCHAR},
+      repair = #{record.repair,jdbcType=VARCHAR},
+      material = #{record.material,jdbcType=VARCHAR},
+      container_user_describe = #{record.containerUserDescribe,jdbcType=VARCHAR},
+      rate_name = #{record.rateName,jdbcType=VARCHAR},
+      rate_name_en = #{record.rateNameEn,jdbcType=VARCHAR},
+      is_container_user_rate = #{record.isContainerUserRate,jdbcType=VARCHAR},
+      is_repeat_prompts = #{record.isRepeatPrompts,jdbcType=VARCHAR},
+      is_must_photo = #{record.isMustPhoto,jdbcType=VARCHAR},
+      is_gz = #{record.isGz,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.Rate">
+    update prod_rate
+    <set>
+      <if test="standardRate != null">
+        standard_rate = #{standardRate,jdbcType=VARCHAR},
+      </if>
+      <if test="containerCategory != null">
+        container_category = #{containerCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="calculationType != null">
+        calculation_type = #{calculationType,jdbcType=VARCHAR},
+      </if>
+      <if test="rateCode != null">
+        rate_code = #{rateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="partsType != null">
+        parts_type = #{partsType,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetails != null">
+        parts_details = #{partsDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsName != null">
+        parts_details_name = #{partsDetailsName,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDetailsNameEn != null">
+        parts_details_name_en = #{partsDetailsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="repair != null">
+        repair = #{repair,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUserDescribe != null">
+        container_user_describe = #{containerUserDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="rateName != null">
+        rate_name = #{rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="rateNameEn != null">
+        rate_name_en = #{rateNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="isContainerUserRate != null">
+        is_container_user_rate = #{isContainerUserRate,jdbcType=VARCHAR},
+      </if>
+      <if test="isRepeatPrompts != null">
+        is_repeat_prompts = #{isRepeatPrompts,jdbcType=VARCHAR},
+      </if>
+      <if test="isMustPhoto != null">
+        is_must_photo = #{isMustPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="isGz != null">
+        is_gz = #{isGz,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_rate_id = #{prodRateId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.Rate">
+    update prod_rate
+    set standard_rate = #{standardRate,jdbcType=VARCHAR},
+      container_category = #{containerCategory,jdbcType=VARCHAR},
+      calculation_type = #{calculationType,jdbcType=VARCHAR},
+      rate_code = #{rateCode,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      parts_type = #{partsType,jdbcType=VARCHAR},
+      parts_details = #{partsDetails,jdbcType=VARCHAR},
+      parts_details_name = #{partsDetailsName,jdbcType=VARCHAR},
+      parts_details_name_en = #{partsDetailsNameEn,jdbcType=VARCHAR},
+      repair = #{repair,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      container_user_describe = #{containerUserDescribe,jdbcType=VARCHAR},
+      rate_name = #{rateName,jdbcType=VARCHAR},
+      rate_name_en = #{rateNameEn,jdbcType=VARCHAR},
+      is_container_user_rate = #{isContainerUserRate,jdbcType=VARCHAR},
+      is_repeat_prompts = #{isRepeatPrompts,jdbcType=VARCHAR},
+      is_must_photo = #{isMustPhoto,jdbcType=VARCHAR},
+      is_gz = #{isGz,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_rate_id = #{prodRateId,jdbcType=VARCHAR}
+  </update>
+</mapper>

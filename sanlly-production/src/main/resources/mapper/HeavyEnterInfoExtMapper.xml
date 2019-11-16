@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.HeavyEnterInfoExtMapper">
+ <resultMap id="BaseResultMap" type="com.sanlly.production.entity.HeavyEnterInfo">
+    <id column="prod_heavy_enter_id" jdbcType="INTEGER" property="prodHeavyEnterId" />
+    <result column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="is_export" jdbcType="VARCHAR" property="isExport" />
+    <result column="ves_vos" jdbcType="VARCHAR" property="vesVos" />
+    <result column="sailing_date" jdbcType="TIMESTAMP" property="sailingDate" />
+    <result column="shipment_date" jdbcType="TIMESTAMP" property="shipmentDate" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="exit_yard" jdbcType="VARCHAR" property="exitYard" />
+    <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="setting_temp" jdbcType="DOUBLE" property="settingTemp" />
+    <result column="setting_humidity" jdbcType="DOUBLE" property="settingHumidity" />
+    <result column="vent" jdbcType="DOUBLE" property="vent" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="dock" jdbcType="VARCHAR" property="dock" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+
+	<select id="voyages" parameterType="Map" resultType="String">
+		SELECT ves_vos FROM prod_heavy_enter_info 
+		WHERE state IN ('HEAVYCONTSTATE002', 'HEAVYCONTSTATE003') 
+		AND is_del = 0
+		GROUP BY ves_vos
+		LIMIT #{start}, #{end}
+	</select>
+	
+	<select id="count" parameterType="Map" resultType="Integer">
+		SELECT COUNT(t.ves_vos) FROM
+			(SELECT ves_vos FROM prod_heavy_enter_info  
+			WHERE state IN ('HEAVYCONTSTATE002', 'HEAVYCONTSTATE003')
+			AND is_del = 0 
+			GROUP BY ves_vos ) AS t
+	</select>
+	
+</mapper>

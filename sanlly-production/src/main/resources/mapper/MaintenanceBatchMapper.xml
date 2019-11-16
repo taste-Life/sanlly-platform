@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.MaintenanceBatchMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.MaintenanceBatch">
+    <id column="prod_maintenance_batch_id" jdbcType="INTEGER" property="prodMaintenanceBatchId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="no_type" jdbcType="VARCHAR" property="noType" />
+    <result column="start_no" jdbcType="VARCHAR" property="startNo" />
+    <result column="end_no" jdbcType="VARCHAR" property="endNo" />
+    <result column="working_hours_cost" jdbcType="DECIMAL" property="workingHoursCost" />
+    <result column="material_cost" jdbcType="DECIMAL" property="materialCost" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="description_en" jdbcType="VARCHAR" property="descriptionEn" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_maintenance_batch_id, code, no_type, start_no, end_no, working_hours_cost, material_cost, 
+    description, description_en, is_del, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.MaintenanceBatchExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_maintenance_batch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_maintenance_batch
+    where prod_maintenance_batch_id = #{prodMaintenanceBatchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_maintenance_batch
+    where prod_maintenance_batch_id = #{prodMaintenanceBatchId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.MaintenanceBatchExample">
+    delete from prod_maintenance_batch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.MaintenanceBatch">
+    insert into prod_maintenance_batch (prod_maintenance_batch_id, code, no_type, 
+      start_no, end_no, working_hours_cost, 
+      material_cost, description, description_en, 
+      is_del, create_user, create_time, 
+      update_user, update_time)
+    values (#{prodMaintenanceBatchId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{noType,jdbcType=VARCHAR}, 
+      #{startNo,jdbcType=VARCHAR}, #{endNo,jdbcType=VARCHAR}, #{workingHoursCost,jdbcType=DECIMAL}, 
+      #{materialCost,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, #{descriptionEn,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.MaintenanceBatch">
+    insert into prod_maintenance_batch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodMaintenanceBatchId != null">
+        prod_maintenance_batch_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="noType != null">
+        no_type,
+      </if>
+      <if test="startNo != null">
+        start_no,
+      </if>
+      <if test="endNo != null">
+        end_no,
+      </if>
+      <if test="workingHoursCost != null">
+        working_hours_cost,
+      </if>
+      <if test="materialCost != null">
+        material_cost,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="descriptionEn != null">
+        description_en,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodMaintenanceBatchId != null">
+        #{prodMaintenanceBatchId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="noType != null">
+        #{noType,jdbcType=VARCHAR},
+      </if>
+      <if test="startNo != null">
+        #{startNo,jdbcType=VARCHAR},
+      </if>
+      <if test="endNo != null">
+        #{endNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workingHoursCost != null">
+        #{workingHoursCost,jdbcType=DECIMAL},
+      </if>
+      <if test="materialCost != null">
+        #{materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null">
+        #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.MaintenanceBatchExample" resultType="java.lang.Long">
+    select count(*) from prod_maintenance_batch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_maintenance_batch
+    <set>
+      <if test="record.prodMaintenanceBatchId != null">
+        prod_maintenance_batch_id = #{record.prodMaintenanceBatchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noType != null">
+        no_type = #{record.noType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startNo != null">
+        start_no = #{record.startNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endNo != null">
+        end_no = #{record.endNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workingHoursCost != null">
+        working_hours_cost = #{record.workingHoursCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.materialCost != null">
+        material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionEn != null">
+        description_en = #{record.descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_maintenance_batch
+    set prod_maintenance_batch_id = #{record.prodMaintenanceBatchId,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      no_type = #{record.noType,jdbcType=VARCHAR},
+      start_no = #{record.startNo,jdbcType=VARCHAR},
+      end_no = #{record.endNo,jdbcType=VARCHAR},
+      working_hours_cost = #{record.workingHoursCost,jdbcType=DECIMAL},
+      material_cost = #{record.materialCost,jdbcType=DECIMAL},
+      description = #{record.description,jdbcType=VARCHAR},
+      description_en = #{record.descriptionEn,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.MaintenanceBatch">
+    update prod_maintenance_batch
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="noType != null">
+        no_type = #{noType,jdbcType=VARCHAR},
+      </if>
+      <if test="startNo != null">
+        start_no = #{startNo,jdbcType=VARCHAR},
+      </if>
+      <if test="endNo != null">
+        end_no = #{endNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workingHoursCost != null">
+        working_hours_cost = #{workingHoursCost,jdbcType=DECIMAL},
+      </if>
+      <if test="materialCost != null">
+        material_cost = #{materialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null">
+        description_en = #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prod_maintenance_batch_id = #{prodMaintenanceBatchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.MaintenanceBatch">
+    update prod_maintenance_batch
+    set code = #{code,jdbcType=VARCHAR},
+      no_type = #{noType,jdbcType=VARCHAR},
+      start_no = #{startNo,jdbcType=VARCHAR},
+      end_no = #{endNo,jdbcType=VARCHAR},
+      working_hours_cost = #{workingHoursCost,jdbcType=DECIMAL},
+      material_cost = #{materialCost,jdbcType=DECIMAL},
+      description = #{description,jdbcType=VARCHAR},
+      description_en = #{descriptionEn,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where prod_maintenance_batch_id = #{prodMaintenanceBatchId,jdbcType=INTEGER}
+  </update>
+</mapper>

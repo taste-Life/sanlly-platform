@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.QualityReworkMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.QualityRework">
+    <id column="prod_quality_rework_id" jdbcType="INTEGER" property="prodQualityReworkId" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="referral_entry_id" jdbcType="VARCHAR" property="referralEntryId" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="is_technology" jdbcType="VARCHAR" property="isTechnology" />
+    <result column="rework_question" jdbcType="VARCHAR" property="reworkQuestion" />
+    <result column="question_describe" jdbcType="VARCHAR" property="questionDescribe" />
+    <result column="rectification_standard" jdbcType="VARCHAR" property="rectificationStandard" />
+    <result column="back_cause" jdbcType="VARCHAR" property="backCause" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sanlly.production.entity.QualityRework">
+    <result column="back_photo" jdbcType="LONGVARCHAR" property="backPhoto" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_quality_rework_id, course, referral_entry_id, `state`, is_technology, rework_question, 
+    question_describe, rectification_standard, back_cause, is_del, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    back_photo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sanlly.production.entity.QualityReworkExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_quality_rework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.QualityReworkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_quality_rework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_quality_rework
+    where prod_quality_rework_id = #{prodQualityReworkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_quality_rework
+    where prod_quality_rework_id = #{prodQualityReworkId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.QualityReworkExample">
+    delete from prod_quality_rework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.QualityRework">
+    insert into prod_quality_rework (prod_quality_rework_id, course, referral_entry_id, 
+      `state`, is_technology, rework_question, 
+      question_describe, rectification_standard, 
+      back_cause, is_del, create_time, 
+      create_user, update_time, update_user, 
+      back_photo)
+    values (#{prodQualityReworkId,jdbcType=INTEGER}, #{course,jdbcType=VARCHAR}, #{referralEntryId,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{isTechnology,jdbcType=VARCHAR}, #{reworkQuestion,jdbcType=VARCHAR}, 
+      #{questionDescribe,jdbcType=VARCHAR}, #{rectificationStandard,jdbcType=VARCHAR}, 
+      #{backCause,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{backPhoto,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.QualityRework">
+    insert into prod_quality_rework
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodQualityReworkId != null">
+        prod_quality_rework_id,
+      </if>
+      <if test="course != null">
+        course,
+      </if>
+      <if test="referralEntryId != null">
+        referral_entry_id,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="isTechnology != null">
+        is_technology,
+      </if>
+      <if test="reworkQuestion != null">
+        rework_question,
+      </if>
+      <if test="questionDescribe != null">
+        question_describe,
+      </if>
+      <if test="rectificationStandard != null">
+        rectification_standard,
+      </if>
+      <if test="backCause != null">
+        back_cause,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="backPhoto != null">
+        back_photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodQualityReworkId != null">
+        #{prodQualityReworkId,jdbcType=INTEGER},
+      </if>
+      <if test="course != null">
+        #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="referralEntryId != null">
+        #{referralEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isTechnology != null">
+        #{isTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="reworkQuestion != null">
+        #{reworkQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="questionDescribe != null">
+        #{questionDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="rectificationStandard != null">
+        #{rectificationStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="backCause != null">
+        #{backCause,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="backPhoto != null">
+        #{backPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.QualityReworkExample" resultType="java.lang.Long">
+    select count(*) from prod_quality_rework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_quality_rework
+    <set>
+      <if test="record.prodQualityReworkId != null">
+        prod_quality_rework_id = #{record.prodQualityReworkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.course != null">
+        course = #{record.course,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referralEntryId != null">
+        referral_entry_id = #{record.referralEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTechnology != null">
+        is_technology = #{record.isTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reworkQuestion != null">
+        rework_question = #{record.reworkQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionDescribe != null">
+        question_describe = #{record.questionDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rectificationStandard != null">
+        rectification_standard = #{record.rectificationStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backCause != null">
+        back_cause = #{record.backCause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.backPhoto != null">
+        back_photo = #{record.backPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update prod_quality_rework
+    set prod_quality_rework_id = #{record.prodQualityReworkId,jdbcType=INTEGER},
+      course = #{record.course,jdbcType=VARCHAR},
+      referral_entry_id = #{record.referralEntryId,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=VARCHAR},
+      is_technology = #{record.isTechnology,jdbcType=VARCHAR},
+      rework_question = #{record.reworkQuestion,jdbcType=VARCHAR},
+      question_describe = #{record.questionDescribe,jdbcType=VARCHAR},
+      rectification_standard = #{record.rectificationStandard,jdbcType=VARCHAR},
+      back_cause = #{record.backCause,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      back_photo = #{record.backPhoto,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_quality_rework
+    set prod_quality_rework_id = #{record.prodQualityReworkId,jdbcType=INTEGER},
+      course = #{record.course,jdbcType=VARCHAR},
+      referral_entry_id = #{record.referralEntryId,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=VARCHAR},
+      is_technology = #{record.isTechnology,jdbcType=VARCHAR},
+      rework_question = #{record.reworkQuestion,jdbcType=VARCHAR},
+      question_describe = #{record.questionDescribe,jdbcType=VARCHAR},
+      rectification_standard = #{record.rectificationStandard,jdbcType=VARCHAR},
+      back_cause = #{record.backCause,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.QualityRework">
+    update prod_quality_rework
+    <set>
+      <if test="course != null">
+        course = #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="referralEntryId != null">
+        referral_entry_id = #{referralEntryId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isTechnology != null">
+        is_technology = #{isTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="reworkQuestion != null">
+        rework_question = #{reworkQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="questionDescribe != null">
+        question_describe = #{questionDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="rectificationStandard != null">
+        rectification_standard = #{rectificationStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="backCause != null">
+        back_cause = #{backCause,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="backPhoto != null">
+        back_photo = #{backPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where prod_quality_rework_id = #{prodQualityReworkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sanlly.production.entity.QualityRework">
+    update prod_quality_rework
+    set course = #{course,jdbcType=VARCHAR},
+      referral_entry_id = #{referralEntryId,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=VARCHAR},
+      is_technology = #{isTechnology,jdbcType=VARCHAR},
+      rework_question = #{reworkQuestion,jdbcType=VARCHAR},
+      question_describe = #{questionDescribe,jdbcType=VARCHAR},
+      rectification_standard = #{rectificationStandard,jdbcType=VARCHAR},
+      back_cause = #{backCause,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      back_photo = #{backPhoto,jdbcType=LONGVARCHAR}
+    where prod_quality_rework_id = #{prodQualityReworkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.QualityRework">
+    update prod_quality_rework
+    set course = #{course,jdbcType=VARCHAR},
+      referral_entry_id = #{referralEntryId,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=VARCHAR},
+      is_technology = #{isTechnology,jdbcType=VARCHAR},
+      rework_question = #{reworkQuestion,jdbcType=VARCHAR},
+      question_describe = #{questionDescribe,jdbcType=VARCHAR},
+      rectification_standard = #{rectificationStandard,jdbcType=VARCHAR},
+      back_cause = #{backCause,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_quality_rework_id = #{prodQualityReworkId,jdbcType=INTEGER}
+  </update>
+</mapper>

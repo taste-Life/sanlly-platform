@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.GxRateMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.GxRate">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="CntrNo" jdbcType="VARCHAR" property="cntrno" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="containerCategory" jdbcType="VARCHAR" property="containercategory" />
+    <result column="containerUser" jdbcType="VARCHAR" property="containeruser" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="containerType" jdbcType="VARCHAR" property="containertype" />
+    <result column="positionCode" jdbcType="VARCHAR" property="positioncode" />
+    <result column="partsTypeCode" jdbcType="VARCHAR" property="partstypecode" />
+    <result column="partsDetailsCode" jdbcType="VARCHAR" property="partsdetailscode" />
+    <result column="repairCode" jdbcType="VARCHAR" property="repaircode" />
+    <result column="materialCode" jdbcType="VARCHAR" property="materialcode" />
+    <result column="length" jdbcType="VARCHAR" property="length" />
+    <result column="width" jdbcType="VARCHAR" property="width" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="Customerratecode" jdbcType="VARCHAR" property="customerratecode" />
+    <result column="fiveCode" jdbcType="VARCHAR" property="fivecode" />
+    <result column="manHour" jdbcType="VARCHAR" property="manhour" />
+    <result column="manHourCost" jdbcType="VARCHAR" property="manhourcost" />
+    <result column="materialCost" jdbcType="VARCHAR" property="materialcost" />
+    <result column="totalCost" jdbcType="VARCHAR" property="totalcost" />
+    <result column="sparesNumber" jdbcType="VARCHAR" property="sparesnumber" />
+    <result column="dispatchingWorkHour" jdbcType="VARCHAR" property="dispatchingworkhour" />
+    <result column="fiveCode_new" jdbcType="VARCHAR" property="fivecodeNew" />
+    <result column="manHour_new" jdbcType="VARCHAR" property="manhourNew" />
+    <result column="manHourCost_new" jdbcType="VARCHAR" property="manhourcostNew" />
+    <result column="materialCost_new" jdbcType="VARCHAR" property="materialcostNew" />
+    <result column="totalCost_new" jdbcType="VARCHAR" property="totalcostNew" />
+    <result column="sparesNumber_new" jdbcType="VARCHAR" property="sparesnumberNew" />
+    <result column="dispatchingWorkHour_new" jdbcType="VARCHAR" property="dispatchingworkhourNew" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, CntrNo, company, containerCategory, containerUser, `size`, containerType, positionCode, 
+    partsTypeCode, partsDetailsCode, repairCode, materialCode, `length`, width, quantity, 
+    Customerratecode, fiveCode, manHour, manHourCost, materialCost, totalCost, sparesNumber, 
+    dispatchingWorkHour, fiveCode_new, manHour_new, manHourCost_new, materialCost_new, 
+    totalCost_new, sparesNumber_new, dispatchingWorkHour_new
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.GxRateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gx_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gx_rate
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from gx_rate
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.GxRateExample">
+    delete from gx_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.GxRate">
+    insert into gx_rate (id, CntrNo, company, 
+      containerCategory, containerUser, `size`, 
+      containerType, positionCode, partsTypeCode, 
+      partsDetailsCode, repairCode, materialCode, 
+      `length`, width, quantity, 
+      Customerratecode, fiveCode, manHour, 
+      manHourCost, materialCost, totalCost, 
+      sparesNumber, dispatchingWorkHour, fiveCode_new, 
+      manHour_new, manHourCost_new, materialCost_new, 
+      totalCost_new, sparesNumber_new, dispatchingWorkHour_new
+      )
+    values (#{id,jdbcType=VARCHAR}, #{cntrno,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{containercategory,jdbcType=VARCHAR}, #{containeruser,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{containertype,jdbcType=VARCHAR}, #{positioncode,jdbcType=VARCHAR}, #{partstypecode,jdbcType=VARCHAR}, 
+      #{partsdetailscode,jdbcType=VARCHAR}, #{repaircode,jdbcType=VARCHAR}, #{materialcode,jdbcType=VARCHAR}, 
+      #{length,jdbcType=VARCHAR}, #{width,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR}, 
+      #{customerratecode,jdbcType=VARCHAR}, #{fivecode,jdbcType=VARCHAR}, #{manhour,jdbcType=VARCHAR}, 
+      #{manhourcost,jdbcType=VARCHAR}, #{materialcost,jdbcType=VARCHAR}, #{totalcost,jdbcType=VARCHAR}, 
+      #{sparesnumber,jdbcType=VARCHAR}, #{dispatchingworkhour,jdbcType=VARCHAR}, #{fivecodeNew,jdbcType=VARCHAR}, 
+      #{manhourNew,jdbcType=VARCHAR}, #{manhourcostNew,jdbcType=VARCHAR}, #{materialcostNew,jdbcType=VARCHAR}, 
+      #{totalcostNew,jdbcType=VARCHAR}, #{sparesnumberNew,jdbcType=VARCHAR}, #{dispatchingworkhourNew,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.GxRate">
+    insert into gx_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cntrno != null">
+        CntrNo,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="containercategory != null">
+        containerCategory,
+      </if>
+      <if test="containeruser != null">
+        containerUser,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="containertype != null">
+        containerType,
+      </if>
+      <if test="positioncode != null">
+        positionCode,
+      </if>
+      <if test="partstypecode != null">
+        partsTypeCode,
+      </if>
+      <if test="partsdetailscode != null">
+        partsDetailsCode,
+      </if>
+      <if test="repaircode != null">
+        repairCode,
+      </if>
+      <if test="materialcode != null">
+        materialCode,
+      </if>
+      <if test="length != null">
+        `length`,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="customerratecode != null">
+        Customerratecode,
+      </if>
+      <if test="fivecode != null">
+        fiveCode,
+      </if>
+      <if test="manhour != null">
+        manHour,
+      </if>
+      <if test="manhourcost != null">
+        manHourCost,
+      </if>
+      <if test="materialcost != null">
+        materialCost,
+      </if>
+      <if test="totalcost != null">
+        totalCost,
+      </if>
+      <if test="sparesnumber != null">
+        sparesNumber,
+      </if>
+      <if test="dispatchingworkhour != null">
+        dispatchingWorkHour,
+      </if>
+      <if test="fivecodeNew != null">
+        fiveCode_new,
+      </if>
+      <if test="manhourNew != null">
+        manHour_new,
+      </if>
+      <if test="manhourcostNew != null">
+        manHourCost_new,
+      </if>
+      <if test="materialcostNew != null">
+        materialCost_new,
+      </if>
+      <if test="totalcostNew != null">
+        totalCost_new,
+      </if>
+      <if test="sparesnumberNew != null">
+        sparesNumber_new,
+      </if>
+      <if test="dispatchingworkhourNew != null">
+        dispatchingWorkHour_new,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cntrno != null">
+        #{cntrno,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containercategory != null">
+        #{containercategory,jdbcType=VARCHAR},
+      </if>
+      <if test="containeruser != null">
+        #{containeruser,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="containertype != null">
+        #{containertype,jdbcType=VARCHAR},
+      </if>
+      <if test="positioncode != null">
+        #{positioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="partstypecode != null">
+        #{partstypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsdetailscode != null">
+        #{partsdetailscode,jdbcType=VARCHAR},
+      </if>
+      <if test="repaircode != null">
+        #{repaircode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcode != null">
+        #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="customerratecode != null">
+        #{customerratecode,jdbcType=VARCHAR},
+      </if>
+      <if test="fivecode != null">
+        #{fivecode,jdbcType=VARCHAR},
+      </if>
+      <if test="manhour != null">
+        #{manhour,jdbcType=VARCHAR},
+      </if>
+      <if test="manhourcost != null">
+        #{manhourcost,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcost != null">
+        #{materialcost,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcost != null">
+        #{totalcost,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesnumber != null">
+        #{sparesnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchingworkhour != null">
+        #{dispatchingworkhour,jdbcType=VARCHAR},
+      </if>
+      <if test="fivecodeNew != null">
+        #{fivecodeNew,jdbcType=VARCHAR},
+      </if>
+      <if test="manhourNew != null">
+        #{manhourNew,jdbcType=VARCHAR},
+      </if>
+      <if test="manhourcostNew != null">
+        #{manhourcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcostNew != null">
+        #{materialcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcostNew != null">
+        #{totalcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesnumberNew != null">
+        #{sparesnumberNew,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchingworkhourNew != null">
+        #{dispatchingworkhourNew,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.GxRateExample" resultType="java.lang.Long">
+    select count(*) from gx_rate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gx_rate
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cntrno != null">
+        CntrNo = #{record.cntrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containercategory != null">
+        containerCategory = #{record.containercategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containeruser != null">
+        containerUser = #{record.containeruser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containertype != null">
+        containerType = #{record.containertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positioncode != null">
+        positionCode = #{record.positioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partstypecode != null">
+        partsTypeCode = #{record.partstypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partsdetailscode != null">
+        partsDetailsCode = #{record.partsdetailscode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaircode != null">
+        repairCode = #{record.repaircode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialcode != null">
+        materialCode = #{record.materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null">
+        `length` = #{record.length,jdbcType=VARCHAR},
+      </if>
+      <if test="record.width != null">
+        width = #{record.width,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerratecode != null">
+        Customerratecode = #{record.customerratecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fivecode != null">
+        fiveCode = #{record.fivecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manhour != null">
+        manHour = #{record.manhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manhourcost != null">
+        manHourCost = #{record.manhourcost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialcost != null">
+        materialCost = #{record.materialcost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalcost != null">
+        totalCost = #{record.totalcost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparesnumber != null">
+        sparesNumber = #{record.sparesnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispatchingworkhour != null">
+        dispatchingWorkHour = #{record.dispatchingworkhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fivecodeNew != null">
+        fiveCode_new = #{record.fivecodeNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manhourNew != null">
+        manHour_new = #{record.manhourNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manhourcostNew != null">
+        manHourCost_new = #{record.manhourcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialcostNew != null">
+        materialCost_new = #{record.materialcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalcostNew != null">
+        totalCost_new = #{record.totalcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sparesnumberNew != null">
+        sparesNumber_new = #{record.sparesnumberNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispatchingworkhourNew != null">
+        dispatchingWorkHour_new = #{record.dispatchingworkhourNew,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gx_rate
+    set id = #{record.id,jdbcType=VARCHAR},
+      CntrNo = #{record.cntrno,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      containerCategory = #{record.containercategory,jdbcType=VARCHAR},
+      containerUser = #{record.containeruser,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      containerType = #{record.containertype,jdbcType=VARCHAR},
+      positionCode = #{record.positioncode,jdbcType=VARCHAR},
+      partsTypeCode = #{record.partstypecode,jdbcType=VARCHAR},
+      partsDetailsCode = #{record.partsdetailscode,jdbcType=VARCHAR},
+      repairCode = #{record.repaircode,jdbcType=VARCHAR},
+      materialCode = #{record.materialcode,jdbcType=VARCHAR},
+      `length` = #{record.length,jdbcType=VARCHAR},
+      width = #{record.width,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=VARCHAR},
+      Customerratecode = #{record.customerratecode,jdbcType=VARCHAR},
+      fiveCode = #{record.fivecode,jdbcType=VARCHAR},
+      manHour = #{record.manhour,jdbcType=VARCHAR},
+      manHourCost = #{record.manhourcost,jdbcType=VARCHAR},
+      materialCost = #{record.materialcost,jdbcType=VARCHAR},
+      totalCost = #{record.totalcost,jdbcType=VARCHAR},
+      sparesNumber = #{record.sparesnumber,jdbcType=VARCHAR},
+      dispatchingWorkHour = #{record.dispatchingworkhour,jdbcType=VARCHAR},
+      fiveCode_new = #{record.fivecodeNew,jdbcType=VARCHAR},
+      manHour_new = #{record.manhourNew,jdbcType=VARCHAR},
+      manHourCost_new = #{record.manhourcostNew,jdbcType=VARCHAR},
+      materialCost_new = #{record.materialcostNew,jdbcType=VARCHAR},
+      totalCost_new = #{record.totalcostNew,jdbcType=VARCHAR},
+      sparesNumber_new = #{record.sparesnumberNew,jdbcType=VARCHAR},
+      dispatchingWorkHour_new = #{record.dispatchingworkhourNew,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.GxRate">
+    update gx_rate
+    <set>
+      <if test="cntrno != null">
+        CntrNo = #{cntrno,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="containercategory != null">
+        containerCategory = #{containercategory,jdbcType=VARCHAR},
+      </if>
+      <if test="containeruser != null">
+        containerUser = #{containeruser,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="containertype != null">
+        containerType = #{containertype,jdbcType=VARCHAR},
+      </if>
+      <if test="positioncode != null">
+        positionCode = #{positioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="partstypecode != null">
+        partsTypeCode = #{partstypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="partsdetailscode != null">
+        partsDetailsCode = #{partsdetailscode,jdbcType=VARCHAR},
+      </if>
+      <if test="repaircode != null">
+        repairCode = #{repaircode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcode != null">
+        materialCode = #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        `length` = #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="customerratecode != null">
+        Customerratecode = #{customerratecode,jdbcType=VARCHAR},
+      </if>
+      <if test="fivecode != null">
+        fiveCode = #{fivecode,jdbcType=VARCHAR},
+      </if>
+      <if test="manhour != null">
+        manHour = #{manhour,jdbcType=VARCHAR},
+      </if>
+      <if test="manhourcost != null">
+        manHourCost = #{manhourcost,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcost != null">
+        materialCost = #{materialcost,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcost != null">
+        totalCost = #{totalcost,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesnumber != null">
+        sparesNumber = #{sparesnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchingworkhour != null">
+        dispatchingWorkHour = #{dispatchingworkhour,jdbcType=VARCHAR},
+      </if>
+      <if test="fivecodeNew != null">
+        fiveCode_new = #{fivecodeNew,jdbcType=VARCHAR},
+      </if>
+      <if test="manhourNew != null">
+        manHour_new = #{manhourNew,jdbcType=VARCHAR},
+      </if>
+      <if test="manhourcostNew != null">
+        manHourCost_new = #{manhourcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcostNew != null">
+        materialCost_new = #{materialcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcostNew != null">
+        totalCost_new = #{totalcostNew,jdbcType=VARCHAR},
+      </if>
+      <if test="sparesnumberNew != null">
+        sparesNumber_new = #{sparesnumberNew,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchingworkhourNew != null">
+        dispatchingWorkHour_new = #{dispatchingworkhourNew,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.GxRate">
+    update gx_rate
+    set CntrNo = #{cntrno,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      containerCategory = #{containercategory,jdbcType=VARCHAR},
+      containerUser = #{containeruser,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      containerType = #{containertype,jdbcType=VARCHAR},
+      positionCode = #{positioncode,jdbcType=VARCHAR},
+      partsTypeCode = #{partstypecode,jdbcType=VARCHAR},
+      partsDetailsCode = #{partsdetailscode,jdbcType=VARCHAR},
+      repairCode = #{repaircode,jdbcType=VARCHAR},
+      materialCode = #{materialcode,jdbcType=VARCHAR},
+      `length` = #{length,jdbcType=VARCHAR},
+      width = #{width,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=VARCHAR},
+      Customerratecode = #{customerratecode,jdbcType=VARCHAR},
+      fiveCode = #{fivecode,jdbcType=VARCHAR},
+      manHour = #{manhour,jdbcType=VARCHAR},
+      manHourCost = #{manhourcost,jdbcType=VARCHAR},
+      materialCost = #{materialcost,jdbcType=VARCHAR},
+      totalCost = #{totalcost,jdbcType=VARCHAR},
+      sparesNumber = #{sparesnumber,jdbcType=VARCHAR},
+      dispatchingWorkHour = #{dispatchingworkhour,jdbcType=VARCHAR},
+      fiveCode_new = #{fivecodeNew,jdbcType=VARCHAR},
+      manHour_new = #{manhourNew,jdbcType=VARCHAR},
+      manHourCost_new = #{manhourcostNew,jdbcType=VARCHAR},
+      materialCost_new = #{materialcostNew,jdbcType=VARCHAR},
+      totalCost_new = #{totalcostNew,jdbcType=VARCHAR},
+      sparesNumber_new = #{sparesnumberNew,jdbcType=VARCHAR},
+      dispatchingWorkHour_new = #{dispatchingworkhourNew,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

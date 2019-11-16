@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.purchase.dao.PurchaseDeliveryMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.purchase.entity.PurchaseDelivery">
+    <id column="purc_purchase_delivery_id" jdbcType="INTEGER" property="purcPurchaseDeliveryId" />
+    <result column="tender_id" jdbcType="VARCHAR" property="tenderId" />
+    <result column="is_day_pruchase" jdbcType="VARCHAR" property="isDayPruchase" />
+    <result column="delivery_num" jdbcType="VARCHAR" property="deliveryNum" />
+    <result column="purchase_company" jdbcType="VARCHAR" property="purchaseCompany" />
+    <result column="purchase_ware" jdbcType="VARCHAR" property="purchaseWare" />
+    <result column="purchase_type" jdbcType="VARCHAR" property="purchaseType" />
+    <result column="invoice" jdbcType="VARCHAR" property="invoice" />
+    <result column="purchase_user_id" jdbcType="INTEGER" property="purchaseUserId" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="purc_purchase_order" jdbcType="INTEGER" property="purcPurchaseOrder" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="supply_type" jdbcType="VARCHAR" property="supplyType" />
+    <result column="logistics_company" jdbcType="VARCHAR" property="logisticsCompany" />
+    <result column="logistics_num" jdbcType="VARCHAR" property="logisticsNum" />
+    <result column="recive_status" jdbcType="VARCHAR" property="reciveStatus" />
+    <result column="billTotalAmount" jdbcType="DECIMAL" property="billtotalamount" />
+    <result column="vat" jdbcType="DECIMAL" property="vat" />
+    <result column="tariff" jdbcType="DECIMAL" property="tariff" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="is_verify_account" jdbcType="VARCHAR" property="isVerifyAccount" />
+    <result column="purchase_time" jdbcType="TIMESTAMP" property="purchaseTime" />
+    <result column="recive_address" jdbcType="VARCHAR" property="reciveAddress" />
+    <result column="comments" jdbcType="VARCHAR" property="comments" />
+    <result column="invoice_no" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    purc_purchase_delivery_id, tender_id, is_day_pruchase, delivery_num, purchase_company, 
+    purchase_ware, purchase_type, invoice, purchase_user_id, contact, purc_purchase_order, 
+    supplier, supply_type, logistics_company, logistics_num, recive_status, billTotalAmount, 
+    vat, tariff, freight, is_verify_account, purchase_time, recive_address, comments, 
+    invoice_no, is_del, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.purchase.entity.PurchaseDeliveryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purc_purchase_delivery
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from purc_purchase_delivery
+    where purc_purchase_delivery_id = #{purcPurchaseDeliveryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from purc_purchase_delivery
+    where purc_purchase_delivery_id = #{purcPurchaseDeliveryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.purchase.entity.PurchaseDeliveryExample">
+    delete from purc_purchase_delivery
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.purchase.entity.PurchaseDelivery">
+    <selectKey keyProperty="purcPurchaseDeliveryId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into purc_purchase_delivery (tender_id, is_day_pruchase, delivery_num, 
+      purchase_company, purchase_ware, purchase_type, 
+      invoice, purchase_user_id, contact, 
+      purc_purchase_order, supplier, supply_type, 
+      logistics_company, logistics_num, recive_status, 
+      billTotalAmount, vat, tariff, 
+      freight, is_verify_account, purchase_time, 
+      recive_address, comments, invoice_no, 
+      is_del, create_time, create_user, 
+      update_time, update_user)
+    values (#{tenderId,jdbcType=VARCHAR}, #{isDayPruchase,jdbcType=VARCHAR}, #{deliveryNum,jdbcType=VARCHAR}, 
+      #{purchaseCompany,jdbcType=VARCHAR}, #{purchaseWare,jdbcType=VARCHAR}, #{purchaseType,jdbcType=VARCHAR}, 
+      #{invoice,jdbcType=VARCHAR}, #{purchaseUserId,jdbcType=INTEGER}, #{contact,jdbcType=VARCHAR}, 
+      #{purcPurchaseOrder,jdbcType=INTEGER}, #{supplier,jdbcType=VARCHAR}, #{supplyType,jdbcType=VARCHAR}, 
+      #{logisticsCompany,jdbcType=VARCHAR}, #{logisticsNum,jdbcType=VARCHAR}, #{reciveStatus,jdbcType=VARCHAR}, 
+      #{billtotalamount,jdbcType=DECIMAL}, #{vat,jdbcType=DECIMAL}, #{tariff,jdbcType=DECIMAL}, 
+      #{freight,jdbcType=DECIMAL}, #{isVerifyAccount,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
+      #{reciveAddress,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.purchase.entity.PurchaseDelivery">
+    <selectKey keyProperty="purcPurchaseDeliveryId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into purc_purchase_delivery
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="isDayPruchase != null">
+        is_day_pruchase,
+      </if>
+      <if test="deliveryNum != null">
+        delivery_num,
+      </if>
+      <if test="purchaseCompany != null">
+        purchase_company,
+      </if>
+      <if test="purchaseWare != null">
+        purchase_ware,
+      </if>
+      <if test="purchaseType != null">
+        purchase_type,
+      </if>
+      <if test="invoice != null">
+        invoice,
+      </if>
+      <if test="purchaseUserId != null">
+        purchase_user_id,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="purcPurchaseOrder != null">
+        purc_purchase_order,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="supplyType != null">
+        supply_type,
+      </if>
+      <if test="logisticsCompany != null">
+        logistics_company,
+      </if>
+      <if test="logisticsNum != null">
+        logistics_num,
+      </if>
+      <if test="reciveStatus != null">
+        recive_status,
+      </if>
+      <if test="billtotalamount != null">
+        billTotalAmount,
+      </if>
+      <if test="vat != null">
+        vat,
+      </if>
+      <if test="tariff != null">
+        tariff,
+      </if>
+      <if test="freight != null">
+        freight,
+      </if>
+      <if test="isVerifyAccount != null">
+        is_verify_account,
+      </if>
+      <if test="purchaseTime != null">
+        purchase_time,
+      </if>
+      <if test="reciveAddress != null">
+        recive_address,
+      </if>
+      <if test="comments != null">
+        comments,
+      </if>
+      <if test="invoiceNo != null">
+        invoice_no,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDayPruchase != null">
+        #{isDayPruchase,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null">
+        #{deliveryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCompany != null">
+        #{purchaseCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseWare != null">
+        #{purchaseWare,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseType != null">
+        #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null">
+        #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseUserId != null">
+        #{purchaseUserId,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="purcPurchaseOrder != null">
+        #{purcPurchaseOrder,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyType != null">
+        #{supplyType,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null">
+        #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNum != null">
+        #{logisticsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveStatus != null">
+        #{reciveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="billtotalamount != null">
+        #{billtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null">
+        #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="tariff != null">
+        #{tariff,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null">
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="isVerifyAccount != null">
+        #{isVerifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null">
+        #{purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reciveAddress != null">
+        #{reciveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.purchase.entity.PurchaseDeliveryExample" resultType="java.lang.Long">
+    select count(*) from purc_purchase_delivery
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update purc_purchase_delivery
+    <set>
+      <if test="record.purcPurchaseDeliveryId != null">
+        purc_purchase_delivery_id = #{record.purcPurchaseDeliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDayPruchase != null">
+        is_day_pruchase = #{record.isDayPruchase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryNum != null">
+        delivery_num = #{record.deliveryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseCompany != null">
+        purchase_company = #{record.purchaseCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseWare != null">
+        purchase_ware = #{record.purchaseWare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseType != null">
+        purchase_type = #{record.purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoice != null">
+        invoice = #{record.invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseUserId != null">
+        purchase_user_id = #{record.purchaseUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contact != null">
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purcPurchaseOrder != null">
+        purc_purchase_order = #{record.purcPurchaseOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyType != null">
+        supply_type = #{record.supplyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsCompany != null">
+        logistics_company = #{record.logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsNum != null">
+        logistics_num = #{record.logisticsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reciveStatus != null">
+        recive_status = #{record.reciveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billtotalamount != null">
+        billTotalAmount = #{record.billtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vat != null">
+        vat = #{record.vat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tariff != null">
+        tariff = #{record.tariff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freight != null">
+        freight = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isVerifyAccount != null">
+        is_verify_account = #{record.isVerifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseTime != null">
+        purchase_time = #{record.purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reciveAddress != null">
+        recive_address = #{record.reciveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comments != null">
+        comments = #{record.comments,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceNo != null">
+        invoice_no = #{record.invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update purc_purchase_delivery
+    set purc_purchase_delivery_id = #{record.purcPurchaseDeliveryId,jdbcType=INTEGER},
+      tender_id = #{record.tenderId,jdbcType=VARCHAR},
+      is_day_pruchase = #{record.isDayPruchase,jdbcType=VARCHAR},
+      delivery_num = #{record.deliveryNum,jdbcType=VARCHAR},
+      purchase_company = #{record.purchaseCompany,jdbcType=VARCHAR},
+      purchase_ware = #{record.purchaseWare,jdbcType=VARCHAR},
+      purchase_type = #{record.purchaseType,jdbcType=VARCHAR},
+      invoice = #{record.invoice,jdbcType=VARCHAR},
+      purchase_user_id = #{record.purchaseUserId,jdbcType=INTEGER},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      purc_purchase_order = #{record.purcPurchaseOrder,jdbcType=INTEGER},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      supply_type = #{record.supplyType,jdbcType=VARCHAR},
+      logistics_company = #{record.logisticsCompany,jdbcType=VARCHAR},
+      logistics_num = #{record.logisticsNum,jdbcType=VARCHAR},
+      recive_status = #{record.reciveStatus,jdbcType=VARCHAR},
+      billTotalAmount = #{record.billtotalamount,jdbcType=DECIMAL},
+      vat = #{record.vat,jdbcType=DECIMAL},
+      tariff = #{record.tariff,jdbcType=DECIMAL},
+      freight = #{record.freight,jdbcType=DECIMAL},
+      is_verify_account = #{record.isVerifyAccount,jdbcType=VARCHAR},
+      purchase_time = #{record.purchaseTime,jdbcType=TIMESTAMP},
+      recive_address = #{record.reciveAddress,jdbcType=VARCHAR},
+      comments = #{record.comments,jdbcType=VARCHAR},
+      invoice_no = #{record.invoiceNo,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.purchase.entity.PurchaseDelivery">
+    update purc_purchase_delivery
+    <set>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDayPruchase != null">
+        is_day_pruchase = #{isDayPruchase,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNum != null">
+        delivery_num = #{deliveryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCompany != null">
+        purchase_company = #{purchaseCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseWare != null">
+        purchase_ware = #{purchaseWare,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseType != null">
+        purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null">
+        invoice = #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseUserId != null">
+        purchase_user_id = #{purchaseUserId,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="purcPurchaseOrder != null">
+        purc_purchase_order = #{purcPurchaseOrder,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyType != null">
+        supply_type = #{supplyType,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null">
+        logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNum != null">
+        logistics_num = #{logisticsNum,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveStatus != null">
+        recive_status = #{reciveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="billtotalamount != null">
+        billTotalAmount = #{billtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null">
+        vat = #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="tariff != null">
+        tariff = #{tariff,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null">
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="isVerifyAccount != null">
+        is_verify_account = #{isVerifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null">
+        purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reciveAddress != null">
+        recive_address = #{reciveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNo != null">
+        invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where purc_purchase_delivery_id = #{purcPurchaseDeliveryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.purchase.entity.PurchaseDelivery">
+    update purc_purchase_delivery
+    set tender_id = #{tenderId,jdbcType=VARCHAR},
+      is_day_pruchase = #{isDayPruchase,jdbcType=VARCHAR},
+      delivery_num = #{deliveryNum,jdbcType=VARCHAR},
+      purchase_company = #{purchaseCompany,jdbcType=VARCHAR},
+      purchase_ware = #{purchaseWare,jdbcType=VARCHAR},
+      purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      invoice = #{invoice,jdbcType=VARCHAR},
+      purchase_user_id = #{purchaseUserId,jdbcType=INTEGER},
+      contact = #{contact,jdbcType=VARCHAR},
+      purc_purchase_order = #{purcPurchaseOrder,jdbcType=INTEGER},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      supply_type = #{supplyType,jdbcType=VARCHAR},
+      logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      logistics_num = #{logisticsNum,jdbcType=VARCHAR},
+      recive_status = #{reciveStatus,jdbcType=VARCHAR},
+      billTotalAmount = #{billtotalamount,jdbcType=DECIMAL},
+      vat = #{vat,jdbcType=DECIMAL},
+      tariff = #{tariff,jdbcType=DECIMAL},
+      freight = #{freight,jdbcType=DECIMAL},
+      is_verify_account = #{isVerifyAccount,jdbcType=VARCHAR},
+      purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
+      recive_address = #{reciveAddress,jdbcType=VARCHAR},
+      comments = #{comments,jdbcType=VARCHAR},
+      invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where purc_purchase_delivery_id = #{purcPurchaseDeliveryId,jdbcType=INTEGER}
+  </update>
+</mapper>

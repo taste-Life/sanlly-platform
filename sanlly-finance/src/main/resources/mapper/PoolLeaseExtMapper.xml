@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.finance.dao.PoolLeaseExtMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.finance.entity.PoolLease">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="company_key" jdbcType="VARCHAR" property="companyKey" />
+    <result column="yard" jdbcType="VARCHAR" property="yard" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="charge_object" jdbcType="VARCHAR" property="chargeObject" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="sapid" jdbcType="VARCHAR" property="sapid" />
+    <result column="contract_path" jdbcType="VARCHAR" property="contractPath" />
+    <result column="start_month" jdbcType="VARCHAR" property="startMonth" />
+    <result column="end_month" jdbcType="VARCHAR" property="endMonth" />
+    <result column="charge_type_key" jdbcType="VARCHAR" property="chargeTypeKey" />
+    <result column="charge_inout_type" jdbcType="VARCHAR" property="chargeInoutType" />
+    <result column="chargecode" jdbcType="VARCHAR" property="chargecode" />
+    <result column="real_currency_type" jdbcType="VARCHAR" property="realCurrencyType" />
+    <result column="formula_type" jdbcType="VARCHAR" property="formulaType" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="dept_key" jdbcType="VARCHAR" property="deptKey" />
+    <result column="is_enabled" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+  </resultMap>
+     <select id="selectList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from finance_pool_lease
+    <where>
+    	 
+    	  is_del = 0
+         
+        <if test="isEnabled != null">
+    	and is_enabled = #{isEnabled}
+        </if>
+    	<if test="yearMonth != null">
+    	 and STR_TO_DATE(CONCAT(#{yearMonth},'-01'), "%Y-%m-%d")  BETWEEN STR_TO_DATE(CONCAT(start_month,'-01'), "%Y-%m-%d")  and STR_TO_DATE(CONCAT(end_month,'-01'), "%Y-%m-%d")
+        </if>
+    </where>
+  </select>
+</mapper>

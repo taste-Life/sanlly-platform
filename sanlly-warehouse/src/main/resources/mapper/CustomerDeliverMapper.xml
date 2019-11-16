@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.CustomerDeliverMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.CustomerDeliver">
+    <id column="ware_customer_deliver_id" jdbcType="INTEGER" property="wareCustomerDeliverId" />
+    <result column="stockout_no" jdbcType="VARCHAR" property="stockoutNo" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="repair_no" jdbcType="VARCHAR" property="repairNo" />
+    <result column="repair_income" jdbcType="DECIMAL" property="repairIncome" />
+    <result column="repair_cost" jdbcType="DECIMAL" property="repairCost" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="repair_profit" jdbcType="DECIMAL" property="repairProfit" />
+    <result column="out_status" jdbcType="VARCHAR" property="outStatus" />
+    <result column="charge_status" jdbcType="VARCHAR" property="chargeStatus" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_customer_deliver_id, stockout_no, customer, repair_no, repair_income, repair_cost, 
+    company, repair_profit, out_status, charge_status, is_del, remark, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.CustomerDeliverExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_customer_deliver
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_customer_deliver
+    where ware_customer_deliver_id = #{wareCustomerDeliverId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_customer_deliver
+    where ware_customer_deliver_id = #{wareCustomerDeliverId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.CustomerDeliverExample">
+    delete from ware_customer_deliver
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.CustomerDeliver">
+    <selectKey keyProperty="wareCustomerDeliverId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_customer_deliver (stockout_no, customer, repair_no, 
+      repair_income, repair_cost, company, 
+      repair_profit, out_status, charge_status, 
+      is_del, remark, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{stockoutNo,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR}, #{repairNo,jdbcType=VARCHAR}, 
+      #{repairIncome,jdbcType=DECIMAL}, #{repairCost,jdbcType=DECIMAL}, #{company,jdbcType=VARCHAR}, 
+      #{repairProfit,jdbcType=DECIMAL}, #{outStatus,jdbcType=VARCHAR}, #{chargeStatus,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.CustomerDeliver">
+    <selectKey keyProperty="wareCustomerDeliverId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ware_customer_deliver
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stockoutNo != null">
+        stockout_no,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+      <if test="repairNo != null">
+        repair_no,
+      </if>
+      <if test="repairIncome != null">
+        repair_income,
+      </if>
+      <if test="repairCost != null">
+        repair_cost,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="repairProfit != null">
+        repair_profit,
+      </if>
+      <if test="outStatus != null">
+        out_status,
+      </if>
+      <if test="chargeStatus != null">
+        charge_status,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stockoutNo != null">
+        #{stockoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="repairNo != null">
+        #{repairNo,jdbcType=VARCHAR},
+      </if>
+      <if test="repairIncome != null">
+        #{repairIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="repairCost != null">
+        #{repairCost,jdbcType=DECIMAL},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="repairProfit != null">
+        #{repairProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="outStatus != null">
+        #{outStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeStatus != null">
+        #{chargeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.CustomerDeliverExample" resultType="java.lang.Long">
+    select count(*) from ware_customer_deliver
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_customer_deliver
+    <set>
+      <if test="record.wareCustomerDeliverId != null">
+        ware_customer_deliver_id = #{record.wareCustomerDeliverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockoutNo != null">
+        stockout_no = #{record.stockoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customer != null">
+        customer = #{record.customer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairNo != null">
+        repair_no = #{record.repairNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairIncome != null">
+        repair_income = #{record.repairIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repairCost != null">
+        repair_cost = #{record.repairCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairProfit != null">
+        repair_profit = #{record.repairProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.outStatus != null">
+        out_status = #{record.outStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeStatus != null">
+        charge_status = #{record.chargeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_customer_deliver
+    set ware_customer_deliver_id = #{record.wareCustomerDeliverId,jdbcType=INTEGER},
+      stockout_no = #{record.stockoutNo,jdbcType=VARCHAR},
+      customer = #{record.customer,jdbcType=VARCHAR},
+      repair_no = #{record.repairNo,jdbcType=VARCHAR},
+      repair_income = #{record.repairIncome,jdbcType=DECIMAL},
+      repair_cost = #{record.repairCost,jdbcType=DECIMAL},
+      company = #{record.company,jdbcType=VARCHAR},
+      repair_profit = #{record.repairProfit,jdbcType=DECIMAL},
+      out_status = #{record.outStatus,jdbcType=VARCHAR},
+      charge_status = #{record.chargeStatus,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.CustomerDeliver">
+    update ware_customer_deliver
+    <set>
+      <if test="stockoutNo != null">
+        stockout_no = #{stockoutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null">
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="repairNo != null">
+        repair_no = #{repairNo,jdbcType=VARCHAR},
+      </if>
+      <if test="repairIncome != null">
+        repair_income = #{repairIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="repairCost != null">
+        repair_cost = #{repairCost,jdbcType=DECIMAL},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="repairProfit != null">
+        repair_profit = #{repairProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="outStatus != null">
+        out_status = #{outStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeStatus != null">
+        charge_status = #{chargeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_customer_deliver_id = #{wareCustomerDeliverId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.CustomerDeliver">
+    update ware_customer_deliver
+    set stockout_no = #{stockoutNo,jdbcType=VARCHAR},
+      customer = #{customer,jdbcType=VARCHAR},
+      repair_no = #{repairNo,jdbcType=VARCHAR},
+      repair_income = #{repairIncome,jdbcType=DECIMAL},
+      repair_cost = #{repairCost,jdbcType=DECIMAL},
+      company = #{company,jdbcType=VARCHAR},
+      repair_profit = #{repairProfit,jdbcType=DECIMAL},
+      out_status = #{outStatus,jdbcType=VARCHAR},
+      charge_status = #{chargeStatus,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_customer_deliver_id = #{wareCustomerDeliverId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.EdiMessageMapperExt">
+    <select id="getFeeCostGroupByCntrNoAndFeePayer" parameterType="String" resultType="map">
+        SELECT  a.paying_party as paying_party,b.container_no as container_no,SUM(a.man_hour_cost) AS man_hour_cost,
+        SUM(a.material_cost) AS material_cost,SUM(a.sum_money) AS sum_money
+        FROM  prod_evaluation_entry a LEFT JOIN prod_course b
+        ON a.course=b.prod_course_id
+        WHERE a.paying_party  != 'W' AND b.prod_course_id= #{cntrId}
+        AND a.sum_money != 0 AND a.is_repair='LECOMMONOO001'  AND is_del=0
+        GROUP BY a.paying_party,b.container_no
+
+    </select>
+
+    <select id="getISO95CntrSizeAndType"  parameterType="String" resultType="map">
+        SELECT a.size as size,a.container_type as container_type,b.iso95 as iso95  FROM prod_course a LEFT JOIN prod_edi_container_type b
+        ON a.size=b.size AND a.container_type = b.container_type
+        WHERE a.prod_course_id=#{courseId}
+    </select>
+
+    <select id="getTexZDFeeCostByIdForBox"  parameterType="String" resultType="map">
+        SELECT
+	t1.*,
+	  IFNULL(t2.U_LABCOST,0) AS U_LABCOST ,IFNULL(t2.U_MATCOST,0) AS U_MATCOST,IFNULL(t2.U_TOTALCOST,0) AS U_TOTALCOST,
+   IFNULL(t3.I_LABCOST,0) AS I_LABCOST ,IFNULL(t3.I_MATCOST,0) AS I_MATCOST,IFNULL(t3.I_TOTALCOST,0) AS I_TOTALCOST,
+   IFNULL(O_TOTALCOST,0)+IFNULL(U_TOTALCOST,0)+IFNULL(I_TOTALCOST,0) AS TOTALCOST
+FROM
+	 (SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS O_LABCOST,
+	 SUM(b.material_cost) AS O_MATCOST, SUM(b.sum_money) AS O_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId}  AND b.paying_party="O" AND b.container_category="LECONTCATE02" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category) AS t1
+LEFT JOIN
+	 (SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS U_LABCOST,
+	 SUM(b.material_cost) AS U_MATCOST, SUM(b.sum_money) AS U_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="U" AND b.container_category="LECONTCATE02" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category) AS t2
+  ON t1.container_no=t2.container_no
+ LEFT JOIN
+	 ( SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS I_LABCOST,
+	 SUM(b.material_cost) AS I_MATCOST, SUM(b.sum_money) AS I_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="I" AND b.container_category="LECONTCATE02" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category) t3
+ ON t1.container_no=t3.container_no
+    </select>
+
+
+    <select id="getTexZDFeeCostByIdForUnit"  parameterType="String" resultType="map">
+       SELECT
+	* ,O_TOTALCOST+U_TOTALCOST+I_TOTALCOST AS TotalCost
+FROM
+	 (SELECT O_LABCOST,O_MATCOST,O_TOTALCOST,0.00 AS U_LABCOST,0.00 AS U_MATCOST,0.00 AS U_TOTALCOST,0.00 AS I_LABCOST,0.00 AS I_MATCOST,0.00 AS I_TOTALCOST FROM
+	 (SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS O_LABCOST,
+	 SUM(b.material_cost) AS O_MATCOST, SUM(b.sum_money) AS O_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="O" AND b.container_category="LECONTCATE03" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category)AS t1
+UNION
+	SELECT 0.00 AS O_LABCOST,0.00 AS O_MATCOST,0.00 AS O_TOTALCOST,IFNULL(t2.U_LABCOST,0) AS U_LABCOST ,IFNULL(t2.U_MATCOST,0) AS U_MATCOST,IFNULL(t2.U_TOTALCOST,0) AS U_TOTALCOST ,0.00 AS I_LABCOST,0.00 AS I_MATCOST,0.00 AS I_TOTALCOST
+	FROM
+	 (SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS U_LABCOST,
+	 SUM(b.material_cost) AS U_MATCOST, SUM(b.sum_money) AS U_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="U" AND b.container_category="LECONTCATE03" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category)AS t2
+UNION
+	SELECT 0.00 AS O_LABCOST,0.00 AS O_MATCOST,0.00 AS O_TOTALCOST,0.00 AS U_LABCOST,0.00 AS U_MATCOST,0.00 AS U_TOTALCOST,IFNULL(t3.I_LABCOST,0) AS I_LABCOST ,IFNULL(t3.I_MATCOST,0) AS I_MATCOST,IFNULL(t3.I_TOTALCOST,0) AS I_TOTALCOST
+	FROM
+	 ( SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS I_LABCOST,
+	 SUM(b.material_cost) AS I_MATCOST, SUM(b.sum_money) AS I_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="I" AND b.container_category="LECONTCATE03" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category) t3) AS t4
+    </select>
+
+	<select id="getSEACOFeeCostByIdForBox"  parameterType="String" resultType="map">
+		       SELECT
+	* ,O_TOTALCOST+U_TOTALCOST+I_TOTALCOST AS TotalCost
+FROM
+	 (SELECT O_LABCOST,O_MATCOST,O_TOTALCOST,0.00 AS U_LABCOST,0.00 AS U_MATCOST,0.00 AS U_TOTALCOST,0.00 AS I_LABCOST,0.00 AS I_MATCOST,0.00 AS I_TOTALCOST FROM
+	 (SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS O_LABCOST,
+	 SUM(b.material_cost) AS O_MATCOST, SUM(b.sum_money) AS O_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="O" AND b.container_category="LECONTCATE02" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category)AS t1
+UNION
+	SELECT 0.00 AS O_LABCOST,0.00 AS O_MATCOST,0.00 AS O_TOTALCOST,IFNULL(t2.U_LABCOST,0) AS U_LABCOST ,IFNULL(t2.U_MATCOST,0) AS U_MATCOST,IFNULL(t2.U_TOTALCOST,0) AS U_TOTALCOST ,0.00 AS I_LABCOST,0.00 AS I_MATCOST,0.00 AS I_TOTALCOST
+	FROM
+	 (SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS U_LABCOST,
+	 SUM(b.material_cost) AS U_MATCOST, SUM(b.sum_money) AS U_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="U" AND b.container_category="LECONTCATE02" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category)AS t2
+UNION
+	SELECT 0.00 AS O_LABCOST,0.00 AS O_MATCOST,0.00 AS O_TOTALCOST,0.00 AS U_LABCOST,0.00 AS U_MATCOST,0.00 AS U_TOTALCOST,IFNULL(t3.I_LABCOST,0) AS I_LABCOST ,IFNULL(t3.I_MATCOST,0) AS I_MATCOST,IFNULL(t3.I_TOTALCOST,0) AS I_TOTALCOST
+	FROM
+	 ( SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS I_LABCOST,
+	 SUM(b.material_cost) AS I_MATCOST, SUM(b.sum_money) AS I_TOTALCOST
+	 FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+	 WHERE b.course=#{courseId} AND b.paying_party="I" AND b.container_category="LECONTCATE02" AND b.is_repair='LECOMMONOO001'
+	 AND b.is_del="0"
+	 GROUP BY a.container_no,b.container_category) t3) AS t4
+	</select>
+
+	<select id="getSEACOFeeCostByIdForUnit"  parameterType="String" resultType="map">
+		SELECT
+		* ,O_TOTALCOST+U_TOTALCOST+I_TOTALCOST AS TotalCost
+		FROM
+		(SELECT O_LABCOST,O_MATCOST,O_TOTALCOST,0.00 AS U_LABCOST,0.00 AS U_MATCOST,0.00 AS U_TOTALCOST,0.00 AS I_LABCOST,0.00 AS I_MATCOST,0.00 AS I_TOTALCOST FROM
+		(SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS O_LABCOST,
+		SUM(b.material_cost) AS O_MATCOST, SUM(b.sum_money) AS O_TOTALCOST
+		FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+		WHERE b.course=#{courseId} AND b.paying_party="O" AND b.container_category="LECONTCATE03" AND b.is_repair='LECOMMONOO001'
+		AND b.is_del="0"
+		GROUP BY a.container_no,b.container_category)AS t1
+		UNION
+		SELECT 0.00 AS O_LABCOST,0.00 AS O_MATCOST,0.00 AS O_TOTALCOST,IFNULL(t2.U_LABCOST,0) AS U_LABCOST ,IFNULL(t2.U_MATCOST,0) AS U_MATCOST,IFNULL(t2.U_TOTALCOST,0) AS U_TOTALCOST ,0.00 AS I_LABCOST,0.00 AS I_MATCOST,0.00 AS I_TOTALCOST
+		FROM
+		(SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS U_LABCOST,
+		SUM(b.material_cost) AS U_MATCOST, SUM(b.sum_money) AS U_TOTALCOST
+		FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+		WHERE b.course=#{courseId} AND b.paying_party="U" AND b.container_category="LECONTCATE03" AND b.is_repair='LECOMMONOO001'
+		AND b.is_del="0"
+		GROUP BY a.container_no,b.container_category)AS t2
+		UNION
+		SELECT 0.00 AS O_LABCOST,0.00 AS O_MATCOST,0.00 AS O_TOTALCOST,0.00 AS U_LABCOST,0.00 AS U_MATCOST,0.00 AS U_TOTALCOST,IFNULL(t3.I_LABCOST,0) AS I_LABCOST ,IFNULL(t3.I_MATCOST,0) AS I_MATCOST,IFNULL(t3.I_TOTALCOST,0) AS I_TOTALCOST
+		FROM
+		( SELECT a.container_no,b.container_category,SUM(b.man_hour_cost) AS I_LABCOST,
+		SUM(b.material_cost) AS I_MATCOST, SUM(b.sum_money) AS I_TOTALCOST
+		FROM  prod_course a LEFT JOIN prod_evaluation_entry b ON  a.prod_course_id=b.course
+		WHERE b.course=#{courseId} AND b.paying_party="I" AND b.container_category="LECONTCATE03" AND b.is_repair='LECOMMONOO001'
+		AND b.is_del="0"
+		GROUP BY a.container_no,b.container_category) t3) AS t4
+	</select>
+
+	<select id="getGMSValInfo" parameterType="String" resultType="map">
+			 SELECT B.USEPARTCODE AS GMSPARTCODE,A.* FROM prod_evaluation_entry A LEFT JOIN (SELECT DISTINCT PREPARTCODE,USEPARTCODE FROM prod_edi_PartCode
+			) B ON A.parts_details_code=B.PREPARTCODE
+			WHERE course=#{courseId}  AND is_del=0 AND is_repair="LECOMMONOO001"
+
+	</select>
+</mapper>

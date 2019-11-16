@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.LangKeyRuleMapperExt">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.LangKeyRule">
+    <id column="key_prefix" jdbcType="VARCHAR" property="keyPrefix" />
+    <result column="key_number" jdbcType="INTEGER" property="keyNumber" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+    <result column="key_column" jdbcType="VARCHAR" property="keyColumn" />
+    <result column="zh_column" jdbcType="VARCHAR" property="zhColumn" />
+    <result column="en_column" jdbcType="VARCHAR" property="enColumn" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <select id="selectByTableNameForUpdate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from prod_lang_key_rule
+    <where>
+    	<if test="tableName != null">
+                table_name = #{tableName}
+        </if>
+    </where>
+     for update
+  </select>
+</mapper>

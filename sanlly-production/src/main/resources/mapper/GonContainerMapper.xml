@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.GonContainerMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.GonContainer">
+    <id column="prod_gon_container_id" jdbcType="INTEGER" property="prodGonContainerId" />
+    <result column="container_no" jdbcType="VARCHAR" property="containerNo" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="before_container_type" jdbcType="VARCHAR" property="beforeContainerType" />
+    <result column="after_container_type" jdbcType="VARCHAR" property="afterContainerType" />
+    <result column="container_user" jdbcType="VARCHAR" property="containerUser" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="labor_cost" jdbcType="DECIMAL" property="laborCost" />
+    <result column="vessel_voyage" jdbcType="VARCHAR" property="vesselVoyage" />
+    <result column="bill_of_lading_no" jdbcType="VARCHAR" property="billOfLadingNo" />
+    <result column="destination_port" jdbcType="VARCHAR" property="destinationPort" />
+    <result column="extract_cont_time" jdbcType="TIMESTAMP" property="extractContTime" />
+    <result column="audit_user" jdbcType="INTEGER" property="auditUser" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_gon_container_id, container_no, `size`, before_container_type, after_container_type, 
+    container_user, `state`, labor_cost, vessel_voyage, bill_of_lading_no, destination_port, 
+    extract_cont_time, audit_user, audit_time, create_time, create_user, update_time, 
+    update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.GonContainerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_gon_container
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_gon_container
+    where prod_gon_container_id = #{prodGonContainerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_gon_container
+    where prod_gon_container_id = #{prodGonContainerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.GonContainerExample">
+    delete from prod_gon_container
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.GonContainer">
+    insert into prod_gon_container (prod_gon_container_id, container_no, 
+      `size`, before_container_type, after_container_type, 
+      container_user, `state`, labor_cost, 
+      vessel_voyage, bill_of_lading_no, destination_port, 
+      extract_cont_time, audit_user, audit_time, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{prodGonContainerId,jdbcType=INTEGER}, #{containerNo,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{beforeContainerType,jdbcType=VARCHAR}, #{afterContainerType,jdbcType=VARCHAR}, 
+      #{containerUser,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{laborCost,jdbcType=DECIMAL}, 
+      #{vesselVoyage,jdbcType=VARCHAR}, #{billOfLadingNo,jdbcType=VARCHAR}, #{destinationPort,jdbcType=VARCHAR}, 
+      #{extractContTime,jdbcType=TIMESTAMP}, #{auditUser,jdbcType=INTEGER}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.GonContainer">
+    insert into prod_gon_container
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodGonContainerId != null">
+        prod_gon_container_id,
+      </if>
+      <if test="containerNo != null">
+        container_no,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="beforeContainerType != null">
+        before_container_type,
+      </if>
+      <if test="afterContainerType != null">
+        after_container_type,
+      </if>
+      <if test="containerUser != null">
+        container_user,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="laborCost != null">
+        labor_cost,
+      </if>
+      <if test="vesselVoyage != null">
+        vessel_voyage,
+      </if>
+      <if test="billOfLadingNo != null">
+        bill_of_lading_no,
+      </if>
+      <if test="destinationPort != null">
+        destination_port,
+      </if>
+      <if test="extractContTime != null">
+        extract_cont_time,
+      </if>
+      <if test="auditUser != null">
+        audit_user,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodGonContainerId != null">
+        #{prodGonContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="containerNo != null">
+        #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeContainerType != null">
+        #{beforeContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="afterContainerType != null">
+        #{afterContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="laborCost != null">
+        #{laborCost,jdbcType=DECIMAL},
+      </if>
+      <if test="vesselVoyage != null">
+        #{vesselVoyage,jdbcType=VARCHAR},
+      </if>
+      <if test="billOfLadingNo != null">
+        #{billOfLadingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationPort != null">
+        #{destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="extractContTime != null">
+        #{extractContTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUser != null">
+        #{auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.GonContainerExample" resultType="java.lang.Long">
+    select count(*) from prod_gon_container
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_gon_container
+    <set>
+      <if test="record.prodGonContainerId != null">
+        prod_gon_container_id = #{record.prodGonContainerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.containerNo != null">
+        container_no = #{record.containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        `size` = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beforeContainerType != null">
+        before_container_type = #{record.beforeContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afterContainerType != null">
+        after_container_type = #{record.afterContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerUser != null">
+        container_user = #{record.containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.laborCost != null">
+        labor_cost = #{record.laborCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vesselVoyage != null">
+        vessel_voyage = #{record.vesselVoyage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billOfLadingNo != null">
+        bill_of_lading_no = #{record.billOfLadingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destinationPort != null">
+        destination_port = #{record.destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extractContTime != null">
+        extract_cont_time = #{record.extractContTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditUser != null">
+        audit_user = #{record.auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditTime != null">
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_gon_container
+    set prod_gon_container_id = #{record.prodGonContainerId,jdbcType=INTEGER},
+      container_no = #{record.containerNo,jdbcType=VARCHAR},
+      `size` = #{record.size,jdbcType=VARCHAR},
+      before_container_type = #{record.beforeContainerType,jdbcType=VARCHAR},
+      after_container_type = #{record.afterContainerType,jdbcType=VARCHAR},
+      container_user = #{record.containerUser,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=INTEGER},
+      labor_cost = #{record.laborCost,jdbcType=DECIMAL},
+      vessel_voyage = #{record.vesselVoyage,jdbcType=VARCHAR},
+      bill_of_lading_no = #{record.billOfLadingNo,jdbcType=VARCHAR},
+      destination_port = #{record.destinationPort,jdbcType=VARCHAR},
+      extract_cont_time = #{record.extractContTime,jdbcType=TIMESTAMP},
+      audit_user = #{record.auditUser,jdbcType=INTEGER},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.GonContainer">
+    update prod_gon_container
+    <set>
+      <if test="containerNo != null">
+        container_no = #{containerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeContainerType != null">
+        before_container_type = #{beforeContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="afterContainerType != null">
+        after_container_type = #{afterContainerType,jdbcType=VARCHAR},
+      </if>
+      <if test="containerUser != null">
+        container_user = #{containerUser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="laborCost != null">
+        labor_cost = #{laborCost,jdbcType=DECIMAL},
+      </if>
+      <if test="vesselVoyage != null">
+        vessel_voyage = #{vesselVoyage,jdbcType=VARCHAR},
+      </if>
+      <if test="billOfLadingNo != null">
+        bill_of_lading_no = #{billOfLadingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationPort != null">
+        destination_port = #{destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="extractContTime != null">
+        extract_cont_time = #{extractContTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUser != null">
+        audit_user = #{auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where prod_gon_container_id = #{prodGonContainerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.GonContainer">
+    update prod_gon_container
+    set container_no = #{containerNo,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      before_container_type = #{beforeContainerType,jdbcType=VARCHAR},
+      after_container_type = #{afterContainerType,jdbcType=VARCHAR},
+      container_user = #{containerUser,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      labor_cost = #{laborCost,jdbcType=DECIMAL},
+      vessel_voyage = #{vesselVoyage,jdbcType=VARCHAR},
+      bill_of_lading_no = #{billOfLadingNo,jdbcType=VARCHAR},
+      destination_port = #{destinationPort,jdbcType=VARCHAR},
+      extract_cont_time = #{extractContTime,jdbcType=TIMESTAMP},
+      audit_user = #{auditUser,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_gon_container_id = #{prodGonContainerId,jdbcType=INTEGER}
+  </update>
+</mapper>

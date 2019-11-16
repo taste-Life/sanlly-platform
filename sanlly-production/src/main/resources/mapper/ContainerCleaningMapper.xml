@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.production.dao.ContainerCleaningMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.production.entity.ContainerCleaning">
+    <id column="prod_container_cleaning_id" jdbcType="INTEGER" property="prodContainerCleaningId" />
+    <result column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="source_type" jdbcType="VARCHAR" property="sourceType" />
+    <result column="cleaning_pattern" jdbcType="VARCHAR" property="cleaningPattern" />
+    <result column="team_id" jdbcType="INTEGER" property="teamId" />
+    <result column="cleaning_time" jdbcType="TIMESTAMP" property="cleaningTime" />
+    <result column="cleaning_state" jdbcType="VARCHAR" property="cleaningState" />
+    <result column="is_special" jdbcType="VARCHAR" property="isSpecial" />
+    <result column="off_flavor_type" jdbcType="VARCHAR" property="offFlavorType" />
+    <result column="audit_user" jdbcType="INTEGER" property="auditUser" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="testing_remarks" jdbcType="VARCHAR" property="testingRemarks" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sanlly.production.entity.ContainerCleaningWithBLOBs">
+    <result column="cleaning_photo" jdbcType="LONGVARCHAR" property="cleaningPhoto" />
+    <result column="audit_photo" jdbcType="LONGVARCHAR" property="auditPhoto" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    prod_container_cleaning_id, course_id, source_type, cleaning_pattern, team_id, cleaning_time, 
+    cleaning_state, is_special, off_flavor_type, audit_user, audit_time, testing_remarks, 
+    remarks, create_time, create_user, update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    cleaning_photo, audit_photo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sanlly.production.entity.ContainerCleaningExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_container_cleaning
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sanlly.production.entity.ContainerCleaningExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prod_container_cleaning
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_container_cleaning
+    where prod_container_cleaning_id = #{prodContainerCleaningId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_container_cleaning
+    where prod_container_cleaning_id = #{prodContainerCleaningId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.production.entity.ContainerCleaningExample">
+    delete from prod_container_cleaning
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.production.entity.ContainerCleaningWithBLOBs">
+    insert into prod_container_cleaning (prod_container_cleaning_id, course_id, 
+      source_type, cleaning_pattern, team_id, 
+      cleaning_time, cleaning_state, is_special, 
+      off_flavor_type, audit_user, audit_time, 
+      testing_remarks, remarks, create_time, 
+      create_user, update_time, update_user, 
+      cleaning_photo, audit_photo)
+    values (#{prodContainerCleaningId,jdbcType=INTEGER}, #{courseId,jdbcType=VARCHAR}, 
+      #{sourceType,jdbcType=VARCHAR}, #{cleaningPattern,jdbcType=VARCHAR}, #{teamId,jdbcType=INTEGER}, 
+      #{cleaningTime,jdbcType=TIMESTAMP}, #{cleaningState,jdbcType=VARCHAR}, #{isSpecial,jdbcType=VARCHAR}, 
+      #{offFlavorType,jdbcType=VARCHAR}, #{auditUser,jdbcType=INTEGER}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{testingRemarks,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
+      #{cleaningPhoto,jdbcType=LONGVARCHAR}, #{auditPhoto,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.production.entity.ContainerCleaningWithBLOBs">
+    insert into prod_container_cleaning
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodContainerCleaningId != null">
+        prod_container_cleaning_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="sourceType != null">
+        source_type,
+      </if>
+      <if test="cleaningPattern != null">
+        cleaning_pattern,
+      </if>
+      <if test="teamId != null">
+        team_id,
+      </if>
+      <if test="cleaningTime != null">
+        cleaning_time,
+      </if>
+      <if test="cleaningState != null">
+        cleaning_state,
+      </if>
+      <if test="isSpecial != null">
+        is_special,
+      </if>
+      <if test="offFlavorType != null">
+        off_flavor_type,
+      </if>
+      <if test="auditUser != null">
+        audit_user,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="testingRemarks != null">
+        testing_remarks,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="cleaningPhoto != null">
+        cleaning_photo,
+      </if>
+      <if test="auditPhoto != null">
+        audit_photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodContainerCleaningId != null">
+        #{prodContainerCleaningId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceType != null">
+        #{sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="cleaningPattern != null">
+        #{cleaningPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="cleaningTime != null">
+        #{cleaningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cleaningState != null">
+        #{cleaningState,jdbcType=VARCHAR},
+      </if>
+      <if test="isSpecial != null">
+        #{isSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="offFlavorType != null">
+        #{offFlavorType,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUser != null">
+        #{auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingRemarks != null">
+        #{testingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="cleaningPhoto != null">
+        #{cleaningPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditPhoto != null">
+        #{auditPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.production.entity.ContainerCleaningExample" resultType="java.lang.Long">
+    select count(*) from prod_container_cleaning
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prod_container_cleaning
+    <set>
+      <if test="record.prodContainerCleaningId != null">
+        prod_container_cleaning_id = #{record.prodContainerCleaningId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null">
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceType != null">
+        source_type = #{record.sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cleaningPattern != null">
+        cleaning_pattern = #{record.cleaningPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamId != null">
+        team_id = #{record.teamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cleaningTime != null">
+        cleaning_time = #{record.cleaningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cleaningState != null">
+        cleaning_state = #{record.cleaningState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSpecial != null">
+        is_special = #{record.isSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offFlavorType != null">
+        off_flavor_type = #{record.offFlavorType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditUser != null">
+        audit_user = #{record.auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditTime != null">
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.testingRemarks != null">
+        testing_remarks = #{record.testingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.cleaningPhoto != null">
+        cleaning_photo = #{record.cleaningPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.auditPhoto != null">
+        audit_photo = #{record.auditPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update prod_container_cleaning
+    set prod_container_cleaning_id = #{record.prodContainerCleaningId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      source_type = #{record.sourceType,jdbcType=VARCHAR},
+      cleaning_pattern = #{record.cleaningPattern,jdbcType=VARCHAR},
+      team_id = #{record.teamId,jdbcType=INTEGER},
+      cleaning_time = #{record.cleaningTime,jdbcType=TIMESTAMP},
+      cleaning_state = #{record.cleaningState,jdbcType=VARCHAR},
+      is_special = #{record.isSpecial,jdbcType=VARCHAR},
+      off_flavor_type = #{record.offFlavorType,jdbcType=VARCHAR},
+      audit_user = #{record.auditUser,jdbcType=INTEGER},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{record.testingRemarks,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      cleaning_photo = #{record.cleaningPhoto,jdbcType=LONGVARCHAR},
+      audit_photo = #{record.auditPhoto,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prod_container_cleaning
+    set prod_container_cleaning_id = #{record.prodContainerCleaningId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      source_type = #{record.sourceType,jdbcType=VARCHAR},
+      cleaning_pattern = #{record.cleaningPattern,jdbcType=VARCHAR},
+      team_id = #{record.teamId,jdbcType=INTEGER},
+      cleaning_time = #{record.cleaningTime,jdbcType=TIMESTAMP},
+      cleaning_state = #{record.cleaningState,jdbcType=VARCHAR},
+      is_special = #{record.isSpecial,jdbcType=VARCHAR},
+      off_flavor_type = #{record.offFlavorType,jdbcType=VARCHAR},
+      audit_user = #{record.auditUser,jdbcType=INTEGER},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{record.testingRemarks,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.production.entity.ContainerCleaningWithBLOBs">
+    update prod_container_cleaning
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceType != null">
+        source_type = #{sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="cleaningPattern != null">
+        cleaning_pattern = #{cleaningPattern,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="cleaningTime != null">
+        cleaning_time = #{cleaningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cleaningState != null">
+        cleaning_state = #{cleaningState,jdbcType=VARCHAR},
+      </if>
+      <if test="isSpecial != null">
+        is_special = #{isSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="offFlavorType != null">
+        off_flavor_type = #{offFlavorType,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUser != null">
+        audit_user = #{auditUser,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testingRemarks != null">
+        testing_remarks = #{testingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="cleaningPhoto != null">
+        cleaning_photo = #{cleaningPhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditPhoto != null">
+        audit_photo = #{auditPhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where prod_container_cleaning_id = #{prodContainerCleaningId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sanlly.production.entity.ContainerCleaningWithBLOBs">
+    update prod_container_cleaning
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      source_type = #{sourceType,jdbcType=VARCHAR},
+      cleaning_pattern = #{cleaningPattern,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=INTEGER},
+      cleaning_time = #{cleaningTime,jdbcType=TIMESTAMP},
+      cleaning_state = #{cleaningState,jdbcType=VARCHAR},
+      is_special = #{isSpecial,jdbcType=VARCHAR},
+      off_flavor_type = #{offFlavorType,jdbcType=VARCHAR},
+      audit_user = #{auditUser,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{testingRemarks,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      cleaning_photo = #{cleaningPhoto,jdbcType=LONGVARCHAR},
+      audit_photo = #{auditPhoto,jdbcType=LONGVARCHAR}
+    where prod_container_cleaning_id = #{prodContainerCleaningId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.production.entity.ContainerCleaning">
+    update prod_container_cleaning
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      source_type = #{sourceType,jdbcType=VARCHAR},
+      cleaning_pattern = #{cleaningPattern,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=INTEGER},
+      cleaning_time = #{cleaningTime,jdbcType=TIMESTAMP},
+      cleaning_state = #{cleaningState,jdbcType=VARCHAR},
+      is_special = #{isSpecial,jdbcType=VARCHAR},
+      off_flavor_type = #{offFlavorType,jdbcType=VARCHAR},
+      audit_user = #{auditUser,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      testing_remarks = #{testingRemarks,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where prod_container_cleaning_id = #{prodContainerCleaningId,jdbcType=INTEGER}
+  </update>
+</mapper>

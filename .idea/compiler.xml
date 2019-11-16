@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="sanlly-auth" />
+        <module name="sanlly-common" />
+        <module name="sanlly-eureka" />
+        <module name="sanlly-finance" />
+        <module name="sanlly-monitor" />
+        <module name="sanlly-production" />
+        <module name="sanlly-purchase" />
+        <module name="sanlly-warehouse" />
+        <module name="sanlly-workflow" />
+        <module name="sanlly-zuul" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="sanlly-auth" target="1.8" />
+      <module name="sanlly-common" target="1.8" />
+      <module name="sanlly-eureka" target="1.8" />
+      <module name="sanlly-finance" target="1.8" />
+      <module name="sanlly-monitor" target="1.8" />
+      <module name="sanlly-platform" target="1.8" />
+      <module name="sanlly-production" target="1.8" />
+      <module name="sanlly-purchase" target="1.8" />
+      <module name="sanlly-warehouse" target="1.8" />
+      <module name="sanlly-workflow" target="1.8" />
+      <module name="sanlly-zuul" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

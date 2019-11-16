@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.WareAssetApplyMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.WareAssetApply">
+    <id column="ware_asset_apply_id" jdbcType="INTEGER" property="wareAssetApplyId" />
+    <result column="asset_apply_no" jdbcType="VARCHAR" property="assetApplyNo" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="apply_type" jdbcType="VARCHAR" property="applyType" />
+    <result column="apply_department" jdbcType="VARCHAR" property="applyDepartment" />
+    <result column="apply_user" jdbcType="INTEGER" property="applyUser" />
+    <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate" />
+    <result column="old_user" jdbcType="INTEGER" property="oldUser" />
+    <result column="new_user" jdbcType="INTEGER" property="newUser" />
+    <result column="new_department" jdbcType="VARCHAR" property="newDepartment" />
+    <result column="old_department" jdbcType="VARCHAR" property="oldDepartment" />
+    <result column="scrap_reson" jdbcType="VARCHAR" property="scrapReson" />
+    <result column="asset_manage_id" jdbcType="INTEGER" property="assetManageId" />
+    <result column="apply_num" jdbcType="DOUBLE" property="applyNum" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="reasons_rejection" jdbcType="VARCHAR" property="reasonsRejection" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_asset_apply_id, asset_apply_no, `no`, company, apply_type, apply_department, 
+    apply_user, apply_date, old_user, new_user, new_department, old_department, scrap_reson, 
+    asset_manage_id, apply_num, remark, audit_status, reasons_rejection, is_del, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.WareAssetApplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_asset_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_asset_apply
+    where ware_asset_apply_id = #{wareAssetApplyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_asset_apply
+    where ware_asset_apply_id = #{wareAssetApplyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.WareAssetApplyExample">
+    delete from ware_asset_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.WareAssetApply">
+    insert into ware_asset_apply (ware_asset_apply_id, asset_apply_no, `no`, 
+      company, apply_type, apply_department, 
+      apply_user, apply_date, old_user, 
+      new_user, new_department, old_department, 
+      scrap_reson, asset_manage_id, apply_num, 
+      remark, audit_status, reasons_rejection, 
+      is_del, create_time, create_user, 
+      update_time, update_user)
+    values (#{wareAssetApplyId,jdbcType=INTEGER}, #{assetApplyNo,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{applyType,jdbcType=VARCHAR}, #{applyDepartment,jdbcType=VARCHAR}, 
+      #{applyUser,jdbcType=INTEGER}, #{applyDate,jdbcType=TIMESTAMP}, #{oldUser,jdbcType=INTEGER}, 
+      #{newUser,jdbcType=INTEGER}, #{newDepartment,jdbcType=VARCHAR}, #{oldDepartment,jdbcType=VARCHAR}, 
+      #{scrapReson,jdbcType=VARCHAR}, #{assetManageId,jdbcType=INTEGER}, #{applyNum,jdbcType=DOUBLE}, 
+      #{remark,jdbcType=VARCHAR}, #{auditStatus,jdbcType=VARCHAR}, #{reasonsRejection,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.WareAssetApply">
+    insert into ware_asset_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareAssetApplyId != null">
+        ware_asset_apply_id,
+      </if>
+      <if test="assetApplyNo != null">
+        asset_apply_no,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="applyType != null">
+        apply_type,
+      </if>
+      <if test="applyDepartment != null">
+        apply_department,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+      <if test="applyDate != null">
+        apply_date,
+      </if>
+      <if test="oldUser != null">
+        old_user,
+      </if>
+      <if test="newUser != null">
+        new_user,
+      </if>
+      <if test="newDepartment != null">
+        new_department,
+      </if>
+      <if test="oldDepartment != null">
+        old_department,
+      </if>
+      <if test="scrapReson != null">
+        scrap_reson,
+      </if>
+      <if test="assetManageId != null">
+        asset_manage_id,
+      </if>
+      <if test="applyNum != null">
+        apply_num,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareAssetApplyId != null">
+        #{wareAssetApplyId,jdbcType=INTEGER},
+      </if>
+      <if test="assetApplyNo != null">
+        #{assetApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null">
+        #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartment != null">
+        #{applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null">
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldUser != null">
+        #{oldUser,jdbcType=INTEGER},
+      </if>
+      <if test="newUser != null">
+        #{newUser,jdbcType=INTEGER},
+      </if>
+      <if test="newDepartment != null">
+        #{newDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="oldDepartment != null">
+        #{oldDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapReson != null">
+        #{scrapReson,jdbcType=VARCHAR},
+      </if>
+      <if test="assetManageId != null">
+        #{assetManageId,jdbcType=INTEGER},
+      </if>
+      <if test="applyNum != null">
+        #{applyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.WareAssetApplyExample" resultType="java.lang.Long">
+    select count(*) from ware_asset_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_asset_apply
+    <set>
+      <if test="record.wareAssetApplyId != null">
+        ware_asset_apply_id = #{record.wareAssetApplyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetApplyNo != null">
+        asset_apply_no = #{record.assetApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.no != null">
+        `no` = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyType != null">
+        apply_type = #{record.applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDepartment != null">
+        apply_department = #{record.applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyUser != null">
+        apply_user = #{record.applyUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyDate != null">
+        apply_date = #{record.applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oldUser != null">
+        old_user = #{record.oldUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.newUser != null">
+        new_user = #{record.newUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.newDepartment != null">
+        new_department = #{record.newDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oldDepartment != null">
+        old_department = #{record.oldDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scrapReson != null">
+        scrap_reson = #{record.scrapReson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetManageId != null">
+        asset_manage_id = #{record.assetManageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyNum != null">
+        apply_num = #{record.applyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null">
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsRejection != null">
+        reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_asset_apply
+    set ware_asset_apply_id = #{record.wareAssetApplyId,jdbcType=INTEGER},
+      asset_apply_no = #{record.assetApplyNo,jdbcType=VARCHAR},
+      `no` = #{record.no,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      apply_type = #{record.applyType,jdbcType=VARCHAR},
+      apply_department = #{record.applyDepartment,jdbcType=VARCHAR},
+      apply_user = #{record.applyUser,jdbcType=INTEGER},
+      apply_date = #{record.applyDate,jdbcType=TIMESTAMP},
+      old_user = #{record.oldUser,jdbcType=INTEGER},
+      new_user = #{record.newUser,jdbcType=INTEGER},
+      new_department = #{record.newDepartment,jdbcType=VARCHAR},
+      old_department = #{record.oldDepartment,jdbcType=VARCHAR},
+      scrap_reson = #{record.scrapReson,jdbcType=VARCHAR},
+      asset_manage_id = #{record.assetManageId,jdbcType=INTEGER},
+      apply_num = #{record.applyNum,jdbcType=DOUBLE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{record.reasonsRejection,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.WareAssetApply">
+    update ware_asset_apply
+    <set>
+      <if test="assetApplyNo != null">
+        asset_apply_no = #{assetApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null">
+        apply_type = #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartment != null">
+        apply_department = #{applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null">
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldUser != null">
+        old_user = #{oldUser,jdbcType=INTEGER},
+      </if>
+      <if test="newUser != null">
+        new_user = #{newUser,jdbcType=INTEGER},
+      </if>
+      <if test="newDepartment != null">
+        new_department = #{newDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="oldDepartment != null">
+        old_department = #{oldDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapReson != null">
+        scrap_reson = #{scrapReson,jdbcType=VARCHAR},
+      </if>
+      <if test="assetManageId != null">
+        asset_manage_id = #{assetManageId,jdbcType=INTEGER},
+      </if>
+      <if test="applyNum != null">
+        apply_num = #{applyNum,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsRejection != null">
+        reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ware_asset_apply_id = #{wareAssetApplyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.WareAssetApply">
+    update ware_asset_apply
+    set asset_apply_no = #{assetApplyNo,jdbcType=VARCHAR},
+      `no` = #{no,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      apply_type = #{applyType,jdbcType=VARCHAR},
+      apply_department = #{applyDepartment,jdbcType=VARCHAR},
+      apply_user = #{applyUser,jdbcType=INTEGER},
+      apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      old_user = #{oldUser,jdbcType=INTEGER},
+      new_user = #{newUser,jdbcType=INTEGER},
+      new_department = #{newDepartment,jdbcType=VARCHAR},
+      old_department = #{oldDepartment,jdbcType=VARCHAR},
+      scrap_reson = #{scrapReson,jdbcType=VARCHAR},
+      asset_manage_id = #{assetManageId,jdbcType=INTEGER},
+      apply_num = #{applyNum,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      reasons_rejection = #{reasonsRejection,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER}
+    where ware_asset_apply_id = #{wareAssetApplyId,jdbcType=INTEGER}
+  </update>
+</mapper>

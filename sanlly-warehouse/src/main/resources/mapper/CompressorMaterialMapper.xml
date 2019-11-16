@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanlly.warehouse.dao.CompressorMaterialMapper">
+  <resultMap id="BaseResultMap" type="com.sanlly.warehouse.entity.CompressorMaterial">
+    <id column="ware_compressor_material_id" jdbcType="INTEGER" property="wareCompressorMaterialId" />
+    <result column="compressor" jdbcType="VARCHAR" property="compressor" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="repair_offer" jdbcType="DECIMAL" property="repairOffer" />
+    <result column="descrip_zh" jdbcType="VARCHAR" property="descripZh" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
+    <result column="repair_way" jdbcType="VARCHAR" property="repairWay" />
+    <result column="descrip_en" jdbcType="VARCHAR" property="descripEn" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="is_valid" jdbcType="VARCHAR" property="isValid" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="cost" jdbcType="DECIMAL" property="cost" />
+    <result column="material_no" jdbcType="VARCHAR" property="materialNo" />
+    <result column="compressor_no" jdbcType="VARCHAR" property="compressorNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ware_compressor_material_id, compressor, material, repair_offer, descrip_zh, warehouse, 
+    warehouse_type, repair_way, descrip_en, `type`, is_valid, is_del, create_time, create_user, 
+    update_time, update_user, cost, material_no, compressor_no
+  </sql>
+  <select id="selectByExample" parameterType="com.sanlly.warehouse.entity.CompressorMaterialExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ware_compressor_material
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >=0">
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ware_compressor_material
+    where ware_compressor_material_id = #{wareCompressorMaterialId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ware_compressor_material
+    where ware_compressor_material_id = #{wareCompressorMaterialId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sanlly.warehouse.entity.CompressorMaterialExample">
+    delete from ware_compressor_material
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sanlly.warehouse.entity.CompressorMaterial">
+    insert into ware_compressor_material (ware_compressor_material_id, compressor, 
+      material, repair_offer, descrip_zh, 
+      warehouse, warehouse_type, repair_way, 
+      descrip_en, `type`, is_valid, 
+      is_del, create_time, create_user, 
+      update_time, update_user, cost, 
+      material_no, compressor_no)
+    values (#{wareCompressorMaterialId,jdbcType=INTEGER}, #{compressor,jdbcType=VARCHAR}, 
+      #{material,jdbcType=VARCHAR}, #{repairOffer,jdbcType=DECIMAL}, #{descripZh,jdbcType=VARCHAR}, 
+      #{warehouse,jdbcType=VARCHAR}, #{warehouseType,jdbcType=VARCHAR}, #{repairWay,jdbcType=VARCHAR}, 
+      #{descripEn,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{isValid,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{cost,jdbcType=DECIMAL}, 
+      #{materialNo,jdbcType=VARCHAR}, #{compressorNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanlly.warehouse.entity.CompressorMaterial">
+    insert into ware_compressor_material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wareCompressorMaterialId != null">
+        ware_compressor_material_id,
+      </if>
+      <if test="compressor != null">
+        compressor,
+      </if>
+      <if test="material != null">
+        material,
+      </if>
+      <if test="repairOffer != null">
+        repair_offer,
+      </if>
+      <if test="descripZh != null">
+        descrip_zh,
+      </if>
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type,
+      </if>
+      <if test="repairWay != null">
+        repair_way,
+      </if>
+      <if test="descripEn != null">
+        descrip_en,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="materialNo != null">
+        material_no,
+      </if>
+      <if test="compressorNo != null">
+        compressor_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wareCompressorMaterialId != null">
+        #{wareCompressorMaterialId,jdbcType=INTEGER},
+      </if>
+      <if test="compressor != null">
+        #{compressor,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="repairOffer != null">
+        #{repairOffer,jdbcType=DECIMAL},
+      </if>
+      <if test="descripZh != null">
+        #{descripZh,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="repairWay != null">
+        #{repairWay,jdbcType=VARCHAR},
+      </if>
+      <if test="descripEn != null">
+        #{descripEn,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="materialNo != null">
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="compressorNo != null">
+        #{compressorNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sanlly.warehouse.entity.CompressorMaterialExample" resultType="java.lang.Long">
+    select count(*) from ware_compressor_material
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ware_compressor_material
+    <set>
+      <if test="record.wareCompressorMaterialId != null">
+        ware_compressor_material_id = #{record.wareCompressorMaterialId,jdbcType=INTEGER},
+      </if>
+      <if test="record.compressor != null">
+        compressor = #{record.compressor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.material != null">
+        material = #{record.material,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairOffer != null">
+        repair_offer = #{record.repairOffer,jdbcType=DECIMAL},
+      </if>
+      <if test="record.descripZh != null">
+        descrip_zh = #{record.descripZh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse != null">
+        warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseType != null">
+        warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairWay != null">
+        repair_way = #{record.repairWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descripEn != null">
+        descrip_en = #{record.descripEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.cost != null">
+        cost = #{record.cost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.materialNo != null">
+        material_no = #{record.materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compressorNo != null">
+        compressor_no = #{record.compressorNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ware_compressor_material
+    set ware_compressor_material_id = #{record.wareCompressorMaterialId,jdbcType=INTEGER},
+      compressor = #{record.compressor,jdbcType=VARCHAR},
+      material = #{record.material,jdbcType=VARCHAR},
+      repair_offer = #{record.repairOffer,jdbcType=DECIMAL},
+      descrip_zh = #{record.descripZh,jdbcType=VARCHAR},
+      warehouse = #{record.warehouse,jdbcType=VARCHAR},
+      warehouse_type = #{record.warehouseType,jdbcType=VARCHAR},
+      repair_way = #{record.repairWay,jdbcType=VARCHAR},
+      descrip_en = #{record.descripEn,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      is_valid = #{record.isValid,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      cost = #{record.cost,jdbcType=DECIMAL},
+      material_no = #{record.materialNo,jdbcType=VARCHAR},
+      compressor_no = #{record.compressorNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanlly.warehouse.entity.CompressorMaterial">
+    update ware_compressor_material
+    <set>
+      <if test="compressor != null">
+        compressor = #{compressor,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="repairOffer != null">
+        repair_offer = #{repairOffer,jdbcType=DECIMAL},
+      </if>
+      <if test="descripZh != null">
+        descrip_zh = #{descripZh,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseType != null">
+        warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="repairWay != null">
+        repair_way = #{repairWay,jdbcType=VARCHAR},
+      </if>
+      <if test="descripEn != null">
+        descrip_en = #{descripEn,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="materialNo != null">
+        material_no = #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="compressorNo != null">
+        compressor_no = #{compressorNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ware_compressor_material_id = #{wareCompressorMaterialId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanlly.warehouse.entity.CompressorMaterial">
+    update ware_compressor_material
+    set compressor = #{compressor,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      repair_offer = #{repairOffer,jdbcType=DECIMAL},
+      descrip_zh = #{descripZh,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      warehouse_type = #{warehouseType,jdbcType=VARCHAR},
+      repair_way = #{repairWay,jdbcType=VARCHAR},
+      descrip_en = #{descripEn,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=DECIMAL},
+      material_no = #{materialNo,jdbcType=VARCHAR},
+      compressor_no = #{compressorNo,jdbcType=VARCHAR}
+    where ware_compressor_material_id = #{wareCompressorMaterialId,jdbcType=INTEGER}
+  </update>
+</mapper>
